@@ -1,0 +1,17 @@
+input OrderStatusStatisticsInput {
+    #生产任务id
+    taskId:ID!
+    #任务类型id
+    taskTypeCode: Int!
+    #出库类型
+    orderType: Int
+}
+
+type OrderStatusStatisticsPayload {
+    #待提交数量
+    toSubmitNum: Int
+    #进行中数量
+    processingNum: Int
+    #已完成数量
+    completedNum: Int
+}

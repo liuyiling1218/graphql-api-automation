@@ -1,0 +1,46 @@
+extend type Mutation {
+    #新增采购退货订单
+    createPurchaseReturn(purchaseReturnInsertInput:PurchaseReturnInsertInput):ID
+    #修改采购退货
+    updatePurchaseReturn(purchaseReturnUpdateInput:PurchaseReturnUpdateInput):Boolean
+}
+
+extend type Query {
+    #查询采购退货商品信息
+    listPurchaseReturnCommodities(inOrderId:InOrderIdInput!):[PurchaseOrderItemPayload]
+}
+
+input InOrderIdInput{
+    #订单Id
+    inOrderId:ID!
+}
+
+#采购退货新增
+input PurchaseReturnInsertInput{
+    #采购订单Id
+    inOrderId:ID!
+    #备注
+    remark:String
+    #商品信息
+    commodities:[PurchaseReturnItemInput]!
+}
+
+#采购退货修改
+input PurchaseReturnUpdateInput{
+    #采购退货订单Id
+    outOrderId:ID!
+    #备注
+    remark:String
+    #商品信息
+    commodities:[PurchaseReturnItemInput]!
+}
+
+#采购退货订单商品信息
+input PurchaseReturnItemInput{
+    #skuId
+    skuId:Int!
+    #退货数量副单位
+    returnTotalQuantity:BigDecimal
+    #退货数量基本单位
+    returnUnitQuantity:BigDecimal!
+}

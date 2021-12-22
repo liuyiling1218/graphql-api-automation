@@ -1,0 +1,17 @@
+
+"""
+用户计划变更统计
+"""
+type PlanChangedSummary{
+    """
+    待处理数量
+    """
+    notHandleCount:Int
+}
+
+extend type Query {
+    """
+    用户计划变更数量统计
+    """
+    userPlanChangedSummary:PlanChangedSummary
+}

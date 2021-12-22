@@ -1,0 +1,139 @@
+#生产任务添加入参
+input TaskInput {
+    #变更id
+    changeId:ID
+    #生产计划id
+    planId:ID!
+    #生产组长id
+    leaderId: Int!
+    #生产组长名称
+    leaderName: String!
+    #生产线
+    line: Int!
+    #商品信息
+    commodities:[CommodityInput]!
+}
+
+input TaskInsertInput {
+    #生产组长id
+    leaderId: Int!
+    #生产线
+    line: Int!
+    commodities:[CommodityInput]!
+}
+
+#生产计划中任务入参
+input InsertPlanTaskInput {
+    #商品信息
+    commodities:[CommodityInput]!
+}
+
+#任务实体
+type TaskPayload {
+    #生产任务id
+    taskId:ID
+    #生产组长id
+    leaderId: Int
+    #生产组长名称
+    leaderName: String
+    #任务状态ID
+    taskStatus: Int
+    #任务状态名称
+    taskStatusName: String
+    #任务单号名称
+    taskCode: String
+    #生产线
+    line: Int
+    #计划人数
+    numberPlan: Int
+    #商品信息
+    commodities:[TaskItemPayload]
+}
+type TaskItemPayload {
+    taskItemId:ID
+    commodityId:Int
+    commodityName:String
+    commodityBomId:Int
+    commoditySkuId:Int
+    commoditySpecOptionId:[Int]
+    skuTextDescription:[String]
+    expectNum:BigDecimal
+    completedNum:BigDecimal
+    unitQuantity:BigDecimal
+    unitType:Int
+    unitTypeName:String
+    totalType:Int
+    totalTypeName:String
+    # 0 没有通知  10 通知未读  20 通知已处理  30 通知已忽略
+    planChangeNotice:Int
+    saleChangePayload:[SaleChangePayload]
+    #规格要求
+    specificationLabel:String
+    #包装要求
+    packageLabel:String
+    #品质要求
+    quantityLabel:String
+    # 预估销量
+    planQuantity: BigDecimal
+    # 库存成品数量
+    stockQuantity: BigDecimal
+}
+
+input UpdatePlanTaskInput {
+    leaderId: Int
+    leaderName: String
+    line: Int
+    # 10：分配 20：暂不分配
+    assignmentType: Int
+    updateTaskItemInput: [UpdateTaskItemInput]!
+}
+
+input AddOrDeleteRecordsInput {
+    planId:ID
+    taskId:ID
+    taskItemId:ID
+}
+
+type AddOrDeleteRecords {
+    # 任务明细变更id
+    taskItemChangeId:ID
+    # 计划id
+    planId:ID
+    # 任务id
+    taskId:ID
+    # 任务明细id
+    taskItemId:ID
+    # 变更前的数量
+    beforeQuantity: BigDecimal
+    # 变更后的数量
+    afterQuantity: BigDecimal
+    # 变更数量
+    changeQuantity: BigDecimal
+    # 变更类型 10：增加 20：减少
+    changeType: Int
+    # 变更描述与备注
+    changeRemark: String
+    # 创建时间
+    createTime: Long
+    # 创建人
+    createBy: Int
+    # 创建人名称
+    createByName: String
+}
+
+input PauseOrContinueTaskInput {
+    taskId:ID
+    taskStatusCode: Int
+}
+
+extend type Query {
+    # 增减记录列表
+    addOrDeleteRecords(addOrDeleteRecordsInput:AddOrDeleteRecordsInput):[AddOrDeleteRecords]
+}
+
+extend type Mutation {
+    # 暂停/继续生产任务
+    pauseOrContinueTask(pauseOrContinueTaskInput:PauseOrContinueTaskInput):Boolean
+    #任务退回
+    taskReturned(taskId:ID):Boolean
+}

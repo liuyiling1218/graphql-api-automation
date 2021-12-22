@@ -1,0 +1,32 @@
+extend type Mutation {
+    insertAppException(appExceptionDTO:AppExceptionInput):Boolean
+}
+
+input AppExceptionInput{
+    # 平台类型
+    platform:String
+    # appId
+    appId:Int
+    # 异常版本
+    systemVersion:String
+    version:String
+    # 异常类型
+    exceptionType:Int
+    # 异常信息
+    message:String
+}
+
+type AppExceptionType{
+    # id
+    id:Int
+    # 平台类型
+    platform:Int
+    # appId
+    appId:Int
+    # 异常版本
+    systemVersion:String
+    # 异常类型
+    exceptionType:Int
+    # 异常信息
+    message:String
+}

@@ -1,0 +1,45 @@
+extend type Query {
+    getWorkerSalary:[ProductionConfigPayload]
+    getProductionConfig:ProductionConfigPayload
+
+}
+extend type Mutation {
+    saveWorkerSalary(saveWorkerSalary:SaveSalaryInput):Int
+    saveProductionConfig(saveConfigInput:SaveConfigInput):Int
+}
+
+input SaveSalaryInput {
+    configCode:Int!
+    configValue:BigDecimal!
+}
+input SaveConfigInput {
+    configCode:Int!
+    configValue:Boolean!
+}
+
+
+type ProductionConfigPayload {
+    id:Int
+    #临时工 1000
+    #正式工 1001
+    #提前领料 1100
+    configCode:Int
+    orgId:Int
+    configValue:ConfigValuePayload
+    createTime:Long
+    updateTime:Long
+    createBy:Int
+    updateBy:Int
+}
+union ConfigValuePayload = WorkerSalaryPayload | ProductionSwitchPayload
+
+#工资
+type WorkerSalaryPayload{
+    workerSalary:BigDecimal
+}
+
+#开关
+type ProductionSwitchPayload{
+    productionSwitch:Boolean
+}
+

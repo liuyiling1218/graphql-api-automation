@@ -1,0 +1,107 @@
+#商品管理列表
+input PageCommodityInput {
+    #商品类型
+    typeId:Int
+    #品类id
+    categoryId:Int
+    #spu名称
+    commodityName:String
+}
+
+type PageCommodityPayload {
+    pageCurrent:Int
+    pageSize:Int
+    totalRecords:Long
+    records:[ListCommodityPayLoad]
+}
+
+type ListCommodityPayLoad {
+    #商品id
+    commodityId:Int
+    #商品名称
+    commodityName:String
+    #商品类型
+    commodityTypeId:Int
+    #商品类型名称
+    commodityTypeName:String
+    #品类id
+    categoryId:Int
+    #品类名称
+    categoryName:String
+    #品种id
+    varietyId:Int
+    #品种名称
+    varietyName:String
+    #产地id
+    originId:Int
+    #产地名称
+    originName:String
+    #sku数量
+    skuQuantity:Int
+    #状态
+    status:Int
+}
+#商品管理列表
+
+#未添加商品列表
+input PageNoCommodityInput {
+    #商品类型
+    typeId:Int
+    #品类
+    categoryId:Int
+    #品种
+    varietyId:Int
+    #产地
+    originId:Int
+}
+
+type PageNoCommodityPayload {
+    pageCurrent:Int
+    pageSize:Int
+    totalRecords:Long
+    records:[NoCommodityPayload]
+}
+
+type NoCommodityPayload {
+    #商品id
+    commodityId:Int
+    #商品名称
+    commodityName:String
+    #商品类型名称
+    commodityTypeName:String
+    #商品类型id
+    commodityTypeId:Int
+    #商品品类名称
+    commodityCategoryName:String
+    #商品品种名称
+    commodityVarietyName:String
+    #商品产地名称
+    commodityPlaceOriginName:String
+}
+#未添加商品列表
+
+#添加商品
+input CreateCommodityInput {
+    #商品id
+    commodityId:Int
+    #商品类型id
+    commodityTypeId:Int
+}
+#添加商品
+
+extend type Query {
+    #商品管理列表
+    pageCommodity(pageCommodityInput:PageCommodityInput,page:Page):PageCommodityPayload
+    #品类下拉列表
+    categoryOption:[Option]
+    #商品类型下拉列表
+    commodityTypeOption:[Option]
+    #商品品种下拉列表
+    varietyOption(categoryId:Int!):[Option]
+    #商品产地下拉列表
+    originOption (categoryId:Int!):[Option]
+    #未添加商品列表
+    pageNoCommodity (pageNoCommodityInput:PageNoCommodityInput,page:Page):PageNoCommodityPayload
+    #添加商品
+    createCommodity (createCommodityInput:[CreateCommodityInput]):[Int]
+}

@@ -1,0 +1,24 @@
+type Query{
+
+}
+
+type Mutation{
+
+}
+
+type Option{
+    label:String
+    value:Int
+}
+
+input Page{
+    pageCurrent:Int
+    pageSize:Int
+}
+
+#scalar 自动注册依赖已经引入，基本类型无需重新声明
+scalar Long
+scalar DateTime
+scalar Date
+scalar BigDecimal
+#scalar

@@ -1,0 +1,74 @@
+extend type Query {
+    #商品批次分页查询
+    pageStockBatch(page:Page,pageStockBatchInput:PageStockBatchInput):PageStockBatchPayLoad
+}
+
+input PageStockBatchInput{
+    commodityTypeId:Int
+    #仓库id
+    warehouseId:Int
+    #所属客户
+    customerId:Int
+    #所属客户类型
+    customerType:Int
+    #关键字查询 商品名称
+    keyword:String
+}
+
+
+type PageStockBatchPayLoad{
+    records:[StockBatchPayloadV2]
+    pageCurrent: Int
+    pageSize: Int
+    totalRecords: Long
+}
+
+type StockBatchPayloadV2{
+    batchId:ID
+    # skuId
+    commoditySkuId:ID
+    # basisId
+    basisId:ID
+    #商品分类
+    commodityTypeId:ID
+    #商品名称
+    commodityName:String
+    #批次号
+    batchCode:String
+    # 单价类型
+    priceType:ID
+    #单价
+    unitPrice:BigDecimal
+    #规格id
+    commoditySpecOptionIdList:[ID]
+    #规格名称
+    specOptionList:[String]
+    #库存数量
+    unitQuantity:Float
+    #库存单位
+    unitType:ID
+    unitTypeName:String
+    #库存总计数量
+    totalQuantity:Float
+    #总计数量单位
+    totalType:ID
+    totalTypeName:String
+    #归属类型
+    belongType:Int
+    #归属id
+    belongId:ID
+    #归属name
+    belongName:String
+    #仓库名称
+    warehouseId:ID
+    warehouseName:String
+    createTime:Long
+    #分类id
+    categoryId:ID
+#    # 在库时间
+#    inTime:Long
+#    # 商品状态（10：正常 20：预警 30：呆滞品）
+#    commodityStatus:Int
+    #sku 信息
+    sku:CommoditySkuPayload
+}

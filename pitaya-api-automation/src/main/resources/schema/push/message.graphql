@@ -1,0 +1,14 @@
+input UserDeviceInput{
+    userId:Int
+    platformType:Int
+}
+
+type UserDevicePayload{
+    userId:Int
+    platformType:Int
+}
+
+extend type Mutation {
+    syncUserDevicePlatform(userDeviceInput:UserDeviceInput):UserDevicePayload
+    sendMessage(id:Int):String
+}

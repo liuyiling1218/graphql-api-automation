@@ -1,0 +1,74 @@
+extend type Query {
+    #查询推荐标签
+    listRecommendLabel(listRecommendLabelInput:ListRecommendLabelInput,page:Page):ListRecommendLabelPayload
+    #查询快捷标签
+    listQuickLabel(listQuickLabelInput:ListQuickLabelInput,page:Page):ListQuickLabelPayload
+}
+
+extend type Mutation {
+    #创建快捷标签，增量
+    createQuickLabel(createQuickLabelInput:CreateQuickLabelInput):QuickLabelPayload
+}
+
+input ListRecommendLabelInput{
+    # 10规格要求 30品质要求
+    labelType:Int!
+    #规格Id
+    categoryId:Int!
+}
+
+type RecommendLabelPayload{
+    #标签Id
+    labelId:Int
+    #标签类型 10规格要求 30品质要求
+    labelType:Int
+    #品类Id
+    categoryId:Int
+    #品类名称
+    categoryName:String
+    #标签内容
+    labelContent:String
+}
+
+type ListRecommendLabelPayload{
+    pageCurrent: Int
+    pageSize: Int
+    totalRecords: Long
+    records:[RecommendLabelPayload]
+}
+
+input ListQuickLabelInput{
+    # 10规格要求 30品质要求
+    labelType:Int!
+    #规格Id
+    categoryId:Int!
+}
+
+type QuickLabelPayload{
+    #标签Id
+    labelId:Int
+    #标签类型 10规格要求 30品质要求
+    labelType:Int
+    #品类Id
+    categoryId:Int
+    #品类名称
+    categoryName:String
+    #标签内容
+    labelContent:String
+}
+
+type ListQuickLabelPayload{
+    pageCurrent: Int
+    pageSize: Int
+    totalRecords: Long
+    records:[QuickLabelPayload]
+}
+
+input CreateQuickLabelInput{
+    #品类Id
+    categoryId:Int!
+    #规格要求
+    specificationLabel:String
+    #品质要求
+    quantityLabel:String
+}

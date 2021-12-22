@@ -1,0 +1,61 @@
+type  SubsidiaryPayload{
+    commodityId:Int
+    commodityName:String
+    commodityCategoryId :Int
+    commodityCategoryName:String
+    status:Int
+    skuSum :Int
+}
+
+type SubsidiaryPagePayload{
+    records:[SubsidiaryPayload]
+    pageCurrent:Int
+    totalRecords:Long
+    pageSize:Int
+}
+
+input SubsidiaryPageInput{
+    page:Page
+    commodityName:String
+}
+
+input SubsidiaryDetailInput{
+    commodityId :Int
+    commodityName :String
+    commodityCategoryName :String
+    status :Int
+    skuSum :Int
+    commoditySpec :CommoditySpecInput
+}
+
+type SubsidiaryDetailPayload{
+    commodityId :Int
+    commodityName :String
+    commodityCategoryName :String
+    status :Int
+    skuSum :Int
+    commoditySpec :CommoditySpecPayload
+}
+
+
+input SubsidiaryStatusInput{
+    commodityId :Int
+    status:Int
+}
+
+input SubsidiaryRepeatInput{
+    commodityId :Int
+    commodityName :String
+}
+
+extend type Query {
+    subsidiaryPageResult(subsidiaryPageInput:SubsidiaryPageInput):SubsidiaryPagePayload
+    subsidiary(subsidiaryId:Int):SubsidiaryDetailPayload
+    subsidiaryNameRepeat(subsidiaryRepeatInput:SubsidiaryRepeatInput):Int
+}
+
+extend type Mutation {
+    insertSubsidiary(subsidiaryDetailInput:SubsidiaryDetailInput):Int
+    updateSubsidiary(subsidiaryDetailInput:SubsidiaryDetailInput):Int
+    updateSubsidiaryStatus(subsidiaryStatusInput:SubsidiaryStatusInput):Int
+}

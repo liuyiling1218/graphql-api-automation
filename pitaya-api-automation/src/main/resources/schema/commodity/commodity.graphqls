@@ -1,0 +1,53 @@
+extend type Query {
+    # 基础管理-商品分类-|商品类型接口|
+    commodityList:[Option]
+    supplierCommodityList:[Option]
+    #商品品类列表信息
+    listCommodityCategoryOption:[CommodityCategoryPayload]
+    #品类id查询商品列表信息
+    listCommodityOptionByCategoryId(categoryId:Int):[CommodityPayload]
+    #商品列表信息品类（商品名称查询）
+    listCommodities(commodityName:String):[CommodityPayload]
+    #商品规格和商品规格选项列表信息
+    listCommoditySpecAndOption(commodityId:Int):[CommoditySpecPayload]
+    #根据商品sku id和规格列表查询具体信息
+    getCommoditySkuAndUnitInfo(commoditySkuAndUnitInput:CommoditySkuAndUnitInput):CommoditySkuAndUnitPayload
+    #商品规格选项id数据和文字描述映射关系列表信息
+    listCommoditySkuAndUnit(commodityId:Int): [CommoditySkuAndUnitPayload]
+
+    #sku列表接口（新）
+    skues(skuQueryInput:SkuQueryInput): [CommoditySkuAndUnitPayload]
+}
+
+input CommoditySkuAndUnitInput {
+    commoditySkuId: Int!
+    commoditySpecOptionIds: [Int]!
+}
+
+input CmmodityQueryInput{
+    #商品类型 果品辅料周转筐
+    commodityTypeId:Int
+    #分类id
+    categoryId:Int
+    #品种id
+    varietyId:Int
+    #产地id
+    placeOriginId:Int
+    #sku的类型 原料 成品 半成品 次品
+    skuType:Int
+    #商品名称模糊查询
+    commodityName:String
+}
+
+input SkuQueryInput{
+    #商品类型 果品辅料周转筐
+    commodityId:Int
+    #sku的类型 原料 成品 半成品 次品
+    skuType:Int
+    #是否有bom表 1 是 99 不是
+    buildBom:Int
+}
+
+
+
+

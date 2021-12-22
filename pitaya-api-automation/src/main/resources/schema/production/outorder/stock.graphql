@@ -1,0 +1,101 @@
+extend type Query {
+    stockBatches(stockBatchQueryInput:StockBatchQueryInput):[StockBatchPayload]
+    commodityStockBatches(listCommodityStockBatchInput:ListCommodityStockBatchInput):[CommodityStockBatchPayload]
+    skuStocks(stockSkuInput:ListSkuStockInput):[SkuStockPayload]
+}
+
+type SkuStockPayload {
+    commoditySkuId:Int
+    commodityName:String
+    commodityId:Int
+    warehouseId:Int
+    warehouseName:String
+    #商品规格选项id
+    commoditySpecOptionId:[Int]
+    #sku文字描述，规格选项文字数组
+    skuTextDescription:[String]
+    unitType:Int
+    #单位类型名称
+    unitTypeName:String
+    #总计类型（例：件）
+    totalType:Int
+    #总计类型名称
+    totalTypeName:String
+    #小单位库存数量
+    stockUnitQuantity:BigDecimal
+    #大单位库存数量
+    stockTotalQuantity:BigDecimal
+}
+
+input ListSkuStockInput{
+    commodityTypeId:Int
+    #仓库id
+    warehouseId:Int
+    #所属客户
+    customerId:Int
+    #所属客户类型
+    customerType:Int
+    #关键字查询
+    keyword:String
+}
+
+input StockBatchQueryInput{
+    customerId:Int!
+    customerType:Int!
+    commoditySkuId:Int!
+    commodityTypeId:Int
+}
+type StockBatchPayload{
+    batchId:Int
+    batchCode:String
+    unitQuantity:BigDecimal
+    totalQuantity:BigDecimal
+    unitTypeName:String
+    totalTypeName:String
+    unitType:Int
+    totalType:Int
+    createTime:Long
+}
+input ListCommodityStockBatchInput{
+    commodityTypeId:Int
+    #仓库id
+    warehouseId:Int
+    #所属客户
+    customerId:Int
+    #所属客户类型
+    customerType:Int
+    #关键字查询
+    keyword:String
+}
+
+type CommodityStockBatchPayload{
+    batchId:Int
+    batchCode:String
+    commodityName:String
+    commodityId:Int
+    commoditySkuId:Int
+    #商品规格选项id
+    commoditySpecOptionId:[Int]
+    #sku文字描述，规格选项文字数组
+    skuTextDescription:[String]
+    customerType:Int
+    customerTypeName:String
+    customerId:Int
+    customerName:String
+    stockUnitQuantity:BigDecimal
+    stockUnitType:Int
+    stockUnitTypeName:String
+    stockTotalQuantity:BigDecimal
+    stockTotalType:Int
+    stockTotalTypeName:String
+    #库存单价
+    stockUnitPrice:BigDecimal
+    #库存单价的单位
+    stockUnitPriceType:Int
+    #库存单价名称
+    stockUnitPriceTypeName:String
+    #换算单位
+    conversion:BigDecimal
+    pickingUnitQuantity: BigDecimal
+    pickingTotalQuantity: BigDecimal
+}

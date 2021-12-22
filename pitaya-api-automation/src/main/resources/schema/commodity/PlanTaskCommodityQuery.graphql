@@ -1,0 +1,166 @@
+extend type Query{
+    #任务商品选择列表接口
+    planCommodites(listPlanCommodityInput:ListPlanCommoditySkuInput):[CommoditySkuPayload]
+    #原料辅料领料商品列表接口
+    taskAcquireMaterialCommodities(listTaskAcquireMaterialCommodityInput:ListTaskAcquireMaterialCommodityInput):[TaskAcquireMaterialCommodityPayload]
+    #原料辅料退料商品列表接口
+    taskReturnMaterialCommodities(listTaskInCommodityInput:ListTaskInCommodityInput):[TaskReturnMaterialCommodityPayload]
+    #任务入库商品选择 退料与其他类型隔开
+    taskInCommodities(listTaskInCommodityInput:ListTaskInCommodityInput):[CommoditySkuPayload]
+    #更多商品列表接口
+    pageMoreCommodities(pageMoreCommoditiesInput:PageMoreCommoditiesInput,page:Page):MoreCommoditiesPageResult
+    #报损出库商品列表接口
+    damagedCommodities(damagedCommoditiesInput:DamagedCommoditiesInput):[DamagedCommoditiesPayload]
+}
+
+input DamagedCommoditiesInput {
+    taskId:ID!
+    outOrderType: Int!
+}
+
+type DamagedCommoditiesPayload {
+    commodityId:Int
+    commodityName:String
+    commodityTypeId:Int
+    commodityTypeName:String
+    commodityCategoryId:Int
+    commodityCategoryName:String
+    commodityVarietyId:Int
+    commodityVarietyName:String
+    commodityPlaceOriginId:Int
+    commodityPlaceOriginName:String
+    commoditySkuId:Int
+    status:Int
+    unitQuantity:BigDecimal
+    unitType:Int
+    unitTypeName:String
+    totalQuantity:BigDecimal
+    totalType:Int
+    totalTypeName:String
+    property:[Int]
+    bomId:Int
+    createTime:Int
+    createBy:Int
+    updateTime:Int
+    updateBy:Int
+    Deleted:Int
+    commoditySpecOptionId:[Int]
+    skuTextDescription:[String]
+    customerName:String
+    customerId:Int
+    stockBatchCode:String
+    stockBatchId:Int
+    outStockRecordItemId:Long
+    outStockRecordId:ID
+    pickingUnitQuantity:BigDecimal
+    pickingTotalQuantity:BigDecimal
+    conversion: BigDecimal
+}
+
+type MoreCommoditiesPageResult {
+    records: [TaskAcquireMaterialCommodityPayload]
+    pageCurrent: Int
+    pageSize: Int
+    totalRecords: Long
+}
+
+input PageMoreCommoditiesInput {
+    #模糊查询
+    commodityName: String
+    customerId:Int!
+    customerType:Int!
+    warehouseId:Int!
+    commodityTypeId:Int!
+}
+
+input ListTaskInCommodityInput{
+    taskId:ID!
+    inOrderType:Int!
+    commodityType:Int!
+}
+
+
+input ListPlanCommoditySkuInput{
+    planId:ID!
+}
+
+input ListTaskAcquireMaterialCommodityInput{
+    taskId:ID!
+    outOrderType:Int!
+}
+
+type TaskAcquireMaterialCommodityPayload{
+    commodityId:Int
+    commodityName:String
+    commodityTypeId:Int
+    commodityTypeName:String
+    commodityCategoryId:Int
+    commodityCategoryName:String
+    commodityVarietyId:Int
+    commodityVarietyName:String
+    commodityPlaceOriginId:Int
+    commodityPlaceOriginName:String
+    commoditySkuId:Int
+    status:Int
+    unitQuantity:BigDecimal
+    unitType:Int
+    unitTypeName:String
+    totalQuantity:BigDecimal
+    totalType:Int
+    totalTypeName:String
+    property:[Int]
+    bomId:Int
+    commoditySpecOptionId:[Int]
+    skuTextDescription:[String]
+    customerName:String
+    customerId:Int
+    stockUnitTypeName:String
+    stockUnitQuantity:BigDecimal
+    stockTotalTypeName:String
+    stockTotalQuantity:BigDecimal
+    stockBatchCode:String
+    stockBatchId:Int
+    outStockRecordItemId:Long
+    warehouseId:Int
+    warehouseName:String
+}
+
+
+type TaskReturnMaterialCommodityPayload{
+    commodityId:Int
+    commodityName:String
+    commodityTypeId:Int
+    commodityTypeName:String
+    commodityCategoryId:Int
+    commodityCategoryName:String
+    commodityVarietyId:Int
+    commodityVarietyName:String
+    commodityPlaceOriginId:Int
+    commodityPlaceOriginName:String
+    commoditySkuId:Int
+    status:Int
+    unitQuantity:BigDecimal
+    unitType:Int
+    unitTypeName:String
+    totalQuantity:BigDecimal
+    totalType:Int
+    totalTypeName:String
+    property:[Int]
+    bomId:Int
+    createTime:Int
+    createBy:Int
+    updateTime:Int
+    updateBy:Int
+    Deleted:Int
+    commoditySpecOptionId:[Int]
+    skuTextDescription:[String]
+    customerName:String
+    customerId:Int
+    stockBatchCode:String
+    stockBatchId:Int
+    outStockRecordItemId:ID
+    outStockRecordId:ID
+    pickingUnitQuantity:BigDecimal
+    pickingTotalQuantity:BigDecimal
+}
+

@@ -1,0 +1,61 @@
+extend type Query {
+    pageDamageOutOrder(pageDamageOutOrderInput:PageDamageOutOrderInput,page:Page):OutOrderPagePayload
+}
+extend type Mutation {
+    #新增报损单
+    createDamageOutOrder(createDamageOutOrderInput:CreateDamageOutOrderInput):ID
+
+    #修改报损订单
+    updateDamageOutOrder(updateDamageOutOrderInput:UpdateDamageOutOrderInput):Boolean
+}
+
+input PageDamageOutOrderInput{
+    #订单起始时间
+    startTime:Long
+    #订单结束时间
+    endTime:Long
+    #商品类型
+    commodityTypeId:Int
+    #出库订单状态
+    outOrderStatus:Int
+    #关键字搜索
+    keyword:String
+}
+
+
+#新增其他出库单
+input CreateDamageOutOrderInput{
+    #商品类型
+    commodityTypeId:Int!
+    #仓库id
+    warehouseId:Int!
+    #订单备注
+    outOrderDescription:String
+    #商品信息
+    commodityList:[CreateDamageOutOrderItemInput]!
+}
+
+input CreateDamageOutOrderItemInput{
+    batchId:Int!
+    #商品skuID
+    commoditySkuId:Int!
+    #小单位数量
+    unitQuantity:BigDecimal
+    #大单位数量
+    totalQuantity:BigDecimal
+    #报损原因
+    damageReason:String!
+    #拍照记录
+    photos:[String]!
+}
+
+input UpdateDamageOutOrderInput{
+    #出库订单Id
+    outOrderId:ID!
+    #仓库名称
+    warehouseId:Int!
+    #订单备注
+    outOrderDescription:String
+    #商品信息
+    commodityList:[CreateDamageOutOrderItemInput]!
+}

@@ -1,0 +1,16 @@
+type Organization{
+
+    #/** 用户ID */
+    userId:Int
+    #/** 组织ID */
+    orgId:Int
+    #/** 组织名称 */
+    orgName:String
+    #/** 组织架构 */
+    orgGroupId:Int
+    #/** 组织架构名称 */
+    orgGroupName:String
+    #/** 组织所属系统 */
+    appId:Int
+
+}

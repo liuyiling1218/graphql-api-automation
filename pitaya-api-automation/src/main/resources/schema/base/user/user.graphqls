@@ -1,0 +1,121 @@
+type UserListPayload{
+    userId:Int
+    # 用户名称
+    userName:String
+    # 用户电话号码
+    userPhoneNum:String
+    # 座机号码
+    landlineNum:String
+    # 创建时间
+    createTime:String
+    # 组织名称
+    organizationName:String
+    roles:[String]
+    stores:[String]
+}
+
+type UserPayload{
+    teamId:Int
+    userId:Int
+    # 用户名称
+    userName:String
+    # 用户电话号码
+    userPhoneNum:String
+    # 座机号码
+    landlineNum:String
+    # 创建时间
+    createTime:String
+    # 组织名称
+    organizationName:String
+    organizationId:Int
+    roles:[RolePayload]
+    stores:[UserStorePayload]
+}
+
+type UserPageResult{
+    records: [UserListPayload]
+    pageCurrent:Int
+    pageSize:Int
+    totalRecords:Long
+}
+
+type UserStorePayload{
+    # 用户id
+    userId:Int
+    # 仓库ID
+    storehouseId:Int
+    # 仓库名称
+    storehouseName:String
+}
+input UserStoreInput{
+    # 用户id
+    userId:Int
+    # 仓库ID
+    storehouseId:Int
+    # 仓库名称
+    storehouseName:String
+}
+input RoleInput{
+    roleId:Int
+    roleName:String
+}
+input UserInput{
+    userId:Int
+    # 用户名称
+    userName:String
+    # 用户电话号码
+    userPhoneNum:String
+    # 座机号码
+    landlineNum:String
+    # 创建时间
+    createTime:String
+    # 组织名称
+    organizationName:String
+    roles:[Int]
+    stores:[Int]
+}
+
+#用户账户密码返回
+type UserLoginResponse{
+    #用户id
+    userId:Int
+    #用户名称
+    userName:String
+    token:String
+    #组织名称
+    organizationName:String
+    #组织id
+    organizationId:Int
+}
+
+input MobileRepeatPayload{
+    #用户id
+    userId:Int
+    #用户名称
+    mobile:String
+
+}
+
+input ProductInput{
+    #用户id
+    storehouseId:Int!
+    #用户名称
+    roleName:String
+
+}
+
+extend type Mutation {
+    createUser(userInput:UserInput):Int
+    updateUser(userInput:UserInput):Int
+    deleteUser(userId:Int):Int
+}
+
+extend type Query {
+    listProductLeader(productInput:ProductInput!):[Option]
+    userInformation(userId:Int):UserPayload
+    userInformationList(page:Page):UserPageResult
+    userExist(phoneNum:String!):Int
+    userBaseInfo(phoneNum:String!):UserPayload
+    # 1.9新增 查询用户组织列表
+    listUserOrg(listUserOrgInput:ListUserOrgInput,page:Page):[Organization]
+}

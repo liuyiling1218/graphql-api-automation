@@ -1,0 +1,41 @@
+type SaleChangePayload {
+    changeId:ID
+    # 销售单id
+    outOrderId:ID
+    # 销售单明细id
+    outOrderItemId:ID
+    # skuId
+    commoditySkuId: Int
+    # 计划id
+    planId:ID
+    # 任务id
+    taskId:ID
+    # 销售变更数量
+    saleChangeQuantity: Int
+    # 生产负责人变更数量
+    planChangeQuantity: Int
+    # 1 增加 2 减少
+    changeType: Int
+    # 变更描述
+    changeRemark: String
+    # 10 生产负责人待确认  20 生产负责人已忽略  30 生产负责人已处理  40 生产组长已处理
+    status: Int
+    # 创建时间
+    createTime: Long
+    # 创建人
+    createBy: Int
+    # 更新时间
+    updateTime: Long
+    # 更新人
+    updateBy: Int
+}
+
+input IgnoreTaskSaleChangeInput {
+    changeId:ID
+    taskItemId:ID
+}
+
+extend type Mutation {
+    # 任务忽略
+    ignoreTaskSaleChange(ignoreTaskSaleChangeInput:IgnoreTaskSaleChangeInput):ID
+}

@@ -1,0 +1,359 @@
+extend type Mutation {
+
+    #提交库管
+    submitOutOrder(outOrderId:ID!):Boolean
+    #取消报损订单
+    cancelOutOrder(cancelOutOrderInput:CancelOutOrderInput):Boolean
+    #驳回订单
+    rejectOutOrderAudit(rejectOutOrderInput:RejectOutOrderInput):Boolean
+    #完成出库
+    finishOutOrder(finishOutOrderInput:FinishOutOrderInput):Boolean
+    #确认出库
+    confirmOutOrder(confirmOutOrderInput:ConfirmOutOrderInput):Boolean
+}
+
+input FinishOutOrderInput{
+    outOrderId:ID!
+}
+#出库条数
+type CountOutOrder{
+    #原料领料记录条数
+    rawMaterial:Long
+    #辅料领料记录条数
+    subMaterial:Long
+    #成品销售记录条数
+    finishedProduct:Long
+}
+
+type OutboundList{
+    toBeOutBoundList:[ToBeOutbount]
+    outboundRecordList:[OutboundRecord]
+}
+
+#待出库商品信息
+type ToBeOutbount{
+    #SPU名称
+    commodityName:String
+    #规格选项
+    skuTextDescription:[String]
+    #小单位数量
+    unitQuantity:BigDecimal
+    #小单位类型名称
+    unitTypeName:String
+    #副单位数量
+    totalQuantity:String
+    #副单位类型名称
+    totalTypeName:String
+}
+#已出库商品信息
+type OutboundRecord{
+    #已出库商品信息
+    outboundRecordItems:[OutboundRecordItem]
+    #总价
+    totalPrice:String
+    #出库单号
+    outOrderCode:String
+    #出库人员
+    createUserName:String
+    #出库时间
+    outboundTime:String
+}
+
+type OutboundRecordItem{
+    #SPU名称
+    commodityName:String
+    #规格选项
+    skuTextDescription:[String]
+    #小单位类型名称
+    unitTypeName:String
+    #副单位类型名称
+    totalTypeName:String
+    #单价
+    unitPrice:String
+    #单价单位名称
+    unitPriceTypeName:String
+    #总价
+    totalPrice:String
+    #周转筐数量
+    basketQuantity:String
+    #周转筐归属
+    basketCustomerName:String
+    #批次等信息
+    outboundBatchItem:[OutboundBatchItem]
+}
+
+type OutboundBatchItem{
+    #小单位数量
+    unitQuantity:String
+    #副单位数量
+    totalQuantity:String
+    #批次号
+    batchCode:String
+}
+
+type PageOutOrderRecord{
+    outOrders:[OutOrderRecordList]
+    pageCurrent: Int
+    pageSize: Int
+    totalRecords: Long
+}
+
+type PageOutAuditRecord{
+    auditOutOrders:[AuditOutOrder]
+    pageCurrent: Int
+    pageSize: Int
+    totalRecords: Long
+}
+
+type AuditOutOrder{
+    #出库订单Id
+    outOrderId:ID
+    #出库类型
+    outOrderTypeId:Int
+    #出库类型名称
+    outOrderTypeName:String
+    #出库单号
+    outOrderCode:String
+    #任务Id
+    taskId:ID
+    #任务单号
+    taskCode:String
+    #商品类型Id
+    commodityTypeId:Int
+    #商品类型名称
+    commodityTypeName:String
+    #客户类型Id
+    customerTypeId:Int
+    #客户类型名称
+    customerTypeName:String
+    #客户Id
+    customerId:Int
+    #客户名称
+    customerName:String
+    #客户分组Id
+    customerGroupId:Int
+    #客户分组名称
+    customerGroupName:String
+    #出库状态Id
+    outOrderStatusId:Int
+    #出库状态
+    outOrderStatus:String
+    #仓库Id
+    warehouseId:Int
+    #仓库名称
+    warehouseName:String
+    #创建人员
+    createUserName:String
+    #创建时间
+    createTime:String
+    #订单备注
+    outOrderDescription:String
+    #商品信息
+    commodities:[AuditOrderItem]
+    #总计
+    totalPrice:String
+}
+
+type OutOrderRecordDetail{
+    #出库订单Id
+    outOrderId:ID
+    #出库类型
+    outOrderTypeId:Int
+    #出库类型名称
+    outOrderTypeName:String
+    #出库单号
+    outOrderCode:String
+    #任务Id
+    taskId:ID
+    #任务单号
+    taskCode:String
+    #商品类型Id
+    commodityTypeId:Int
+    #商品类型名称
+    commodityTypeName:String
+    #客户类型Id
+    customerTypeId:Int
+    #客户类型名称
+    customerTypeName:String
+    #客户Id
+    customerId:Int
+    #客户名称
+    customerName:String
+    #客户分组Id
+    customerGroupId:Int
+    #客户分组名称
+    customerGroupName:String
+    #仓库Id
+    warehouseId:Int
+    #仓库名称
+    warehouseName:String
+    #订单备注
+    outOrderDescription:String
+    #商品信息
+    commodities:[OutOrderRecordItemDetail]
+    #总计
+    totalPrice:String
+    #提交人员
+    submitUserName:String
+    #提交时间
+    submitTime:String
+    #出库人员
+    putInUserName:String
+    #出库时间
+    putInTime:String
+
+}
+type OutOrderRecordItemDetail{
+    #SPUId
+    commodityId:Int
+    #SPU名称
+    commodityName:String
+    #商品skuID
+    commoditySkuId:Int
+    #商品规格选项Id
+    commoditySpecOptionId:[Int]
+    #规格选项
+    skuTextDescription:[String]
+    #小单位类型
+    unitType:Int
+    #小单位类型名称
+    unitTypeName:String
+    #副单位类型
+    totalType:Int
+    #副单位类型名称
+    totalTypeName:String
+    #单价
+    unitPrice:String
+    #单价单位
+    unitPriceTypeName:String
+    #小计
+    unitTotalPrice:String
+    #周转筐数量
+    basketQuantity:Int
+    #周转筐归属名称
+    basketCustomerName:String
+    #批次号等信息
+    batchItem:[BatchItemPayload]
+}
+
+type AuditOrderItem{
+    #SPUId
+    commodityId:Int
+    #SPU名称
+    commodityName:String
+    #商品skuID
+    commoditySkuId:Int
+    #商品规格选项Id
+    commoditySpecOptionId:[Int]
+    #规格选项
+    skuTextDescription:[String]
+    #小单位数量
+    unitQuantity:String
+    #小单位类型
+    unitType:Int
+    #小单位类型名称
+    unitTypeName:String
+    #副单位数量
+    totalQuantity:String
+    #副单位类型
+    totalType:Int
+    #副单位类型名称
+    totalTypeName:String
+    #单价
+    unitPrice:String
+    #单价单位名称
+    unitPriceTypeName:String
+    #小计
+    unitTotalPrice:String
+}
+
+type OutOrderRecordList{
+    #出库订单Id
+    outOrderId:ID
+    #出库类型
+    outOrderTypeId:Int
+    #出库类型名称（原料采购、辅料采购）
+    outOrderTypeName:String
+    #出库单号
+    outOrderCode:String
+    #商品类型Id
+    commodityTypeId:Int
+    #商品类型名称（原料、辅料）
+    commodityTypeName:String
+    #客户类型Id
+    customerTypeId:Int
+    #客户类型名称
+    customerTypeName:String
+    #客户Id
+    customerId:Int
+    #客户名称
+    customerName:String
+    #客户分组Id
+    customerGroupId:Int
+    #客户分组名称
+    customerGroupName:String
+    #仓库Id
+    warehouseId:Int
+    #仓库名称
+    warehouseName:String
+    #出库人员
+    createUserName:String
+    #出库时间
+    createTime:String
+}
+type BatchItemPayload{
+    #批次号
+    batchCode:String
+    #小单位数量
+    unitQuantity:String
+    #副单位数量
+    totalQuantity:String
+}
+
+
+#驳回出库审核订单
+input RejectOutOrderInput{
+    outOrderId:ID
+    rejectDescription:String
+}
+#确认出库
+input ConfirmOutOrderInput{
+    #出库订单Id
+    outOrderId:ID!
+    #商品信息
+    items:[ConfirmOutOrderItem]!
+    #出库备注
+    remark:String
+    deliveryFee:Float
+}
+
+input ConfirmOutOrderItem{
+
+    outOrderItemId:ID!
+    #周转筐数量
+    basketQuantity:Int
+    #周转筐归属
+    basketCustomerId:Int
+    #批次及数量
+    batchStockItems:[BatchStockItem]!
+}
+input BatchStockItem{
+    #批次Id
+    batchStockId:Int!
+    #小单位数量
+    unitQuantity:BigDecimal!
+    #副单位数量
+    totalQuantity:BigDecimal!
+}
+
+#出库记录列表条件（出库记录）
+input OutOrderRecordCondition{
+    #出库时间
+    outOrderTime:String
+    #仓库Id
+    warehouseId:Int
+    #出库类型Id
+    outOrderTypeId:Int
+    #订单号/客户（模糊查询）
+    keyword:String
+}

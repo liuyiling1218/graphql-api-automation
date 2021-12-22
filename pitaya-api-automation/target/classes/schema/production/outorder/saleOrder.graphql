@@ -1,0 +1,253 @@
+extend type Query {
+    #查询销售订单
+    pageSaleOrder(queryQueryOrderInput:QuerySaleOrderInput,page:Page):SaleOrderPagePayload
+    #查询订单详情
+    saleOrder(saleOrderInput:SaleOrderInput):SaleOrderPayload
+    #状态数量查询接口
+    countSaleOrderStatus(countSaleOrderStatusInput:CountSaleOrderStatusInput):SaleOrderStatusCountPayload
+    #查询销售退货记录条数 v1.6
+    countSaleReturnRecord(saleOrderInput:SaleOrderInput):Long
+}
+
+extend type Mutation {
+    #新增销售
+    createSaleOrder(createSaleOrderInput:CreateSaleOrderInput):ID
+    #提交生产
+    submitSaleOrder(outOrderId:ID!):Boolean
+    #修改销售订单
+    updateSaleOrder(updateSaleOrderInput:UpdateSaleOrderInput):Boolean
+    #取消销售订单
+    cancelSaleOrder(cancelOutOrderInput:CancelOutOrderInput):Boolean
+    #撤销生产
+    undoSaleOrder(undoSaleOrderInput:UndoSaleOrderInput):Boolean
+    #更新实际销量 v1.6
+    updateRealQuantity(updateRealQuantityInput:UpdateRealQuantityInput):Boolean
+    #更新预估销量 v1.6
+    updatePlanQuantity(updatePlanQuantityInput:UpdatePlanQuantityInput):Boolean
+    #复制订单
+    copySaleOrder(saleOrderInput:SaleOrderInput):ID
+}
+# v1.6
+input UpdateRealQuantityInput{
+    outOrderId:ID!
+    outOrderItemId:ID!
+    realQuantity:BigDecimal!
+}
+# v1.6
+input UpdatePlanQuantityInput{
+    outOrderId:ID!
+    outOrderItemId:ID!
+    planQuantity:BigDecimal!
+}
+# v1.6
+input SaleOrderInput {
+    outOrderId:ID!
+}
+input CountSaleOrderStatusInput{
+    saleTime:Long!
+}
+#分页对象
+type SaleOrderPagePayload{
+    #销售订单列表
+    records:[SaleOrderPayload]
+    pageCurrent: Int
+    pageSize: Int
+    totalRecords: Long
+}
+type SaleOrderStatusCountPayload{
+    #待提交
+    toSubmit:Int
+    #待审核
+    toAudit:Int
+    producing:Int
+    #待出库
+    toOutbound:Int
+    #已完成
+    finished:Int
+}
+
+type SaleOrderPayload{
+    #出库订单Id
+    outOrderId:ID
+    #出库类型出库订单类型，10：原料领料、20辅料领料 30 成品销售
+    outOrderType:Int
+    #出库类型名称
+    outOrderTypeName:String
+    #出库单号
+    outOrderCode:String
+    #商品类型Id
+    commodityTypeId:Int
+    #商品类型名称
+    commodityTypeName:String
+    #客户类型 10 无客户 20 客户分组 30 指定客户
+    customerType:Int
+    # 客户类型翻译
+    customerTypeName:String
+    #客户Id
+    customerId:Int
+    #客户名称
+    customerName:String
+    #销售时间
+    saleTime:Long
+    #出库状态Id 出库订单状态，默认待提交，10：待提交、20：待出库、30：部分出库、40：已完成、50：已取消
+    outOrderStatus:Int
+    #订单状态翻译
+    outOrderStatusName:String
+    #仓库Id
+    warehouseId:Int
+    #仓库名称
+    warehouseName:String
+    #创建人员
+    createUserName:String
+    #创建时间
+    createTime:Long
+    #订单备注
+    outOrderDescription:String
+    #驳回（取消）原因
+    errorDescription:String
+    customerDistributionId:Int
+    customerDistributionName:String
+    #商品信息
+    commodityList:[SaleOrderItemPayload]
+    #退货申请数量 v1.6
+    countReturnApply:Int
+    #是否能操作 可操作返回true v1.6
+    canSaleReturn:Boolean
+}
+
+type SaleOrderItemPayload{
+    outOrderItemId:ID
+    #SPUId
+    commodityId:Int
+    #SPU名称
+    commodityName:String
+    #商品skuID
+    commoditySkuId:Int
+    #商品规格选项Id
+    commoditySpecOptionId:[Int]
+    #规格选项
+    skuTextDescription:[String]
+    #最大销量
+    maxQuantity:String @deprecated(reason: "2.0已弃用当前字段")
+    #预估销量
+    planQuantity:String
+    #实际销量 v1.6
+    realQuantity:BigDecimal
+    #副单位类型名称
+    totalTypeName:String
+    #销售单价
+    salePrice:String
+    #规格要求
+    specificationLabel:String
+    #包装要求
+    packageLabel:String @deprecated(reason: "2.2已弃用当前字段")
+    """
+    2.2 修改包装要求为一个对象
+    """
+    packageRequireInfos:[OutOrderItemRequestPayload]
+    #品质要求
+    quantityLabel:String
+    #品类Id
+    categoryId:Int
+}
+
+#销售列表条件
+input QuerySaleOrderInput{
+    #销售时间
+    saleTime:Long
+    #订单状态（10全部，20待提交，30待审核 ，40待出库，50已完成）
+    orderStatus:Int
+    #查询关键字（订单号/客户，模糊查询）
+    keyword:String
+}
+
+#新增销售信息
+input CreateSaleOrderInput{
+    #仓库名称
+    warehouseId:Int!
+    #客户Id
+    customerId:Int!
+    #客户地址
+    customerDistributionId:Int!
+    #销售时间
+    saleTime: Long!
+    #订单备注
+    outOrderDescription:String
+    #商品信息
+    commodityList:[CreateSaleOrderItemInput]!
+}
+input UpdateSaleOrderInput{
+    #出库订单Id
+    outOrderId:ID!
+    #仓库名称
+    warehouseId:Int!
+    #客户Id
+    customerId:Int!
+    #客户配送地址id
+    customerDistributionId:Int!
+    #销售时间
+    saleTime:Long!
+    #订单备注
+    outOrderDescription:String
+    #商品信息
+    commodityList:[CreateSaleOrderItemInput]!
+}
+
+input CreateSaleOrderItemInput{
+    #商品skuID
+    commoditySkuId:Int
+    #最大销量
+    maxQuantity:Int
+    #计划生产
+    planQuantity:Int
+    #销售单价
+    salePrice:BigDecimal
+    #规格要求
+    specificationLabel:String
+    #包装要求
+    packageLabel:String
+    """
+    2.2新增 包装要求的商品id列表
+    2.2新增 包装要求列表
+    """
+    packageIds:[ID]
+    packageRequireInfos:[OutOrderItemRequestInput]
+    #品质要求
+    quantityLabel:String
+}
+"""
+包装要求信息
+"""
+input OutOrderItemRequestInput{
+    """
+    包装要求商品id
+    """
+    commodityId: Long
+    """
+    包装要求
+    """
+    requestText:String
+}
+
+"""
+包装要求信息
+"""
+type OutOrderItemRequestPayload{
+    """
+    包装要求商品id
+    """
+    commodityId: Long
+    """
+    包装要求
+    """
+    requestText:String
+}
+
+input UndoSaleOrderInput{
+    outOrderId:ID!
+    #撤销原因
+    undoDescription:String!
+}
+
+
+

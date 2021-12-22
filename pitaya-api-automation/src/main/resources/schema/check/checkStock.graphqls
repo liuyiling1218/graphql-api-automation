@@ -1,0 +1,272 @@
+input CheckConditionInput{
+    #仓库id
+    warehouseId:Int!
+    #商品分类
+    commodityTypeIds:[Int]
+}
+
+input CheckDetailInput{
+    skuId:Int
+    batchId:Int
+    batchCode:String
+    unitQuantity:Float
+    totalQuantity:Float
+    checkUnitQuantity:Float
+    checkTotalQuantity:Float
+    remark:String
+    #商品分类
+    commodityTypeId:Int
+    commodityTypeName:String
+    #归属名称
+    belongId:Int
+    #归属类型
+    belongType:Int
+    belongName:String
+}
+
+input CheckInfoInput{
+    #仓库id
+    warehouseId:Int
+    warehouseName:String
+    #盘点日期
+    checkDate:Long
+    remark:String
+    #具体库存盘点详情
+    checkDetailList:[CheckDetailInput]
+}
+
+input CheckRecordConfitionInput{
+    #仓库id
+    warehouseId:Int
+    #盘点开始日期
+    startDate:Long
+    #盘点结束日期
+    expireDate:Long
+    #商品分类
+    commodityTypeId:Int
+}
+
+input CheckRecordPageInput{
+    checkRecordConfitionInput:CheckRecordConfitionInput
+    page:Page
+}
+
+type StockCheckPayload{
+    #记录id
+    checkRecordId:Int
+    #订单id
+    orderId:Int
+    #盘点类型
+    checkType:Int
+    #商品名称
+    commodityName:String
+    #批次号
+    batchNo:String
+    #规格字符串，由后端组装
+    specOption:String
+    #库存数量
+    unitQuantity:Float
+    #盘点库存数量
+    checkUnitQuantity:Float
+    #库存单位
+    unitName:String
+    #库存总计数量
+    totalQuantity:Float
+    #盘点库存总计数量
+    checkTotalQuantity:Float
+    #总计数量单位
+    totalName:String
+    #备注
+    remark:String
+}
+
+type CheckDetailPayload{
+    checkId:Int
+    #盘点仓库名称
+    warehouseName:String
+    #盘点日期
+    checkDate:Long
+    commodityTypeId:Int
+    commodityTypeIdList:[Int]
+    #商品分类名称
+    commodityTypeName:String
+    commodityTypeNameList:[String]
+    #归属名称
+    belongId:Int
+    belongIdList:[Int]
+    #归属类型
+    belongType:Int
+    belongTypeList:[Int]
+    #归属name
+    belongName:String
+    belongNameList:[String]
+    #提交人员
+    username:String
+    checkStatus:Int
+    #操作时间
+    operateDate:Long
+    #备注
+    remark:String
+    #盘点数量
+    checkNum:Int
+    #异常数量
+    checkErrorNum:Int
+    checkCode:String
+    abnormalQuantity:Int
+}
+
+type CheckInfoPayload{
+    stockCheck:CheckDetailPayload
+    checkOrderList:[CheckOrderPayload]
+    stockCheckItemList:[CheckItemPayload]
+}
+
+type CheckRecordPayload{
+    checkId:Int
+    #盘点日期
+    checkDate:Long
+    warehouseName:String
+    #库存状态
+    checkStatus:Int
+    #盘点商品类型
+    commodityTypeIdList:[Int]
+    #盘点商品类型
+    commodityTypeNameList:[String]
+    #盘点数量
+    checkNum:Int
+    #归属名称
+    belongIdList:[Int]
+    #归属类型
+    belongTypeList:[Int]
+    #归属name
+    belongNameList:[String]
+    #盘点人员
+    username:String
+    #操作时间
+    operateDate:Long
+    checkCode:String
+    abnormalQuantity:Int
+}
+type CheckRecordPageResultPayload{
+    records: [CheckRecordPayload]
+    pageCurrent:Int
+    pageSize:Int
+    totalRecords:Long
+}
+
+type CheckStockResultPayload{
+    #checkRecordId
+    checkRecordId:Int
+    #入库数量
+    checkInNum:Int
+    #出库数量
+    checkOutNum:Int
+    checkId:Int
+    outStockCode:String
+    outStockRecordId:ID
+    inStockCode:String
+    inStockRecordId:ID
+}
+
+type CheckStockPayload{
+    skuId:Int
+    commodityTypeId:Int
+    #商品名称
+    commodityTypeName:String
+
+    commodityId:Int
+    #商品名称
+    commodityName:String
+    #批次号
+    batchId:Int
+    batchCode:String
+    #规格字符串，由后端组装
+    skuTextDescriptionList:[String]
+    #库存数量
+    unitQuantity:Float
+    #库存单位
+    unitType:Int
+    unitTypeName:String
+    #库存总计数量
+    totalQuantity:Float
+    #总计数量单位
+    totalType:Int
+    totalTypeName:String
+    #归属名称
+    belongId:Int
+    #归属类型
+    belongType:Int
+    belongName:String
+    unitPrice :Float
+    priceType:Int
+    priceTypeName:String
+    createTime:Long
+    abnormalQuantity:Int
+}
+type CheckOrderPayload{
+    #订单id
+    checkOrderId:Int
+    #订单号
+    stockOrderNumber:String
+    stockOrderId:ID
+    #盘点类型
+    checkType:Int
+    #归属名称
+    belongId:Int
+    #归属类型
+    belongType:Int
+    #归属name
+    belongName:String
+    #盘点仓库名称
+    warehouseName:String
+    #商品分类
+    commodityTypeId:Int
+    #商品分类名称
+    commodityTypeName:String
+    #入库人员
+    username:String
+    #操作时间
+    operateDate:Long
+}
+type CheckItemPayload{
+    checkItemId:Int
+    checkId:Int
+    checkOrderId:Int
+    batchId:Int
+    skuId:Int
+    batchCode:String
+    orderType:Int
+    orderId:Int
+    #盘点商品类型
+    commodityTypeId:Int
+    commodityName:String
+    skuTextDescriptionList:[String]
+    unitQuantity:Long
+    unitType:Int
+    unitTypeName:String
+    totalQuantity:Long
+    totalTypeName:String
+    totalType:Int
+    checkUnitQuantity:Long
+    checkTotalQuantity:Long
+    remark:String
+    createTime:Long
+    #归属名称
+    belongId:Int
+    #归属类型
+    belongType:Int
+    #归属name
+    belongName:String
+}
+
+extend type Query {
+    checkStocks(checkConditionInput:CheckConditionInput):[CheckStockPayload]
+    checkPageRecords(page:Page, checkRecordConfitionInput:CheckRecordConfitionInput):CheckRecordPageResultPayload
+    checkDetail(checkId:Int):CheckInfoPayload
+    checkOrders(checkId:Int):CheckOrderPayload
+}
+
+extend type Mutation {
+    finishCheck(checkInfoInput:CheckInfoInput):CheckStockResultPayload
+}
+
