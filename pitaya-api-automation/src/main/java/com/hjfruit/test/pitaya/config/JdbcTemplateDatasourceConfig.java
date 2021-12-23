@@ -20,4 +20,8 @@ public class JdbcTemplateDatasourceConfig {
     public JdbcTemplate peach(@Qualifier("peachDatasource") DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
+    @Bean()
+    public JdbcTemplate fcMdm(@Qualifier("fcMdmDatasource") DataSource dataSource) {
+        return new JdbcTemplate(dataSource);
+    }
 }

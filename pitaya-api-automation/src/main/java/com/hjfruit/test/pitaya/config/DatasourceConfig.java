@@ -22,4 +22,10 @@ public class DatasourceConfig {
     DataSource peachDatasource() {
         return DataSourceBuilder.create().build();
     }
+
+    @Bean
+    @ConfigurationProperties("spring.datasource.fc-mdm")
+    DataSource fcMdmDatasource() {
+        return DataSourceBuilder.create().build();
+    }
 }

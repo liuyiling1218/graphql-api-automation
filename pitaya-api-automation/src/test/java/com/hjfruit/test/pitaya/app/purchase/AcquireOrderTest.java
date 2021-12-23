@@ -10,6 +10,8 @@ import com.hjfruit.test.pitaya.utils.YamlUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 class AcquireOrderTest extends PitayaAppBaseTest {
 
@@ -17,6 +19,9 @@ class AcquireOrderTest extends PitayaAppBaseTest {
     AcquireOrderAction acquireOrderAction;
     @Autowired
     InOrderAuditAction inOrderAuditAction;
+    @Autowired
+    @Qualifier("fcMdm")
+    JdbcTemplate jdbcTemplate;
 
     @Test
     @DisplayName("辅料采购全部入库正常")
