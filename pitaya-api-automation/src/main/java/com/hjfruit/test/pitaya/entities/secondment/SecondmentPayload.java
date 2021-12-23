@@ -3,11 +3,12 @@ package com.hjfruit.test.pitaya.entities.secondment;
 import lombok.Data;
 
 import java.util.List;
+
 /**
- * 
+ *
  */
 @Data
-public class SecondmentPayload{
+public class SecondmentPayload {
     /**
      * 借调id
      */
@@ -37,7 +38,7 @@ public class SecondmentPayload{
      */
     private Integer outBelongType;
     /**
-     * 
+     *
      */
     private Integer outBelongId;
     /**
@@ -73,7 +74,7 @@ public class SecondmentPayload{
      */
     private Long operateDate;
     /**
-     * 
+     *
      */
     private String description;
     /**
@@ -81,7 +82,7 @@ public class SecondmentPayload{
      */
     private String remark;
     /**
-     * 
+     *
      */
     private List<SecondmentItemPayload> secondmentOrderItemList;
 }

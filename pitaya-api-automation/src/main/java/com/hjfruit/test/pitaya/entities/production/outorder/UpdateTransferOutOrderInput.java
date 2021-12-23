@@ -5,25 +5,26 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.List;
+
 /**
- * 
+ *
  */
 @Data
-public class UpdateTransferOutOrderInput{
+public class UpdateTransferOutOrderInput {
     /**
      * 出库订单Id
      */
-    @Needed 
+    @Needed
     private String outOrderId;
     /**
      * 仓库名称
      */
-    @Needed 
+    @Needed
     private Integer warehouseId;
     /**
      * 调入组织
      */
-    @Needed 
+    @Needed
     private Integer transferOrgId;
     /**
      * 订单备注
@@ -32,7 +33,7 @@ public class UpdateTransferOutOrderInput{
     /**
      * 商品信息
      */
-    @Needed 
+    @Needed
     private List<CreateTransferOutOrderItemInput> commodityList;
     /**
      * 调拨运杂费
@@ -41,6 +42,6 @@ public class UpdateTransferOutOrderInput{
     /**
      * 商品类型
      */
-    @Needed 
+    @Needed
     private Integer commodityTypeId;
 }

@@ -14,4 +14,6 @@ public interface BaseAction {
      * 系统测试级别前置操作
      */
     void prepare();
+
+    void clear();
 }

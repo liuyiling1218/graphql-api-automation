@@ -4,22 +4,23 @@ import fc.test.api.graphql.annotation.Needed;
 import lombok.Data;
 
 import java.util.List;
+
 /**
- * 
+ *
  */
 @Data
-public class UpdateDefectiveSaleOrderInput{
+public class UpdateDefectiveSaleOrderInput {
     /**
-     * 
+     *
      */
     private String outOrderId;
     /**
-     * 
+     *
      */
     private String remark;
     /**
-     * 
+     *
      */
-    @Needed 
+    @Needed
     private List<CreateDefectiveItemInput> defectiveItems;
 }

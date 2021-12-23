@@ -1,11 +1,12 @@
 package com.hjfruit.test.pitaya.entities.production.outorder;
 
 import lombok.Data;
+
 /**
- * 
+ *
  */
 @Data
-public class GetTransferOutOrderStatusPayload{
+public class GetTransferOutOrderStatusPayload {
     /**
      * 待提交
      */

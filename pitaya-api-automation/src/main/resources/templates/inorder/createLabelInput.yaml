@@ -1,6 +1,0 @@
-
-!!com.hjfruit.test.pitaya.entities.label.CreateQuickLabelInput
-createLabelInput:
-  categoryId: 6
-  labelContent: '1112'
-  requestType: 10

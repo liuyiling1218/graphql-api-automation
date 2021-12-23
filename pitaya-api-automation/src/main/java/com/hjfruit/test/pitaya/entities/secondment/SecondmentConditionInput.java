@@ -2,29 +2,30 @@ package com.hjfruit.test.pitaya.entities.secondment;
 
 import fc.test.api.graphql.annotation.Needed;
 import lombok.Data;
+
 /**
- * 
+ *
  */
 @Data
-public class SecondmentConditionInput{
+public class SecondmentConditionInput {
     /**
      * 仓库id
      */
-    @Needed 
+    @Needed
     private Integer warehouseId;
     /**
      * 商品分类
      */
-    @Needed 
+    @Needed
     private Integer commodityTypeId;
     /**
      * 归属id
      */
-    @Needed 
+    @Needed
     private Integer belongId;
     /**
      * 归属类型
      */
-    @Needed 
+    @Needed
     private Integer belongType;
 }

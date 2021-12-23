@@ -1,11 +1,12 @@
 package com.hjfruit.test.pitaya.entities.statistics;
 
 import lombok.Data;
+
 /**
- * 
+ *
  */
 @Data
-public class MonitorStatusPayload{
+public class MonitorStatusPayload {
     /**
      * 待生产数量
      */

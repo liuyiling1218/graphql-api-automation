@@ -3,11 +3,12 @@ package com.hjfruit.test.pitaya.entities.statistics;
 import lombok.Data;
 
 import java.math.BigDecimal;
+
 /**
- * 
+ *
  */
 @Data
-public class OverviewDetailPayload{
+public class OverviewDetailPayload {
     /**
      * 商品类型
      */
@@ -45,7 +46,7 @@ public class OverviewDetailPayload{
      */
     private String line;
     /**
-     * 
+     *
      */
     private String totalTypeName;
 }

@@ -4,17 +4,18 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.List;
+
 /**
- * 
+ *
  */
 @Data
-public class SecondmentStockPayload{
+public class SecondmentStockPayload {
     /**
-     * 
+     *
      */
     private Integer skuId;
     /**
-     * 
+     *
      */
     private Integer commodityId;
     /**
@@ -26,7 +27,7 @@ public class SecondmentStockPayload{
      */
     private Integer batchId;
     /**
-     * 
+     *
      */
     private String batchCode;
     /**
@@ -42,7 +43,7 @@ public class SecondmentStockPayload{
      */
     private Integer unitType;
     /**
-     * 
+     *
      */
     private String unitTypeName;
     /**
@@ -54,7 +55,7 @@ public class SecondmentStockPayload{
      */
     private Integer totalType;
     /**
-     * 
+     *
      */
     private String totalTypeName;
     /**
@@ -66,19 +67,19 @@ public class SecondmentStockPayload{
      */
     private Integer belongType;
     /**
-     * 
+     *
      */
     private Float unitPrice;
     /**
-     * 
+     *
      */
     private Integer priceType;
     /**
-     * 
+     *
      */
     private String priceTypeName;
     /**
-     * 
+     *
      */
     private BigDecimal conversion;
 }

@@ -2,14 +2,15 @@ package com.hjfruit.test.pitaya.entities.statistics;
 
 import fc.test.api.graphql.annotation.Needed;
 import lombok.Data;
+
 /**
- * 
+ *
  */
 @Data
-public class OverviewDetailInput{
+public class OverviewDetailInput {
     /**
-     * 
+     *
      */
-    @Needed 
+    @Needed
     private String planId;
 }

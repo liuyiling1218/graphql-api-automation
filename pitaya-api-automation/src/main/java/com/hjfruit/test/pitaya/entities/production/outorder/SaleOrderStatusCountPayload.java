@@ -1,11 +1,12 @@
 package com.hjfruit.test.pitaya.entities.production.outorder;
 
 import lombok.Data;
+
 /**
- * 
+ *
  */
 @Data
-public class SaleOrderStatusCountPayload{
+public class SaleOrderStatusCountPayload {
     /**
      * 待提交
      */
@@ -15,7 +16,7 @@ public class SaleOrderStatusCountPayload{
      */
     private Integer toAudit;
     /**
-     * 
+     *
      */
     private Integer producing;
     /**

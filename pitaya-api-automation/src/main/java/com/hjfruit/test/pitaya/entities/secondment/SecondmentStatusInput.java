@@ -1,11 +1,12 @@
 package com.hjfruit.test.pitaya.entities.secondment;
 
 import lombok.Data;
+
 /**
- * 
+ *
  */
 @Data
-public class SecondmentStatusInput{
+public class SecondmentStatusInput {
     /**
      * 借调id
      */

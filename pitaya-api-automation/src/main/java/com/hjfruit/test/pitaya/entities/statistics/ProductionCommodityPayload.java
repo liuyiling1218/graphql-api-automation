@@ -3,11 +3,12 @@ package com.hjfruit.test.pitaya.entities.statistics;
 import lombok.Data;
 
 import java.math.BigDecimal;
+
 /**
- * 
+ *
  */
 @Data
-public class ProductionCommodityPayload{
+public class ProductionCommodityPayload {
     /**
      * 商品类型
      */

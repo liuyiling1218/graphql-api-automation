@@ -12,4 +12,4 @@ spring:
       driver-class-name: org.postgresql.Driver
 graphql:
   config:
-    server: https://pitaya-test.hjgpscm.com/graphql-web
+    server: https://pitaya-test.hjgpscm.com/graphql

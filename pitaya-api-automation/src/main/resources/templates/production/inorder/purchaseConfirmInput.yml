@@ -1,0 +1,12 @@
+inOrderType: 60
+inOrderId: '10261'
+remark: ''
+belongType: 10
+belongId: 341
+items:
+  - inOrderItemId: '10503'
+    commodityId: 257
+    commoditySkuId: 155739
+    totalQuantity: 0
+    unitQuantity: 12
+    grossUnitQuantity: 0

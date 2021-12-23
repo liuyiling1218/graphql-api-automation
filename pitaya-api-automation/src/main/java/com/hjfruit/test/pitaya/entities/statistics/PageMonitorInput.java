@@ -1,11 +1,12 @@
 package com.hjfruit.test.pitaya.entities.statistics;
 
 import lombok.Data;
+
 /**
- * 
+ *
  */
 @Data
-public class PageMonitorInput{
+public class PageMonitorInput {
     /**
      * 生产时间
      */

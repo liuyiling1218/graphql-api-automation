@@ -4,10 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import fc.test.api.graphql.Autheration;
-import fc.test.api.graphql.annotation.GraphqlGroup;
-import fc.test.api.graphql.annotation.GraphqlMutation;
-import fc.test.api.graphql.annotation.GraphqlQuery;
-import fc.test.api.graphql.annotation.Needed;
+import fc.test.api.graphql.annotation.*;
 import fc.test.api.graphql.entity.GraphqlConifg;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -106,7 +103,7 @@ public class ApiProxy<T> implements InvocationHandler, ApplicationContextAware {
             log.info(apiType.getName() + "." + method.getName() + "(" + methodDesc + ")" + "接口调用正常");
             JSONObject responseBody = JSONObject.parseObject(response.getBody().asString());
             JSONObject data = responseBody.getJSONObject("data");
-            return parseResponseBody(method, data);
+            return (Object) parseResponseBody(method, data);
         }
     }
 
@@ -121,12 +118,15 @@ public class ApiProxy<T> implements InvocationHandler, ApplicationContextAware {
         Class<?> returnType = method.getReturnType();
         if (String.class.isAssignableFrom(returnType) ||
                 Integer.class.isAssignableFrom(returnType) ||
-                Long.class.isAssignableFrom(returnType) ||
                 Boolean.class.isAssignableFrom(returnType) ||
                 BigDecimal.class.isAssignableFrom(returnType) ||
                 Date.class.isAssignableFrom(returnType) ||
                 returnType.isPrimitive()) {
             return data.get(method.getName());
+        } else if (Long.class.isAssignableFrom(returnType)) {
+            //JsonObject 在接收Long类型时，如果小于Integer.Max_Value,则自动转为了Integer类型，这里强转为Long类型
+            Number number = (Number) data.get(method.getName());
+            return number.longValue();
         } else if (List.class.isAssignableFrom(method.getReturnType())) {
             Class<?> listGenericClazz = null;
             Type genericReturnType = method.getGenericReturnType();
@@ -281,7 +281,7 @@ public class ApiProxy<T> implements InvocationHandler, ApplicationContextAware {
                 String parameterTypeName;
                 if ("int".equals(parameterTypes[i].getSimpleName()) || "Integer".equals(parameterTypes[i].getSimpleName())) {
                     parameterTypeName = "Int";
-                } else if (parameters[i].isAnnotationPresent(Needed.class)) {
+                } else if (parameters[i].isAnnotationPresent(ID.class)) {
                     parameterTypeName = "ID";
                 } else if ("long".equals(parameterTypes[i].getSimpleName())) {
                     parameterTypeName = "Long";

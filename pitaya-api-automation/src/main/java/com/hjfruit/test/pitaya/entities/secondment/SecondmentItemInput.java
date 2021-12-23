@@ -1,33 +1,34 @@
 package com.hjfruit.test.pitaya.entities.secondment;
 
 import lombok.Data;
+
 /**
- * 
+ *
  */
 @Data
-public class SecondmentItemInput{
+public class SecondmentItemInput {
     /**
-     * 
+     *
      */
     private String secondmentItemId;
     /**
-     * 
+     *
      */
     private String secondmentId;
     /**
-     * 
+     *
      */
     private Integer commodityId;
     /**
-     * 
+     *
      */
     private String commodityName;
     /**
-     * 
+     *
      */
     private Integer skuId;
     /**
-     * 
+     *
      */
     private Integer batchId;
     /**
@@ -35,7 +36,7 @@ public class SecondmentItemInput{
      */
     private Float transferTotalQuantity;
     /**
-     * 
+     *
      */
     private Float transferUnitQuantity;
     /**

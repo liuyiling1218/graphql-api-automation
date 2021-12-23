@@ -1,0 +1,16 @@
+commodityTypeId: 5
+warehouseId: 57
+supplierId: 177
+belongType: 20
+belongId: 484
+note: null
+commodities:
+  - skuId: 125905
+    pricePosition: 10
+    price: 10
+    priceType: 2
+    unitQuantity: 2200
+    unitType: 8
+    totalQuantity: 22
+    totalType: 2
+costs: []

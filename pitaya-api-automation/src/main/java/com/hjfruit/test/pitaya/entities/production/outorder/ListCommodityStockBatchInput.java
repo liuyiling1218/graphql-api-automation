@@ -1,13 +1,14 @@
 package com.hjfruit.test.pitaya.entities.production.outorder;
 
 import lombok.Data;
+
 /**
- * 
+ *
  */
 @Data
-public class ListCommodityStockBatchInput{
+public class ListCommodityStockBatchInput {
     /**
-     * 
+     *
      */
     private Integer commodityTypeId;
     /**

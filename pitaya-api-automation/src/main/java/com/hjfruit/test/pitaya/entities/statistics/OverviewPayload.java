@@ -4,11 +4,12 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.List;
+
 /**
- * 
+ *
  */
 @Data
-public class OverviewPayload{
+public class OverviewPayload {
     /**
      * 配送地址名称
      */
@@ -66,7 +67,7 @@ public class OverviewPayload{
      */
     private String planId;
     /**
-     * 
+     *
      */
     private List<OverviewDetailPayload> overviewDetail;
 }

@@ -1,11 +1,12 @@
 package com.hjfruit.test.pitaya.entities.production.outorder;
 
 import lombok.Data;
+
 /**
- * 
+ *
  */
 @Data
-public class ProductionOutOrderLogPayload{
+public class ProductionOutOrderLogPayload {
     /**
      * 出库订单日志id
      */
@@ -27,11 +28,11 @@ public class ProductionOutOrderLogPayload{
      */
     private String outOrderLogDescription;
     /**
-     * 
+     *
      */
     private Long createTime;
     /**
-     * 
+     *
      */
     private Integer createBy;
     /**

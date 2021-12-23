@@ -10,8 +10,8 @@ import java.io.IOException;
 public class PitayaGraphqlGenerator {
     public static void main(String[] args) throws IOException {
         //pitaya
-        String schemaPath = "D:\\gitee\\personal\\graphql-api-automation\\pitaya-api-automation\\src\\main\\resources\\schema";
-        String destinationPath = "D:\\gitee\\personal\\graphql-api-automation\\pitaya-api-automation\\src\\main\\java\\com\\hjfruit\\test\\pitaya";
+        String schemaPath = "D:\\gitee\\graphql-api-automation\\pitaya-api-automation\\src\\main\\resources\\schema";
+        String destinationPath = "D:\\gitee\\graphql-api-automation\\pitaya-api-automation\\src\\main\\java\\com\\hjfruit\\test\\pitaya";
         String basePackageName = "com.hjfruit.test.pitaya";
 //
 //        //operation

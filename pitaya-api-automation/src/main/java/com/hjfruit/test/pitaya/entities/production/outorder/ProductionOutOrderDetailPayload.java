@@ -4,11 +4,12 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.List;
+
 /**
- * 
+ *
  */
 @Data
-public class ProductionOutOrderDetailPayload{
+public class ProductionOutOrderDetailPayload {
     /**
      * 生产出库订单明细id
      */
@@ -62,35 +63,35 @@ public class ProductionOutOrderDetailPayload{
      */
     private String totalTypeName;
     /**
-     * 
+     *
      */
     private Long createTime;
     /**
-     * 
+     *
      */
     private Integer createBy;
     /**
-     * 
+     *
      */
     private Long updateTime;
     /**
-     * 
+     *
      */
     private BigDecimal stockTotalQuantity;
     /**
-     * 
+     *
      */
     private Integer stockTotalType;
     /**
-     * 
+     *
      */
     private BigDecimal stockUnitQuantity;
     /**
-     * 
+     *
      */
     private Integer stockUnitType;
     /**
-     * 
+     *
      */
     private BigDecimal conversion;
     /**
@@ -98,7 +99,7 @@ public class ProductionOutOrderDetailPayload{
      */
     private Integer batchId;
     /**
-     * 
+     *
      */
     private String batchCode;
     /**
@@ -106,7 +107,7 @@ public class ProductionOutOrderDetailPayload{
      */
     private BigDecimal pickingUnitQuantity;
     /**
-     * 
+     *
      */
     private BigDecimal pickingTotalQuantity;
     /**

@@ -4,11 +4,12 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.List;
+
 /**
- * 
+ *
  */
 @Data
-public class MonitorPayload{
+public class MonitorPayload {
     /**
      * 配送地址名称
      */
@@ -34,7 +35,7 @@ public class MonitorPayload{
      */
     private String createTypeName;
     /**
-     * 
+     *
      */
     private String productionCommodity;
     /**
@@ -82,7 +83,7 @@ public class MonitorPayload{
      */
     private String createUserName;
     /**
-     * 
+     *
      */
     private List<ProductionCommodityPayload> productionCommodityPayload;
 }

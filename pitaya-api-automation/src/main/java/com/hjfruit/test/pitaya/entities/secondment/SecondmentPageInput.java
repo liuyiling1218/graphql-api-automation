@@ -1,11 +1,12 @@
 package com.hjfruit.test.pitaya.entities.secondment;
 
 import lombok.Data;
+
 /**
- * 
+ *
  */
 @Data
-public class SecondmentPageInput{
+public class SecondmentPageInput {
     /**
      * 商品类型id
      */

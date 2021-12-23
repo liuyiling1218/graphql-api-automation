@@ -3,11 +3,12 @@ package com.hjfruit.test.pitaya.entities.secondment;
 import lombok.Data;
 
 import java.util.List;
+
 /**
- * 
+ *
  */
 @Data
-public class SecondmentInput{
+public class SecondmentInput {
     /**
      * 借调id
      */
@@ -37,7 +38,7 @@ public class SecondmentInput{
      */
     private Integer outBelongType;
     /**
-     * 
+     *
      */
     private Integer outBelongId;
     /**
@@ -69,7 +70,7 @@ public class SecondmentInput{
      */
     private String remark;
     /**
-     * 
+     *
      */
     private List<SecondmentItemInput> secondmentOrderItemList;
 }
