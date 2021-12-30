@@ -35,6 +35,9 @@ public class GraphqlGenerator {
         for (String dicPath : map.keySet()) {
             String subDicPath = dicPath.replace(schemaPath, "");
             String subPackage = subDicPath.replace("\\", ".");
+            if (subPackage.contains("interface")) {
+                subPackage = subPackage.replace("interface", "interfaces");
+            }
             importEntitiesStringBuilder.append("import " + basePackageName + ".entities" + subPackage + ".*" + ";\n");
         }
 
@@ -42,6 +45,9 @@ public class GraphqlGenerator {
         for (Map.Entry<String, List<File>> entry : map.entrySet()) {
             String dicPath = entry.getKey();
             String subDicPath = dicPath.replace(schemaPath, "");
+            if (subDicPath.contains("interface")) {
+                subDicPath = subDicPath.replace("interface", "interfaces");
+            }
             String subPackage = subDicPath.replace("\\", ".");
             List<File> files = entry.getValue();
             for (File file : files) {
@@ -52,6 +58,9 @@ public class GraphqlGenerator {
                 for (Map.Entry<String, TypeDefinition> type : types.entrySet()) {
                     StringBuilder entityStringBuilder = new StringBuilder();
                     String entityName = type.getKey();
+                    if (entityName.contains(".type")) {
+                        entityName = entityName.replace(".type", "");
+                    }
 
                     TypeDefinition typeDefinition = type.getValue();
                     //封裝comment
@@ -159,6 +168,20 @@ public class GraphqlGenerator {
                 String[] ss = file.getName().substring(0, file.getName().lastIndexOf(".")).split("-");
                 for (String s : ss) {
                     className = className + s.substring(0, 1).toUpperCase() + s.substring(1);
+                }
+                if (className.contains(".api")) {
+                    className = className.replace(".api", "");
+                }else if (className.contains(".type")) {
+                    className = className.replace(".type", "");
+                }
+                if (className.contains(".")) {
+                    String[] cs = className.split("\\.");
+                    String cn = "";
+                    for (String c : cs) {
+                        c = c.substring(0, 1).toUpperCase() + c.substring(1);
+                        cn = cn + c;
+                    }
+                    className = cn;
                 }
                 className = className + "Api";
 
