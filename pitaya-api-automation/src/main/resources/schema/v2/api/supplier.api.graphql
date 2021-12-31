@@ -1,0 +1,4 @@
+extend type Query {
+    "supplier 类型列表接口"
+    supplierTypes:[SupplierType]
+}

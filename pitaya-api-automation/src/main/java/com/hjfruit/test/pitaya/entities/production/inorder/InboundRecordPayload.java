@@ -23,6 +23,10 @@ public class InboundRecordPayload {
      */
     private String inOrderCode;
     /**
+     *
+     */
+    private Integer userId;
+    /**
      * 入库人员
      */
     private String createUserName;

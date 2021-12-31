@@ -17,7 +17,7 @@ public class PageCostOrderInput {
      */
     private Long endDate;
     /**
-     * 订单状态
+     * 订单状态 10待确认 20待提交 30待业务审核 40 待财务审核 50已完成
      */
     private Integer status;
     /**

@@ -91,7 +91,7 @@ type PurchaseOrderPayload{
     #预估运费
     deliveryFee:BigDecimal
     #实际运费v1.7
-    realDeliveryFee:BigDecimal
+    realDeliveryFee:BigDecimal  @deprecated(reason: "当前字段已被弃用")
     #是否能进行退货操作v1.7
     canReturn:Boolean
     #调拨组织Id v2.0

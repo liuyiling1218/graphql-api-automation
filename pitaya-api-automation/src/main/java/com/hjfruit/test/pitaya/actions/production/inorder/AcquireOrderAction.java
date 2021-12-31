@@ -24,11 +24,10 @@ public class AcquireOrderAction {
     public String createAcquire(CreateAcquireInput createAcquireInput) {
         String acquireOrderId = null;
         try {
-            acquireOrderId= acquireOrderApi.createAcquire(createAcquireInput);
+            acquireOrderId = acquireOrderApi.createAcquire(createAcquireInput);
         } catch (Exception e) {
             assertThat(e.getMessage()).isEqualTo("创建失败");
         }
-
 
         /*
          * 断言:
@@ -40,7 +39,7 @@ public class AcquireOrderAction {
         listAcquireFilter.setEndTime(1640275140000L);
         listAcquireFilter.setCommodityType(createAcquireInput.getCommodityType());
         listAcquireFilter.setApplyStatus(10);
-        AcquirePageResultPayload acquirePageResultPayload = acquireOrderApi.listAcquire(listAcquireFilter, new Page(1, 10));
+        AcquirePageResultPayload acquirePageResultPayload = acquireOrderApi.listAcquire(listAcquireFilter, new Page());
         assertThat(acquirePageResultPayload.getRecords().get(0).getApplyId()).isEqualTo(acquireOrderId);
         return acquireOrderId;
     }
@@ -52,9 +51,9 @@ public class AcquireOrderAction {
 
 
         /*
-        * 断言：
-        * 1. 采购订单状态变更为待审核
-        * */
+         * 断言：
+         * 1. 采购订单状态变更为待审核
+         * */
         return s;
     }
 

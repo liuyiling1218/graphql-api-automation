@@ -1,0 +1,28 @@
+#查询枚举
+enum PurchaseReturnQueryStatus{
+    # 全部
+    QUERY_ALL
+    # 待提交
+    QUERY_UN_SUBMIT
+    # 待入库
+    QUERY_UN_STORAGE
+    # 已完成
+    QUERY_COMPLETE
+    # 已取消
+    QUERY_CANCEL
+}
+#订单状态枚举
+enum PurchaseReturnStatus {
+    # 待提交
+    UN_SUBMIT
+    # 待出库
+    UN_STORAGE
+    # 部分出库
+    PART_STORAGE
+    # 已完成
+    COMPLETE
+    # 已取消
+    CANCEL
+    # 已驳回
+    REFUSE
+}

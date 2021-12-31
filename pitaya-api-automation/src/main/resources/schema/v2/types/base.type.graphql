@@ -1,0 +1,16 @@
+"""
+基础公用接口
+"""
+
+type FreightType{
+ "费用类型id"
+ freightId:Int
+ "费用类型名称"
+ freightName:String
+}
+
+"支付结算方式：月结 半月结"
+type PayMode{
+ code:Int
+ message:String
+}

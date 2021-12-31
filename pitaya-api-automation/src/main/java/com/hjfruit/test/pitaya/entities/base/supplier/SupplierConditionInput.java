@@ -16,5 +16,5 @@ public class SupplierConditionInput {
     /**
      *
      */
-    private List<Integer> commodityTypeIdList;
+    private List<Integer> supplierTypeId;
 }

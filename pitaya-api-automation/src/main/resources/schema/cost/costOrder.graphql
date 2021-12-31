@@ -29,6 +29,8 @@ type CostOrderPayload {
     auditUserName:String
     #入库类型
     commodityType:Int
+    #驳回原因
+    cancelDescription:String
     #审核人id
     submitBy:Int
     #审核人姓名
@@ -45,6 +47,8 @@ type CostOrderPayload {
     freightCode:String
     #商品明细
     commodityItems:[CostCommodityPayload]
+    #货款备注
+    commodityRemark:String
     #运杂款明细
     freightCostItem:[FreightCostPayload]
 }
@@ -91,12 +95,18 @@ type FreightCostPayload {
     costId:Int
     #申请id
     applyId:ID
+    #支付方式 10月结 20半月结 30次结
+    payMode:Int
+    #支付方式名称
+    payModeName:String
     #费用类型id
     typeId:Int
     #费用类型名称
     costName:String
     #金额
     amount:BigDecimal
+    #供应商ID
+    supplierId:Int
     #供应商名称
     supplierName:String
     #备注
@@ -106,6 +116,7 @@ type FreightCostPayload {
 input UpdateCostOrderInput {
     #申请id
     applyId:ID!
+    commodityRemark:String
     commodityItems:[UpdateCommodityPriceInput]
     freightCostItems:[UpdateFreightCostInput]
 }
@@ -120,14 +131,16 @@ input UpdateCommodityPriceInput {
 }
 
 input UpdateFreightCostInput {
-    #供应商名称
-    supplierName:String
+    #供应商ID
+    supplierId:Int
     #费用类型id
     typeId:Int
     #金额
     amount:BigDecimal
     #备注
     note:String
+    #支付方式 10月结 20半月结 30次结
+    payMode:Int
 }
 
 input PageCostOrderInput {
@@ -135,7 +148,7 @@ input PageCostOrderInput {
     startDate:Long
     #结束时间
     endDate:Long
-    #订单状态
+    #订单状态 10待确认 20待提交 30待业务审核 40 待财务审核 50已完成
     status:Int
     #货品类型
     commodityType:Int
@@ -150,13 +163,28 @@ type PageCostOrderPayload {
     records:[CostOrderPayload]
 }
 
+type CountCostOrderPayload {
+    #待提交条数
+    countNotSubmit:Int
+    #待审核条数
+    countNotAudit:Int
+}
+
+input UpdateCostStatusInput {
+    #id
+    applyId:ID!
+    #更改后状态
+    status:Int!
+    remark:String
+}
+
 extend type Query {
     #分页查询费用单信息
     pageCostOrder(pageCostOrderInput:PageCostOrderInput,page:Page):PageCostOrderPayload
     #获取费用单详情
     getCostOrderDetail(applyId:ID!):CostOrderPayload
     #查询未提交费用单条数
-    countNotSubmitCostOrder:Int
+    countNotSubmitCostOrder:CountCostOrderPayload
     #查询费用类型下拉框选项
     freightCostOption:[Option]
 }
@@ -166,4 +194,6 @@ extend type Mutation {
     updateCostOrder(updateCostOrderInput:UpdateCostOrderInput):Int
     #提交财务
     submitCostOrder(applyId:ID!):Int
+    #变更费用单状态
+    updateCostStatus(updateCostStatusInput:UpdateCostStatusInput):Boolean
 }

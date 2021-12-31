@@ -71,6 +71,10 @@ public class CostOrderPayload {
      */
     private Integer commodityType;
     /**
+     * 驳回原因
+     */
+    private String cancelDescription;
+    /**
      * 审核人id
      */
     private Integer submitBy;
@@ -102,6 +106,10 @@ public class CostOrderPayload {
      * 商品明细
      */
     private List<CostCommodityPayload> commodityItems;
+    /**
+     * 货款备注
+     */
+    private String commodityRemark;
     /**
      * 运杂款明细
      */

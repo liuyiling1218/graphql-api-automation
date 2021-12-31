@@ -1,7 +1,8 @@
 package com.hjfruit.test.pitaya.entities.production.inorder;
 
-import fc.test.api.graphql.annotation.Needed;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  *
@@ -11,24 +12,21 @@ public class GetTransferInOrderStatusInput {
     /**
      * 订单起始时间
      */
-    @Needed
     private Long startTime;
     /**
      * 订单结束时间
      */
-    @Needed
     private Long endTime;
-    /**
-     * 入库类型
-     */
-    @Needed
-    private Integer inOrderTypeId;
     /**
      * 商品类型
      */
-    private Integer commodityTypeId;
+    private List<Integer> commodityType;
     /**
-     * 10跨区域 20跨系统
+     * 调拨类型（10 仓库间调拨，20 跨组织调拨，30库存退货，40库存借调）
      */
-    private Integer transferType;
+    private List<Integer> transferType;
+    /**
+     * 关键字查询
+     */
+    private String keyword;
 }

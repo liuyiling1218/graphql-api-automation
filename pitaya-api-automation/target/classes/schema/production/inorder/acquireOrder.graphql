@@ -112,12 +112,14 @@ input CreateAcquireItemInput{
 input CreateCostInput{
     #费用类型
     typeId:Int!
-    #供应商名称
-    supplierName:String!
+    #供应商名称 v2.3 name->Id
+    supplierId:Int!
     #金额
     amount:BigDecimal!
     #备注
     note:String
+    #付款方式
+    payMode:Int!
 }
 
 
@@ -198,6 +200,10 @@ type AcquirePayload{
     costs:[CostItemPayload]
     #申请操作记录
     operationLog:[FlowApplyOperationLogPayload]
+    # 是否可退货
+    canReturn:Boolean
+    # 退货记录数量
+    returnCount:Int
 }
 
 type AcquireItemPayload{
@@ -244,6 +250,12 @@ type CostItemPayload{
     amount:BigDecimal
     #备注
     note:String
+    #供应商Id
+    supplierId:Int
+    #付款方式Id
+    payMode:Int
+    #付款方式名字
+    payModeName:String
 }
 type ListAcquireLogPayload{
     #操作类型

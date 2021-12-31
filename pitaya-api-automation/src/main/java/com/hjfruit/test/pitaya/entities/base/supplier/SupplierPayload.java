@@ -26,7 +26,7 @@ public class SupplierPayload {
     /**
      *
      */
-    private String commodityType;
+    private String commodityTypeName;
     /**
      *
      */
@@ -51,4 +51,24 @@ public class SupplierPayload {
      *
      */
     private String tfn;
+    /**
+     *
+     */
+    private String landlineNum;
+    /**
+     *
+     */
+    private String financialSystemCode;
+    /**
+     *
+     */
+    private Integer supplierDetailId;
+    /**
+     *
+     */
+    private Integer supplierTypeId;
+    /**
+     *
+     */
+    private String typeName;
 }

@@ -27,7 +27,8 @@ class AcquireOrderTest extends PitayaAppBaseTest {
     @DisplayName("辅料采购全部入库正常")
     void createAcquire() {
         //新增辅料采购
-        String acquireOrderId = acquireOrderAction.createAcquire(YamlUtil.loadAs("templates/production/inorder/createAcquireInput-accessories.yml", CreateAcquireInput.class));
+
+        String acquireOrderId = acquireOrderAction.createAcquire(YamlUtil.loadAs(CreateAcquireInput.class));
         //提交库管
         SubmitAcquireInput submitAcquireInput = new SubmitAcquireInput();
         submitAcquireInput.setApplyId(acquireOrderId);

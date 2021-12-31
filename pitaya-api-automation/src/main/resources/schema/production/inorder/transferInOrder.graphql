@@ -1,106 +1,121 @@
 extend type Query {
+    #查询调拨入库订单列表
+    listTransferInOrder(listTransferOrderInput:ListTransferOrderInput,page:Page):ListTransferOrderPayload
     #查询调拨入库订单
-    listTransferInOrder(listTransferInOrderInput:ListTransferInOrderInput,page:Page):ListTransferInOrderPayload
+    getTransferInOrder(flowId:ID):TransferOrderPayload
     #查询调拨入库订单状态值
     getTransferInOrderStatus(getTransferInOrderStatusInput:GetTransferInOrderStatusInput):GetTransferInOrderStatusPayload
+
+    #查询调拨入库费用订单列表
+    listTransferInOrderFee(listTransferBillInput:ListTransferBillInput,page:Page):ListTransferBillPayload
+    #查询调拨入库费用订单详情
+    getTransferInOrderFee(flowId:ID):TransferBillPayload
+    #查询调拨入库费用单状态值
+    getTransferInOrderFeeStatus(getTransferOrderFeeStatus:GetTransferOrderFeeStatusInput):GetTransferOrderFeeStatusPayload
 }
 
-input ListTransferInOrderInput{
-    #订单起始时间
-    startTime:Long
-    #订单结束时间
-    endTime:Long
-    #入库类型
-    inOrderTypeId:Int!
-    #订单状态（全部，10待提交，20待处理 ，30已完成）
-    orderStatus:Int
-    #查询关键字（调拨组织/商品名称，模糊查询）
-    keyword:String
-    #商品类型
-    commodityTypeId:Int
-    #10跨区域 20跨系统
-    transferType:Int
+extend type Mutation {
+    #调拨入库货款单修改
+#    updateTransferInOrderCommodityBill(updateFlowTransferCommodityBillInput:UpdateFlowTransferCommodityBillInput):ID
+    #调拨入库运杂款修改
+    updateTransferInOrderOtherBill(updateFlowTransferOtherBillInput:UpdateFlowTransferOtherBillInput):ID
+
+    #提交入库费用单审核
+    updateTransferInOrderStat(updateTransferOrderStatInput:UpdateTransferOrderStatInput):ID
 }
 
 input GetTransferInOrderStatusInput{
     #订单起始时间
-    startTime:Long!
+    startTime:Long
     #订单结束时间
-    endTime:Long!
-    #入库类型
-    inOrderTypeId:Int!
+    endTime:Long
     #商品类型
-    commodityTypeId:Int
-    #10跨区域 20跨系统
+    commodityType:[Int]
+    #调拨类型（10 仓库间调拨，20 跨组织调拨，30库存退货，40库存借调）
+    transferType:[Int]
+    #关键字查询
+    keyword:String
+}
+
+type TransferBillPayload{
+    # 费用单id
+    billId:ID
+    # 调拨申请单id
+    flowId:ID
+    # 调拨单号
+    flowCode:String
+    # 出入库订单id
+    orderId:ID
+    # 出入库订单编号
+    orderCode:String
+    # 来源id
+    sourceId:ID
+    # 调拨申请类型
+    flowType:Int
+    # 调拨申请类型名称
+    flowTypeName:String
+    # 调拨类型
     transferType:Int
-}
-
-#分页对象
-type ListTransferInOrderPayload{
-    #采购订单列表
-    records:[TransferInOrderPayload]
-    pageCurrent: Int
-    pageSize: Int
-    totalRecords: Long
-}
-
-type TransferInOrderPayload{
-    #入库订单Id
-    inOrderId:ID
-    #入库类型
-    inOrderTypeId:Int
-    #入库类型名称（原料采购、辅料采购）
-    inOrderTypeName:String
-    #入库单号
-    inOrderCode:String
-    #商品类型Id
-    commodityTypeId:Int
-    #商品类型名称（原料、辅料）
+    # 商品类型
+    commodityType:Int
+    # 商品类型名称
     commodityTypeName:String
-    #客户类型Id
-    customerTypeId:Int
-    #客户类型名称
-    customerTypeName:String
-    #客户Id
-    customerId:Int
-    #客户名称
-    customerName:String
-    #入库状态Id '入库订单状态，默认待提交，10：待提交、20：待入库、30：部分入库、40：已完成、50：已取消';
-    inOrderStatus:Int
-    #入库状态
-    inOrderStatusName:String
-    #仓库Id
-    warehouseId:Int
-    #仓库名称
-    warehouseName:String
-    #供应商Id
-    supplierId:Int
-    #供应商名称
-    supplierName:String
-    #创建人员
-    createUserName:String
-    #创建时间
-    createTime:Long
-    #订单备注
-    inOrderDescription:String
-    #驳回（取消）原因
-    errorDescription:String
-    #总价合计
-    totalPrice:BigDecimal
-    #商品信息
-    commodities:[OtherInOrderItemPayload]
-    #调拨组织Id
-    transferOrganizationId:Int
-    #调拨组织名字
-    transferOrganizationName:String
-    #操作人联系电话
-    createUserPhone:String
-    #调拨运杂费
-    transferFee:BigDecimal
-    #调拨类型 v2.0
-    transferType:Int
-    #调拨ID v2.0
-    transferId:Int
+    # 调出仓库id
+    sourceWarehouseId:Int
+    # 调出仓库名称
+    sourceWarehouseName:String
+    # 调出归属类型
+    sourceBelongType:Int
+    # 调出归属id
+    sourceBelongId:Int
+    # 调出归属名称
+    sourceBelongName:String
+    # 调入仓库id
+    targetWarehouseId:Int
+    # 调入仓库名称
+    targetWarehouseName:String
+    # 调入归属类型
+    targetBelongType:Int
+    # 调入归属id
+    targetBelongId:Int
+    # 调入归属名称
+    targetBelongName:String
+    # 备注信息
+    remark:String
+    # 调拨申请状态
+    flowStatus:Int
+    # 调拨申请状态名称
+    flowStatusName:String
+    # 费用状态
+    billStatus:Int
+    # 费用状态名称
+    billStatusName:String
+    # 调拨订单创建时间
+    flowApplyCreateTime:Long
+    # 调拨订单创建人
+    flowCreateBy:Int
+    # 调拨订单创建人姓名
+    flowCreateName:String
+    # 出入库时间
+    stockUpdateTime:Long
+    # 出入库操作人
+    stockCreateBy:Int
+    # 出入库操作人姓名
+    stockCreateName:String
+    # 费用审核人
+    billAuditBy:Int
+    # 费用审核人姓名
+    billAuditName:String
+    # 调拨商品
+    transferCommodityBills:TransferCommodityBillPayload
+    # 运杂费用
+    transferOtherBills:TransferOtherBillPayload
+    # 驳回原因
+    refuseNote:String
+    # 调出方合计
+    sourceTotalAmount:BigDecimal
+    # 调入方合计
+    targetTotalAmount:BigDecimal
 }
 
 type GetTransferInOrderStatusPayload{

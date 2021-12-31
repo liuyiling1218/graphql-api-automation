@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class Page {
     public Page() {
-        this.pageCurrent = 0;
+        this.pageCurrent = 1;
         this.pageSize = 10;
     }
 

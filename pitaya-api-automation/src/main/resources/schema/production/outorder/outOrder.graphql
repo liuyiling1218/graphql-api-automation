@@ -311,7 +311,7 @@ type OutOrderPayload{
     #客户配送地址
     customerDistributionName:String
     #运费 v2.0
-    deliveryFee:BigDecimal
+    deliveryFee:BigDecimal  @deprecated(reason: "当前字段已被弃用")
     organizationId:Int
     organizationName:String
 }

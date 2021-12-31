@@ -2,10 +2,7 @@ package com.hjfruit.test.pitaya.apis.cost;
 
 import com.hjfruit.test.pitaya.entities.Option;
 import com.hjfruit.test.pitaya.entities.Page;
-import com.hjfruit.test.pitaya.entities.cost.CostOrderPayload;
-import com.hjfruit.test.pitaya.entities.cost.PageCostOrderInput;
-import com.hjfruit.test.pitaya.entities.cost.PageCostOrderPayload;
-import com.hjfruit.test.pitaya.entities.cost.UpdateCostOrderInput;
+import com.hjfruit.test.pitaya.entities.cost.*;
 import fc.test.api.graphql.annotation.*;
 
 import java.util.List;
@@ -22,7 +19,7 @@ public interface CostOrderApi {
     CostOrderPayload getCostOrderDetail(@Needed @ID String applyId);
 
     @GraphqlQuery("查询未提交费用单条数")
-    Integer countNotSubmitCostOrder();
+    CountCostOrderPayload countNotSubmitCostOrder();
 
     @GraphqlQuery("查询费用类型下拉框选项")
     List<Option> freightCostOption();
@@ -32,4 +29,7 @@ public interface CostOrderApi {
 
     @GraphqlMutation("提交财务")
     Integer submitCostOrder(@Needed @ID String applyId);
+
+    @GraphqlMutation("变更费用单状态")
+    Boolean updateCostStatus(UpdateCostStatusInput updateCostStatusInput);
 }

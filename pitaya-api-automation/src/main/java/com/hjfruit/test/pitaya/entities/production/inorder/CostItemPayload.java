@@ -29,4 +29,16 @@ public class CostItemPayload {
      * 备注
      */
     private String note;
+    /**
+     * 供应商Id
+     */
+    private Integer supplierId;
+    /**
+     * 付款方式Id
+     */
+    private Integer payMode;
+    /**
+     * 付款方式名字
+     */
+    private String payModeName;
 }

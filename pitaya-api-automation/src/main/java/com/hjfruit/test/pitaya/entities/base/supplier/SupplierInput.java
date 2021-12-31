@@ -22,14 +22,6 @@ public class SupplierInput {
     /**
      *
      */
-    private Integer commodityTypeId;
-    /**
-     *
-     */
-    private String commodityType;
-    /**
-     *
-     */
     private String phoneNum;
     /**
      *
@@ -47,4 +39,8 @@ public class SupplierInput {
      *
      */
     private String tfn;
+    /**
+     *
+     */
+    private Integer supplierTypeId;
 }

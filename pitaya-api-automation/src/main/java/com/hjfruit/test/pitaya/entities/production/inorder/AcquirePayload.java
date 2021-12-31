@@ -113,4 +113,12 @@ public class AcquirePayload {
      * 申请操作记录
      */
     private List<FlowApplyOperationLogPayload> operationLog;
+    /**
+     * 是否可退货
+     */
+    private Boolean canReturn;
+    /**
+     * 退货记录数量
+     */
+    private Integer returnCount;
 }

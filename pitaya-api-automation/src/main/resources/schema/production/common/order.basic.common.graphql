@@ -1,0 +1,96 @@
+# 入库类型
+enum InStockOrderType {
+    # 成品入库
+    PRODUCTION_IN_APPLY
+    # 原料采购
+    RAW_PURCHASE
+    # 原料退料
+    RAW_RETURN
+    # 半成品入库
+    SEMI_FINISHED_IN_APPLY
+    # 次品入库
+    DEFECTIVE_IN_APPLY
+    # 辅料采购
+    SUB_PURCHASE
+    # 辅料退料
+    SUB_RETURN
+    # 盘点入库
+    CHECK_IN_APPLY
+    # 其他入库
+    OTHER_IN_APPLY
+    # 销售归还
+    TURNOVER_BASKET_RETURN
+    # 销售退货
+    SALES_RETURN
+    # 退货品退料
+    RETURNED_GOODS_RETURN
+    # 半成品退料
+    SEMI_FINISHED_PRODUCTS_RETURN
+    # 调拨入库
+    TRANSFER_IN_APPLY
+}
+
+# 出库类型
+enum OutStockOrderType {
+    # 原料领料
+    RAW_MATERIAL_ACQUISITION
+    # 辅料领料
+    SUPPLEMENTARY_MATERIAL_ACQUISITION
+    # 退货品领料
+    RETURNED_GOODS_OUT
+    #成品销售
+    FINISHED_PRODUCT_ACQUISITION
+    # 半成品领料
+    SEMI_FINISHED_PRODUCT_ACQUISITION
+    # 其他出库
+    OTHER_ACQUISITION
+    # 报损出库
+    DAMAGED_ACQUISITION
+    # 盘点出库
+    CHECK_ACQUISITION
+    # 次品销售
+    DEFECTIVE_SALE
+    # 采购退货
+    PURCHASE_RETURN
+    # 调拨出库
+    TRANSFER_OUT_APPLY
+    # 原料报损
+    DAMAGED_RAW_MATERIAL
+    # 半成品报损
+    DAMAGED_SEMI_FINISHED_PRODUCT
+    # 退货品报损
+    DAMAGED_RETURNED_GOODS
+    # 生产报损
+    DAMAGED_PRODUCTION
+}
+
+enum StockOrderStatus {
+    # 待入(出)库
+    UN_STORAGE
+    # 部分入(出)库
+    PART_STORAGE
+    # 已完成
+    COMPLETE
+}
+
+# 业务类型枚举
+enum BusinessType {
+    # 采购
+    BIZ_PURCHASE
+    # 采购退货
+    BIZ_PURCHASE_RETURN
+    # 调拨
+    BIZ_TRANSFER
+    # 盘点
+    BIZ_INVENTORY
+    # 销售
+    BIZ_SALES
+    # 销售退货
+    BIZ_SALES_RETURN
+    # 生产任务
+    BIZ_PRODUCTION_TASK
+    # 其他入库
+    BIZ_IN_STOCK
+    # 其他出库
+    BIZ_OUT_STOCK
+}

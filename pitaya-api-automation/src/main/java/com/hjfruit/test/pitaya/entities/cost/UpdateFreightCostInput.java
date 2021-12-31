@@ -10,9 +10,9 @@ import java.math.BigDecimal;
 @Data
 public class UpdateFreightCostInput {
     /**
-     * 供应商名称
+     * 供应商ID
      */
-    private String supplierName;
+    private Integer supplierId;
     /**
      * 费用类型id
      */
@@ -25,4 +25,8 @@ public class UpdateFreightCostInput {
      * 备注
      */
     private String note;
+    /**
+     * 支付方式 10月结 20半月结 30次结
+     */
+    private Integer payMode;
 }

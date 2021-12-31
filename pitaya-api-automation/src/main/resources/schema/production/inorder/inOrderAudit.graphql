@@ -29,7 +29,7 @@ extend type Mutation {
     #采购入库驳回订单
     rejectPurchaseOrderAudit(rejectedInput:RejectedInput):Boolean
     #采购完成入库
-    finishPurchaseOrderInBound(inOrderId:ID!):Boolean
+    finishPurchaseOrderInBound("入库订单ID" inOrderId:ID!):Boolean
 }
 
 input InOrderDetailInput {
@@ -66,23 +66,25 @@ type InboundListPayload{
 
 #待入库商品信息
 type ToBeInboundPayload{
+    commoditySkuId:Int
     #SPU名称
     commodityName:String
     #规格选项
     skuTextDescription:[String]
     #小单位数量
     unitQuantity:BigDecimal
+    unitType:Int
     #小单位类型名称
     unitTypeName:String
     #副单位数量
     totalQuantity:BigDecimal
+    totalType:Int
     #副单位类型名称
     totalTypeName:String
     #副单位与基本单位换算
     conversion:BigDecimal
     #毛重
     grossUnitQuantity:BigDecimal
-
     #待入库数量
     waitUnitQuantity:BigDecimal
     waitTotalQuantity:BigDecimal
@@ -95,6 +97,7 @@ type InboundRecordPayload{
     totalPrice:BigDecimal
     #入库单号
     inOrderCode:String
+    userId:Int
     #入库人员
     createUserName:String
     #入库时间
@@ -106,20 +109,24 @@ type InboundRecordPayload{
 }
 
 type InboundRecordItemPayload{
+    commoditySkuId:Int
     #SPU名称
     commodityName:String
     #规格选项
     skuTextDescription:[String]
     #小单位数量
     unitQuantity:BigDecimal
+    unitType:Int
     #小单位类型名称
     unitTypeName:String
     #副单位数量
     totalQuantity:BigDecimal
+    totalType:Int
     #副单位类型名称
     totalTypeName:String
     #单价
     unitPrice:BigDecimal
+    unitPriceType:Int
     #单价单位名称
     unitPriceTypeName:String
     #总价

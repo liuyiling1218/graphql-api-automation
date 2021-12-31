@@ -1,3 +1,47 @@
+input UpdateTransferCommodityInput{
+    # 调拨id
+    flowId:ID
+    # 调拨类型
+    transferType:Int
+    # 商品类型
+    commodityType:Int
+    # 调出仓库id
+    sourceWarehouseId:Int
+    # 调出归属类型
+    sourceBelongType:Int
+    # 调出归属id
+    sourceBelongId:Int
+    # 调入仓库id
+    targetWarehouseId:Int
+    # 备注信息
+    remark:String
+    # 调拨商品
+    flowTransferCommodityInput:[FlowTransferCommodityInput]
+    # 运杂费用
+    flowTransferOtherBillInput:[FlowTransferOtherBillInput]
+}
+
+input FlowTransferCommodityInput{
+    # sku id
+    skuId:Int
+    # 批次id
+    batchId:Int
+    # 总计数量
+    totalQuantity:BigDecimal
+    # 总计类型
+    totalType:Int
+    # 单位数量
+    unitQuantity:BigDecimal
+    # 单位类型
+    unitType:Int
+    # 单价
+    unitPrice:BigDecimal
+    # 单价类型
+    priceType:Int
+    # 金额
+    amount:BigDecimal
+}
+
 input OrderStatusStatisticsInput {
     #生产任务id
     taskId:ID!
@@ -14,4 +58,318 @@ type OrderStatusStatisticsPayload {
     processingNum: Int
     #已完成数量
     completedNum: Int
+}
+
+input  TransferBillInput{
+    # 费用类型
+    billType:Int
+    # 付款方式
+    payMode:Int
+    # 供应商id
+    supplierId:Int
+    # 费用金额
+    amount:BigDecimal
+    # 车牌
+    brand:String
+    # 联系电话
+    phone:String
+    # 备注
+    remark:String
+}
+
+type TransferOtherBillPayload{
+    # 运杂单id
+    billItemId:ID
+    # 运杂费单号
+    billCode:String
+    # 运杂款金额合计
+    totalAmount:BigDecimal
+    # 运杂费明细列表
+    transferOrderFeeItems:[TransferOtherItemBillPayload]
+}
+
+type TransferOtherItemBillPayload {
+    #运杂费属性（10:正常 20:调拨出库）
+    attr:Int
+    billType:Int
+    billTypeText:String
+    payMode:Int
+    payModeText:String
+    supplierId:Int
+    supplierName:String
+    amount:BigDecimal
+    brand:String
+    phone:String
+    remark:String
+    createTime:Long
+    createBy:Int
+    updateTime:Long
+    updateBy:Int
+    billFreightItemId:ID
+}
+
+input ListTransferOrderInput{
+    #订单起始时间
+    startTime:Long
+    #订单结束时间
+    endTime:Long
+    #调拨订单状态
+    flowStatus:[Int]
+    #查询关键字（调拨组织/商品名称，模糊查询）
+    keyword:String
+    #商品类型
+    commodityType:[Int]
+    #调拨类型（10 仓库间调拨，20 跨组织调拨，30库存退货，40库存借调）
+    transferType:[Int]
+}
+
+#分页对象
+type ListTransferOrderPayload{
+    records:[TransferOrderPayload]
+    pageCurrent: Int
+    pageSize: Int
+    totalRecords: Long
+}
+
+type TransferOrderPayload{
+    #调拨订单id
+    flowId:ID
+    #调拨单号
+    flowCode:String
+    #调拨申请类型
+    flowType:Int
+    #调拨申请类型名称
+    flowTypeName:String
+    #调拨类型（10 仓库间调拨，20 跨组织调拨，30库存退货，40库存借调）
+    transferType:Int
+    #商品类型
+    commodityType:Int
+    #商品类型名称
+    commodityTypeName:String
+
+    #调出仓库Id
+    sourceWarehouseId:Int
+    #调出仓库名称
+    sourceWarehouseName:String
+    #调出归属id
+    sourceBelongId:Int
+    #调出归属名称
+    sourceBelongName:String
+    #调入仓库Id
+    targetWarehouseId:Int
+    #调入仓库名称
+    targetWarehouseName:String
+    #调入归属id
+    targetBelongId:Int
+    #调入归属名称
+    targetBelongName:String
+    #订单备注
+    flowRemark:String
+    #订单状态
+    flowStatus:Int
+    #入库状态
+    flowStatusName:String
+    #创建时间
+    createTime:Long
+    #创建人员
+    createBy:Int
+    #创建人员姓名
+    createUserName:String
+    #操作人联系电话
+    createUserPhone:String
+    #修改人员
+    updateBy:Int
+    #修改人员姓名
+    updateUserName:String
+    #修改时间
+    updateTime:Long
+    #调拨商品
+    transferCommodityItemBills:[TransferCommodityItemBillPayload]
+    #运杂费用
+    transferOtherItemBills:[TransferOtherItemBillPayload]
+    #总货款
+    totalGoodsFee:BigDecimal
+    #总运杂款
+    totalTransportFees:BigDecimal
+    #费用id
+    billId:ID
+    #费用状态
+    billStatus:Int
+    #费用状态名称
+    billStatusName:String
+    #调拨驳回原因
+    transferRejectReason:String
+}
+
+input ListTransferBillInput {
+    # 开始日期
+    startTime:Long
+    # 结束日期
+    endTime:Long
+    # 商品类型
+    commodityType:[Int]
+    # 状态
+    flowStatus:[Int]
+    # 10 调拨出库 20 调拨入库
+    flowType:[Int]
+}
+
+input UpdateFlowTransferCommodityBillInput{
+    # 调拨申请id
+    flowId:ID
+    # 备注
+    remark:String
+    # 货款明细
+    updateFlowTransferCommodityItemReqList:[UpdateFlowTransferCommodityItemInput]
+}
+
+input  UpdateFlowTransferCommodityItemInput{
+    # item id
+    itemId:ID
+    # sku id
+    skuId:Int
+    # 批次id
+    batchId:Int
+    # 单价
+    unitPrice:BigDecimal
+    # 单位数量
+    unitQuantity:BigDecimal
+    # 总计数量
+    totalQuantity:BigDecimal
+    # 单价类型
+    priceType:Int
+    # 小计
+    amount:BigDecimal
+}
+
+input UpdateFlowTransferOtherBillInput{
+    # 调拨申请id
+    flowId:ID
+    # 费用单id
+    billId:ID
+    # 运杂款明细
+    flowTransferOtherBillReqList:[FlowTransferOtherBillInput]
+}
+
+input FlowTransferOtherBillInput{
+    # 费用类型
+    billType:Int
+    # 付款方式
+    payMode:Int
+    # 供应商id
+    supplierId:Int
+    # 费用金额
+    amount:BigDecimal
+    # 车牌
+    brand:String
+    # 联系电话
+    phone:String
+    # 备注
+    remark:String
+}
+
+type ListTransferBillPayload {
+    #采购订单列表
+    records:[TransferBillPayload]
+    pageCurrent: Int
+    pageSize: Int
+    totalRecords: Long
+}
+
+enum OrderOperation {
+    SUBMIT
+    REJECT
+    CANCEL
+    AUDIT
+}
+
+input UpdateTransferOrderStatInput {
+    flowId:ID!
+    orderOperation:OrderOperation
+    remark:String
+}
+
+input GetTransferOrderFeeStatusInput {
+    #订单起始时间
+    startTime:Long
+    #订单结束时间
+    endTime:Long
+    #商品类型
+    commodityType:[Int]
+    #调拨类型（10 仓库间调拨，20 跨组织调拨，30库存退货，40库存借调）
+    transferType:[Int]
+    #关键字查询
+    keyword:String
+}
+
+type GetTransferOrderFeeStatusPayload {
+    toSubmit:Int
+    submit:Int
+}
+
+type TransferCommodityBillPayload {
+    # 货款单号
+    billCode:String
+    # 备注
+    remark:String
+    # 货款金额总计
+    totalAmount:BigDecimal
+    # 明细数据
+    transferCommodityItemBills:[TransferCommodityItemBillPayload]
+}
+
+type TransferCommodityItemBillPayload {
+    #订单明细id
+    itemId:ID
+    #商品id
+    commodityId:Int
+    #商品名称
+    commodityName:String
+    #商品sku id
+    commoditySkuId:Int
+    #商品规格选项id
+    commoditySpecOptionId:[Int]
+    #sku文字描述，规格选项文字数组
+    skuTextDescription:[String]
+    #单位类型数量（例：kg，个）
+    unitQuantity:BigDecimal
+    #单位类型（例：kg，个）
+    unitType:Int
+    #单位类型名称
+    unitTypeName:String
+    #总计类型数量（例：件）
+    totalQuantity:BigDecimal
+    #总计类型（例：件）
+    totalType:Int
+    #总计类型名称
+    totalTypeName:String
+    #销售单价
+    unitPrice:BigDecimal
+    #计价单位
+    priceType:Int
+    #计价单位类型名称
+    priceTypeName:String
+    #批次id
+    batchId:Int
+    #批次号
+    batchCode:String
+    #创建时间
+    createTime:Long
+    #创建人id
+    createBy:Int
+    #更新时间
+    updateTime:Long
+    #更新人id
+    updateBy:Int
+    #库存数量
+    stockUnitQuantity:BigDecimal
+    stockTotalQuantity:BigDecimal
+    #所属客户id
+    customerId:Int
+    #所属客户名称
+    customerName:String
+    #换算关系
+    conversion:Int
+    #小计
+    amount:BigDecimal
 }

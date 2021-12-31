@@ -2,7 +2,6 @@ package com.hjfruit.test.pitaya.utils;
 
 import com.hjfruit.test.pitaya.config.ApiAutomationConfig;
 import com.hjfruit.test.pitaya.entities.production.inorder.CreateAcquireInput;
-import com.hjfruit.test.pitaya.entities.production.inorder.PurchaseOrderInsertInput;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.yaml.snakeyaml.Yaml;

@@ -16,10 +16,10 @@ public class CreateCostInput {
     @Needed
     private Integer typeId;
     /**
-     * 供应商名称
+     * 供应商名称 v2.3 name->Id
      */
     @Needed
-    private String supplierName;
+    private Integer supplierId;
     /**
      * 金额
      */
@@ -29,4 +29,9 @@ public class CreateCostInput {
      * 备注
      */
     private String note;
+    /**
+     * 付款方式
+     */
+    @Needed
+    private Integer payMode;
 }

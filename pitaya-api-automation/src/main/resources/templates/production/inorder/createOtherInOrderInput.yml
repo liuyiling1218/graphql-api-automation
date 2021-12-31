@@ -1,0 +1,20 @@
+# 如果觉得好用，请收藏或则分享本站
+inOrderTypeId: 100
+commodityTypeId: 5
+warehouseId: 57
+supplierId: 177
+customerTypeId: 20
+customerId: 486
+commodities:
+  - commoditySkuId: 150823
+    unitQuantity: '10'
+    totalQuantity: '10'
+    unitPrice: '10'
+    unitPriceType: 1
+    totalPrice: 100
+  - commoditySkuId: 155778
+    unitQuantity: '10'
+    totalQuantity: '10'
+    unitPrice: '10'
+    unitPriceType: 1
+    totalPrice: 100

@@ -11,6 +11,10 @@ import java.util.List;
 @Data
 public class InboundRecordItemPayload {
     /**
+     *
+     */
+    private Integer commoditySkuId;
+    /**
      * SPU名称
      */
     private String commodityName;
@@ -23,6 +27,10 @@ public class InboundRecordItemPayload {
      */
     private BigDecimal unitQuantity;
     /**
+     *
+     */
+    private Integer unitType;
+    /**
      * 小单位类型名称
      */
     private String unitTypeName;
@@ -31,6 +39,10 @@ public class InboundRecordItemPayload {
      */
     private BigDecimal totalQuantity;
     /**
+     *
+     */
+    private Integer totalType;
+    /**
      * 副单位类型名称
      */
     private String totalTypeName;
@@ -38,6 +50,10 @@ public class InboundRecordItemPayload {
      * 单价
      */
     private BigDecimal unitPrice;
+    /**
+     *
+     */
+    private Integer unitPriceType;
     /**
      * 单价单位名称
      */
