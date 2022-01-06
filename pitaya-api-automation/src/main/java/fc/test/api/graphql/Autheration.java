@@ -11,4 +11,5 @@ public class Autheration {
     public static Boolean required = true;
     public static String currentUser = "";
     public static String token = "";
+
 }

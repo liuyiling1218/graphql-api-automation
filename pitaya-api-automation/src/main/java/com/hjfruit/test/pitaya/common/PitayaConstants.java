@@ -304,7 +304,27 @@ public class PitayaConstants {
             this.planStatusId = planStatusId;
             this.planStatusName = planStatusName;
         }
+    }
 
+    /**
+     * 借调状态
+     */
+    @Getter
+    public enum SecondmentStatus {
+        TO_BE_SUBMIT(10, "待提交"),
+        SUBMIT(20, "已提交"),
+        REJECT(30, "已驳回"),
+        FINISHED(40, "已完成"),
+        CANCELED(50, "已取消"),
+        TO_BE_AUDIT(60, "待审核");
+        private final int secondmentStatusId;
+        private final String secondmentStatusName;
 
+        SecondmentStatus(int secondmentStatusId, String secondmentStatusName) {
+
+            this.secondmentStatusId = secondmentStatusId;
+            this.secondmentStatusName = secondmentStatusName;
+
+        }
     }
 }

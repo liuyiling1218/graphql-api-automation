@@ -482,6 +482,7 @@ public class ApiProxy<T> implements InvocationHandler, ApplicationContextAware {
                         String.class.isAssignableFrom(field.getType()) ||
                         Integer.class.isAssignableFrom(field.getType()) ||
                         Long.class.isAssignableFrom(field.getType()) ||
+                        Float.class.isAssignableFrom(field.getType()) ||
                         Boolean.class.isAssignableFrom(field.getType()) ||
                         BigDecimal.class.isAssignableFrom(field.getType()) ||
                         Date.class.isAssignableFrom(field.getType())

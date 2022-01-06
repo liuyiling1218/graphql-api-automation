@@ -1,0 +1,99 @@
+extend type Mutation {
+    #新增采购退货订单
+    createPurchaseReturn(purchaseReturnInsertInput:PurchaseReturnInsertInput):ID
+    #修改采购退货
+    updatePurchaseReturn(purchaseReturnUpdateInput:PurchaseReturnUpdateInput):ID
+    #取消采购退货
+    cancelPurchaseReturn(purchaseReturnCancelInput:PurchaseReturnCancelInput):ID
+    #提交库管
+    submitPurchaseReturn(purchaseReturnSubmitInput:PurchaseReturnSubmitInput):ID
+}
+
+extend type Query {
+    #查询采购退货商品信息
+    inStockOrderCommodity(queryOrderCommodityListInput:QueryOrderCommodityListInput):InStockOrderCommodityListPayload
+    #分页查询退货信息
+    pagePurchaseReturn(pagePurchaseReturnInput:PagePurchaseReturnInput):PagePurchaseReturnPayload
+    #采购退货详情
+    purchaseReturnDetail(purchaseReturnDetailInput:PurchaseReturnDetailInput):PurchaseReturnDetailPayload
+    #分状态统计
+    purchaseReturnStatusCount(purchaseReturnStatusCountInput:PurchaseReturnStatusCountInput):PurchaseReturnStatusCountPayload
+}
+
+
+input InOrderIdInput{
+    #订单Id
+    inOrderId:ID!
+}
+
+#采购退货新增
+input PurchaseReturnInsertInput{
+    #采购订单Id
+    purchaseId:ID!
+    #备注
+    note:String
+    #商品信息
+    commodities:[PurchaseReturnItemInput]!
+}
+
+#采购退货修改
+input PurchaseReturnUpdateInput{
+    #采购退货订单Id
+    purchaseReturnId:ID!
+    #备注
+    note:String
+    #商品信息
+    commodities:[PurchaseReturnItemInput]!
+}
+
+#采购退货订单商品信息
+input PurchaseReturnItemInput{
+    #skuId
+    commoditySkuId:Int!
+    #退货数量副单位
+    totalQuantity:BigDecimal
+    #退货数量基本单位
+    unitQuantity:BigDecimal!
+    #金额小计 ？
+    totalAmount:BigDecimal
+}
+
+#采购退货取消
+input PurchaseReturnCancelInput{
+    #采购退货订单Id
+    purchaseReturnId:ID!
+    #备注
+    note:String!
+}
+
+#采购退货提交
+input PurchaseReturnSubmitInput{
+    #采购退货订单Id
+    purchaseReturnId:ID!
+}
+
+input PagePurchaseReturnInput{
+    # 传当天的时间段
+    startTime:Long
+    endTime:Long
+    #查询状态
+    status:PurchaseReturnQueryStatus
+    keywords:String
+    page:Page
+}
+input PurchaseReturnDetailInput{
+    purchaseReturnId:ID!
+}
+
+# 分状态统计入参信息
+input PurchaseReturnStatusCountInput {
+    # 查询开始时间 传当天的时间段
+    startTime:Long!
+    # 查询结束时间
+    endTime:Long!
+}
+
+input QueryOrderCommodityListInput {
+    # 采购ID
+    businessId:Long
+}

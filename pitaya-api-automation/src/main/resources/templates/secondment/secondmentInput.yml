@@ -1,0 +1,20 @@
+# 如果觉得好用，请收藏或则分享本站
+warehouseId: 57
+warehouseName: 成都双流大仓
+commodityTypeId: 5
+commodityTypeName: 原料
+outBelongType: 20
+outBelongId: 486
+outBelongName: 盒马NB
+inBelongType: 20
+inBelongId: 485
+inBelongName: 盒马集市
+secondmentOrderItemList:
+  - skuId: 125905
+    batchId: 15848
+    transferTotalQuantity: 1
+    transferUnitQuantity: 1
+  - skuId: 150823
+    batchId: 15961
+    transferTotalQuantity: 1
+    transferUnitQuantity: 1
