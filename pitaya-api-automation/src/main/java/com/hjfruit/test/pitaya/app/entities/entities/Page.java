@@ -1,4 +1,4 @@
-package com.hjfruit.test.pitaya.entities;
+package com.hjfruit.test.pitaya.app.entities.entities;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class Page {
     public Page() {
-        this.pageCurrent = 1;
+        this.pageCurrent = 0;
         this.pageSize = 10;
     }
 

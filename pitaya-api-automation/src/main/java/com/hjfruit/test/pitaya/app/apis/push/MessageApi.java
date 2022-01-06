@@ -5,7 +5,6 @@ import com.hjfruit.test.pitaya.app.entities.push.UserDevicePayload;
 import fc.test.api.graphql.annotation.GraphqlGroup;
 import fc.test.api.graphql.annotation.GraphqlMutation;
 import fc.test.api.graphql.entity.GraphqlConifg;
-
 /**
  * Generated From Graphql Schema
  */
@@ -13,7 +12,6 @@ import fc.test.api.graphql.entity.GraphqlConifg;
 public interface MessageApi {
     @GraphqlMutation("")
     UserDevicePayload syncUserDevicePlatform(UserDeviceInput userDeviceInput);
-
     @GraphqlMutation("")
     String sendMessage(Integer id);
 }

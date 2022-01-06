@@ -11,7 +11,6 @@ import fc.test.api.graphql.annotation.GraphqlQuery;
 import fc.test.api.graphql.entity.GraphqlConifg;
 
 import java.util.List;
-
 /**
  * Generated From Graphql Schema
  */
@@ -22,16 +21,12 @@ public interface SupplierApi {
 
     @GraphqlQuery("")
     SupplierPayload supplier(Integer supplierId);
-
     @GraphqlQuery("")
     List<SupplierPayload> suppliers(SupplierConditionInput supplierCondition);
-
     @GraphqlMutation(" 创建供应商")
     Integer createSupplier(SupplierInput supplierInput);
-
     @GraphqlMutation(" 更新供应商")
     Integer updateSupplier(SupplierInput supplierInput);
-
     @GraphqlMutation(" 删除供应商")
     Integer deleteSupplier(Integer supplierId);
 }

@@ -1,7 +1,0 @@
-interface PageList{
-    records:[Node]
-    pageCurrent:Int
-    pageSize:Int
-    totalRecords:Long
-}
-

@@ -26,10 +26,6 @@ public class UpdateCostOrderInput {
     /**
      *
      */
-    private String commodityRemark;
-    /**
-     *
-     */
     private List<UpdateCommodityPriceInput> commodityItems;
     /**
      *

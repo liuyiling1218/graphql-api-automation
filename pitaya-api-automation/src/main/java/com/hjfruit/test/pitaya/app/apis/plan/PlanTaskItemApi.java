@@ -7,7 +7,6 @@ import fc.test.api.graphql.annotation.ID;
 import fc.test.api.graphql.entity.GraphqlConifg;
 
 import java.util.List;
-
 /**
  * Generated From Graphql Schema
  */

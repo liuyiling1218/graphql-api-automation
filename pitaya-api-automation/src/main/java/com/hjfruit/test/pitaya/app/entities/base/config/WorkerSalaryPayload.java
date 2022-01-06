@@ -1,7 +1,8 @@
 package com.hjfruit.test.pitaya.app.entities.base.config;
 
-import com.hjfruit.test.pitaya.entities.base.config.ConfigValuePayload;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
@@ -9,7 +10,9 @@ import java.math.BigDecimal;
  * 工资
  */
 @Data
-public class WorkerSalaryPayload implements ConfigValuePayload {
+@AllArgsConstructor
+@NoArgsConstructor
+public class WorkerSalaryPayload {
     /**
      *
      */

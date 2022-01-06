@@ -8,7 +8,6 @@ import fc.test.api.graphql.annotation.GraphqlMutation;
 import fc.test.api.graphql.annotation.GraphqlQuery;
 import fc.test.api.graphql.annotation.ID;
 import fc.test.api.graphql.entity.GraphqlConifg;
-
 /**
  * Generated From Graphql Schema
  */
@@ -19,16 +18,12 @@ public interface TransferBillApi {
 
     @GraphqlQuery("查询调拨费用订单详情")
     TransferBillPayload getTransferBill(@ID String flowId);
-
     @GraphqlQuery("查询调拨费用单状态值")
     GetTransferOrderFeeStatusPayload getTransferOrderFeeStatus(GetTransferBillStatusInput getTransferBillStatusInput);
-
     @GraphqlMutation("调拨出库货款单修改")
     String updateTransferCommodityBill(UpdateFlowTransferCommodityBillInput updateFlowTransferCommodityBillInput);
-
     @GraphqlMutation("调拨出库运杂款修改")
     String updateTransferOtherBill(UpdateFlowTransferOtherBillInput updateFlowTransferOtherBillInput);
-
     @GraphqlMutation("提交出库费用单审核")
     String updateTransferStat(UpdateTransferOrderStatInput updateTransferOrderStatInput);
 }

@@ -11,7 +11,6 @@ import fc.test.api.graphql.annotation.Needed;
 import fc.test.api.graphql.entity.GraphqlConifg;
 
 import java.util.List;
-
 /**
  * Generated From Graphql Schema
  */
@@ -19,22 +18,16 @@ import java.util.List;
 public interface UserApi {
     @GraphqlMutation("")
     Integer createUser(UserInput userInput);
-
     @GraphqlMutation("")
     Integer updateUser(UserInput userInput);
-
     @GraphqlMutation("")
     Integer deleteUser(Integer userId);
-
     @GraphqlQuery("")
     List<Option> listProductLeader(@Needed ProductInput productInput);
-
     @GraphqlQuery("")
     UserPayload userInformation(Integer userId);
-
     @GraphqlQuery("")
     UserPageResult userInformationList(Page page);
-
     @GraphqlQuery("")
     Integer userExist(@Needed String phoneNum);
 

@@ -1,13 +1,16 @@
 package com.hjfruit.test.pitaya.app.entities.base.config;
 
-import com.hjfruit.test.pitaya.entities.base.config.ConfigValuePayload;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 开关
  */
 @Data
-public class ProductionSwitchPayload implements ConfigValuePayload {
+@AllArgsConstructor
+@NoArgsConstructor
+public class ProductionSwitchPayload {
     /**
      *
      */
