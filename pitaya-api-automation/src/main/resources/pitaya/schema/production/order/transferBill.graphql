@@ -1,0 +1,107 @@
+extend type Query {
+    #查询调拨费用订单
+    listTransferBill(listTransferBillInput:ListTransferBillInput,page:Page):ListTransferBillPayload
+    #查询调拨费用订单详情
+    getTransferBill(flowId:ID):TransferBillPayload
+    #查询调拨费用单状态值
+    getTransferOrderFeeStatus(getTransferBillStatusInput:GetTransferBillStatusInput):GetTransferOrderFeeStatusPayload
+}
+
+extend type Mutation {
+    #调拨出库货款单修改
+    updateTransferCommodityBill(updateFlowTransferCommodityBillInput:UpdateFlowTransferCommodityBillInput):ID
+    #调拨出库运杂款修改
+    updateTransferOtherBill(updateFlowTransferOtherBillInput:UpdateFlowTransferOtherBillInput):ID
+    #提交出库费用单审核
+    updateTransferStat(updateTransferOrderStatInput:UpdateTransferOrderStatInput):ID
+}
+
+
+input UpdateTransferOrderStatInput {
+    flowId:ID!
+    orderOperation:OrderOperation
+    remark:String
+}
+
+enum OrderOperation {
+    SUBMIT
+    REJECT
+    CANCEL
+    AUDIT
+}
+
+input UpdateFlowTransferCommodityBillInput{
+    # 调拨申请id
+    flowId:ID
+    # 备注
+    remark:String
+    # 货款明细
+    updateFlowTransferCommodityItemReqList:[UpdateFlowTransferCommodityItemInput]
+}
+
+input  UpdateFlowTransferCommodityItemInput{
+    # item id
+    itemId:ID
+    # sku id
+    skuId:Int
+    # 批次id
+    batchId:Int
+    # 单价
+    unitPrice:BigDecimal
+    # 单价类型
+    priceType:Int
+    # 小计
+    amount:BigDecimal
+}
+
+input UpdateFlowTransferOtherBillInput{
+    # 调拨申请id
+    flowId:ID
+    # 费用单id
+    billId:ID
+    # 运杂款明细
+    flowTransferOtherBillReqList:[FlowTransferOtherBillInput]
+}
+
+input FlowTransferOtherBillInput{
+    # 费用类型
+    billType:Int
+    # 付款方式
+    payMode:Int
+    # 供应商id
+    supplierId:Int
+    # 费用金额
+    amount:BigDecimal
+    # 车牌
+    brand:String
+    # 联系电话
+    phone:String
+    # 备注
+    remark:String
+}
+
+input ListTransferBillInput {
+    # 开始日期
+    startTime:Long
+    # 结束日期
+    endTime:Long
+    # 商品类型
+    commodityType:[Int]
+    # 状态
+    flowStatus:[Int]
+    # 10 调拨出库 20 调拨入库
+    flowType:Int
+}
+
+input GetTransferBillStatusInput {
+    #订单起始时间
+    startTime:Long
+    #订单结束时间
+    endTime:Long
+    #商品类型
+    commodityType:[Int]
+    #调拨类型（10 仓库间调拨，20 跨组织调拨，30库存退货，40库存借调）
+    transferType:[Int]
+    #调拨类型
+    flowType:Int
+}

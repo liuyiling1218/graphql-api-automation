@@ -1,0 +1,205 @@
+extend type Query {
+    #查询全部入库订单
+    inOrderList(productionInOrderListInput:ProductionInOrderListInput!):ProductionInOrderListPayload
+    #出库订单列表数量统计
+    inOrderStatusStatistics(orderStatusStatisticsInput:OrderStatusStatisticsInput):OrderStatusStatisticsPayload
+    #单个入库订单详情
+    inOrderDetail(inOrderId:ID!):ProductionInOrderPayload
+    #入库订单记录
+    inOrderLog(inOrderId:ID!):ProductionInOrderLogListPayload
+
+    #原料/辅料退料->信息保存
+    insertMaterialReturns(insertMaterialReturnsInput:InsertMaterialReturnsInput):ID
+}
+
+extend type Mutation {
+    #修改入库订单
+    modifyInOrder(inOrderUpdate:InOrderUpdate!):ID
+    #取消入库订单
+    cancelInOrder(cancelInOrderInput:CancelInOrderInput!):ID
+    #入库订单提交库管
+    submitInOrder(inOrderId:ID!):ID
+}
+
+type ProductionInOrderListPayload{
+    ProductionInOrdersList:[ProductionInOrderPayload]
+}
+
+input InsertMaterialReturnsInput {
+    taskId:ID!
+    commodityType: Int!
+    inOrderDescription: String
+    materialReturnsCommodityInput:[MaterialReturnsCommodityInput]!
+}
+
+input MaterialReturnsCommodityInput {
+    commoditySkuId: Int!
+    totalQuantity: Int!
+    unitQuantity: BigDecimal!
+    batchCode: Int!
+}
+
+type ProductionInOrderPayload{
+    #入库订单id
+    inOrderId:ID
+    #生产任务id
+    taskId:ID
+    #生产任务编号
+    taskCode:String
+    #入库订单编号
+    inOrderCode:String
+    #入库订单类型[10:生产入库]
+    inOrderType:Int
+    #入库订单类型名称
+    inOrderTypeName:String
+    #入库订单状态
+    #10：待提交
+    #20：待入库
+    #30：部分入库
+    #40：已完成
+    #50：已取消';
+    inOrderStatus:Int
+    #订单状态名称
+    inOrderStatusName:String
+    #商品类型id
+    commodityTypeId:Int
+    #商品类型名称
+    commodityTypeName:String
+    #客户所属id
+    customerId: Int
+    #客户所属名称
+    customerName: String
+    #客户配送地址id
+    customerDistributionId:Int
+    #客户配送地址名称
+    customerDistributionName:String
+    #分公司id
+    organizationId:Int
+    #分公司名称
+    organizationName:String
+    #仓库id
+    warehouseId:Int
+    #仓库名称
+    warehouseName:String
+    #备注信息
+    inOrderDescription:String
+    #创建时间
+    createTime:Long
+    #创建人
+    createBy:Int
+    #创建人名称
+    createUserName:String
+    #更新时间
+    updateTime:Long
+    #更新人id
+    updateBy:Int
+    #商品信息
+    commodities:[ProductionInOrderItemPayload]
+    #取消订单备注
+    cancelDescription:String
+
+}
+
+type ProductionInOrderItemPayload{
+    #生产入库订单明细id
+    inOrderItemId:ID
+    #生库订单id
+    inOrderId:ID
+    #商品id
+    commodityId: Int
+    #商品名称
+    commodityName: String
+    #商品sku id
+    commoditySkuId: Int
+    #商品规格选项id
+    commoditySpecOptionId: [Int]
+    #sku文字描述，规格选项文字数组
+    skuTextDescription: [String]
+    #单位类型数量(x个)
+    unitQuantity:BigDecimal
+    #单位类型（例：kg，个）
+    unitType: Int
+    #单位类型数量（例：kg，个）
+    unitTypeName: String
+    #总计类型数量(x箱)
+    totalQuantity:BigDecimal
+    #总计类型（例：件）
+    totalType: Int
+    #总计类型数量（例：件）
+    totalTypeName: String
+    createTime: Long
+    createBy: Int
+    updateTime: Long
+    batchId: Int
+    batchCode: String
+    conversion: BigDecimal
+    unitQuantityPicking: BigDecimal
+    totalQuantityPicking: BigDecimal
+}
+type ProductionInOrderLogListPayload{
+    inOrderLogList:[ProductionInOrderLogPayload]
+}
+
+type ProductionInOrderLogPayload{
+    #入库订单日志id
+    inOrderLogId:ID
+    #入库订单id
+    inOrderId:ID
+    #入库订单操作类型
+    #10：创建时间
+    #20：提交时间
+    #30：入库时间
+    #40：取消时间;
+    inOrderLogType: Int
+    #入库订单操作枚举文字
+    inOrderLogTypeText: String
+    #入库订单操作备注
+    inOrderLogDescription: String
+    createTime: Long
+    createBy: Int
+    #创建用户名称
+    createUserName: String
+}
+input InOrderUpdate {
+    #生产订单id
+    inOrderId:ID!
+    #商品类型id
+    commodityTypeId:Int!
+    #入库类型
+    inOrderType: Int!
+    #备注信息
+    inOrderDescription:String
+    #商品item信息
+    inOrderItem:[InOrderItemUpdate]!
+}
+#入库明细
+input InOrderItemUpdate {
+    #入库明细id
+    inOrderItemId:ID
+    #商品sku id
+    commoditySkuId:Int!
+    #批次id
+    batchId: Int
+    #单位类型数量（例：kg，个）
+    unitQuantity:BigDecimal!
+    #总计类型数量（例：件）
+    totalQuantity:BigDecimal
+}
+input ProductionInOrderListInput{
+    #生产任务id
+    taskId:ID!
+    #任务类型id
+    taskTypeCode: Int!
+    #出库类型
+    inOrderType: Int
+    #任务状态
+    inOrderStatus:Int
+}
+input CancelInOrderInput{
+    inOrderId:ID!
+    inOrderDescription:String
+}
+
+
+
+

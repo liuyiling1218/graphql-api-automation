@@ -1,0 +1,122 @@
+extend type Query {
+    #查询调拨入库订单列表
+    listTransferInOrder(listTransferOrderInput:ListTransferOrderInput,page:Page):ListTransferOrderPayload
+    #查询调拨入库订单
+    getTransferInOrder(flowId:ID):TransferOrderPayload
+    #查询调拨入库订单状态值
+    getTransferInOrderStatus(getTransferInOrderStatusInput:GetTransferInOrderStatusInput):GetTransferInOrderStatusPayload
+}
+
+input GetTransferInOrderStatusInput{
+    #订单起始时间
+    startTime:Long
+    #订单结束时间
+    endTime:Long
+    #商品类型
+    commodityType:[Int]
+    #调拨类型（10 仓库间调拨，20 跨组织调拨，30库存退货，40库存借调）
+    transferType:[Int]
+    #关键字查询
+    keyword:String
+}
+
+type TransferBillPayload{
+    # 费用单id
+    billId:ID
+    # 调拨申请单id
+    flowId:ID
+    # 调拨单号
+    flowCode:String
+    # 出入库订单id
+    orderId:ID
+    # 出入库订单编号
+    orderCode:String
+    # 来源id
+    sourceId:ID
+    # 调拨申请类型
+    flowType:Int
+    # 调拨申请类型名称
+    flowTypeName:String
+    # 调拨类型
+    transferType:Int
+    # 商品类型
+    commodityType:Int
+    # 商品类型名称
+    commodityTypeName:String
+    # 调出仓库id
+    sourceWarehouseId:Int
+    # 调出仓库名称
+    sourceWarehouseName:String
+    # 调出归属类型
+    sourceBelongType:Int
+    # 调出归属id
+    sourceBelongId:Int
+    # 调出归属名称
+    sourceBelongName:String
+    # 调入仓库id
+    targetWarehouseId:Int
+    # 调入仓库名称
+    targetWarehouseName:String
+    # 调入归属类型
+    targetBelongType:Int
+    # 调入归属id
+    targetBelongId:Int
+    # 调入归属名称
+    targetBelongName:String
+    # 备注信息
+    remark:String
+    # 调拨申请状态
+    flowStatus:Int
+    # 调拨申请状态名称
+    flowStatusName:String
+    # 费用状态
+    billStatus:BillStatusEnum
+    # 费用状态名称
+    billStatusName:String
+    # 调拨订单创建时间
+    flowApplyCreateTime:Long
+    # 调拨订单创建人
+    flowCreateBy:Int
+    # 调拨订单创建人姓名
+    flowCreateName:String
+    # 出入库时间
+    stockUpdateTime:Long
+    # 出入库操作人
+    stockCreateBy:Int
+    # 出入库操作人姓名
+    stockCreateName:String
+    # 出入库审核人
+    stockAuditUser:Int
+    # 出入库审核人
+    stockAuditUserName:String
+    # 费用审核人
+    billAuditBy:Int
+    # 费用审核人姓名
+    billAuditName:String
+    # 调拨商品
+    transferCommodityBill:TransferCommodityBillPayload
+    # 运杂费用
+    transferOtherBill:TransferOtherBillPayload
+    # 驳回原因
+    refuseNote:String
+    # 调出方合计
+    sourceTotalAmount:BigDecimal
+    # 调入方合计
+    targetTotalAmount:BigDecimal
+}
+
+enum BillStatusEnum {
+    UNRECOGNIZED
+    BILL_UN_CONFIRMED
+    BILL_UN_SUBMITTED
+    BILL_BIZ_UN_REVIEWED
+    BILL_FD_UN_REVIEWED
+    BILL_COMPLETE
+}
+
+type GetTransferInOrderStatusPayload{
+    #待提交
+    toSubmit:Int
+    #待处理
+    toProcess:Int
+}

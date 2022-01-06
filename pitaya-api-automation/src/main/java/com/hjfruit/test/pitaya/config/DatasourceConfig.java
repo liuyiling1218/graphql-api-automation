@@ -17,15 +17,34 @@ public class DatasourceConfig {
         return DataSourceBuilder.create().build();
     }
 
+
     @Bean
-    @ConfigurationProperties("spring.datasource.peach")
-    DataSource peachDatasource() {
+    @ConfigurationProperties("spring.datasource.fc-user")
+    DataSource fcUserDatasource() {
         return DataSourceBuilder.create().build();
     }
 
     @Bean
-    @ConfigurationProperties("spring.datasource.fc-mdm")
-    DataSource fcMdmDatasource() {
+    @ConfigurationProperties("spring.datasource.fc-customer")
+    DataSource fcCustomerDatasource() {
+        return DataSourceBuilder.create().build();
+    }
+
+    @Bean
+    @ConfigurationProperties("spring.datasource.fc-supplier")
+    DataSource fcSupplierDatasource() {
+        return DataSourceBuilder.create().build();
+    }
+
+    @Bean
+    @ConfigurationProperties("spring.datasource.fc-warehouse")
+    DataSource fcWarehouseDatasource() {
+        return DataSourceBuilder.create().build();
+    }
+
+    @Bean
+    @ConfigurationProperties("spring.datasource.commodity")
+    DataSource commodityDatasource() {
         return DataSourceBuilder.create().build();
     }
 }

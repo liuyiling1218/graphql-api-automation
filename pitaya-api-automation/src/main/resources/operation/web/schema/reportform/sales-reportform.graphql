@@ -1,0 +1,83 @@
+# 销售报表
+# 销售报表查询
+extend type Query {
+    # 列表接口
+    pageSalesReportForm(input:SalesReportFormPageInput):SalesReportFormPagePayload
+    # 列表导出
+    exportSalesReportForm(input:SalesReportFormQueryInput):String
+}
+
+# 列表分页入参
+input SalesReportFormPageInput{
+    salesReportFormQueryInput:SalesReportFormQueryInput
+    # 分页入参
+    pageInput: Page!
+}
+# 列表通用查询入参
+input SalesReportFormQueryInput{
+    # 商户ID
+    merchantId:Long
+    # 付款类型
+    payMethod:[PayMethod]
+    # 手工单编号
+    orderCode:String
+    # 批次号
+    batchStockCode:String
+    # 客户类型
+    customerType:CustomerType
+    # 客户名称
+    customerName:String
+    # 销售时间起
+    payStartTime:Long
+    # 销售时间终
+    payEndTime:Long
+}
+
+# 列表分页对象
+type SalesReportFormPagePayload{
+    records:[SalesReportFormListPayload]
+    pageCurrent:Int
+    pageSize:Int
+    totalRecords:Long
+}
+# 列表集合对象
+type SalesReportFormListPayload{
+    # 主键
+    id:Long
+    # 所属商户
+    merchant:String
+    # 付款类型
+    payMethod:[String]
+    # 手工单编号
+    orderCode:String
+    # 客户ID
+    customerId:Long
+    # 客户名称
+    customerName:String
+    # 销售时间
+    payTime:Long
+    # 客户类型
+    customerType:String
+    # SKUID
+    productId:Long
+    # SKU名称
+    productName:String
+    # 批次号
+    batchStockCode:String
+    # 单位
+    unit:String
+    # 数量
+    quantity:BigDecimal
+    # 单价
+    unitPrice:BigDecimal
+    # 合计金额
+    totalMoney:BigDecimal
+    # 备注
+    remark:String
+    # 品种组
+    varietyGroup:String
+    # 柜次号
+    cabinetBatchCode:String
+    # 优惠后单价
+    discountUnitPrice:BigDecimal
+}

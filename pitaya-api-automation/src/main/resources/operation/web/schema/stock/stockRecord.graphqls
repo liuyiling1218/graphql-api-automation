@@ -1,0 +1,147 @@
+# 盘点记录
+input TakeStockRecordInput{
+    #盘点商户
+    orgId: Int
+    # 盘点仓库
+    warehouseId: Int
+    # 起始时间
+    startDate: Long
+    # 截止时间
+    expireDate:Long
+
+    pageCurrent: Int
+    pageSize: Int
+}
+
+# 盘点记录列表
+type PageTakeStockRecordListPayload{
+    records : [TakeStockRecordPayload]
+    pageCurrent:Int
+    pageSize:Int
+    totalRecords:Int
+}
+
+# 盘点记录信息
+type TakeStockRecordPayload{
+    # 盘点记录Id
+    checkId: Int
+    #盘点商户
+    orgName: String
+    # 盘点日期
+    checkDate: Long
+    # 库存状态
+    totalStatus: Int
+    # 盘点仓库
+    warehouseName: String
+    # 盘点数量
+    checkNum: BigDecimal
+    # 操作人
+    username: String
+    # 提交时间
+    createTime: Long
+    #备注
+    remark: String
+}
+
+# 盘点记录详情
+input TakeStockRecordDetailInput{
+    # 盘点id
+    checkId : Int
+}
+
+# 盘点详情
+type TakeStockRecordDetailPayload{
+    # 盘点仓库名称
+    warehouseName : String
+    # 盘点日期
+    checkDate : Long
+    # 盘点商品数量
+    checkCount : Int
+    # 存在异常数量
+    abnormalQuantity: Int
+    # 盘点人
+    username : String
+    # 备注信息
+    remark : String
+    #盘点提交时间
+    createTime: Long
+    #盘点商户名称
+    orgName: String
+    #盘点商户id
+    orgId: Int
+    records :[TakeStockCommodityDetailPayload]
+}
+
+# 盘点商品详情
+type TakeStockCommodityDetailPayload{
+    # 盘点状态
+    checkStatus : Int
+    # 入库/出库 单号
+    stockOrderCode :  String
+    # 商品名称
+    commoditySkuName : String
+    # 系统库存
+    unitQuantity : BigDecimal
+    # 盘点库存
+    checkUnitQuantity :BigDecimal
+    # 1:盘盈 2:盘亏 3:正常
+    orderType : Int
+    # 异常原因
+    remark : String
+    #批次号
+    batchCode: String
+    #skuId
+    skuId: Int
+    # 溯源批次号
+    originalBatchCode: String
+}
+input WarehouseOptionInput {
+    #商户id
+    orgId: Int
+}
+type WarehouseOptionPayload {
+    #仓库id
+    id: Int
+    #仓库名称
+    name: String
+}
+enum StockRecordType {
+    # 未知
+    UNRECOGNIZED,
+    # 入库
+    IN
+    # 出库
+    OUT
+    # 所有类型
+    ALL
+}
+input StockTypeOptionInput {
+    # 出入库类型
+    stockRecordType: StockRecordType
+}
+
+type StockTypeOptionPayload {
+    option: [Option2]
+}
+
+# 在售库存入参
+input StockInSaleReportQueryInput{
+    # 入库时间起
+    warehouseStartTime:Long
+    # 入库时间终
+    warehouseEndTime:Long
+}
+
+extend type Query {
+    # 分页查询盘点记录
+    pageTakeStockRecord(input:TakeStockRecordInput): PageTakeStockRecordListPayload
+    # 根据盘点记录id获取本次盘点详情
+    getTakeStockRecordDetail(input:TakeStockRecordDetailInput):TakeStockRecordDetailPayload
+    #仓库下拉列表
+    listWarehouseOption(input:WarehouseOptionInput):[WarehouseOptionPayload]
+    # 出入库记录类型下拉
+    listStockTypeOption(input:StockTypeOptionInput):StockTypeOptionPayload
+    # 导出在售库存报表
+    exportStockInSaleReportForm(input:StockInSaleReportQueryInput):String
+
+}

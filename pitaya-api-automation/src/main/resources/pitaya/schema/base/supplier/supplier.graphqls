@@ -1,0 +1,79 @@
+type SupplierPayload{
+    "供应商id"
+    supplierId:Int
+    "供应商名称"
+    supplierName:String
+    "供应商简称"
+    supplierShortName:String
+    "供应商商品类型"
+    commodityTypeId:Int @deprecated(reason: "2.3废弃")
+    "供应商商品类型名称"
+    commodityTypeName:String @deprecated(reason: "2.3 废弃")
+    "电话号码"
+    phoneNum:String
+    "供应商地址"
+    supplierAddress:String
+    "门牌号"
+    houseNum:String
+    "备注"
+    remark:String
+    "创建时间"
+    createTime:Long
+    "税务号"
+    tfn:String
+    "座机号"
+    landlineNum:String
+    "财务编码"
+    financialSystemCode:String
+    "详情id"
+    supplierDetailId:Int
+    "供应商类型 2.3新增  1：水果 2：食品 3：辅料 4：周转筐 5：运杂"
+    supplierTypeId:Int
+    "供应商类型名称"
+    typeName:String
+}
+
+input SupplierInput{
+    supplierId:Int
+    supplierName:String
+    supplierShortName:String
+    phoneNum:String
+    supplierAddress:String
+    houseNum:String
+    remark:String
+    tfn:String
+    "供应商类型 2.3新增  1：水果 2：食品 3：辅料 4：周转筐 5：运杂"
+    supplierTypeId:Int
+}
+
+#客户分页实体
+type SupplierPagePayload{
+    records: [SupplierPayload]
+    pageCurrent:Int
+    pageSize:Int
+    totalRecords:Long
+}
+
+input SupplierConditionInput{
+    keyword:String
+    "供应商类型 2.3新增  1：水果 2：食品 3：辅料 4：周转筐 5：运杂"
+    supplierTypeId:[Int]
+}
+
+extend type Query {
+    "供应商分页列表接口"
+    supplierPages(page:Page,supplierCondition:SupplierConditionInput):SupplierPagePayload
+    "供应商详情接口"
+    supplier(supplierId:Int):SupplierPayload
+    "供应商下拉列表接口"
+    suppliers(supplierCondition:SupplierConditionInput):[SupplierPayload]!
+}
+
+extend type Mutation {
+    # 创建供应商
+    createSupplier(supplierInput:SupplierInput):Int
+    # 更新供应商
+    updateSupplier(supplierInput:SupplierInput):Int
+    # 删除供应商
+    deleteSupplier(supplierId:Int):Int
+}

@@ -25,7 +25,7 @@ public class GraphqlGenerator {
     /**
      *
      */
-    public static void generator(String schemaPath, String destinationPath, String basePackageName) throws IOException {
+    public static void generator(String schemaPath, String destinationPath, String basePackageName,String clientName) throws IOException {
         SchemaParser schemaParser = new SchemaParser();
         Map<String, List<File>> map = new HashMap<>();
         traverseDirectory(schemaPath, map);
@@ -78,6 +78,8 @@ public class GraphqlGenerator {
                     //封装field
                     entityStringBuilder.append("package " + basePackageName + ".entities" + subPackage + ";\n");
                     entityStringBuilder.append("import lombok.Data;\n");
+                    entityStringBuilder.append("import lombok.AllArgsConstructor;\n");
+                    entityStringBuilder.append("import lombok.NoArgsConstructor;\n");
                     entityStringBuilder.append("import java.util.List;\n");
                     entityStringBuilder.append("import java.math.BigDecimal;\n");
                     entityStringBuilder.append("import fc.test.api.graphql.annotation.Needed;\n");
@@ -92,6 +94,8 @@ public class GraphqlGenerator {
                         entityStringBuilder.append("public enum " + entityName + "{\n");
                     } else {
                         entityStringBuilder.append("@Data\n");
+                        entityStringBuilder.append("@AllArgsConstructor\n");
+                        entityStringBuilder.append("@NoArgsConstructor\n");
                         entityStringBuilder.append("public class " + entityName + "{\n");
                     }
                     generateFields(typeDefinition, entityStringBuilder);
@@ -191,6 +195,7 @@ public class GraphqlGenerator {
                 apiFileStringBuilder.append("import fc.test.api.graphql.annotation.GraphqlMutation;\n");
                 apiFileStringBuilder.append("import fc.test.api.graphql.annotation.GraphqlQuery;\n");
                 apiFileStringBuilder.append("import fc.test.api.graphql.annotation.Needed;\n");
+                apiFileStringBuilder.append("import fc.test.api.graphql.entity.GraphqlConifg;\n");
                 apiFileStringBuilder.append("import fc.test.api.graphql.annotation.ID;\n");
                 apiFileStringBuilder.append("import fc.test.api.graphql.annotation.NotEmpty;\n");
                 apiFileStringBuilder.append("import java.util.List;\n");
@@ -199,11 +204,10 @@ public class GraphqlGenerator {
                 apiFileStringBuilder.append("/**\n");
                 apiFileStringBuilder.append(" * Generated From Graphql Schema\n");
                 apiFileStringBuilder.append(" */\n");
-                apiFileStringBuilder.append("@GraphqlGroup()\n");
+                apiFileStringBuilder.append("@GraphqlGroup(client = "+clientName+")\n");
                 apiFileStringBuilder.append("public interface " + className + " {\n");
                 apiFileStringBuilder.append(apiStringBuilder);
                 apiFileStringBuilder.append("}");
-
                 writeFile(destinationPath + "\\apis\\" + subDicPath + "\\", className, apiFileStringBuilder.toString());
             }
         }

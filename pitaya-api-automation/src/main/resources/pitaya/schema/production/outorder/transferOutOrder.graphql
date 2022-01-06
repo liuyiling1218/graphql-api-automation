@@ -1,0 +1,57 @@
+extend type Mutation {
+    #新增调拨出库单
+    createTransferOutOrder(createTransferOrderInput:CreateTransferOrderInput):ID
+    #修改调拨出库单
+    updateTransferOutOrder(updateTransferCommodityInput:UpdateTransferCommodityInput):ID
+}
+
+extend type Query {
+    #查询调拨出库订单
+    listTransferOutOrder(listTransferOrderInput:ListTransferOrderInput,page:Page):ListTransferOrderPayload
+    #查询调拨出库订单
+    getTransferOutOrder(flowId:ID):TransferOrderPayload
+    #查询调拨出库订单状态值
+    getTransferOutOrderStatus(getTransferOutOrderStatusInput:GetTransferOutOrderStatusInput):GetTransferOutOrderStatusPayload
+
+}
+
+input CreateTransferOrderInput{
+    # 调拨类型
+    transferType:Int
+    # 商品类型
+    commodityType:Int
+    # 调出仓库id
+    sourceWarehouseId:Int
+    # 调出归属id
+    sourceBelongId:Int
+    # 调入仓库id
+    targetWarehouseId:Int
+    # 调入归属id
+    targetBelongId:Int
+    # 备注信息
+    remark:String
+    # 调拨商品
+    flowTransferCommodityInput:[FlowTransferCommodityInput]
+    # 运杂费用
+    flowTransferOtherBillInput:[FlowTransferOtherBillInput]
+}
+
+input GetTransferOutOrderStatusInput{
+    #订单起始时间
+    startTime:Long
+    #订单结束时间
+    endTime:Long
+    #商品类型
+    commodityType:[Int]
+    #10跨区域 20跨系统
+    transferType:[Int]
+    #关键字查询
+    keyword:String
+}
+
+type GetTransferOutOrderStatusPayload{
+    #待提交
+    toSubmit:Long
+    #待处理
+    toProcess:Long
+}

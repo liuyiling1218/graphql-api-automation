@@ -1,0 +1,50 @@
+package com.hjfruit.test.pitaya.app.entities.production.task;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ *
+ */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Picking {
+    /**
+     *
+     */
+    private Integer rawMaterialUnFinish;
+    /**
+     *
+     */
+    private Integer rawMaterial;
+    /**
+     *
+     */
+    private Integer accessoriesUnFinish;
+    /**
+     *
+     */
+    private Integer accessories;
+    /**
+     *
+     */
+    private Integer semiFinishedProductsUnFinish;
+    /**
+     *
+     */
+    private Integer semiFinishedProducts;
+    /**
+     *
+     */
+    private Integer returnedGoodsUnFinish;
+    /**
+     *
+     */
+    private Integer returnedGoods;
+    /**
+     *
+     */
+    private Integer undone;
+}

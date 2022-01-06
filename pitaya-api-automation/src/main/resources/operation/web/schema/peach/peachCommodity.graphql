@@ -1,0 +1,127 @@
+#商品管理列表
+input PeachPageCommodityInput {
+    #商品类型
+    typeId:Int
+    #品类id
+    categoryId:Int
+    #spu名称
+    commodityName:String
+}
+
+type PeachPageCommodityPayload {
+    pageCurrent:Int
+    pageSize:Int
+    totalRecords:Long
+    records:[PeachListCommodityPayLoad]
+}
+
+type PeachListCommodityPayLoad {
+    #商品id
+    commodityId:Int
+    #商品名称
+    commodityName:String
+    #商品类型
+    commodityTypeId:Int
+    #商品类型名称
+    commodityTypeName:String
+    #品类id
+    categoryId:Int
+    #品类名称
+    categoryName:String
+    #品种id
+    varietyId:Int
+    #品种名称
+    varietyName:String
+    #产地id
+    originId:Int
+    #产地名称
+    originName:String
+    #sku数量
+    skuQuantity:Int
+    #状态
+    status:Int
+}
+#商品管理列表
+
+#未添加商品列表
+input PeachPageNoCommodityInput {
+    #商品类型
+    typeId:Int
+    #品类
+    categoryId:Int
+    #品种
+    varietyId:Int
+    #产地
+    originId:Int
+}
+
+type PeachPageNoCommodityPayload {
+    pageCurrent:Int
+    pageSize:Int
+    totalRecords:Long
+    records:[PeachNoCommodityPayload]
+}
+
+type PeachNoCommodityPayload {
+    #商品id
+    commodityId:Int
+    #商品名称
+    commodityName:String
+    #商品类型名称
+    commodityTypeName:String
+    #商品类型id
+    commodityTypeId:Int
+    #商品品类名称
+    commodityCategoryName:String
+    #商品品种名称
+    commodityVarietyName:String
+    #商品产地名称
+    commodityPlaceOriginName:String
+    # 商品品类ID
+    commodityCategoryId:Int
+}
+#未添加商品列表
+
+#添加商品
+input PeachListCreateCommodityInput {
+    createCommodityInput:[PeachCreateCommodityInput]!
+}
+
+input PeachCreateCommodityInput {
+    #商品id
+    commodityId:Int!
+    #商品类型id
+    commodityTypeId:Int!
+    # 商品品类ID
+    commodityCategoryId:Int!
+}
+#添加商品
+
+#商品状态变更
+input PeachUpdateCommodityStatusInput {
+    status:Int
+    commodityId:[Int]
+}
+#商品状态变更
+
+extend type Query {
+    #商品管理列表
+    peachPageCommodityManage(pageCommodityInput:PeachPageCommodityInput,page:Page):PeachPageCommodityPayload
+    #品类下拉列表
+    peachCategoryOption:[Option]
+    #商品类型下拉列表
+    peachCommodityTypeOption:[Option]
+    #商品品种下拉列表
+    peachVarietyOption(categoryId:Int!):[Option]
+    #商品产地下拉列表
+    peachOriginOption (categoryId:Int!):[Option]
+    #未添加商品列表
+    peachPageNoCommodity (pageNoCommodityInput:PeachPageNoCommodityInput,page:Page):PeachPageNoCommodityPayload
+}
+
+extend type Mutation {
+    #添加商品
+    peachCreateCommodity (createCommodityInput:PeachListCreateCommodityInput):[Int]
+    #商品状态变更
+    peachUpdateCommodityStatus(updateCommodityStatusInput:PeachUpdateCommodityStatusInput):[Int]
+}

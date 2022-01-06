@@ -1,0 +1,169 @@
+type PitayaCommodityBomPagePayload {
+    pageCurrent:Int
+    pageSize:Int
+    totalRecords:Long
+    records:[PitayaBomPayload]
+}
+
+type PitayaBomPayload {
+    #bom id
+    commodityBomId:Int
+    #sku id
+    commoditySkuId:Int
+    #商品类型
+    commodityTypeName:String
+    #商品分类
+    commodityCategoryName:String
+    #商品名称
+    commodityName:String
+    #商品规格选项
+    commoditySpecOptionName:[String]
+}
+
+type PitayaConditionToGetSkuPayload {
+    pageCurrent:Int
+    pageSize:Int
+    totalRecords:Long
+    records:[PitayaSkuDetailPayload]
+}
+
+type PitayaSkuDetailPayload {
+    #商品id
+    commodityId:Int
+    #商品名称
+    commodityName:String
+    #商品类型id
+    commodityTypeId:Int
+    #商品类型名称
+    commodityTypeName:String
+    #sku id
+    commoditySkuId:Int
+    #商品规格选项名称
+    commoditySpecOptionName:[String]
+    #商品单位id
+    unitId:Int
+    #商品单位名称
+    unitName:String
+    #商品分类id
+    categoryId:Int
+    #商品分类名称
+    categoryName:String
+    #品种id
+    varietyId:Int
+    #品种名称
+    varietyName:String
+    #产地id
+    placeOriginId:Int
+    #产地名称
+    placeOriginName:String
+}
+
+#bom列表请求参数
+input PitayaPageCommodityBomInput {
+    #商品名称
+    commodityName:String
+    #分页参数
+    page:Page
+}
+
+#条件获取sku列表
+input PitayaConditionToGetSkuInput {
+    commodityTypeId:[Int]
+    commodityName:String
+    commoditySpecName:String
+    property:[Int]
+    #是否未配置bom
+    noBom:Int
+    #排除商品id
+    excludeSkuIds:[Int]
+}
+
+#配料列表
+type PitayaBomDetailPayload {
+    #配料id
+    commodityBomDetailId:Int
+    #商品类型id
+    commodityTypeId:Int
+    #商品类型名称
+    commodityTypeName:String
+    #商品分类id
+    commodityCategoryId:Int
+    #商品分类名称
+    commodityCategoryName:String
+    #商品id
+    commodityId:Int
+    #商品名称
+    commodityName:String
+    #sku id
+    commoditySkuId:Int
+    #商品规格选项名称
+    commoditySpecOptionName:[String]
+    #数量
+    quantity:BigDecimal
+    #数量单位
+    quantityUnit:Int
+    #数量单位名称
+    quantityUnitName:String
+}
+
+#新增bom
+input PitayaSaveBomInput {
+    #sku id
+    commoditySkuId:Int
+    #配料列表
+    saveCommodityBomDetailInput:[PitayaBomDetailInput]
+}
+
+#新增bom明细
+input PitayaBomDetailInput {
+    #sku id
+    commoditySkuId:Int
+    #商品id
+    commodityId:Int
+    #数量
+    quantity:BigDecimal
+    # 数量单位
+    quantityUnit:Int
+}
+
+#修改bom
+input PitayaUpdateBomInput {
+    #bom id
+    commodityBomId:Int
+    #sku id
+    commoditySkuId:Int
+    #配料列表
+    updateCommodityBomDetailInput:[PitayaUpdateBomDetailInput]
+}
+
+#更新bom明细
+input PitayaUpdateBomDetailInput {
+    #配料id
+    commodityBomDetailId:Int
+    #sku id
+    commoditySkuId:Int
+    #商品id
+    commodityId:Int
+    #数量
+    quantity:BigDecimal
+    #数量单位
+    quantityUnit:Int
+}
+
+extend type  Query {
+    #bom列表
+    pitayaPageCommodityBom(commodityName:String,page:Page):PitayaCommodityBomPagePayload
+    #条件获取sku列表
+    pitayaPageConditionToGetSku(conditionToGetSkuInput:PitayaConditionToGetSkuInput,page:Page) :PitayaConditionToGetSkuPayload
+    #根据bom id获取配料列表
+    pitayaListBurden(bomId:Int) :[PitayaBomDetailPayload]
+}
+
+extend type Mutation {
+    #新增bom
+    pitayaSaveCommodityBom(saveCommodityBomInput:PitayaSaveBomInput) :Int
+    #修改bom
+    pitayaUpdateCommodityBom(updateCommodityBomInput:PitayaUpdateBomInput) :Int
+    #删除bom
+    pitayaDeleteCommodityBom(bomId:Int) :Boolean
+}

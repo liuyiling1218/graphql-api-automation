@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import fc.test.api.graphql.Autheration;
 import fc.test.api.graphql.annotation.*;
 import fc.test.api.graphql.entity.GraphqlConifg;
+import fc.test.api.graphql.entity.GrpahqlClient;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -14,11 +15,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.*;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static io.restassured.RestAssured.given;
 
@@ -30,6 +33,7 @@ import static io.restassured.RestAssured.given;
  * @date 2021/10/9 16:21
  */
 @Slf4j
+@Component
 public class ApiProxy<T> implements InvocationHandler, ApplicationContextAware {
 
     private final Class<T> apiType;
@@ -38,10 +42,19 @@ public class ApiProxy<T> implements InvocationHandler, ApplicationContextAware {
         this.apiType = apiType;
     }
 
-
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) {
-        if (StringUtils.isBlank(GraphqlConifg.getServer())) {
+        String clientUrl = "";
+        //接口返回结果解析
+        GraphqlGroup graphqlGroup = apiType.getAnnotation(GraphqlGroup.class);
+
+        List<GrpahqlClient> clients = GraphqlConifg.clients;
+        for (GrpahqlClient grpahqlClient : clients) {
+            if (grpahqlClient.getClientType()==graphqlGroup.client()) {
+                clientUrl = grpahqlClient.getClientUrl();
+            }
+        }
+        if (StringUtils.isBlank(clientUrl)) {
             throw new IllegalArgumentException("请正常配置测试地址~");
         }
         Class<?> returnType = method.getReturnType();
@@ -52,9 +65,6 @@ public class ApiProxy<T> implements InvocationHandler, ApplicationContextAware {
                 "\"variables\": " + queryVariables(method, args) +
                 "}";
 
-
-        //接口返回结果解析
-        GraphqlGroup graphqlGroup = apiType.getAnnotation(GraphqlGroup.class);
 
         //方法的描述
         String methodDesc = "";
@@ -72,8 +82,8 @@ public class ApiProxy<T> implements InvocationHandler, ApplicationContextAware {
                 .log().all()
                 .header("Accept-Encoding", "gzip")
                 .header("Connection", "Keep-Alive")
-                .header("app-version", "12")
-                .header("appversioncode", "12")
+                .header("app-version", "23")
+                .header("appversioncode", "23")
                 .header("platform", "android")
                 .header("accept", "*/*")
                 .header("User-Agent", "okhttp/3.12.12")
@@ -85,7 +95,7 @@ public class ApiProxy<T> implements InvocationHandler, ApplicationContextAware {
         } else {
             Autheration.required = true;
         }
-        Response response = requestSpecification.post(GraphqlConifg.getServer());
+        Response response = requestSpecification.post(clientUrl);
 
         response.prettyPrint();
 
@@ -463,6 +473,7 @@ public class ApiProxy<T> implements InvocationHandler, ApplicationContextAware {
                 }
             }
         } else {
+//            subResult.append(subReturnType.getSimpleName());
             subResult.append("{");
 
             Field[] fields = subReturnType.getDeclaredFields();
@@ -500,6 +511,8 @@ public class ApiProxy<T> implements InvocationHandler, ApplicationContextAware {
                     //todo 接口返回值为接口时，封装接口参数
                     throw new RuntimeException("暂不支持" + field.getType().getName() + "类型的接口返回值定义");
                 } else {
+                    String name = field.getType().getSimpleName();
+                    subResult.append(Character.toLowerCase(name.charAt(0)) + name.substring(1));
                     subResult.append(generateSubReturnFeildString(field.getType()));
                 }
             }

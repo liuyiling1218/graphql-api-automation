@@ -1,0 +1,100 @@
+extend type Mutation{
+    #创建商户
+    creteMerchant(input:MerchantInput): Boolean
+    #修改商户
+    updateMerchant(input:MerchantInput): Boolean
+
+}
+
+extend type Query {
+    #分页获取商户列表
+    pageMerchant(input:MerchantPageInput):MerchantPagePayload
+    #获取商户信息
+    merchant(input:MerchantIdInput): MerchantPayload
+    #获取商户下拉
+    merchantOption:[Option]
+    #搜索员工
+    searchUser(input:SearchUserInput): [SearchUserPayload]
+}
+# 查找用户信息
+input SearchUserInput{
+    # 关键词：手机号/用户名称
+    keyword: String
+    # 组织ID
+    orgId: Int!
+}
+type SearchUserPayload{
+    #用户ID
+    userId: Int
+    #用户名
+    userName: String
+    #手机号
+    phone: String
+    #是否被使用 0未使用，1已使用
+    used: Int
+}
+
+# 修改商户
+input MerchantInput{
+    # id
+    id: Int
+    #商户名称
+    name: String
+    #组织架构ID
+    orgGroupId: Int!
+    # 组织ID
+    orgId: Int!
+    #负责人ID
+    userId: Int!
+    #负责人名称
+    userName: String
+    #登陆手机号
+    phone: String
+}
+
+input MerchantIdInput{
+    # 商户ID
+    id: Int!
+}
+
+#获取商户列表入参
+input MerchantPageInput {
+    pageCurrent: Int!
+    pageSize:Int!
+    #商户名称
+    name: String
+    #登陆手机号
+    phone: String
+    #负责人名称
+    userName: String
+}
+
+#商户分页信息
+type MerchantPagePayload {
+    records: [MerchantPayload]
+    pageCurrent:Int
+    pageSize:Int
+    totalRecords:Int
+}
+
+#商户列表返回
+type MerchantPayload {
+    #商户id
+    id: Int
+    #商户名称
+    name: String
+    #负责人名称
+    userName: String
+    #登陆手机号
+    phone: String
+    #所属组织架构名称
+    orgGroupName: String
+    #所属组织架构ID
+    orgGroupId: Int
+    #所属组织名称
+    orgName: String
+    #所属组织ID
+    orgId: Int
+    #操作ID
+    userId: Int
+}

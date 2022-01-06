@@ -1,0 +1,68 @@
+extend type Mutation{
+    #登陆,返回登陆令牌token
+    login(input:LoginInput): String
+    #发送验证码
+    sendCodeMsg(input:SendCodeMsgInput): Boolean
+    #刷新token
+    refreshToken: String
+
+}
+
+extend type Query {
+    #获取当前用户信息
+    getCurrentUser:CurrentUserPayload
+    #获取权限列表
+    getPermission: [PermissionPayload]
+}
+
+# 登陆参数
+input LoginInput{
+    # 手机号
+    phone: String!
+    # 验证码
+    code: String!
+}
+
+# 发送验证码参数
+input SendCodeMsgInput{
+    # 手机号
+    phone: String!
+}
+
+# 当前用户信息
+type CurrentUserPayload{
+    #用户ID
+    userId: Int
+    #用户名称
+    userName: String
+    #联系方式
+    phone: String
+    #团队角色
+    roleNames: [String]
+    #头像
+    avatar: String
+    #公司名称
+    organizationName: String
+}
+
+
+# 用户信息
+type UserPayload{
+    #用户ID
+    userId: Int
+    #用户名称
+    userName: String
+    #联系方式
+    phone: String
+    #头像
+    avatar: String
+}
+
+
+# 权限列表
+type PermissionPayload{
+    #权限码
+    code: String
+    #待办数量
+    todoCount: Int
+}

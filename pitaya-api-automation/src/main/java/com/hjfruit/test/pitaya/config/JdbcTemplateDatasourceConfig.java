@@ -17,11 +17,27 @@ public class JdbcTemplateDatasourceConfig {
     }
 
     @Bean()
-    public JdbcTemplate peach(@Qualifier("peachDatasource") DataSource dataSource) {
+    public JdbcTemplate fcUser(@Qualifier("fcUserDatasource") DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
+
     @Bean()
-    public JdbcTemplate fcMdm(@Qualifier("fcMdmDatasource") DataSource dataSource) {
+    public JdbcTemplate fcCustomer(@Qualifier("fcCustomerDatasource") DataSource dataSource) {
+        return new JdbcTemplate(dataSource);
+    }
+
+    @Bean()
+    public JdbcTemplate fcSupplier(@Qualifier("fcSupplierDatasource") DataSource dataSource) {
+        return new JdbcTemplate(dataSource);
+    }
+
+    @Bean()
+    public JdbcTemplate fcWarehouse(@Qualifier("fcWarehouseDatasource") DataSource dataSource) {
+        return new JdbcTemplate(dataSource);
+    }
+
+    @Bean()
+    public JdbcTemplate commodity(@Qualifier("commodityDatasource") DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
 }

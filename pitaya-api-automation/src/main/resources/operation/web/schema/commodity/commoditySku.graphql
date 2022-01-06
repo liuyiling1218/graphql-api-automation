@@ -1,0 +1,146 @@
+#sku列表规格表头
+type SkuColumnSpecPayload{
+    #规格id
+    commoditySpecId:Int
+    #规格名称
+    commoditySpecName:String
+}
+type SkuListColumnCommoditySkuUnitPayLoad{
+    #key
+    key:String
+    #title
+    title:String
+}
+
+type SkuOptionsPayLoad{
+    #规格id
+    commoditySpecId:Int
+    #规格名称
+    commoditySpecName:String
+    #名称排序
+    nameSort:Int
+    #规格选项
+    commoditySpecOptionVOList:[SkuCommoditySpecOptionPayLoad]
+}
+
+type SkuCommoditySpecOptionPayLoad{
+    #规格选项id
+    commoditySpecOptionId:Int
+    #规格选项名称
+    commoditySpecOptionName:String
+}
+type SkuPagePayload{
+    records: [SkuPayLoad]
+    pageCurrent: Int
+    pageSize: Int
+    totalRecords: Long
+}
+type SkuPayLoad{
+    #sku Id
+    commoditySkuId:Int
+    #sku名称
+    commoditySkuName:String
+    #规格选项
+    skuCommoditySpecOptionList:[SkuCommoditySpecOption]
+}
+type SkuCommoditySpecOption{
+    specId:Int
+    optionName:String
+}
+
+type SkuDetailVOResponse{
+    skuName:String
+    commoditySkuId:Int
+    commodityId:Int
+    commoditySpecs:[SpecPayload]
+    commoditySpecOption:[SpecOptionPayload]
+}
+
+type SpecPayload {
+    commoditySpecId:Int
+    commoditySpecName:String
+}
+
+type SpecOptionPayload {
+    commoditySpecOptionId:Int
+    commoditySpecOptionName:String
+}
+
+type SkuDetailPayload{
+    skuDetailVOResponse:[SkuDetailVOResponse]
+}
+type CommodityTypePayload {
+    #商品类型id
+    commodityTypeId:Int
+    #商品类型名称
+    commodityTypeName:String
+    #上级类型id
+    parentCommodityTypeId:Int
+}
+
+input UpdateSkuStatusInput{
+    #sku id集合
+    commoditySkuIdList:[Int]
+    #    状态（1激活，0禁用）
+    status:Int
+}
+input CommoditySkuInputSave {
+    commoditySkuSaveInput: [CommoditySkuSaveInput]
+}
+input CommoditySkuSaveInput{
+    #商品id
+    commodityId:Int!
+    #规格类型不可为空
+    commoditySpecIdList:[Int!]!
+    #规格选项不可为空
+    commoditySpecOptionIdsList:[Int!]!
+}
+
+input SkuListConditionInput {
+    page:Page
+    #商品id
+    commodityId:Int
+    #规格选项
+    commoditySpecOptionConditionInput:[CommoditySpecOptionConditionInput]
+}
+input CommoditySpecOptionConditionInput{
+    #规格id
+    commoditySpecId:Int
+    #规格选项id
+    commoditySpecOptionId:Int
+}
+#品种组sku选择列表
+input GroupSkuInput {
+    typeId:Int
+    categoryId:Int
+    varietyId:Int
+    origin:Int
+    spuId:Int
+    specId:[Int]
+    optionId:[Int]
+    varietyGroupId:Int
+}
+#品种组sku选择列表
+extend type Query {
+    #    sku列表表头
+    listSkuListColumn(commodityId:Int):[SkuColumnSpecPayload]
+    #    sku列表筛选项
+    listSkuQueryCondition(commodityId:Int):[SkuOptionsPayLoad]
+    #    sku列表
+    pageSku(skuListConditionInput:SkuListConditionInput):SkuPagePayload
+    #    sku详情
+    getSkuDetail(commodityId:[Int]):SkuDetailPayload
+    #    单位下拉列表
+    listUnitOptions(commodityTypeId:Int):[Option]
+    #sku属性下拉
+    listPropertyOptions(commodityTypeId:Int):[Option]
+    #    已选择sku列表
+    listSkuSelectedCombination(commodityId:Int):[[Int]]
+    #品种组sku选择列表
+    pageGroupSku (groupSkuInput:GroupSkuInput,page:Page):SkuPagePayload
+}
+
+extend type Mutation {
+    #新增sku
+    doSaveSkuList(commoditySkus:CommoditySkuInputSave):[Int]
+}

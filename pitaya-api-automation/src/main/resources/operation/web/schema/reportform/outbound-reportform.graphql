@@ -1,0 +1,119 @@
+# 出库报表
+# 出库报表查询
+extend type Query {
+    # 列表接口
+    pageOutBoundReportForm(input:OutBoundReportFormPageInput):OutBoundReportFormPagePayload
+    # 列表导出
+    exportOutBoundReportForm(input:OutBoundReportFormQueryInput):String
+    # 调拨费用单详情
+    getAllocateCostDetail(input:Int): AllocateCostDetailPayload
+}
+
+type AllocateCostDetailPayload {
+    # id
+    id: Int
+    # 调拨运杂费单号
+    costCode: String
+    # 提交时间
+    outboundTime: Long
+    # 调入组织
+    orgInName: String
+    # 调出组织
+    orgOutName: String
+    # 运杂费合计
+    costTotalAmount: BigDecimal
+    # 调拨货款合计
+    commodityTotalAmount: BigDecimal
+    # 调拨成本
+    allocatedTotalAmount: BigDecimal
+    # 结算方式
+    payModeName: String
+    # 车牌
+    board: String
+    # 联系电话
+    phone: String
+    # 备注
+    remark: String
+    # 制单人 发起调拨人
+    operator: String
+    # 商品信息
+    commodityDetail: [AllocateCostCommodityDetailPayload]
+}
+
+type AllocateCostCommodityDetailPayload {
+    # 批次id
+    batchId: Int
+    # sku id
+    skuId: Int
+    # 名称
+    skuName: String
+    # 数量
+    quantity: BigDecimal
+    # 单价
+    unitPrice: BigDecimal
+    # 单品小计
+    totalAmount: BigDecimal
+    # 成本单价
+    costPrice: BigDecimal
+}
+
+# 列表分页入参
+input OutBoundReportFormPageInput{
+    outBoundReportFormQueryInput:OutBoundReportFormQueryInput
+    # 分页入参
+    pageInput: Page!
+}
+# 列表通用查询入参
+input OutBoundReportFormQueryInput{
+    # 商户ID
+    merchantId:Long
+    # 出库单号
+    outBoundNum:String
+    # 批次号
+    batchCode:String
+    # 商品
+    product:String
+    # 出库类型
+    outBoundType:OutBoundType
+    # 出库时间起
+    outBoundStartTime:Long
+    # 出库时间终
+    outBoundEndTime:Long
+}
+
+# 列表分页对象
+type OutBoundReportFormPagePayload{
+    records:[OutBoundReportFormListPayload]
+    pageCurrent:Int
+    pageSize:Int
+    totalRecords:Long
+}
+# 列表集合对象
+type OutBoundReportFormListPayload{
+    # 主键
+    id:Long
+    # 出库单号
+    outboundCode:String
+    # 批次号
+    batchStockCode:String
+    # 所属商户
+    merchant:String
+    # 所属仓库
+    repository:String
+    # 商品名称
+    productName:String
+    # 出库类型
+    outboundType:String
+    # 数量
+    quantity:BigDecimal
+    # 数量单位
+    unit:String
+    # 单价
+    unitPrice:BigDecimal
+    # 小计
+    totalAmount:BigDecimal
+    # 出库时间
+    outboundTime:Long
+    # 调拨单id
+    allocateCostId: Int
+}

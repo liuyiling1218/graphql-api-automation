@@ -1,0 +1,88 @@
+input ListLabelsInput {
+    # 要求补充类型 10：规格要求 30：品质要求
+    requestType: Int!
+    # 品类id
+    categoryId: Int
+}
+
+type ListLabels {
+    # 标签id
+    labelId:Int
+    # 标签类型 10：推荐标签 20：快捷标签
+    labelType:Int
+    # 品类id
+    categoryId:Int
+    # 品类名称
+    categoryName:String
+    # 标签内容
+    labelContent:String
+    # 组织id
+    organizationId:Int
+    # 组织名称
+    organizationName:String
+    # 创建时间
+    createTime:Long
+    # 创建人员id
+    createBy:Int
+    # 更新时间
+    updateTime:Long
+    # 更新人员id
+    updateBy:Int
+    # 删除标识 1：删除 99：未删除
+    deleted:Int
+}
+
+type LabelPagePayload {
+    records: [ListLabels]
+    pageCurrent: Int
+    pageSize: Int
+    totalRecords: Long
+}
+
+input CreateLabelInput {
+    # 品类id
+    categoryId: Int!
+    # 标签内容
+    labelContent: String!
+    # 请求类型 10：规格要求 30：品质要求
+    requestType: Int!
+}
+
+input UpdateLabelInput {
+    # 标签id
+    labelId:Int!
+    # 标签内容
+    labelContent:String!
+    # 要求补充类型 10：规格要求 20：品质要求
+    requestType:Int!
+}
+
+input BatchDeleteLabelsInput {
+    # 标签id
+    labelId:[Int]
+    # 要求补充类型 10:规格要求 20：品质要求
+    requestType: Int
+}
+
+type ListDropDownLabelsPayload {
+    # 品类id
+    categoryId: Int
+    # 品类名称
+    categoryName: String
+}
+
+extend type Query {
+    # 标签列表查询
+    listLabels(listLabelsInput:ListLabelsInput,page:Page):LabelPagePayload
+    # 下拉标签列表
+    listDropDownLabels:[ListDropDownLabelsPayload]
+}
+
+extend type Mutation {
+    # 新增标签
+    createLabel(createLabelInput:CreateLabelInput):Int
+    # 修改标签
+    updateLabel(updateLabelInput:UpdateLabelInput):Int
+    # 批量删除标签
+    batchDeleteLabels(batchDeleteLabelsInput:BatchDeleteLabelsInput):Boolean
+}

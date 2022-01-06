@@ -1,0 +1,457 @@
+extend type Query {
+    #查询入库订单记录条数(入库审核)
+    countInOrderAudit:CountInOrderPayload
+    #查询待审核入库订单列表(入库审核)
+    pageAuditInOrder(commodityType:Int!,page:Page):PageInAuditRecordPayload
+    #查询订单详情(入库审核)
+    getAuditDetail(inOrderDetailInput:InOrderDetailInput):AuditInOrderPayload
+    #查询订单已入库记录条数
+    countInbounded(inOrderDetailInput:InOrderDetailInput):Long
+    #入库记录
+    inboundRecord(inOrderDetailInput:InOrderDetailInput):InboundListPayload
+    #入库记录列表（入库记录）
+    pageInOrderRecord(inOrderRecordCondition:InOrderRecordFilter,page:Page):PageInOrderRecordPayload
+    #获取入库记录详情（入库记录）
+    getInOrderRecordDetail(inOrderDetailInput:InOrderDetailInput):InOrderRecordDetailPayload
+    #采购入库记录
+    purchaseInOrderLog(inOrderId:ID!):ProductionInOrderLogListPayload
+
+}
+extend type Mutation {
+    #驳回订单
+    rejectedInOrderAudit(rejectedInput:RejectedInput):Boolean
+    #完成入库
+    finishInbound(inOrderId:ID!):Boolean
+    #确认入库 返回订单状态
+    confirmInbound(confirmInput:ConfirmInput):Long
+    #采购确定入库
+    confirmPurchaseInBound(purchaseConfirmInput:PurchaseConfirmInput):Long
+    #采购入库驳回订单
+    rejectPurchaseOrderAudit(rejectedInput:RejectedInput):Boolean
+    #采购完成入库
+    finishPurchaseOrderInBound("入库订单ID" inOrderId:ID!):Boolean
+}
+
+input InOrderDetailInput {
+    inOrderId:ID!
+    #生产数据 10 黄龙数据 20
+    dataType:Int!
+}
+
+#入库条数
+type CountInOrderPayload{
+    #原料入库记录条数
+    rawMaterial:Long
+    #辅料入库记录条数
+    subMaterial:Long
+    #成品入库记录条数
+    finishedProduct:Long
+    #次品入库记录条数
+    defectiveProduct:Long
+    #半成品入库记录条数
+    semiFinishedProduct:Long
+    #周转筐入库记录条数
+    turnoverBasket:Long
+    #退货品入库记录条数
+    returnProduct:Long
+}
+
+type InboundListPayload{
+    inApplyCode:String
+    toBeInBoundList:[ToBeInboundPayload]
+    inboundRecordList:[InboundRecordPayload]
+    #商品类型Id
+    commodityTypeId:Int
+}
+
+#待入库商品信息
+type ToBeInboundPayload{
+    commoditySkuId:Int
+    #SPU名称
+    commodityName:String
+    #规格选项
+    skuTextDescription:[String]
+    #小单位数量
+    unitQuantity:BigDecimal
+    unitType:Int
+    #小单位类型名称
+    unitTypeName:String
+    #副单位数量
+    totalQuantity:BigDecimal
+    totalType:Int
+    #副单位类型名称
+    totalTypeName:String
+    #副单位与基本单位换算
+    conversion:BigDecimal
+    #毛重
+    grossUnitQuantity:BigDecimal
+    #待入库数量
+    waitUnitQuantity:BigDecimal
+    waitTotalQuantity:BigDecimal
+}
+#已入库商品信息
+type InboundRecordPayload{
+    #已入库商品信息
+    inboundRecordItems:[InboundRecordItemPayload]
+    #总价
+    totalPrice:BigDecimal
+    #入库单号
+    inOrderCode:String
+    userId:Int
+    #入库人员
+    createUserName:String
+    #入库时间
+    inboundTime:Long
+    #入库备注
+    remark:String
+    #预估运费
+    deliveryFee:BigDecimal
+}
+
+type InboundRecordItemPayload{
+    commoditySkuId:Int
+    #SPU名称
+    commodityName:String
+    #规格选项
+    skuTextDescription:[String]
+    #小单位数量
+    unitQuantity:BigDecimal
+    unitType:Int
+    #小单位类型名称
+    unitTypeName:String
+    #副单位数量
+    totalQuantity:BigDecimal
+    totalType:Int
+    #副单位类型名称
+    totalTypeName:String
+    #单价
+    unitPrice:BigDecimal
+    unitPriceType:Int
+    #单价单位名称
+    unitPriceTypeName:String
+    #总价
+    totalPrice:BigDecimal
+    #批次号
+    batchCode:String
+    #副单位与基本单位换算
+    conversion:BigDecimal
+    #毛重
+    grossUnitQuantity:BigDecimal
+}
+
+type PageInAuditRecordPayload{
+    records:[AuditInOrderPayload]
+    pageCurrent: Int
+    pageSize: Int
+    totalRecords: Long
+}
+
+type PageInOrderRecordPayload{
+    records:[InOrderRecordListPayload]
+    pageCurrent: Int
+    pageSize: Int
+    totalRecords: Long
+}
+
+type AuditInOrderPayload{
+    #入库订单Id
+    inOrderId:ID
+    #入库类型
+    inOrderTypeId:Int
+    #入库类型名称
+    inOrderTypeName:String
+    #入库单号
+    inOrderCode:String
+    #任务Id
+    taskId:ID
+    #任务单号
+    taskCode:String
+    #商品类型Id
+    commodityTypeId:Int
+    #商品类型名称
+    commodityTypeName:String
+    #客户类型Id
+    customerTypeId:Int
+    #客户类型名称
+    customerTypeName:String
+    #客户Id
+    customerId:Int
+    #客户名称
+    customerName:String
+    #入库状态Id
+    inOrderStatus:Int
+    #入库状态
+    inOrderStatusName:String
+    #仓库Id
+    warehouseId:Int
+    #仓库名称
+    warehouseName:String
+    #供应商Id
+    supplierId:Int
+    #供应商名称
+    supplierName:String
+    #调拨id
+    transferId:Int
+    #调拨类型 10:分拣仓-分拣仓 20:分拣仓-批发
+    transferType:Int
+    #调出组织id
+    transferOrganizationId:Int
+    #调出组织名称
+    transferOrganizationName:String
+    #创建人员
+    createUserName:String
+    #创建时间
+    createTime:Long
+    #联系电话
+    createUserPhone:String
+    #订单备注
+    inOrderDescription:String
+    #商品信息
+    commodities:[AuditInOrderItemPayload]
+    #总计
+    totalPrice:BigDecimal
+    #预估运费
+    deliveryFee:BigDecimal
+    #客户配送地址
+    customerDistributionName:String
+}
+
+type InOrderRecordDetailPayload{
+    #入库订单Id
+    inStockRecordId:ID
+    #入库类型
+    inOrderTypeId:Int
+    #入库类型名称
+    inOrderTypeName:String
+    #入库单号
+    inOrderCode:String
+    #任务Id
+    taskId:ID
+    #任务单号
+    taskCode:String
+    #商品类型Id
+    commodityTypeId:Int
+    #商品类型名称
+    commodityTypeName:String
+    #客户类型Id
+    customerTypeId:Int
+    #客户类型名称
+    customerTypeName:String
+    #客户Id
+    customerId:Int
+    #客户名称
+    customerName:String
+    #入库状态Id
+    inOrderStatusId:Int
+    #入库状态
+    inOrderStatus:String
+    #仓库Id
+    warehouseId:Int
+    #仓库名称
+    warehouseName:String
+    #供应商Id
+    supplierId:Int
+    #供应商名称
+    supplierName:String
+    #订单备注
+    inOrderDescription:String
+    #商品信息
+    commodities:[InOrderRecordItemDetailPayload]
+    #总计
+    totalPrice:BigDecimal
+    #提交人员
+    submitUserName:String
+    #提交时间
+    submitTime:Long
+    #入库人员
+    putInUserName:String
+    #入库时间
+    putInTime:Long
+    #实际运费
+    deliveryFee:BigDecimal
+
+}
+type InOrderRecordItemDetailPayload{
+    #SPUId
+    commodityId:Int
+    #SPU名称
+    commodityName:String
+    #商品skuID
+    commoditySkuId:Int
+    #商品规格选项Id
+    commoditySpecOptionId:[Int]
+    #规格选项
+    skuTextDescription:[String]
+    #小单位数量
+    unitQuantity:BigDecimal
+    #小单位类型名称
+    unitTypeName:String
+    #副单位数量
+    totalQuantity:BigDecimal
+    #副单位类型名称
+    totalTypeName:String
+    #单价
+    unitPrice:BigDecimal
+    #单价单位类型名称
+    unitPriceTypeName:String
+    #小计
+    unitTotalPrice:BigDecimal
+    #批次号
+    batchCode:String
+    #副单位与基本单位换算
+    conversion:BigDecimal
+    #毛重
+    grossUnitQuantity: BigDecimal
+}
+
+
+type AuditInOrderItemPayload{
+    #item列表Id
+    inOrderItemId:ID
+    #SPUId
+    commodityId:Int
+    #SPU名称
+    commodityName:String
+    #商品skuID
+    commoditySkuId:Int
+    #商品规格选项Id
+    commoditySpecOptionId:[Int]
+    #规格选项
+    skuTextDescription:[String]
+    #小单位数量
+    unitQuantity:BigDecimal
+    #小单位类型名称
+    unitTypeName:String
+    #副单位数量
+    totalQuantity:BigDecimal
+    #副单位类型名称
+    totalTypeName:String
+    #单价
+    unitPrice:BigDecimal
+    unitPriceType:Int
+    #单价类型名称
+    unitPriceTypeName:String
+    #小计
+    unitTotalPrice:BigDecimal
+    #待入库小单位数量
+    waitUnitQuantity:BigDecimal
+    #待入库副单位数量
+    waitTotalQuantity:BigDecimal
+    #是否完成入库
+    completeInStock:Int
+    #副单位与基本单位换算
+    conversion:BigDecimal
+    #单价类型 10 净重 20 毛重
+    pricePosition:Int
+    #毛重数量
+    grossUnitQuantity:BigDecimal
+}
+
+type InOrderRecordListPayload{
+    #入库订单Id
+    inStockRecordId:ID
+    #入库类型
+    inOrderTypeId:Int
+    #入库类型名称（原料采购、辅料采购）
+    inOrderTypeName:String
+    #入库单号
+    inOrderCode:String
+    #商品类型Id
+    commodityTypeId:Int
+    #商品类型名称（原料、辅料）
+    commodityTypeName:String
+    #客户类型Id
+    customerTypeId:Int
+    #客户类型名称
+    customerTypeName:String
+    #客户Id
+    customerId:Int
+    #客户名称
+    customerName:String
+    #仓库Id
+    warehouseId:Int
+    #仓库名称
+    warehouseName:String
+    #入库人员
+    createUserName:String
+    #入库时间
+    createTime:Long
+    #商品信息
+    commodities:[InOrderRecordItemDetailPayload]
+}
+
+
+#驳回入库审核订单
+input RejectedInput{
+    inOrderId:ID!
+    #驳回原因
+    rejectedDescription:String!
+}
+
+input PurchaseConfirmInput{
+    #入库订单Id
+    inOrderId:ID!
+    #本次入库操作备注信息
+    remark:String
+    #入库商品信息
+    items:[PurchaseConfirmItemInput]!
+    belongType:Int
+    belongId:Int
+    #采购入库类型
+    inOrderType: Int!
+}
+
+input PurchaseConfirmItemInput {
+    #item列表Id
+    inOrderItemId:ID
+    #SPUId
+    commodityId:Int!
+    #商品skuID
+    commoditySkuId:Int!
+    #小单位数量
+    unitQuantity:BigDecimal!
+    #副单位数量
+    totalQuantity:BigDecimal
+    #毛重
+    grossUnitQuantity:BigDecimal
+}
+
+#确认入库
+input ConfirmInput{
+    #入库订单Id
+    inOrderId:ID!
+    #本次入库操作备注信息
+    remark:String
+    #入库商品信息
+    items:[ConfirmItemInput]!
+    belongType:Int
+    belongId:Int
+    #预估运费
+    deliveryFee:BigDecimal
+}
+input ConfirmItemInput{
+    #item列表Id
+    inOrderItemId:ID
+    #SPUId
+    commodityId:Int!
+    #商品skuID
+    commoditySkuId:Int!
+    #小单位数量
+    unitQuantity:BigDecimal!
+    #副单位数量
+    totalQuantity:BigDecimal
+    #总价
+    totalPrice:BigDecimal
+
+}
+#入库记录列表条件（入库记录）
+input InOrderRecordFilter{
+    #入库时间
+    inOrderTime:Long
+    #仓库Id（空为全部）
+    warehouseId:Int
+    #入库类型Id（可空）
+    inOrderTypeId:Int
+    #订单号/客户（模糊查询）
+    keyword:String
+}

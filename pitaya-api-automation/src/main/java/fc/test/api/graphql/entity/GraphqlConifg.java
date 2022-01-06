@@ -1,27 +1,46 @@
 package fc.test.api.graphql.entity;
 
-import lombok.Data;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author SUIWEI WU
  * @date 2021/11/10 10:52
  */
-@Data
-@Component("graphqlConfig")
-@ConfigurationProperties(prefix = "graphql.config")
+@Component
 public class GraphqlConifg {
 
-    private static String server;
+    public static List<GrpahqlClient> clients = new ArrayList<>();
 
-    public static String getServer() {
-        return server;
+    static {
+
+        GrpahqlClient pitayaApp = new GrpahqlClient();
+        pitayaApp.setClientType(GraphqlClientType.PITAYA_APP);
+        pitayaApp.setClientUrl("https://pitaya-test.hjgpscm.com/graphql");
+//        pitayaApp.setClientUrl("http://192.168.10.233:9406/graphql");
+        GrpahqlClient pitayaWeb = new GrpahqlClient();
+        pitayaWeb.setClientType(GraphqlClientType.PITAYA_WEB);
+        pitayaWeb.setClientUrl("https://pitaya-test.hjgpscm.com/graphql-web");
+        GrpahqlClient operationWeb = new GrpahqlClient();
+        operationWeb.setClientType(GraphqlClientType.OPERATION_WEB);
+        operationWeb.setClientUrl("https://operation-test.hjgpscm.com/graphql");
+
+        clients.add(pitayaApp);
+        clients.add(pitayaWeb);
+        clients.add(operationWeb);
     }
 
-    @Value("${server:https://pitaya-test.hjgpscm.com/graphql}")
-    public void setServer(String server) {
-        GraphqlConifg.server = server;
+    @Getter
+    @AllArgsConstructor
+    public enum GraphqlClientType {
+        DEAUTL("默认终端"),
+        PITAYA_WEB("生产项目WEB"),
+        PITAYA_APP("生产项目APP"),
+        OPERATION_WEB("运营平台WEB");
+        private String description;
     }
 }

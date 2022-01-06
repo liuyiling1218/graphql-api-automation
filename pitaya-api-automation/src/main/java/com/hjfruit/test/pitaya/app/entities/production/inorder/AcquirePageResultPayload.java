@@ -1,0 +1,32 @@
+package com.hjfruit.test.pitaya.app.entities.production.inorder;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+/**
+ * 分页对象
+ */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class AcquirePageResultPayload {
+    /**
+     * 采购订单列表
+     */
+    private List<AcquirePayload> records;
+    /**
+     *
+     */
+    private Integer pageCurrent;
+    /**
+     *
+     */
+    private Integer pageSize;
+    /**
+     *
+     */
+    private Long totalRecords;
+}

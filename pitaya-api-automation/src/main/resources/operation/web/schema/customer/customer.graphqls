@@ -1,0 +1,191 @@
+#客户返回实体
+type CustomerVO{
+    # 客户ID
+    customerId:Int
+    # 客户分组ID
+    customerGroupId:Int
+    # 客户分组名称
+    customerGroupName:String
+    # 客户名称
+    customerName:String
+    # 客户简称
+    customerShortName:String
+    # 备注信息
+    remark:String
+    # 创建时间
+    createTime:Long
+    # 配送信息
+    customerDistribution:[CustomerDistributionVO]
+}
+#客户分组实体
+type CustomerGroupResponse{
+    customerGroupId:Int
+    customerGroupName:String
+}
+
+#客户分页实体
+type CustomerPageResult{
+    records: [CustomerVO]
+    pageCurrent:Int
+    pageSize:Int
+    totalRecords:Long
+}
+
+input CustomerInput{
+    # 配送ID
+    distributionId:Int
+    # 客户ID
+    customerId:Int
+    # 配送名称
+    distributionName:String
+    # 联系人
+    contacts:String
+    # 联系电话
+    phoneNum:String
+    # 配送地址
+    distributionAddr:String
+}
+
+input CustomerDistributionInput{
+    # 配送ID
+    distributionId:Int
+    # 客户ID
+    customerId:Int
+    # 配送名称
+    distributionName:String
+    # 联系人
+    contacts:String
+    # 联系电话
+    phoneNum:String
+    # 配送地址
+    distributionAddr:String
+}
+
+type CustomerDistributionVO{
+    # 配送ID
+    distributionId:Int
+    # 客户ID
+    customerId:Int
+    # 配送名称
+    distributionName:String
+    # 联系人
+    contacts:String
+    # 联系电话
+    phoneNum:String
+    # 配送地址
+    distributionAddr:String
+}
+
+# 客户分页返回值,这种语法生成的是个接口，无法使用
+#union CustomerPageResult = CustomerPage | PageResult
+
+# 客户信息
+type CustomerInfo {
+    # 客户id
+    id:Int
+    # 所属系统
+    appId:Int
+    # 客户类型
+    type:Int
+    # 客户名称
+    name:String
+    # 联系人姓名
+    contactName:String
+    # 联系人身份证号码
+    contactIdNumber:String
+    # 手机号
+    phone:String
+    # 纳税人识别号
+    taxpayerIdentificationNumber:String
+    # 创建时间
+    createTime:Long
+}
+
+#更新(个人）客户请求体
+input UpdateCustomerInfoInput {
+    #客户id
+    id:Int
+    # 手机号
+    phone:String
+    # 客户姓名
+    name:String
+    # 客户身份证
+    idNumber:String
+}
+
+input PageCustomerInput {
+    # 所属客户
+    appId:Int
+    # 客户名称
+    customerName:String
+    # 手机号
+    phone:String
+}
+
+type PageCustomerPayload {
+    records:[PageCustomer]
+    pageCurrent:Int
+    pageSize:Int
+    totalRecords:Long
+}
+
+type PageCustomer {
+    # 应用id
+    appId:Int
+    # 客户id
+    customerId:Int
+    # 客户类型
+    customerType:Int
+    # 客户名称
+    customerName:String
+    # 联系人信息
+    linkmanInfo:[LinkmanInfo]
+    # 纳税人识别号
+    identifyNumber:String
+    # 创建时间
+    createTime:Long
+}
+
+type LinkmanInfo {
+    # 姓名
+    name:String
+    # 身份证
+    idCard:String
+    # 手机号
+    phone:String
+}
+
+input UpdatePinyinInput {
+    # 客户id集
+    ids:[Int]
+}
+
+extend type Query {
+    # 客户列表
+    customers(page:Page,keyword:String):CustomerPageResult
+    # 客户详情
+    customer(customerId: Int):CustomerVO
+    # 客户分组列表
+    customerGroups:[CustomerGroupResponse]
+    # 客户分页列表【运营平台】
+    pageCustomer (pageCustomerInput:PageCustomerInput,page:Page) : PageCustomerPayload
+}
+
+extend type Mutation {
+    # 创建客户
+    createCustomer(customerInput:CustomerInput):Int
+    # 更新客户
+    updateCustomer(customerInput:CustomerInput):Int
+    # 删除客户
+    deleteCustomer(customerId:Int):Boolean
+    # 创建客户地址
+    createCustomerDistribution(customerDistributionInput:CustomerDistributionInput):Int
+    # 更新客户地址
+    updateCustomerDistribution(customerDistributionInput:CustomerDistributionInput):Int
+    # 删除客户地址
+    deleteCustomerDistribution(distributionId:Int):Boolean
+    # 更新（个人）客户信息
+    updateCustomerInfo(updateCustomerInput:UpdateCustomerInfoInput):Int
+    # 更新客户名称拼音
+    updatePinyinOfCustomerName(updatePinyinInput:UpdatePinyinInput):Int
+}

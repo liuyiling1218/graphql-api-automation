@@ -1,0 +1,8 @@
+# 报表相关下拉
+extend type Query {
+    # 库存导出
+    exportStock(input:StockReportFormQueryInput):String
+}
+input StockReportFormQueryInput{
+    categoryId:Int
+}

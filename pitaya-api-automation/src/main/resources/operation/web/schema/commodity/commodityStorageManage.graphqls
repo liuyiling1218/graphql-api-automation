@@ -1,0 +1,73 @@
+extend type Mutation {
+    #更新商品存储管理条件
+    doUpdateStorageConditions(updateStorageConditionsInput: UpdateStorageConditionsInput): String
+}
+
+extend type Query {
+    #查询商品存储管理条件【分页】
+    pageQueryStorageConditions(pageQueryStorageConditionInput:PageQueryStorageConditionInput): StorageConditionPageResult
+}
+
+#更新商品存储管理条件graphql请求体
+input UpdateStorageConditionsInput {
+    #商品id
+    categoryId: Int!
+    #商品名称
+    categoryName: String
+    #最低温度值（只能包含一位小数的数字）
+    minTemperature: String!
+    #最高温度值（只能包含一位小数的数字）
+    maxTemperature: String!
+    #最低湿度值（只能为正整数）
+    minHumidity: String!
+    #最大湿度值（只能为正整数）
+    maxHumidity: String!
+    #最小存放天数（只能为正整数）
+    minStorageDay: String!
+    #最大存放天数（只能为正整数）
+    maxStorageDay: String!
+}
+
+#查询商品存储管理条件【分页】请求参数
+input PageQueryStorageConditionInput {
+    #商品名称
+    categoryName: String
+    #分页参数
+    page: Page
+}
+
+#查询商品存储管理条件【分页】返回结果
+type StorageConditionPageResult {
+    #当前页码
+    pageCurrent: Int
+    #一页展示条数
+    pageSize: Int
+    #总条数
+    totalRecords: Long
+    #返回商品存储管理条件数据集
+    records: [StorageCondition]
+}
+
+#商品存储管理条件基础信息
+type StorageCondition {
+    #商品id
+    categoryId: Int
+    #商品名称
+    categoryName: String
+    #最低温度值
+    minTemperature: String
+    #最高温度值
+    maxTemperature: String
+    #最低湿度值
+    minHumidity: String
+    #最大湿度值
+    maxHumidity: String
+    #最小存放天数
+    minStorageDay: String
+    #最大存放天数
+    maxStorageDay: String
+    #更新时间
+    updatedTime: Long
+    #更新人（id）
+    updatedBy: Int
+}

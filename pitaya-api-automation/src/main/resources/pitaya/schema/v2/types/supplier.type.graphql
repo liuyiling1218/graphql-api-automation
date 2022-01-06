@@ -1,0 +1,6 @@
+type SupplierType{
+    "供应商类型"
+    supplierType:Int
+    "供应商类型名称"
+    typeName:String
+}

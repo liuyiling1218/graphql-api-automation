@@ -1,0 +1,92 @@
+
+#编辑sku状态
+input PeachUpdateStatusInput {
+    #状态
+    status:Int
+    #sku id
+    commoditySkuId:[Int]
+}
+
+#sku列表表头
+type PeachTableHeadPayload {
+    spec:[PeachHeadSpec]
+    other:[PeachHeadOther]
+}
+
+type PeachHeadSpec {
+    #选项id
+    specId:Int
+    #选项名称
+    specName:String
+}
+
+type PeachHeadOther {
+    key:String
+    title:String
+}
+
+
+#sku列表
+input PeachPageSkuInput {
+    #商品id
+    commodityId:Int
+    #规格筛选
+    skuCondition:[SkuCondition]
+    #分页对象
+    page:Page
+}
+
+input PeachSkuCondition {
+    #规格id
+    specId:Int
+    #规格选项id
+    optionId:Int
+}
+
+type PeachPageSkuPayload {
+    pageCurrent:Int
+    pageSize:Int
+    totalRecords:Long
+    records:[PeachListSku]
+}
+
+type PeachListSku {
+    #sku Id
+    commoditySkuId:Int
+    #规格选项
+    skuOption:[SkuOption]
+    #状态
+    status:Int
+}
+
+type PeachSkuOption {
+    #规格id
+    specId:Int
+    #规格选项名称
+    optionName:String
+}
+
+
+#可选sku
+type PeachNotChosenSkuOption {
+    #sku id
+    commoditySkuId:Int
+    #规格选项
+    optionId:[Int]
+}
+
+extend type Query{
+    #sku列表表头
+    peachTableHead (commodityId:Int):PeachTableHeadPayload
+    #sku列表
+    peachPageSku (pageSku:PeachPageSkuInput):PeachPageSkuPayload
+    #未选择sku选项id集合
+    peachNotChosenSkuOption (commodityId:Int!):[NotChosenSkuOption]
+}
+
+extend type Mutation {
+    #添加sku
+    peachCreateCommoditySku (commoditySkuId:[Int]):[Int]
+    #编辑sku状态
+    peachUpdateSkuStatus (updateStatusInput:PeachUpdateStatusInput):[Int]
+}

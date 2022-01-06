@@ -1,0 +1,25 @@
+type CommoditySpecDetailPayload {
+    # 商品规格ID
+    commoditySpecId: Int
+    # 商品规格名称
+    commoditySpecName: String
+    # 商品规格排序
+    commoditySpecSort: Int
+    # 商品规格选项列表信息
+    commoditySpecOptionDetailPayload:[CommoditySpecOptionDetailPayload]
+}
+
+input InsertCommoditySpecInput {
+    # 商品规格id
+    commoditySpecId: Int
+    # 商品规格名称
+    commoditySpecName: String!
+    # 商品规格排序
+    commoditySpecSort: Int!
+    # 多语言
+    nameLocale: NameLocale
+    # 名称排序
+    nameSort:Int!
+    # 商品规格选项列表信息
+    commoditySpecOptions: [InsertCommoditySpecOptionInput]!
+}

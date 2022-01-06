@@ -1,0 +1,8 @@
+extend type Query {
+    #    商品品类下拉接口列表
+    listSpuCategoryOption(commodityTypeId:Int!):[Option]
+    #    品种下拉接口
+    listCommodityVarietyOption(categoryId:Int!):[Option]
+    #    产地下拉接口
+    listCommodityOriginOption(categoryId:Int!):[Option]
+}

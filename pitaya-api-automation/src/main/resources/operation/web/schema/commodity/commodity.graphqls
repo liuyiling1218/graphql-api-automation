@@ -1,0 +1,126 @@
+type CommodityPagePayload {
+    # 商品id
+    commodityId: Int
+    # 商品名称
+    commodityName: String
+    # 商品类型名称
+    commodityTypeName: String
+    # 商品品类名称
+    commodityCategoryName: String
+    # 商品品种名称
+    commodityVarietyName: String
+    # 商品产地名称
+    commodityPlaceOriginName: String
+    # 激活状态
+    status: Int
+    # sku总数
+    skuSum: Int
+}
+
+type FinishedPageProductPaload {
+    # 商品skuId
+    commoditySkuId:Int
+    # 商品id
+    commodityId: Int
+    # 商品名称
+    commodityName: String
+    # 商品类型id
+    commodityTypeId: Int
+    # 商品类型名称
+    commodityTypeName: String
+    # 商品规格
+    specText:[String]
+    # 商品分类id
+    commodityCategoryId: Int
+    # 商品分类名称
+    commodityCategoryName: String
+    # 商品品种
+    varietyName: String
+    # 商品产地
+    placeOriginName: String
+}
+
+#商品分页对象
+type CommodityPageResult {
+    records: [CommodityPagePayload]
+    pageCurrent: Int
+    pageSize: Int
+    totalRecords: Long
+}
+
+type CommodityDetailPayload {
+    # 商品id
+    commodityId: Int
+    # 商品名称
+    commodityName: String
+    # 商品类型id
+    commodityTypeId: String
+    # 商品类型名称
+    commodityTypeName: String
+    # 商品品类名称
+    commodityCategoryName: String
+    # 商品品种名称
+    commodityVarietyName: String
+    # 商品产地名称
+    commodityPlaceOriginName: String
+    # 英语
+    englishName: String
+    # 泰语
+    thailandName: String
+    # 越南语
+    vietnamName: String
+}
+
+input NameLocale {
+    chineseName: String
+    englishName: String
+    thailandName: String
+    vietnamName: String
+}
+
+input InsertCommodityInput {
+    commodityId: Int
+    # 商品名称
+    commodityName: String!
+    # 商品类型id
+    commodityTypeId: Int!
+    # 商品品类id
+    commodityCategoryId: Int!
+    # 商品品种id
+    commodityVarietyId: Int
+    # 商品产地id
+    commodityPlaceOriginId: Int
+    # 多语言c
+    nameLocale: NameLocale
+    # 规格信息
+    commoditySpecs: [InsertCommoditySpecInput]!
+}
+
+input UpdateCommodityNameInput {
+    # 商品id
+    commodityId: Int!
+    # 商品名称
+    commodityName: String!
+    # 多语言
+    nameLocale: NameLocale
+}
+
+extend type Query {
+    #    商品分页列表
+    pageCommodity(commodityName:String,page:Page):CommodityPageResult
+    #    查询商品信息
+    getCommodity(commodityId:Int):CommodityDetailPayload
+    #    商品名称重复验证
+    isSpuNameRepeat(updateCommodityNameInput:UpdateCommodityNameInput):Boolean
+    #商品分类下拉列表
+    typeOption:[Option]
+    #根据条件获取商品选项列表
+    commodityOption(specsInput:SpecsInput):[Option]
+}
+
+extend type Mutation {
+    #    新增商品
+    doInsertCommodity(insertCommodityInput:InsertCommodityInput):Int
+    #    修改商品名称
+    doUpdateCommodityName(updateCommodityNameInput:UpdateCommodityNameInput):Int
+}

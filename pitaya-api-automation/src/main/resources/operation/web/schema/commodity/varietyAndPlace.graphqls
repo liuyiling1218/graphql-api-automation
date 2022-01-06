@@ -1,0 +1,45 @@
+type Variety{
+    varietyId:Int
+    varietyName:String
+}
+
+input VarietyInput{
+    varietyId:Int
+    varietyName:String!
+    categoryId:Int
+}
+
+type Place{
+    placeId:Int
+    placeName:String
+    placePid:Int
+}
+
+input PlaceInput{
+    placeId:Int
+    placePid:Int
+    placeName:String
+    categoryId:Int
+}
+
+extend type Query {
+    selectVarietyByCategoryId(categoryId:Int):[Variety]
+    selectPlaceByCategoryId(categoryId:Int):[Place]
+    # 获取产地树形列表
+    selectPlaceTree:[Place]
+}
+
+extend type Mutation {
+    # 新增或修改品种
+    modifyCategoryVariety(varietyInput:VarietyInput):Int
+    # 删除品种
+    deleteCategoryVariety(varietyId:Int!):Boolean
+    # 新增或修改场地关联关系
+    modifyCategoryPlace(placeInput:PlaceInput):Int
+    # 删除场地关联关系
+    deleteCategoryPlace(placeInput:PlaceInput):Boolean
+
+    modifyPlace(placeInput:PlaceInput):Int
+    deletePlace(placeId:Int!):Boolean
+
+}

@@ -1,0 +1,46 @@
+type Query{
+
+}
+
+type Mutation{
+
+}
+
+type Option{
+    label:String
+    value:Int
+}
+type Option2{
+    label:String
+    value:String
+}
+type File{
+    fileId: String
+    fileUrl: String
+    filename: String
+}
+
+input FileInput{
+    fileId: String
+    fileUrl: String
+    filename: String
+}
+
+input Page{
+    pageCurrent:Int
+    pageSize:Int
+}
+
+input NameInput {
+    locale:String
+    name:String
+}
+
+type NamePayload {
+    locale:String
+    name:String
+}
+
+scalar Long
+scalar Date
+scalar BigDecimal

@@ -23,6 +23,12 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- aop -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
         <!-- jdbc -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -1,0 +1,59 @@
+type CategoryPage{
+    records: [Category]
+    pageCurrent:Int
+    pageSize:Int
+    totalRecords:Long
+}
+
+type Category{
+    #品类id
+    categoryId:Int
+    #品类名称
+    categoryName:String
+    #商品类型id
+    commodityTypeId:Int
+    #商品类型名称
+    commodityTypeName:String
+    #品类排序
+    categorySort:Int
+    #语言
+    nameLocale:[NamePayload]
+}
+
+input PageCategoryInput{
+    # 分页参数
+    page:Page
+    # 商品类型id
+    commodityTypeId:Int
+    # 商品分类名称（模糊查询）
+    categoryName:String
+}
+
+input CategoryInput{
+    # 商品分类id
+    categoryId:Int
+    # 商品分类名称
+    nameLocale:[NameInput]
+    # 商品类型id
+    commodityTypeId:Int!
+    # 排序
+    categorySort:Int!
+}
+
+extend type Query {
+    # 品类详情数据【分页】
+    pageCategoryDetails(pageCategoryInput:PageCategoryInput):CategoryPage
+    # 根据categoryId 获取详情
+    categoryDetail(categoryId:Int!):Category
+    #    品类总数
+    countCategory:Long
+}
+
+extend type Mutation{
+    # 创建商品分类
+    createCategory(categoryInput:CategoryInput):Category
+    # 修改商品分类
+    updateCategory(categoryInput:CategoryInput):Category
+    # 删除商品分类接口
+    deleteCategory(categoryId:Int!):Boolean
+}

@@ -1,0 +1,77 @@
+extend type Mutation{
+    #创建用户
+    createUserMange(input: UserMangerInput): String
+    #修改用户
+    updateUserManage(input: UserMangerInput): Boolean
+    #修改密码
+    updatePassword(input: UpdatePasswordInput): Boolean
+}
+
+extend type Query {
+    #分页获取用户信息
+    pageUserManage(input: PageUserInput): UserPagePayload
+    #获取员工信息
+    userManage(id:Int): UserManagePayload
+}
+input UpdatePasswordInput{
+    id: Int
+    #密码
+    password: String
+}
+input UserMangerInput{
+    id: Int
+    #组织Id
+    orgId: Int!
+    #组织架构Id
+    orgGroupId: Int!
+    #手机号
+    phone: String!
+    #用户账号
+    userAccount: String!
+    #名称
+    name: String!
+    #关联组织ID
+    relOrgIds: [Int]
+}
+
+#获取员工列表入参
+input PageUserInput {
+    pageCurrent: Int!
+    pageSize:Int!
+    #组织架构Id
+    orgGroupId: Int
+    #组织Id
+    orgId: Int
+    #名称
+    name: String
+}
+
+#分页信息
+type UserPagePayload {
+    records: [UserManagePayload]
+    pageCurrent:Int
+    pageSize:Int
+    totalRecords:Int
+}
+
+#用户管理信息
+type UserManagePayload {
+    #id
+    id: Int
+    #名称
+    name: String
+    #手机号
+    phone: String
+    #用户账号
+    userAccount: String
+    #所属组织架构名称
+    orgGroupName: String
+    #所属组织架构ID
+    orgGroupId: Int
+    #所属组织名称
+    orgName: String
+    #所属组织ID
+    orgId: Int
+    #关联组织IDs
+    relOrgIds: [Int]
+}

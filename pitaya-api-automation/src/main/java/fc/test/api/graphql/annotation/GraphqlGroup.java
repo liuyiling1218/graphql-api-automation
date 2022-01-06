@@ -1,5 +1,6 @@
 package fc.test.api.graphql.annotation;
 
+import fc.test.api.graphql.entity.GraphqlConifg;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;
@@ -27,9 +28,9 @@ public @interface GraphqlGroup {
     String description() default "";
 
     /**
-     * 服务器地址
+     * 终端名称
      *
      * @return
      */
-    String serverName() default "";
+    GraphqlConifg.GraphqlClientType client() default GraphqlConifg.GraphqlClientType.DEAUTL;
 }

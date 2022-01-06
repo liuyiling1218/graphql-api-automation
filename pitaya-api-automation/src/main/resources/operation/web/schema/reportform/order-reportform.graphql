@@ -1,0 +1,125 @@
+# 订单报表
+# 订单报表查询
+extend type Query {
+    # 列表接口
+    pageOrderReportForm(input:OrderReportFormPageInput):OrderReportFormPagePayload
+    # 列表导出
+    exportOrderReportForm(input:OrderReportFormQueryInput):String
+}
+
+# 列表分页入参
+input OrderReportFormPageInput{
+    orderReportFormQueryInput:OrderReportFormQueryInput
+    # 分页入参
+    pageInput: Page!
+}
+# 列表通用查询入参
+input OrderReportFormQueryInput{
+    # 商户ID
+    merchantId:Long
+    # 订单号
+    orderCode:String
+    # 客户类型
+    customerType:CustomerType
+    # 客户名称
+    customerName:String
+    # 销售员
+    salesmanName:String
+    # 收银员
+    cashierName:String
+    # 支付方式
+    payMethod:[PayMethod]
+    # 支付时间起
+    payStartTime:Long
+    # 支付时间终
+    payEndTime:Long
+    # 订单状态
+    status:OrderReportQueryStatus
+}
+
+# 列表分页对象
+type OrderReportFormPagePayload{
+    records:[OrderReportFormListPayload]
+    pageCurrent:Int
+    pageSize:Int
+    totalRecords:Long
+}
+type ProductObj{
+    productName:String
+    quantity:BigDecimal
+    unit:String
+}
+# 列表集合对象
+type OrderReportFormListPayload{
+    # 主键
+    id:Long
+    # 订单号
+    orderCode:String
+    # 商品及数量
+    productAndCount:[ProductObj]
+    # 所属商户
+    merchant:String
+    # 客户类型
+    customerType:String
+    # 客户名称
+    customerName:String
+    # 销售员
+    salesmanName:String
+    # 收银员
+    cashierName:String
+    # 总数量
+    totalQuantity:BigDecimal
+    # 应收金额
+    totalMoney:BigDecimal
+    # 实收金额
+    receivableMoney:BigDecimal
+    # 优惠金额
+    discountMoney:BigDecimal
+    # 现金支付金额
+    cashMoney:BigDecimal
+    # 微信金额
+    wechatMoney:BigDecimal
+    # 支付宝金额
+    alipayMoney:BigDecimal
+    # 内部欠款
+    internalArrearsMoney:BigDecimal
+    # 外部欠款
+    externalArrearsMoney:BigDecimal
+    # 转账
+    transferAccountsMoney:BigDecimal
+    # 刷卡
+    swipeMoney:BigDecimal
+    # 支付方式
+    payMethod:[String]
+    # 原支付方式
+    oldPayMethod: [String]
+    # 开单时间
+    billingTime:Long
+    # 支付时间
+    payTime:Long
+    # 订单备注
+    remark: String
+    # 收银备注
+    cashRemark: String
+    # 退货订单ID
+    returnOrderId:Int
+    # 退货订单号
+    returnOrderCode:String
+    #订单状态
+    statusDesc:String
+}
+# 订单报表查询状态
+enum OrderReportQueryStatus{
+    # 未知
+    UNRECOGNIZED,
+    # 全部
+    ALL,
+    # 未完成
+    UNDONE,
+    # 已完成
+    COMPLETED,
+    # 已取消
+    CANCEL,
+    # 已退货
+    RETURNED
+}

@@ -1,0 +1,78 @@
+# 报表相关下拉
+extend type Query {
+    # 所属商户下拉
+    listMerchantOption:OptionList
+    # 出库类型下拉
+    listOutboundOption:OptionList
+    # 支付方式下拉
+    listPayMethodOption:OptionList
+    # 客户类型下拉
+    listCustomerTypeOption:OptionList
+}
+type OptionList{
+    options:[BaseSelectOption]
+}
+# 报表相关枚举
+type BaseSelectOption{
+    label:String
+    value:String
+    disable:Boolean
+}
+# 入库类型
+enum InBoundType{
+    # 采购入库
+    PURCHASING
+    # 自采入库
+    PURCHASE_SELF
+    # 调拨入库
+    ALLOCATE_IN
+    # 盘盈入库
+    INVENTORY_PROFIT
+    # 退货入库
+    RETURNS
+    # 其他入库
+    ENTRY_OTHER
+}
+# 出库类型
+enum OutBoundType{
+    # 销售出库
+    MARKET
+    # 盘亏出库
+    PROFIT_LOSS
+    # 调拨出库
+    ALLOCATE_OUT
+    # 报损出库
+    BREAKAGE
+    # 其他出库
+    COME_OTHER
+}
+# 支付方式
+enum PayMethod{
+    # 现金
+    CASH
+    # 欠款
+    PERIOD
+    # 二维码
+    OR_CODE
+    # 内部欠款
+    INTERNAL_ARREARS
+    # 外部欠款
+    EXTERNAL_ARREARS
+    # 微信
+    WECHAT
+    # 支付宝
+    ALIPAY
+    # 转账
+    TRANSFER_ACCOUNTS
+    # 刷卡
+    SWIPE
+}
+# 客户类型
+enum CustomerType{
+    #个人
+    PERSONAL,
+    #公司
+    COMPANY,
+    #零售
+    RETAIL
+}

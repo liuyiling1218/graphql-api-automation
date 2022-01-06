@@ -1,0 +1,133 @@
+extend type Mutation{
+    # 创建组织架构
+    createOrgGroup(input:CreateOrgGroupInput): Boolean
+    # 创建组织
+    createOrg(input:OrgInput):Boolean
+    # 修改组织
+    updateOrg(input:OrgInput):Boolean
+}
+
+extend type Query {
+    #分页获取组织架构
+    pageOrgGroup(input:PageOrgGroupInput):PageOrgGroupPayload
+    #组织架构下拉
+    listOrgGroupOption:[Option]
+    #获取组织信息
+    org(id:Int):OrgPayload
+    #获取组织树
+    orgTree(id:Int):OrgTreePayload
+    #获取全部组织树
+    orgAllTree:OrgTreePayload
+}
+input PageOrgGroupInput{
+    pageCurrent: Int!
+    pageSize:Int!
+    #组织架构名称
+    name: String
+}
+input OrgTreeInput{
+    id: Int
+}
+input CreateOrgGroupInput{
+    name: String
+}
+
+#组织请求参数
+input OrgInput{
+    id: Int
+    #组织名称
+    orgName: String!
+    #上级组织ID
+    parentId: Int!
+    #组织架构ID
+    orgGroupId: Int!
+    #多语言 例子：{"zh-CN":"南部榴莲7厂","th-TH":"ภาพใต้แผง7"}
+    nameLocale: String!
+    #国家 1 中国 3 泰国 2 越南
+    country: Int!
+    #负责人
+    leadingCadre: String
+    #负责人联系电话
+    phone: String
+    #备注
+    remark: String
+    #地址
+    address: String
+    #纬度
+    lat: String
+    #经度
+    lng: String
+    #企业名称
+    businessName: String
+    #法定代表人
+    legalRep: String
+    #社会信用代码
+    socialCreditCode: String
+    #企业地址
+    businessAddress: String
+    #营业执照
+    bizLicense: [FileInput]
+    #开户证明
+    accountCert: [FileInput]
+    #系统ID
+    appId: Int
+}
+#组织信息
+type OrgPayload{
+    id: Int
+    #组织名称
+    orgName: String!
+    #多语言 例子：{"zh-CN":"南部榴莲7厂","th-TH":"ภาพใต้แผง7"}
+    nameLocale: String!
+    #国家 1 中国 3 泰国 2 越南
+    country: Int!
+    #负责人
+    leadingCadre: String
+    #负责人联系电话
+    phone: String
+    #备注
+    remark: String
+    #地址
+    address: String
+    #纬度
+    lat: String
+    #经度
+    lng: String
+    #企业名称
+    businessName: String
+    #法定代表人
+    legalRep: String
+    #社会信用代码
+    socialCreditCode: String
+    #企业地址
+    businessAddress: String
+    #营业执照
+    bizLicense: [File]
+    #开户证明
+    accountCert: [File]
+    #上级组织名称
+    parentName: String
+    #上级组织ID
+    parentId: Int
+    #系统ID
+    appId: Int
+}
+
+#组织架构分页数据
+type PageOrgGroupPayload {
+    records: [OrgGroupPayload]
+    pageCurrent:Int
+    pageSize:Int
+    totalRecords:Int
+}
+
+type OrgGroupPayload{
+    id: Int
+    #名称
+    name: String
+}
+
+type OrgTreePayload{
+    #json数据 格式{key:1,parentId:2,name:"中国",children:[]}
+    treeJson: String
+}

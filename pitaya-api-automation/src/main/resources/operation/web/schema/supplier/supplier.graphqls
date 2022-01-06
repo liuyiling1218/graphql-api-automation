@@ -1,0 +1,74 @@
+extend type Query {
+    # 供应商分页查询
+    supplierPages(page:Page,supplierCondition:SupplierCondition):SupplierPageResult
+    # 根据id查询供应商
+    supplier(supplierId:Int!):SupplierResponse
+    # 根据条件查询供应商是否已存在
+    supplierExist(input:SupplierExistInput!):Boolean
+}
+extend type Mutation {
+    # 创建供应商
+    createSupplier(supplierInput:SupplierInput):Int
+    # 更新供应商
+    updateSupplier(supplierInput:SupplierInput):Int
+}
+
+input SupplierExistInput {
+    # 供应商名称
+    supplierName: String
+    # 税号
+    tfn: String
+    # 联系电话
+    phoneNum: String
+}
+
+type SupplierResponse{
+    # 供应商id
+    supplierId:Int
+    # 供应商名称
+    supplierName: String
+    # 商品分类id
+    commodityTypeId: Int
+    # 供应商手机号
+    phoneNum: String
+    # 供应商座机号
+    landlineNum: String
+    # 供应商地址
+    supplierAddress: String
+    # 供应商门牌号
+    houseNum: String
+    # 税号
+    tfn: String
+    # 创建时间
+    createTime: Long
+}
+
+input SupplierInput{
+    supplierId: Int
+    # 供应商名称
+    supplierName: String
+    # 供应商手机号
+    phoneNum: String
+    # 供应商座机号
+    landlineNum: String
+    # 供应商地址
+    supplierAddress: String
+    # 供应商门牌号
+    houseNum: String
+    # 税号
+    tfn: String
+}
+
+#客户分页实体
+type SupplierPageResult{
+    records: [SupplierResponse]
+    pageCurrent:Int
+    pageSize:Int
+    totalRecords:Long
+}
+input SupplierCondition{
+    # 供应商名称
+    supplierName:String
+    # 税号
+    tfn: String
+}

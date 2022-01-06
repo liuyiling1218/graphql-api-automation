@@ -1,0 +1,96 @@
+input CommoditySpecInput {
+    commoditySpecId:Int
+    commoditySpecName:String
+    commoditySpecOptionList:[CommoditySpecOptionInput]
+    commoditySpecSort:Int
+    nameLocale: NameLocale
+    nameSort:Int
+}
+input CommoditySpecOptionInput {
+    commoditySpecOptionId :Int
+    commoditySpecOptionName :String
+    nameLocale: NameLocale
+    commoditySpecOptionSort:Int
+}
+
+type NameLocalePayload {
+    chineseName: String
+    englishName: String
+    thailandName: String
+    vietnamName: String
+}
+
+type CommoditySpecPayload {
+    commoditySpecId:Int
+    commoditySpecName:String
+    commoditySpecOptionList:[CommoditySpecOptionPayload]
+    commoditySpecSort:Int
+    nameSort:Int
+    nameLocale:NameLocalePayload
+}
+type CommoditySpecOptionPayload {
+    commoditySpecOptionId:Int
+    commoditySpecOptionName:String
+    nameLocale: NameLocalePayload
+    commoditySpecOptionSort:Int
+}
+
+input CommodityModifyInput{
+    commodityId:Int
+    commoditySpecs:[CommoditySpecInput]
+}
+
+input SpecsInput {
+    #商品类型id
+    typeId:Int
+    #商品品类id
+    categoryId:Int
+    #品种id
+    varietyId:Int
+    #产地id
+    origin:Int
+    #商品id
+    spuId:Int
+}
+
+type SpecsPayload {
+    #规格id
+    specId:Int
+    #规格名称
+    specName:String
+    #规格排序
+    specSort:Int
+    #商品id
+    commodityId:Int
+    #多语言
+    nameLocale:[NamePayload]
+    #sku选项列表
+    specOption:[SpecOption]
+}
+
+type SpecOption{
+    #id
+    optionId:Int
+    #名称
+    optionName:String
+    #规格id
+    specId:Int
+    #商品id
+    optionSort:Int
+    #商品id
+    commodityId:Int
+    #多语言
+    nameLocale:[NamePayload]
+}
+
+extend type Query {
+    specList(commodityId:Int):[CommoditySpecPayload]
+    verifySpecName(specName:String):Boolean
+    listCommoditySpecAndOptionByCommodityId(commodityId:Int):[CommoditySpecPayload]
+    # 规格列表
+    specs (specsInput:SpecsInput):[SpecsPayload]
+}
+
+extend type Mutation {
+    updateSpec(commodityModifyInput: CommodityModifyInput): Int
+}

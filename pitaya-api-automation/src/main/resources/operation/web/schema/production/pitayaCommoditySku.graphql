@@ -1,0 +1,167 @@
+#编辑sku
+
+input PitayaUpdateCommoditySkuInput {
+    #单位数量
+    unitQuantity:BigDecimal
+    #单位数量单位
+    unitType:Int!
+    #总计类型
+    totalType:Int
+    #sku属性
+    property:[Int]
+    #状态
+    status:Int!
+    #sku id
+    skuId:[Int!]!
+}
+#编辑sku
+
+#编辑sku状态
+input PitayaUpdateStatusInput {
+    #状态
+    status:Int
+    #sku id
+    commoditySkuId:[Int]
+}
+#编辑sku状态
+
+#sku详情
+type PitayaCommoditySkuDetailPayload {
+    #sku id
+    commoditySkuId:Int
+    #商品类型
+    commodityTypeId:Int
+    #商品类型名
+    commodityTypeName:String
+    #单位数量
+    unitQuantity:BigDecimal
+    #单位数量单位
+    unitType:Int
+    #总计类型
+    totalType:Int
+    #sku属性
+    property:[Int]
+    #状态
+    status:Int
+    #变更标识
+    change:Int
+    #商品id
+    commodityId:Int
+    #商品名称
+    commodityName:String
+    #品类id
+    categoryId:Int
+    #品类名称
+    categoryName:String
+    #品种id
+    varietyId:Int
+    #品种名称
+    varietyName:String
+    #产地id
+    placeOriginId:Int
+    #产地名称
+    placeOriginName:String
+    #商品规格id
+    commoditySpecId:[Int]
+    #商品规格选项id
+    commoditySpecOptionId:[Int]
+    #规格名称集合
+    commoditySpecName:[String]
+    #规格选项名称集合
+    commoditySpecOptionName:[String]
+}
+#sku详情
+
+#sku列表表头
+type PitayaTableHeadPayload {
+    spec:[PitayaHeadSpec]
+    other:[PitayaHeadOther]
+}
+
+type PitayaHeadSpec {
+    #选项id
+    specId:Int
+    #选项名称
+    specName:String
+}
+
+type PitayaHeadOther {
+    key:String
+    title:String
+}
+#sku列表表头
+
+#sku列表
+input PitayaPageSkuInput {
+    #商品id
+    commodityId:Int
+    #规格筛选
+    skuCondition:[SkuCondition]
+}
+
+input SkuCondition {
+    #规格id
+    specId:Int
+    #规格选项id
+    optionId:Int
+}
+
+type PitayaPageSkuPayload {
+    pageCurrent:Int
+    pageSize:Int
+    totalRecords:Long
+    records:[ListSku]
+}
+
+type ListSku {
+    #sku Id
+    commoditySkuId:Int
+    #规格选项
+    skuOption:[SkuOption]
+    #总计类型
+    total:String
+    #单位数量
+    unit:String
+    #状态
+    status:Int
+    #变更状态
+    change:Int
+    #属性
+    property:[String]
+}
+
+type SkuOption {
+    #规格id
+    specId:Int
+    #规格选项名称
+    optionName:String
+}
+#sku列表
+
+#可选sku
+type NotChosenSkuOption {
+    #sku id
+    commoditySkuId:Int
+    #规格选项
+    optionId:[Int]
+}
+
+extend type Query{
+    #sku详情
+    pitayaCommoditySkuDetail (commoditySkuId:Int):PitayaCommoditySkuDetailPayload
+    #sku列表表头
+    pitayaTableHead (commodityId:Int):PitayaTableHeadPayload
+    #sku列表
+    pitayaPageSku (pageSku:PitayaPageSkuInput,page:Page):PitayaPageSkuPayload
+    #未选择sku选项id集合
+    pitayaNotChosenSkuOption (commodityId:Int!):[NotChosenSkuOption]
+}
+
+extend type Mutation {
+    #添加sku
+    pitayaCreateCommoditySku (commoditySkuId:[Int]):[Int]
+    #编辑sku
+    pitayaUpdateCommoditySku (updateCommoditySkuInput:PitayaUpdateCommoditySkuInput):[Int]
+    #编辑sku状态
+    pitayaUpdateSkuStatus (updateStatusInput:PitayaUpdateStatusInput):[Int]
+}

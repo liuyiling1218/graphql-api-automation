@@ -1,0 +1,79 @@
+type PageVarietyGroupPayload {
+    pageCurrent:Int
+    pageSize:Int
+    totalRecords:Long
+    records:[VarietyGroup]
+}
+
+type VarietyGroup {
+    #品种组id
+    groupId:Int
+    #品种组名称
+    groupName:String
+    #组织id
+    orgIds:[Int]
+    #组织名称
+    orgName:[String]
+}
+
+input VarietyGroupInput {
+    #品种组id
+    groupId:Int
+    #品种组名称
+    groupName:String!
+    #组织id
+    orgIds:[Int]
+}
+
+type PageVarietyGroupSkuPayload {
+    pageCurrent:Int
+    pageSize:Int
+    totalRecords:Long
+    records :[VarietyGroupSku]
+}
+
+type VarietyGroupSku {
+    #主键id
+    varietySkuId:Int
+    #品种组id
+    groupId:Int
+    #sku id
+    skuId:Int
+    #品类名称
+    categoryName:String
+    #spu名称
+    spuName:String
+    #sku名称
+    skuName:String
+}
+
+#添加sku
+input CreateVarietyGroupSkuInput {
+    group:Int!
+    skuId:[Int]!
+}
+
+#批量删除
+input DelVarietyGroupSkuInput {
+    varietyGroupSkuId:[Int]!
+}
+
+extend type Query {
+    # 品种组分页列表
+    pageVarietyGroup (name:String,page:Page) : PageVarietyGroupPayload
+    # 品种组详情
+    varietyGroupDetail (id:Int!) : VarietyGroup
+    #品种组sku列表
+    pageVarietyGroupSku (groupId:Int!,page:Page) :PageVarietyGroupSkuPayload
+}
+
+extend type Mutation {
+    # 编辑品种组
+    updateVarietyGroup (varietyGroupInput:VarietyGroupInput) : VarietyGroup
+    # 新增品种组
+    createVarietyGroup (varietyGroupInput:VarietyGroupInput) : VarietyGroup
+    #批量删除
+    delVarietyGroupSku (delVarietyGroupSkuInput:DelVarietyGroupSkuInput) :Boolean
+    #添加sku
+    createVarietyGroupSku (createVarietyGroupSkuInput:CreateVarietyGroupSkuInput) :Boolean
+}

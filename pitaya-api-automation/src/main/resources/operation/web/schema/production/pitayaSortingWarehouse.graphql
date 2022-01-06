@@ -1,0 +1,83 @@
+extend type Query {
+    #分页查询分拣仓
+    pagePitayaSortingWarehouse(input:PitayaSortingWarehouseInput,page:Page):PagePitayaSortingWarehouse
+    #按名称和手机号搜索负责人
+    findUser(input:FindUserInput):[FindUserPayload]
+}
+
+input FindUserInput {
+    #关键词
+    keyword:String
+    #组织id,所属组织下拉框选择的id
+    orgId:Int!
+}
+
+type FindUserPayload {
+    #用户id
+    userId:Int
+    #用户名称
+    userName:String
+    #用户电话
+    phone:String
+}
+
+extend type Mutation {
+    #初始化分拣仓
+    createPitayaSortingWarehouse(input:SortingWarehouseInput):Int
+    #编辑分拣仓
+    updatePitayaSortingWarehouse(input:SortingWarehouseInput):Int
+}
+
+input PitayaSortingWarehouseInput {
+    #分拣仓名称
+    sortingWarehouseName:String
+    #负责人姓名
+    principalName:String
+    #登录手机号
+    phone:String
+}
+
+type PagePitayaSortingWarehouse {
+    pageCurrent:Int
+    pageSize:Int
+    totalRecords:Long
+    records:[PitayaSortingWarehousePayload]
+}
+
+input SortingWarehouseInput {
+    #组织架构id
+    orgGroupId:Int!
+    #组织id
+    orgId:Int!
+    #分拣仓id,修改时传递
+    sortingWarehouseId:Int
+    #分拣仓名称
+    sortingWarehouseName:String!
+    #仓库名称
+    warehouseName:String!
+    #仓库地址
+    warehouseAddress:String!
+    #负责人id
+    userId: Int!
+}
+
+type PitayaSortingWarehousePayload {
+    #分拣仓id
+    sortingWarehouseId:Int
+    #分拣仓名称
+    sortingWarehouseName:String
+    #负责人id
+    userId:Int
+    #负责人姓名
+    userName:String
+    #登录手机号
+    phone:String
+    #所属组织架构名称
+    orgGroupName:String
+    #所属组织架构id
+    orgGroupId:Int
+    #所属组织id
+    orgId:Int
+    #所属组织名称
+    orgName:String
+}

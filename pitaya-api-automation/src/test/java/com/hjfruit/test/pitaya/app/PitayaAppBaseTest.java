@@ -1,20 +1,17 @@
 package com.hjfruit.test.pitaya.app;
 
 import com.hjfruit.test.pitaya.PitayaBaseTest;
-import com.hjfruit.test.pitaya.actions.user.LoginAction;
-import com.hjfruit.test.pitaya.apis.user.LoginApi;
+import com.hjfruit.test.pitaya.app.actions.user.LoginAction;
+import com.hjfruit.test.pitaya.app.apis.user.LoginApi;
 import com.hjfruit.test.pitaya.common.PitayaAutheration;
 import com.hjfruit.test.pitaya.common.PitayaBaseAction;
 import com.hjfruit.test.pitaya.common.PitayaConfig;
-import com.hjfruit.test.pitaya.entities.user.BindOrgInput;
-import com.hjfruit.test.pitaya.entities.user.BindOrgPayload;
-import com.hjfruit.test.pitaya.entities.user.LoginPayload;
+import com.hjfruit.test.pitaya.app.entities.user.BindOrgInput;
+import com.hjfruit.test.pitaya.app.entities.user.BindOrgPayload;
+import com.hjfruit.test.pitaya.app.entities.user.LoginPayload;
 import fc.test.api.graphql.Autheration;
-import fc.test.api.graphql.entity.GraphqlConifg;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
@@ -23,10 +20,9 @@ import javax.annotation.Resource;
  * @author SUIWEI WU
  * @date 2021/11/9 15:28
  */
+@Slf4j
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class PitayaAppBaseTest extends PitayaBaseTest {
-    @Autowired
-    GraphqlConifg graphqlConifg;
     private static Boolean flag = true;
     @Autowired
     LoginAction loginAction;
@@ -41,18 +37,22 @@ public class PitayaAppBaseTest extends PitayaBaseTest {
 
     @BeforeAll
     public void beforAll() {
-        System.out.println("============beforeAll============");
+        System.out.println("============beforeAll Start============");
         pitayaBaseAction.config();
         if (flag) {
-            pitayaBaseAction.prepare();
+            try {
+                pitayaBaseAction.prepare();
+            } catch (Exception e) {
+                log.warn("初始化数据失败，请确认数据已被完整初始化");
+            }
             flag = false;
         }
-        System.out.println("============beforeAll============");
+        System.out.println("============beforeAll End============");
     }
 
     @BeforeEach
     public void beforeEach() {
-        System.out.println("============beforeEach============");
+        System.out.println("============beforeEach Start============");
         LoginPayload loginPayload = null;
         BindOrgPayload bindOrgPayload = null;
         //若账号、orgId非默认，则自动重新登录默认账号、orgId
@@ -74,11 +74,11 @@ public class PitayaAppBaseTest extends PitayaBaseTest {
         } else {
             Autheration.token = null;
         }
-        System.out.println("============beforeEach============");
+        System.out.println("============beforeEach End============");
     }
 
-    @Test
-    void test() {
-        System.out.println(GraphqlConifg.getServer());
+    @AfterAll
+    public void afterAll() {
+//        pitayaBaseAction.clear();
     }
 }

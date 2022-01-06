@@ -1,0 +1,11 @@
+type ListLogsPayload {
+    flowLog:[FlowLog]
+}
+
+type FlowLog{
+    type:Int
+    note:String
+    createTime:Long
+    createBy:Int
+    flowId:Long
+}
