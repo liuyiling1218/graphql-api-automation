@@ -65,10 +65,10 @@ type StockBatchPayloadV2{
     createTime:Long
     #分类id
     categoryId:ID
-#    # 在库时间
-#    inTime:Long
-#    # 商品状态（10：正常 20：预警 30：呆滞品）
-#    commodityStatus:Int
+    #    # 在库时间
+    #    inTime:Long
+    #    # 商品状态（10：正常 20：预警 30：呆滞品）
+    #    commodityStatus:Int
     #sku 信息
     sku:CommoditySkuPayload
 }

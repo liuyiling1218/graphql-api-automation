@@ -7,6 +7,7 @@ import fc.test.api.graphql.annotation.*;
 import fc.test.api.graphql.entity.GraphqlConifg;
 
 import java.util.List;
+
 /**
  * Generated From Graphql Schema
  */
@@ -14,6 +15,7 @@ import java.util.List;
 public interface SaleReturnApi {
     @GraphqlMutation("新增销售退货")
     String createSaleReturn(SaleReturnInsertInput saleReturnInsertInput);
+
     @GraphqlMutation("修改销售退货")
     Boolean updateSaleReturn(SaleReturnUpdateInput saleReturnUpdateInput);
 
@@ -25,6 +27,7 @@ public interface SaleReturnApi {
 
     @GraphqlQuery("查询销售退货订单不同状态记录条数")
     CountPurchasePayload countSaleReturn(CountSaleReturnInput countSaleReturnInput);
+
     @GraphqlQuery("销售退货入库记录")
     List<InboundListPayload> inboundRecords(@Needed @ID String outOrderId);
 }

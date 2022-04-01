@@ -6,6 +6,7 @@ import fc.test.api.graphql.annotation.GraphqlQuery;
 import fc.test.api.graphql.entity.GraphqlConifg;
 
 import java.util.List;
+
 /**
  * Generated From Graphql Schema
  */

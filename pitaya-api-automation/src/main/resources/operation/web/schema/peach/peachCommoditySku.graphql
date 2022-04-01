@@ -1,4 +1,3 @@
-
 #编辑sku状态
 input PeachUpdateStatusInput {
     #状态

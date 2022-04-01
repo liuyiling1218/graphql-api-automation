@@ -13,4 +13,4 @@ commodities:
     unitType: 8
     totalQuantity: 22
     totalType: 2
-costs: []
+costs: [ ]

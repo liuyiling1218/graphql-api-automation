@@ -4,6 +4,7 @@ import com.hjfruit.test.pitaya.app.entities.Page;
 import com.hjfruit.test.pitaya.app.entities.production.inorder.*;
 import fc.test.api.graphql.annotation.*;
 import fc.test.api.graphql.entity.GraphqlConifg;
+
 /**
  * Generated From Graphql Schema
  */
@@ -11,8 +12,10 @@ import fc.test.api.graphql.entity.GraphqlConifg;
 public interface OtherInOrderApi {
     @GraphqlMutation("新增采购 返回inOrderId")
     String createOtherInOrder(CreateOtherInOrderInput createOtherInOrderInput);
+
     @GraphqlMutation("提交库管")
     String submitOtherInOrder(@Needed @ID String inOrderId);
+
     @GraphqlMutation("修改采购订单")
     Boolean modifyOtherInOrder(ModifyOtherInOrderInput modifyOtherInOrderInput);
 

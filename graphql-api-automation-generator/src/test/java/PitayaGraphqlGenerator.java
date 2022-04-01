@@ -20,6 +20,6 @@ public class PitayaGraphqlGenerator {
 //        String destinationPath = "D:\\gitee\\hjfruits-test\\api-automation\\operation-api-automation\\src\\main\\java\\com\\hjfruits\\operation\\generated";
 //        String basePackageName = "com.hjfruits.operation";
 
-        GraphqlGenerator.generator(schemaPath, destinationPath, basePackageName,clientName);
+        GraphqlGenerator.generator(schemaPath, destinationPath, basePackageName, clientName);
     }
 }

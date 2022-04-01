@@ -6,6 +6,7 @@ import fc.test.api.graphql.annotation.GraphqlGroup;
 import fc.test.api.graphql.annotation.GraphqlMutation;
 import fc.test.api.graphql.annotation.GraphqlQuery;
 import fc.test.api.graphql.entity.GraphqlConifg;
+
 /**
  * Generated From Graphql Schema
  */

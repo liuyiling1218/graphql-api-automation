@@ -18,8 +18,6 @@ public class CommodityHelper {
     CommodityQueryAction commodityQueryAction;
 
 
-
-
     /**
      * 根据商品类型 和数量 获取商品sku
      *

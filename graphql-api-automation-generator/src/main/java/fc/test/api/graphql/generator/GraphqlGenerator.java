@@ -25,7 +25,7 @@ public class GraphqlGenerator {
     /**
      *
      */
-    public static void generator(String schemaPath, String destinationPath, String basePackageName,String clientName) throws IOException {
+    public static void generator(String schemaPath, String destinationPath, String basePackageName, String clientName) throws IOException {
         SchemaParser schemaParser = new SchemaParser();
         Map<String, List<File>> map = new HashMap<>();
         traverseDirectory(schemaPath, map);
@@ -175,7 +175,7 @@ public class GraphqlGenerator {
                 }
                 if (className.contains(".api")) {
                     className = className.replace(".api", "");
-                }else if (className.contains(".type")) {
+                } else if (className.contains(".type")) {
                     className = className.replace(".type", "");
                 }
                 if (className.contains(".")) {
@@ -204,7 +204,7 @@ public class GraphqlGenerator {
                 apiFileStringBuilder.append("/**\n");
                 apiFileStringBuilder.append(" * Generated From Graphql Schema\n");
                 apiFileStringBuilder.append(" */\n");
-                apiFileStringBuilder.append("@GraphqlGroup(client = "+clientName+")\n");
+                apiFileStringBuilder.append("@GraphqlGroup(client = " + clientName + ")\n");
                 apiFileStringBuilder.append("public interface " + className + " {\n");
                 apiFileStringBuilder.append(apiStringBuilder);
                 apiFileStringBuilder.append("}");
@@ -305,7 +305,7 @@ public class GraphqlGenerator {
                 stringBuilder.append("    private ");
                 stringBuilder.append("List<");
                 basicTypeGenerateString((TypeName) type1, stringBuilder);
-            }else {
+            } else {
                 stringBuilder.append("    private ");
                 stringBuilder.append("List<");
                 basicTypeGenerateString((TypeName) subType, stringBuilder);

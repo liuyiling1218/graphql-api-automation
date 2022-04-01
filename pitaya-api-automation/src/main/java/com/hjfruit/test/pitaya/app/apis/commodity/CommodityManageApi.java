@@ -9,6 +9,7 @@ import fc.test.api.graphql.annotation.Needed;
 import fc.test.api.graphql.entity.GraphqlConifg;
 
 import java.util.List;
+
 /**
  * Generated From Graphql Schema
  */
@@ -19,8 +20,10 @@ public interface CommodityManageApi {
 
     @GraphqlQuery("品类下拉列表")
     List<Option> categoryOption();
+
     @GraphqlQuery("商品类型下拉列表")
     List<Option> commodityTypeOption();
+
     @GraphqlQuery("商品品种下拉列表")
     List<Option> varietyOption(@Needed Integer categoryId);
 

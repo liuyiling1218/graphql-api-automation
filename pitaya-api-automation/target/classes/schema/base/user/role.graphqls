@@ -1,9 +1,0 @@
-type RolePayload{
-    roleId:Int
-    roleName:String
-    roleCode:String
-}
-
-extend type Query {
-    roles:[RolePayload]
-}

@@ -50,7 +50,7 @@ public class ApiProxy<T> implements InvocationHandler, ApplicationContextAware {
 
         List<GrpahqlClient> clients = GraphqlConifg.clients;
         for (GrpahqlClient grpahqlClient : clients) {
-            if (grpahqlClient.getClientType()==graphqlGroup.client()) {
+            if (grpahqlClient.getClientType() == graphqlGroup.client()) {
                 clientUrl = grpahqlClient.getClientUrl();
             }
         }

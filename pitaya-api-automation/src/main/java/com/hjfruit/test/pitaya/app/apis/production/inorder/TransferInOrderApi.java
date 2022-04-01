@@ -10,6 +10,7 @@ import fc.test.api.graphql.annotation.GraphqlGroup;
 import fc.test.api.graphql.annotation.GraphqlQuery;
 import fc.test.api.graphql.annotation.ID;
 import fc.test.api.graphql.entity.GraphqlConifg;
+
 /**
  * Generated From Graphql Schema
  */
@@ -20,6 +21,7 @@ public interface TransferInOrderApi {
 
     @GraphqlQuery("查询调拨入库订单")
     TransferOrderPayload getTransferInOrder(@ID String flowId);
+
     @GraphqlQuery("查询调拨入库订单状态值")
     GetTransferInOrderStatusPayload getTransferInOrderStatus(GetTransferInOrderStatusInput getTransferInOrderStatusInput);
 }

@@ -6,6 +6,7 @@ import fc.test.api.graphql.annotation.*;
 import fc.test.api.graphql.entity.GraphqlConifg;
 
 import java.util.List;
+
 /**
  * Generated From Graphql Schema
  */
@@ -13,6 +14,7 @@ import java.util.List;
 public interface SecondmentApi {
     @GraphqlMutation("")
     String insertSecondment(SecondmentInput secondmentInput);
+
     @GraphqlMutation("")
     String updateSecondment(SecondmentInput secondmentInput);
 
@@ -27,10 +29,13 @@ public interface SecondmentApi {
 
     @GraphqlQuery("")
     SecondmentPayload secondmentDetail(@Needed @ID String secondmentId);
+
     @GraphqlQuery("")
     Integer auditSecondmentCount();
+
     @GraphqlQuery("    借调日志")
     List<SecondmentLogPayload> getSecondmentLogs(@Needed @ID String secondmentId);
+
     @GraphqlQuery("")
     List<SecondmentStockPayload> secondmentStocks(SecondmentConditionInput secondmentCondition);
 }

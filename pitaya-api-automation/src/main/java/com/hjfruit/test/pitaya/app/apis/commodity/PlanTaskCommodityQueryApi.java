@@ -7,6 +7,7 @@ import fc.test.api.graphql.annotation.GraphqlQuery;
 import fc.test.api.graphql.entity.GraphqlConifg;
 
 import java.util.List;
+
 /**
  * Generated From Graphql Schema
  */
@@ -14,8 +15,10 @@ import java.util.List;
 public interface PlanTaskCommodityQueryApi {
     @GraphqlQuery("任务商品选择列表接口")
     List<CommoditySkuPayload> planCommodites(ListPlanCommoditySkuInput listPlanCommodityInput);
+
     @GraphqlQuery("原料辅料领料商品列表接口")
     List<TaskAcquireMaterialCommodityPayload> taskAcquireMaterialCommodities(ListTaskAcquireMaterialCommodityInput listTaskAcquireMaterialCommodityInput);
+
     @GraphqlQuery("原料辅料退料商品列表接口")
     List<TaskReturnMaterialCommodityPayload> taskReturnMaterialCommodities(ListTaskInCommodityInput listTaskInCommodityInput);
 

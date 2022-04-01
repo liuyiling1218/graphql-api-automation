@@ -7,6 +7,7 @@ import fc.test.api.graphql.annotation.GraphqlQuery;
 import fc.test.api.graphql.entity.GraphqlConifg;
 
 import java.util.List;
+
 /**
  * Generated From Graphql Schema
  */
@@ -14,6 +15,7 @@ import java.util.List;
 public interface StockOutRecordApi {
     @GraphqlQuery("出库记录数量")
     Integer countOutStockRecord(CountOutStockRecordInput countOutStockRecordInput);
+
     @GraphqlQuery("查询订单出库记录列表")
     List<OutStockRecordPayload> outStockRecords(OutStockRecordsInput outStockRecordsInput);
 

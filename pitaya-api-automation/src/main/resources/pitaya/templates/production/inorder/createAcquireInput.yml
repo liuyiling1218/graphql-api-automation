@@ -14,7 +14,7 @@ createAcquireInput:
       unitType: 8
       totalQuantity: 20
       totalType: 2
-  costs: []
+  costs: [ ]
 
 ---
 createAcquireInput-failure:
@@ -33,5 +33,5 @@ createAcquireInput-failure:
       unitType: 8
       totalQuantity: 20
       totalType: 2
-  costs: []
+  costs: [ ]
 ---

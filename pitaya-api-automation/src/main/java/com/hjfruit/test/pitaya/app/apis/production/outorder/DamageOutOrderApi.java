@@ -9,6 +9,7 @@ import fc.test.api.graphql.annotation.GraphqlGroup;
 import fc.test.api.graphql.annotation.GraphqlMutation;
 import fc.test.api.graphql.annotation.GraphqlQuery;
 import fc.test.api.graphql.entity.GraphqlConifg;
+
 /**
  * Generated From Graphql Schema
  */
@@ -19,6 +20,7 @@ public interface DamageOutOrderApi {
 
     @GraphqlMutation("新增报损单")
     String createDamageOutOrder(CreateDamageOutOrderInput createDamageOutOrderInput);
+
     @GraphqlMutation("修改报损订单")
     Boolean updateDamageOutOrder(UpdateDamageOutOrderInput updateDamageOutOrderInput);
 }

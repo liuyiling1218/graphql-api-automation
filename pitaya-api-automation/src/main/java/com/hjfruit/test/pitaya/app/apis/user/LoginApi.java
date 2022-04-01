@@ -8,6 +8,7 @@ import fc.test.api.graphql.annotation.GraphqlQuery;
 import fc.test.api.graphql.entity.GraphqlConifg;
 
 import java.util.List;
+
 /**
  * Generated From Graphql Schema
  */
@@ -15,16 +16,22 @@ import java.util.List;
 public interface LoginApi {
     @GraphqlQuery("")
     List<PermissionPayLoad> permissions();
+
     @GraphqlQuery("")
     UserPayload loginUserInfo();
+
     @GraphqlMutation("")
     LoginPayload login(LoginInput loginInput);
+
     @GraphqlMutation("")
     SendSmsPayload sendSms(SendSmsInput sendSmsInput);
+
     @GraphqlMutation("1.9 新增密码登录接口")
     LoginPwdPayload loginPwd(LoginPwdInput loginPwdInput);
+
     @GraphqlMutation("1.9 新增 登录用户绑定分拣仓接口")
     BindOrgPayload bindOrg(BindOrgInput bindOrgInput);
+
     @GraphqlMutation(" 1.9 新增密码修改接口")
     ChangePwdPayload changePwd(ChangePwdInput changePwdInput);
 }

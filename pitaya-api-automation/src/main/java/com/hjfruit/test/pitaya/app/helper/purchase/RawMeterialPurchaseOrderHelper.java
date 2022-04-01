@@ -34,7 +34,7 @@ public class RawMeterialPurchaseOrderHelper {
     CustomerHelper customerHelper;
 
 
-    public void create(PitayaConstants.SupplierType supplierType,PitayaConstants.CustomerType customerType, String remark) {
+    public void create(PitayaConstants.SupplierType supplierType, PitayaConstants.CustomerType customerType, String remark) {
         CreateAcquireInput createAcquireInput = new CreateAcquireInput();
         createAcquireInput.setCommodityType(PitayaConstants.CommodityType.RAW_MATERIAL.getTypeId());
         createAcquireInput.setWarehouseId(storeHouseHelper.userWarehouse_getFirstWarehouse().getWarehouseId());

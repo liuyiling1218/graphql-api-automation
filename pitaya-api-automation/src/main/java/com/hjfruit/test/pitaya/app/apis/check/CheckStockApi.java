@@ -8,6 +8,7 @@ import fc.test.api.graphql.annotation.GraphqlQuery;
 import fc.test.api.graphql.entity.GraphqlConifg;
 
 import java.util.List;
+
 /**
  * Generated From Graphql Schema
  */
@@ -21,8 +22,10 @@ public interface CheckStockApi {
 
     @GraphqlQuery("")
     CheckInfoPayload checkDetail(Integer checkId);
+
     @GraphqlQuery("")
     CheckOrderPayload checkOrders(Integer checkId);
+
     @GraphqlMutation("")
     CheckStockResultPayload finishCheck(CheckInfoInput checkInfoInput);
 }

@@ -60,7 +60,7 @@ public class DefectiveOtherInOrderActionTest extends PitayaAppBaseTest {
             createOtherInOrderInput.setCommodities(createOtherOrderItemInputs);
 
 
-            createOtherInOrderInput.setCommodities(commodityHelper.getCommoditySkues(PitayaConstants.CommodityType.ASSIST, PitayaConstants.CommoditySkuType.SINGLE_UNIT,2).stream().map(o->
+            createOtherInOrderInput.setCommodities(commodityHelper.getCommoditySkues(PitayaConstants.CommodityType.ASSIST, PitayaConstants.CommoditySkuType.SINGLE_UNIT, 2).stream().map(o ->
             {
                 CreateOtherOrderItemInput createOtherOrderItemInput = new CreateOtherOrderItemInput();
                 createOtherOrderItemInput.setCommoditySkuId(o.getCommoditySkuId());

@@ -9,6 +9,7 @@ import fc.test.api.graphql.annotation.GraphqlQuery;
 import fc.test.api.graphql.entity.GraphqlConifg;
 
 import java.util.List;
+
 /**
  * Generated From Graphql Schema
  */
@@ -16,10 +17,13 @@ import java.util.List;
 public interface ProductionConfigApi {
     @GraphqlQuery("")
     List<ProductionConfigPayload> getWorkerSalary();
+
     @GraphqlQuery("")
     ProductionConfigPayload getProductionConfig();
+
     @GraphqlMutation("")
     Integer saveWorkerSalary(SaveSalaryInput saveWorkerSalary);
+
     @GraphqlMutation("")
     Integer saveProductionConfig(SaveConfigInput saveConfigInput);
 }

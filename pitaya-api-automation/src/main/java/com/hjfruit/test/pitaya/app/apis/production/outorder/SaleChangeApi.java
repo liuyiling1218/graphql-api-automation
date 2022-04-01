@@ -4,6 +4,7 @@ import com.hjfruit.test.pitaya.app.entities.production.outorder.IgnoreTaskSaleCh
 import fc.test.api.graphql.annotation.GraphqlGroup;
 import fc.test.api.graphql.annotation.GraphqlMutation;
 import fc.test.api.graphql.entity.GraphqlConifg;
+
 /**
  * Generated From Graphql Schema
  */
