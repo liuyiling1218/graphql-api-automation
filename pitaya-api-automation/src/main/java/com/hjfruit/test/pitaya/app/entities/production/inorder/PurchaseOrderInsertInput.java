@@ -29,7 +29,7 @@ public class PurchaseOrderInsertInput {
      * 仓库名称
      */
     @Needed
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      * 供应商Id
      */

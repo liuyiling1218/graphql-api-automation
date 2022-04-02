@@ -18,7 +18,7 @@ public class PageOutStockRecordInput {
     /**
      * 仓库Id
      */
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      * 出库类型Id
      */

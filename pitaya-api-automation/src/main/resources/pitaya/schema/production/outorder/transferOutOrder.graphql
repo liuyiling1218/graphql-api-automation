@@ -12,7 +12,41 @@ extend type Query {
     getTransferOutOrder(flowId:ID):TransferOrderPayload
     #查询调拨出库订单状态值
     getTransferOutOrderStatus(getTransferOutOrderStatusInput:GetTransferOutOrderStatusInput):GetTransferOutOrderStatusPayload
+    #调入选项下拉
+    listTransferOptions:[TransferOptionsPayload]
+    #调拨组织列表
+    listTransferOrgList(listTransferOrgListInput:ListTransferOrgListInput):[ListTransferOrgListPayload]
+}
 
+input ListTransferOrgListInput {
+    orgName:String
+    labelId:Int!
+}
+
+type ListTransferOrgListPayload {
+    #主键ID
+    id:Int
+    #组织名称（必填）
+    orgName:String
+    #租户id（必填）
+    tenantId:Long
+    #负责人
+    leadingId:Int
+    #备注
+    remark:String
+    #父级ID（必填）
+    parentId:Int
+    #父级名称（必填）
+    parentName:String
+    # 操作人（必填）
+    operatorId:Int
+    #国家 1 中国 3 泰国 2 越南
+    country:Int
+}
+
+type TransferOptionsPayload {
+    label:String
+    value:Int
 }
 
 input CreateTransferOrderInput{
@@ -21,11 +55,11 @@ input CreateTransferOrderInput{
     # 商品类型
     commodityType:Int
     # 调出仓库id
-    sourceWarehouseId:Int
+    sourceWarehouseId:ID
     # 调出归属id
     sourceBelongId:Int
     # 调入仓库id
-    targetWarehouseId:Int
+    targetWarehouseId:ID
     # 调入归属id
     targetBelongId:Int
     # 备注信息
@@ -34,6 +68,8 @@ input CreateTransferOrderInput{
     flowTransferCommodityInput:[FlowTransferCommodityInput]
     # 运杂费用
     flowTransferOtherBillInput:[FlowTransferOtherBillInput]
+    # 调入系统id
+    targetAppId: Int
 }
 
 input GetTransferOutOrderStatusInput{
@@ -47,6 +83,8 @@ input GetTransferOutOrderStatusInput{
     transferType:[Int]
     #关键字查询
     keyword:String
+    #调拨去向筛选 10 分拣仓-分拣仓 20批发-分拣仓 30分拣仓-批发
+    direction:Int
 }
 
 type GetTransferOutOrderStatusPayload{

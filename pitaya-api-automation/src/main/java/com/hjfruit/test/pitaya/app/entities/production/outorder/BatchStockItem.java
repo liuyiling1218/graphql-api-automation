@@ -18,7 +18,7 @@ public class BatchStockItem {
      * 批次Id
      */
     @Needed
-    private Integer batchStockId;
+    private String batchStockId;
     /**
      * 小单位数量
      */

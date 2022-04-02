@@ -19,7 +19,7 @@ public class CreateDamagedOrderItemInput {
      *
      */
     @Needed
-    private Integer batchId;
+    private String batchId;
     /**
      * 商品skuID
      */

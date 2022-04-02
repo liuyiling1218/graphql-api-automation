@@ -30,7 +30,7 @@ public class PageMoreCommoditiesInput {
      *
      */
     @Needed
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      *
      */

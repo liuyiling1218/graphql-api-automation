@@ -10,17 +10,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RolePayload {
+public class PositionPayload {
     /**
      *
      */
-    private Integer roleId;
+    private Integer positionId;
     /**
      *
      */
-    private String roleName;
-    /**
-     *
-     */
-    private String roleCode;
+    private String positionName;
 }

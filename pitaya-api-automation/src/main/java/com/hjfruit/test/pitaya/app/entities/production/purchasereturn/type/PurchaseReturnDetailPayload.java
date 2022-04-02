@@ -51,7 +51,7 @@ public class PurchaseReturnDetailPayload {
     /**
      * 所属仓库
      */
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      *
      */

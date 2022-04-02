@@ -41,4 +41,12 @@ public class ConfirmItemInput {
      * 总价
      */
     private BigDecimal totalPrice;
+    /**
+     * 批次id
+     */
+    private String batchId;
+    /**
+     * 小单位类型
+     */
+    private Integer unitType;
 }

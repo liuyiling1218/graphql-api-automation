@@ -15,7 +15,7 @@ public class WarehouseInput {
     /**
      *
      */
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      *
      */

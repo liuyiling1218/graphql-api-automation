@@ -32,7 +32,7 @@ public class PlanInfoInput {
      * 仓库id
      */
     @Needed
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      * 生产开始日期
      */

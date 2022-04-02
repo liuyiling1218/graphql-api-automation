@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 public class PageOtherInOrderPayload {
     /**
-     * 采购订单列表
+     * 其他入库订单列表
      */
     private List<OtherInOrderPayload> records;
     /**

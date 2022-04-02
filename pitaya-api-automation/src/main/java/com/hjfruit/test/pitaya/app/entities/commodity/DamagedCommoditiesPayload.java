@@ -137,7 +137,7 @@ public class DamagedCommoditiesPayload {
     /**
      *
      */
-    private Integer stockBatchId;
+    private String stockBatchId;
     /**
      *
      */

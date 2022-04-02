@@ -49,7 +49,7 @@ public class OutStockRecordQueryPayload {
     /**
      *
      */
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      *
      */

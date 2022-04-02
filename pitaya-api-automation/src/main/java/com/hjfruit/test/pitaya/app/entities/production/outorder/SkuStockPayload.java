@@ -29,7 +29,7 @@ public class SkuStockPayload {
     /**
      *
      */
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      *
      */

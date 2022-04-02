@@ -14,7 +14,7 @@ public class WarehousePayload {
     /**
      *
      */
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      *
      */

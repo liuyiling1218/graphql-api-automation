@@ -73,7 +73,7 @@ public class AuditInOrderPayload {
     /**
      * 仓库Id
      */
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      * 仓库名称
      */
@@ -89,7 +89,7 @@ public class AuditInOrderPayload {
     /**
      * 调拨id
      */
-    private Integer transferId;
+    private String transferId;
     /**
      * 调拨类型 10:分拣仓-分拣仓 20:分拣仓-批发
      */

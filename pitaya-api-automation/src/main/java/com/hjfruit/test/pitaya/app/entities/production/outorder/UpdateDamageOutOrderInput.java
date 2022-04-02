@@ -23,7 +23,7 @@ public class UpdateDamageOutOrderInput {
      * 仓库名称
      */
     @Needed
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      * 订单备注
      */

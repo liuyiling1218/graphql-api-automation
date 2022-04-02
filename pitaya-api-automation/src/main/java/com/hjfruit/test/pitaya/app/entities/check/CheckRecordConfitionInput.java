@@ -14,7 +14,7 @@ public class CheckRecordConfitionInput {
     /**
      * 仓库id
      */
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      * 盘点开始日期
      */

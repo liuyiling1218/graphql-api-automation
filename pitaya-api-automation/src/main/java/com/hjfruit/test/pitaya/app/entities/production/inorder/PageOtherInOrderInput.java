@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 采购列表条件
+ * 其他入库列表条件
  */
 @Data
 @AllArgsConstructor

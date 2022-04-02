@@ -23,7 +23,7 @@ public class OtherInOrderPayload {
      */
     private Integer inOrderTypeId;
     /**
-     * 入库类型名称（原料采购、辅料采购）
+     * 入库类型名称（原料其他入库、辅料其他入库）
      */
     private String inOrderTypeName;
     /**
@@ -65,7 +65,7 @@ public class OtherInOrderPayload {
     /**
      * 仓库Id
      */
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      * 仓库名称
      */
@@ -102,4 +102,8 @@ public class OtherInOrderPayload {
      * 商品信息
      */
     private List<OtherInOrderItemPayload> commodities;
+    /**
+     * 创建人员Id
+     */
+    private Integer createBy;
 }

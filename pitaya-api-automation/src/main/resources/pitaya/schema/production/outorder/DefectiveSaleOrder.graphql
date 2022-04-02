@@ -24,7 +24,7 @@ input UpdateDefectiveSaleOrderInput {
 }
 
 input CreateDefectiveSaleOrderInput {
-    warehouseId:Int
+    warehouseId:ID
     saleTime: Long
     remark: String
     defectiveItems:[CreateDefectiveItemInput]!

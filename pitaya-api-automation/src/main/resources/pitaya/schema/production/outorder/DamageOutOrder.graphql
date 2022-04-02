@@ -28,7 +28,7 @@ input CreateDamageOutOrderInput{
     #商品类型
     commodityTypeId:Int!
     #仓库id
-    warehouseId:Int!
+    warehouseId:ID!
     #订单备注
     outOrderDescription:String
     #商品信息
@@ -36,7 +36,7 @@ input CreateDamageOutOrderInput{
 }
 
 input CreateDamageOutOrderItemInput{
-    batchId:Int!
+    batchId:ID!
     #商品skuID
     commoditySkuId:Int!
     #小单位数量
@@ -53,7 +53,7 @@ input UpdateDamageOutOrderInput{
     #出库订单Id
     outOrderId:ID!
     #仓库名称
-    warehouseId:Int!
+    warehouseId:ID!
     #订单备注
     outOrderDescription:String
     #商品信息

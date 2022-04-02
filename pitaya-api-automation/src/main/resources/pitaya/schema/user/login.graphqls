@@ -71,4 +71,7 @@ extend type Mutation{
     bindOrg(bindOrgInput:BindOrgInput):BindOrgPayload
     # 1.9 新增密码修改接口
     changePwd(changePwdInput:ChangePwdInput):ChangePwdPayload
+
+    "2.2 中途新增 token刷新,用原来即将过期的token续约token"
+    refreshToken:String
 }

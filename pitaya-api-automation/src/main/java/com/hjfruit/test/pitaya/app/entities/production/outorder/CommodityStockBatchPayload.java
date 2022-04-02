@@ -17,7 +17,7 @@ public class CommodityStockBatchPayload {
     /**
      *
      */
-    private Integer batchId;
+    private String batchId;
     /**
      *
      */

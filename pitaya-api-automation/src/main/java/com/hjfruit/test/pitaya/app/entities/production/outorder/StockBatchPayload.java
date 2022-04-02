@@ -16,7 +16,7 @@ public class StockBatchPayload {
     /**
      *
      */
-    private Integer batchId;
+    private String batchId;
     /**
      *
      */

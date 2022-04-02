@@ -113,7 +113,7 @@ public class OutStockRecordItemPayload {
     /**
      *
      */
-    private Integer belongWarehouseId;
+    private String belongWarehouseId;
     /**
      *
      */

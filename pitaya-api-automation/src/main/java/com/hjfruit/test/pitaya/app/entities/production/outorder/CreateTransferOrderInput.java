@@ -26,7 +26,7 @@ public class CreateTransferOrderInput {
     /**
      * 调出仓库id
      */
-    private Integer sourceWarehouseId;
+    private String sourceWarehouseId;
     /**
      * 调出归属id
      */
@@ -34,7 +34,7 @@ public class CreateTransferOrderInput {
     /**
      * 调入仓库id
      */
-    private Integer targetWarehouseId;
+    private String targetWarehouseId;
     /**
      * 调入归属id
      */
@@ -51,4 +51,8 @@ public class CreateTransferOrderInput {
      * 运杂费用
      */
     private List<FlowTransferOtherBillInput> flowTransferOtherBillInput;
+    /**
+     * 调入系统id
+     */
+    private Integer targetAppId;
 }

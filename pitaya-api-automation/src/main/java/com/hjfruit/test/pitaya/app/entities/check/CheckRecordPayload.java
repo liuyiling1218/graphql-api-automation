@@ -16,7 +16,7 @@ public class CheckRecordPayload {
     /**
      *
      */
-    private Integer checkId;
+    private String checkId;
     /**
      * 盘点日期
      */

@@ -1,11 +1,11 @@
 extend type Mutation {
-    #新增采购 返回inOrderId
+    #新增其他入库 返回inOrderId
     createOtherInOrder(createOtherInOrderInput:CreateOtherInOrderInput):ID
     #提交库管
     submitOtherInOrder(inOrderId:ID!):ID
-    #修改采购订单
+    #修改其他入库订单
     modifyOtherInOrder(modifyOtherInOrderInput:ModifyOtherInOrderInput):Boolean
-    #取消采购订单
+    #取消其他入库订单
     cancelOtherInOrder(cancelOtherInOrderInput:CancelOtherInOrderInput):Boolean
 }
 
@@ -17,7 +17,7 @@ extend type Query {
 
 #分页对象
 type PageOtherInOrderPayload{
-    #采购订单列表
+    #其他入库订单列表
     records:[OtherInOrderPayload]
     pageCurrent: Int
     pageSize: Int
@@ -29,7 +29,7 @@ type OtherInOrderPayload{
     inOrderId:ID
     #入库类型
     inOrderTypeId:Int
-    #入库类型名称（原料采购、辅料采购）
+    #入库类型名称（原料其他入库、辅料其他入库）
     inOrderTypeName:String
     #入库单号
     inOrderCode:String
@@ -50,7 +50,7 @@ type OtherInOrderPayload{
     #入库状态
     inOrderStatusName:String
     #仓库Id
-    warehouseId:Int
+    warehouseId:ID
     #仓库名称
     warehouseName:String
     #供应商Id
@@ -69,6 +69,8 @@ type OtherInOrderPayload{
     totalPrice:BigDecimal
     #商品信息
     commodities:[OtherInOrderItemPayload]
+    # 创建人员Id
+    createBy:Int
 }
 
 type OtherInOrderItemPayload{
@@ -104,7 +106,7 @@ type OtherInOrderItemPayload{
     totalPrice:BigDecimal
 }
 
-#采购列表条件
+#其他入库列表条件
 input PageOtherInOrderInput{
     #订单起始时间
     startTime:Long
@@ -118,14 +120,14 @@ input PageOtherInOrderInput{
     keyword:String
     commodityTypeId:Int
 }
-#新增采购信息
+#新增其他入库信息
 input CreateOtherInOrderInput{
     #入库类型
     inOrderTypeId:Int!
     #商品类型Id
     commodityTypeId:Int!
     #仓库名称
-    warehouseId:Int!
+    warehouseId:ID!
     #供应商Id
     supplierId:Int
     #客户类型Id
@@ -141,7 +143,7 @@ input ModifyOtherInOrderInput{
     #入库订单Id
     inOrderId:ID!
     #仓库名称
-    warehouseId:Int!
+    warehouseId:ID!
     #供应商Id
     supplierId:Int
     #客户类型Id

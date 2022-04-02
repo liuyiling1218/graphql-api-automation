@@ -68,10 +68,10 @@ public class PitayaAppBaseTestV2 extends PitayaBaseTest {
         sendSmsCode("15023925077");
         String token = loginByMsgCode("15023925077");
         Autheration.token = token;
-//        listAllUserInfo(token);
-//        chooseTenant(token);
-//        listUserOrg(2, token);
-//        chooseOrg(token,"61");
+        listAllUserInfo(token);
+        chooseTenant(token);
+        listUserOrg(2, token);
+        chooseOrg(token,"341");
 
 
 
@@ -128,6 +128,8 @@ public class PitayaAppBaseTestV2 extends PitayaBaseTest {
         Response login = requestSpecification.post("https://auth-test.hjgpscm.com/auth/loginByMsgCodeOnApp");
         JSONObject jsonObject = JSONObject.parseObject(login.body().asString());
         return jsonObject.getString("data");
+
+
     }
 
     public RequestSpecification commonRequest() {

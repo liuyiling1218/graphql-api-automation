@@ -45,7 +45,7 @@ public class TransferOrderPayload {
     /**
      * 调出仓库Id
      */
-    private Integer sourceWarehouseId;
+    private String sourceWarehouseId;
     /**
      * 调出仓库名称
      */
@@ -61,7 +61,7 @@ public class TransferOrderPayload {
     /**
      * 调入仓库Id
      */
-    private Integer targetWarehouseId;
+    private String targetWarehouseId;
     /**
      * 调入仓库名称
      */
@@ -143,7 +143,19 @@ public class TransferOrderPayload {
      */
     private String billStatusName;
     /**
-     * 调拨驳回原因
+     * 调拨驳回/取消原因
      */
-    private String transferRejectReason;
+    private String reason;
+    /**
+     * 调拨去向筛选 10 分拣仓-分拣仓 20批发-分拣仓 30分拣仓-批发
+     */
+    private Integer direction;
+    /**
+     *
+     */
+    private Integer sourceAppId;
+    /**
+     *
+     */
+    private Integer targetAppId;
 }

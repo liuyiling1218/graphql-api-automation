@@ -16,7 +16,7 @@ public class CheckDetailPayload {
     /**
      *
      */
-    private Integer checkId;
+    private String checkId;
     /**
      * 盘点仓库名称
      */

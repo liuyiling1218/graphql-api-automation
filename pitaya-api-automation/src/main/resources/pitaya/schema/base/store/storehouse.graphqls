@@ -1,6 +1,6 @@
 #仓库列表下拉
 type WarehousePayload {
-    warehouseId: Int
+    warehouseId:ID
     warehouseName: String
     address:String
     houseNumber:String
@@ -8,7 +8,7 @@ type WarehousePayload {
 }
 
 input WarehouseInput{
-    warehouseId: Int
+    warehouseId:ID
     warehouseName: String!
     houseNumber:String
     address:String!
@@ -18,12 +18,12 @@ input WarehouseInput{
 extend type Query {
     listWarehouse: [WarehousePayload]
     userWarehouse:[WarehousePayload]
-    warehouse(warehouseId:Int!):WarehousePayload
+    warehouse(warehouseId:ID!):WarehousePayload
 }
 
 extend type Mutation {
-    insertWarehouse(warehouseInput:WarehouseInput!):Int
-    updateWarehouse(warehouseInput:WarehouseInput!):Int
-    deleteWarehouse(warehouseId:Int!):Int
+    insertWarehouse(warehouseInput:WarehouseInput!):ID
+    updateWarehouse(warehouseInput:WarehouseInput!):ID
+    deleteWarehouse(warehouseId:ID!):ID
 }
 

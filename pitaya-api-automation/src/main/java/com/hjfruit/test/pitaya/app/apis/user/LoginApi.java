@@ -34,4 +34,7 @@ public interface LoginApi {
 
     @GraphqlMutation(" 1.9 新增密码修改接口")
     ChangePwdPayload changePwd(ChangePwdInput changePwdInput);
+
+    @GraphqlMutation("")
+    String refreshToken();
 }

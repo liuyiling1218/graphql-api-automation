@@ -49,7 +49,7 @@ public class OutOrderPayload {
     /**
      * 调拨id
      */
-    private Integer transferId;
+    private String transferId;
     /**
      * 调拨类型 10:分拣仓-分拣仓 20:分拣仓-批发
      */
@@ -62,6 +62,10 @@ public class OutOrderPayload {
      * 调入组织名称
      */
     private String transferOrganizationName;
+    /**
+     * 创建用户
+     */
+    private Integer userId;
     /**
      * 联系电话
      */
@@ -89,7 +93,7 @@ public class OutOrderPayload {
     /**
      * 仓库Id
      */
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      * 仓库名称
      */

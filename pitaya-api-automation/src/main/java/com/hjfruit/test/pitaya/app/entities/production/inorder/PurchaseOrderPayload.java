@@ -65,7 +65,7 @@ public class PurchaseOrderPayload {
     /**
      * 仓库Id
      */
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      * 仓库名称
      */
@@ -141,7 +141,7 @@ public class PurchaseOrderPayload {
     /**
      * 调拨ID v2.0
      */
-    private Integer transferId;
+    private String transferId;
     /**
      *
      */

@@ -18,7 +18,7 @@ public class UserStorePayload {
     /**
      * 仓库ID
      */
-    private Integer storehouseId;
+    private String storehouseId;
     /**
      * 仓库名称
      */

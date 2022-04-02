@@ -1,0 +1,106 @@
+type OutStockRecordListPayload {
+    outStockRecords:[OutStockRecordsPayload]
+    outStockOrderWaitCommodities:[OutStockOrderWaitCommodityPayload]
+}
+
+# 入库记录信息
+type  OutStockRecordsPayload{
+    # 出库记录ID
+    recordId:Long
+    # 出库记录编码
+    recordCode:String
+    # 操作人
+    userId:Int
+    # 所属仓库
+    warehouseId:ID
+    # 所属仓库名称
+    warehouseName:String
+    # 备注
+    note:String
+    # 商品类型
+    commodityType:Int
+    # 商品类型名称
+    commodityTypeName:String
+    # 所属客户
+    belongId:Int
+    # 所属客户名称
+    belongName:String
+    # 客户类型
+    belongType:Int
+    # 总计金额
+    totalAmount:BigDecimal
+    # 商品总价格
+    totalCommodityAmount:BigDecimal
+    # 入库商品信息
+    commoditiesList:[OutStockRecordCommodityPayload]
+    #用户名
+    userName:String
+    #创建时间
+    createTime:Long
+}
+
+type  OutStockRecordCommodityPayload{
+    # skuID
+    commoditySkuId:Int
+    # 单位数量
+    unitQuantity:BigDecimal
+    # 单位类型
+    unitType:Int
+    # 总计数量
+    totalQuantity:BigDecimal
+    # 总计类型
+    totalType:Int
+    # 单价
+    unitPrice:BigDecimal
+    # 单价类型
+    unitPriceType:Int
+    # 小计金额
+    subtotalAmount:BigDecimal
+    # 批次ID
+    stockBatchId:ID
+    # 批次号
+    stockBatchCode:String
+
+    #商品名称
+    commodityName:String
+    # 商品规格选项
+    commoditySpecOptionName:[String]
+    # 单位类型名称
+    unitTypeName:String
+    # 总计类型名称
+    totalTypeName:String
+    # 单价类型名称
+    unitPriceTypeName:String
+
+}
+
+type  OutStockOrderWaitCommodityPayload{
+    # skuID
+    commoditySkuId:Int
+    # 单位数量
+    unitQuantity:BigDecimal
+    # 单位类型
+    unitType:Int
+    # 总计数量
+    totalQuantity:BigDecimal
+    # 总计类型
+    totalType:Int
+    # 单价
+    unitPrice:BigDecimal
+    # 单价类型
+    unitPriceType:Int
+    # 小计金额
+    subtotalAmount:BigDecimal
+    # 单位类型名称
+    unitTypeName:String
+    # 总计类型名称
+    totalTypeName:String
+    # 单价类型名称
+    unitPriceTypeName:String
+    # 商品名称
+    commodityName:String
+    # 商品规格选项
+    commoditySpecOptionName:[String]
+    "商品换算关系"
+    conversion:BigDecimal
+}

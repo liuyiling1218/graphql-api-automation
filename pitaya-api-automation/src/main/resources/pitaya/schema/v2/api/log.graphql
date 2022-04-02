@@ -1,3 +1,7 @@
 extend type Query {
-    listLogs(flowId:[ID]):ListLogsPayload
+    listLogs(listLogsInput:ListLogsInput):ListLogsPayload
+}
+
+input ListLogsInput {
+    flowId:[ID]!
 }

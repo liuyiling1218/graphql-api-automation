@@ -1,0 +1,86 @@
+# 列表获取审核单入库记录
+type InStockRecordListPayload{
+    inStockRecordRespList:[InStockRecordPayload]
+    # 待入库商品信息
+    waitCommoditiesList:[StockOrderWaitCommodityPayload]
+}
+
+# 入库记录信息
+type InStockRecordPayload{
+    # 入库记录ID
+    recordId:Long
+    # 入库记录编码
+    recordCode:String
+    # 操作人
+    userId:Int
+    # 所属仓库
+    warehouseId:ID
+    # 所属仓库名称
+    warehouseName:String
+    # 备注
+    note:String
+    # 商品类型
+    commodityType:Int
+    # 商品类型名称
+    commodityTypeName:String
+    # 所属客户
+    belongId:Int
+    # 所属客户名称
+    belongName:String
+    # 客户类型
+    belongType:Int
+    # 供应商
+    supplierId:Int
+    # 供应商名称
+    supplierName:String
+    # 总计金额
+    totalAmount:BigDecimal
+    # 入库商品信息
+    commoditiesList:[StockRecordCommodityPayload]
+}
+
+type StockOrderWaitCommodityPayload{
+    # skuID
+    commoditySkuId:Int
+    # 单位数量
+    unitQuantity:BigDecimal
+    # 单位类型
+    unitType:Int
+    # 总计数量
+    totalQuantity:BigDecimal
+    # 总计类型
+    totalType:Int
+    # 单价
+    unitPrice:BigDecimal
+    # 单价类型
+    unitPriceType:Int
+    # 小计金额
+    subtotalAmount:BigDecimal
+    # 果品单价定位
+    pricePosition:Int
+}
+
+type StockRecordCommodityPayload{
+    # skuID
+    commoditySkuId:Int
+    # 批次ID
+    stockBatchId:ID
+    # 批次编码
+    stockBatchCode:String
+    # 单位数量
+    unitQuantity:BigDecimal
+    # 单位类型
+    unitType:Int
+    # 总计数量
+    totalQuantity:BigDecimal
+    # 总计类型
+    totalType:Int
+    # 单价
+    unitPrice:BigDecimal
+    # 单价类型
+    unitPriceType:Int
+    # 小计金额
+    subtotalAmount:BigDecimal
+    # 单位数量毛重
+    grossUnitQuantity:BigDecimal
+}

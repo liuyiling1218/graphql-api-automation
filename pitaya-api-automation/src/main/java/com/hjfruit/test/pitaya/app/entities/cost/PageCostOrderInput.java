@@ -29,4 +29,8 @@ public class PageCostOrderInput {
      * 货品类型
      */
     private Integer commodityType;
+    /**
+     * 查询类型 10采购费用单 20采购费用单审核列表
+     */
+    private Integer queryType;
 }

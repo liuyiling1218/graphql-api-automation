@@ -14,9 +14,9 @@ public class GetTransferInOrderStatusPayload {
     /**
      * 待提交
      */
-    private Integer toSubmit;
+    private Long toSubmit;
     /**
      * 待处理
      */
-    private Integer toProcess;
+    private Long toProcess;
 }

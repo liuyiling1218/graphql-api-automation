@@ -23,6 +23,9 @@ public interface TransferBillApi {
     @GraphqlQuery("查询调拨费用单状态值")
     GetTransferOrderFeeStatusPayload getTransferOrderFeeStatus(GetTransferBillStatusInput getTransferBillStatusInput);
 
+    @GraphqlQuery("调拨费用审核角标")
+    TransferBillSummaryPayload transferBillSummary();
+
     @GraphqlMutation("调拨出库货款单修改")
     String updateTransferCommodityBill(UpdateFlowTransferCommodityBillInput updateFlowTransferCommodityBillInput);
 

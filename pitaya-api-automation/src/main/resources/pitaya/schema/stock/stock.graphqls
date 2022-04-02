@@ -2,7 +2,7 @@ input StockConditionInput{
     #查询参数(商品名称批次号)
     keyword:String
     #仓库id
-    warehouseId:Int
+    warehouseId:ID
     #商品分类 果品 辅料 周转筐
     commodityTypeId:Int!
     #归属类型
@@ -42,7 +42,7 @@ type StockPayload{
     #归属name
     belongName:String
     #仓库名称
-    warehouseId:Int
+    warehouseId:ID
     warehouseName:String
     createTime:Long
     #分类id

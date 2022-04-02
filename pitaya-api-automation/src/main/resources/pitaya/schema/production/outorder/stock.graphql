@@ -8,7 +8,7 @@ type SkuStockPayload {
     commoditySkuId:Int
     commodityName:String
     commodityId:Int
-    warehouseId:Int
+    warehouseId:ID
     warehouseName:String
     #商品规格选项id
     commoditySpecOptionId:[Int]
@@ -30,7 +30,7 @@ type SkuStockPayload {
 input ListSkuStockInput{
     commodityTypeId:Int
     #仓库id
-    warehouseId:Int
+    warehouseId:ID
     #所属客户
     customerId:Int
     #所属客户类型
@@ -46,7 +46,7 @@ input StockBatchQueryInput{
     commodityTypeId:Int
 }
 type StockBatchPayload{
-    batchId:Int
+    batchId:ID
     batchCode:String
     unitQuantity:BigDecimal
     totalQuantity:BigDecimal
@@ -59,7 +59,7 @@ type StockBatchPayload{
 input ListCommodityStockBatchInput{
     commodityTypeId:Int
     #仓库id
-    warehouseId:Int
+    warehouseId:ID
     #所属客户
     customerId:Int
     #所属客户类型
@@ -69,7 +69,7 @@ input ListCommodityStockBatchInput{
 }
 
 type CommodityStockBatchPayload{
-    batchId:Int
+    batchId:ID
     batchCode:String
     commodityName:String
     commodityId:Int

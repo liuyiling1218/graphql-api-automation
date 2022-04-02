@@ -20,7 +20,7 @@ public class FlowTransferCommodityInput {
     /**
      * 批次id
      */
-    private Integer batchId;
+    private String batchId;
     /**
      * 总计数量
      */

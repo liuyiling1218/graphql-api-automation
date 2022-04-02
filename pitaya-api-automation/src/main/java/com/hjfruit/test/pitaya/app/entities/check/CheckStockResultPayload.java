@@ -26,7 +26,7 @@ public class CheckStockResultPayload {
     /**
      *
      */
-    private Integer checkId;
+    private String checkId;
     /**
      *
      */

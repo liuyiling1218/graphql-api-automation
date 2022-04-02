@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ public class CheckItemPayload {
     /**
      *
      */
-    private Integer checkId;
+    private String checkId;
     /**
      *
      */
@@ -28,7 +29,7 @@ public class CheckItemPayload {
     /**
      *
      */
-    private Integer batchId;
+    private String batchId;
     /**
      *
      */
@@ -60,7 +61,7 @@ public class CheckItemPayload {
     /**
      *
      */
-    private Long unitQuantity;
+    private BigDecimal unitQuantity;
     /**
      *
      */
@@ -72,7 +73,7 @@ public class CheckItemPayload {
     /**
      *
      */
-    private Long totalQuantity;
+    private BigDecimal totalQuantity;
     /**
      *
      */
@@ -84,11 +85,11 @@ public class CheckItemPayload {
     /**
      *
      */
-    private Long checkUnitQuantity;
+    private BigDecimal checkUnitQuantity;
     /**
      *
      */
-    private Long checkTotalQuantity;
+    private BigDecimal checkTotalQuantity;
     /**
      *
      */

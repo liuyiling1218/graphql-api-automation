@@ -19,7 +19,7 @@ type PageWasteSaleOrderPayload {
 }
 
 input CreateWasteSaleOrderInput {
-    warehouseId:Int!
+    warehouseId:ID!
     saleTime:Long
     spu:String!
     remark:String
@@ -43,7 +43,7 @@ type WasteSaleOrder{
     saleOrderCode:String
     orgId:Int
     orgName:String
-    warehouseId:Int
+    warehouseId:ID
     warehouseName:String
     spu:String
     remark:String

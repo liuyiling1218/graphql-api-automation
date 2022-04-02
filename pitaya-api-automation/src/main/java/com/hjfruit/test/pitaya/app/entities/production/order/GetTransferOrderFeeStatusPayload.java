@@ -14,9 +14,9 @@ public class GetTransferOrderFeeStatusPayload {
     /**
      *
      */
-    private Integer toSubmit;
+    private Long toSubmit;
     /**
      *
      */
-    private Integer submit;
+    private Long toAudit;
 }

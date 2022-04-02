@@ -1,9 +1,8 @@
-type RolePayload{
-    roleId:Int
-    roleName:String
-    roleCode:String
+type PositionPayload{
+    positionId:Int
+    positionName:String
 }
 
 extend type Query {
-    roles:[RolePayload]
+    positions:[PositionPayload]
 }

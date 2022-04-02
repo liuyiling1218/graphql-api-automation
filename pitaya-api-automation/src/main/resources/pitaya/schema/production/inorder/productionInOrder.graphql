@@ -78,7 +78,7 @@ type ProductionInOrderPayload{
     #分公司名称
     organizationName:String
     #仓库id
-    warehouseId:Int
+    warehouseId:ID
     #仓库名称
     warehouseName:String
     #备注信息
@@ -130,7 +130,7 @@ type ProductionInOrderItemPayload{
     createTime: Long
     createBy: Int
     updateTime: Long
-    batchId: Int
+    batchId:ID
     batchCode: String
     conversion: BigDecimal
     unitQuantityPicking: BigDecimal
@@ -179,7 +179,7 @@ input InOrderItemUpdate {
     #商品sku id
     commoditySkuId:Int!
     #批次id
-    batchId: Int
+    batchId:ID
     #单位类型数量（例：kg，个）
     unitQuantity:BigDecimal!
     #总计类型数量（例：件）

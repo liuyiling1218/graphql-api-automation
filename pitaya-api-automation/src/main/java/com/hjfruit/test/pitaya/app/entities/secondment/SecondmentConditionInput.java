@@ -16,7 +16,7 @@ public class SecondmentConditionInput {
      * 仓库id
      */
     @Needed
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      * 商品分类
      */

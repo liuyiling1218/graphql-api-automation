@@ -25,7 +25,7 @@ public class CostOrderPayload {
     /**
      * 仓库id
      */
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      * 仓库名称
      */

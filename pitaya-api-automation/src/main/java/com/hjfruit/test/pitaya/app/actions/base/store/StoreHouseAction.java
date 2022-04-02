@@ -39,7 +39,7 @@ public class StoreHouseAction {
      * @param warehouseId
      * @return
      */
-    public WarehousePayload warehouse(Integer warehouseId) {
+    public WarehousePayload warehouse(String warehouseId) {
         return storehouseApi.warehouse(warehouseId);
     }
 
@@ -49,8 +49,8 @@ public class StoreHouseAction {
      * @param warehouseInput
      * @return
      */
-    public Integer insertWarehouse(WarehouseInput warehouseInput) {
-        Integer id = storehouseApi.insertWarehouse(warehouseInput);
+    public String insertWarehouse(WarehouseInput warehouseInput) {
+        String id = storehouseApi.insertWarehouse(warehouseInput);
         /*
          * 断言：列表中正常展示已新增仓库
          */
@@ -64,8 +64,8 @@ public class StoreHouseAction {
      * @param warehouseInput
      * @return
      */
-    public Integer updateWarehouse(WarehouseInput warehouseInput) {
-        Integer id = storehouseApi.updateWarehouse(warehouseInput);
+    public String updateWarehouse(WarehouseInput warehouseInput) {
+        String id = storehouseApi.updateWarehouse(warehouseInput);
         /**
          * 断言：列表中的数据显示正常
          */
@@ -85,8 +85,8 @@ public class StoreHouseAction {
      * @param warehouseId
      * @return
      */
-    public Integer deleteWarehouse(Integer warehouseId) {
-        Integer id = storehouseApi.deleteWarehouse(warehouseId);
+    public String deleteWarehouse(String warehouseId) {
+        String id = storehouseApi.deleteWarehouse(warehouseId);
         /*
          * 断言：列表无相关数据
          */

@@ -5,6 +5,8 @@ extend type Query {
     getTransferBill(flowId:ID):TransferBillPayload
     #查询调拨费用单状态值
     getTransferOrderFeeStatus(getTransferBillStatusInput:GetTransferBillStatusInput):GetTransferOrderFeeStatusPayload
+    #调拨费用审核角标
+    transferBillSummary:TransferBillSummaryPayload
 }
 
 extend type Mutation {
@@ -18,7 +20,7 @@ extend type Mutation {
 
 
 input UpdateTransferOrderStatInput {
-    flowId:ID!
+    billId:ID!
     orderOperation:OrderOperation
     remark:String
 }
@@ -39,17 +41,15 @@ input UpdateFlowTransferCommodityBillInput{
     updateFlowTransferCommodityItemReqList:[UpdateFlowTransferCommodityItemInput]
 }
 
-input  UpdateFlowTransferCommodityItemInput{
+input UpdateFlowTransferCommodityItemInput{
     # item id
     itemId:ID
     # sku id
     skuId:Int
     # 批次id
-    batchId:Int
+    batchId:ID
     # 单价
     unitPrice:BigDecimal
-    # 单价类型
-    priceType:Int
     # 小计
     amount:BigDecimal
 }
@@ -88,7 +88,7 @@ input ListTransferBillInput {
     # 商品类型
     commodityType:[Int]
     # 状态
-    flowStatus:[Int]
+    billStatus:[Int]
     # 10 调拨出库 20 调拨入库
     flowType:Int
 }

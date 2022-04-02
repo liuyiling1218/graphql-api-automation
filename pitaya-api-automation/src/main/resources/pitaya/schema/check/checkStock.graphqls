@@ -1,13 +1,13 @@
 input CheckConditionInput{
     #仓库id
-    warehouseId:Int!
+    warehouseId:ID!
     #商品分类
     commodityTypeIds:[Int]
 }
 
 input CheckDetailInput{
     skuId:Int
-    batchId:Int
+    batchId:ID
     batchCode:String
     unitQuantity:Float
     totalQuantity:Float
@@ -26,7 +26,7 @@ input CheckDetailInput{
 
 input CheckInfoInput{
     #仓库id
-    warehouseId:Int
+    warehouseId:ID
     warehouseName:String
     #盘点日期
     checkDate:Long
@@ -37,7 +37,7 @@ input CheckInfoInput{
 
 input CheckRecordConfitionInput{
     #仓库id
-    warehouseId:Int
+    warehouseId:ID
     #盘点开始日期
     startDate:Long
     #盘点结束日期
@@ -81,7 +81,7 @@ type StockCheckPayload{
 }
 
 type CheckDetailPayload{
-    checkId:Int
+    checkId:ID
     #盘点仓库名称
     warehouseName:String
     #盘点日期
@@ -123,7 +123,7 @@ type CheckInfoPayload{
 }
 
 type CheckRecordPayload{
-    checkId:Int
+    checkId:ID
     #盘点日期
     checkDate:Long
     warehouseName:String
@@ -164,7 +164,7 @@ type CheckStockResultPayload{
     checkInNum:Int
     #出库数量
     checkOutNum:Int
-    checkId:Int
+    checkId:ID
     outStockCode:String
     outStockRecordId:ID
     inStockCode:String
@@ -181,7 +181,7 @@ type CheckStockPayload{
     #商品名称
     commodityName:String
     #批次号
-    batchId:Int
+    batchId:ID
     batchCode:String
     #规格字符串，由后端组装
     skuTextDescriptionList:[String]
@@ -235,9 +235,9 @@ type CheckOrderPayload{
 }
 type CheckItemPayload{
     checkItemId:Int
-    checkId:Int
+    checkId:ID
     checkOrderId:Int
-    batchId:Int
+    batchId:ID
     skuId:Int
     batchCode:String
     orderType:Int
@@ -246,14 +246,14 @@ type CheckItemPayload{
     commodityTypeId:Int
     commodityName:String
     skuTextDescriptionList:[String]
-    unitQuantity:Long
+    unitQuantity:BigDecimal
     unitType:Int
     unitTypeName:String
-    totalQuantity:Long
+    totalQuantity:BigDecimal
     totalTypeName:String
     totalType:Int
-    checkUnitQuantity:Long
-    checkTotalQuantity:Long
+    checkUnitQuantity:BigDecimal
+    checkTotalQuantity:BigDecimal
     remark:String
     createTime:Long
     #归属名称
@@ -267,8 +267,8 @@ type CheckItemPayload{
 extend type Query {
     checkStocks(checkConditionInput:CheckConditionInput):[CheckStockPayload]
     checkPageRecords(page:Page, checkRecordConfitionInput:CheckRecordConfitionInput):CheckRecordPageResultPayload
-    checkDetail(checkId:Int):CheckInfoPayload
-    checkOrders(checkId:Int):CheckOrderPayload
+    checkDetail(checkId:ID):CheckInfoPayload
+    checkOrders(checkId:ID):CheckOrderPayload
 }
 
 extend type Mutation {

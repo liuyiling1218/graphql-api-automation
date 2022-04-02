@@ -70,7 +70,7 @@ public class DamagedOrderPayload {
     /**
      * 仓库Id
      */
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      * 仓库名称
      */

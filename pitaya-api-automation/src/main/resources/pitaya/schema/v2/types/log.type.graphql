@@ -4,8 +4,10 @@ type ListLogsPayload {
 
 type FlowLog{
     type:Int
+    typeName:String
     note:String
     createTime:Long
     createBy:Int
-    flowId:Long
+    createUserName:String
+    flowId:ID
 }

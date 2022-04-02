@@ -24,7 +24,7 @@ public class CreateAcquireInput {
      * 仓库名称
      */
     @Needed
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      * 供应商Id
      */

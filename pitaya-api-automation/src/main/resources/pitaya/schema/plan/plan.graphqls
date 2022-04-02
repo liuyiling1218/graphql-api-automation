@@ -21,7 +21,7 @@ type ProductionPlanPayload {
     #客户配送地址名称
     customerDistributionName:String
     #仓库id
-    warehouseId: Int
+    warehouseId:ID
     #仓库名称
     warehouseName: String
     #分公司id
@@ -81,7 +81,7 @@ type ProductionPlanDetailPayload {
     #客户配送地址名称
     customerDistributionName:String
     #仓库id
-    warehouseId: Int
+    warehouseId:ID
     #仓库名称
     warehouseName: String
     #生产日期
@@ -141,7 +141,7 @@ input PlanInfoInput {
     #客户id
     customerId: Int!
     #仓库id
-    warehouseId: Int!
+    warehouseId:ID!
     #生产开始日期
     planStartTime: Long!
     #生产结束日期
@@ -242,7 +242,7 @@ type CommoditySkuStockPayload {
 input CommoditySkuStockInput {
     commoditySkuId:[Int]!
     commodityTypeId:Int!
-    warehouseId:Int!
+    warehouseId:ID!
     belongId:Int!
     belongType:Int!
 }

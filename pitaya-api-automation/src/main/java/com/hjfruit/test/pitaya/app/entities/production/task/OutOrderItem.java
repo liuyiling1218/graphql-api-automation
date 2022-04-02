@@ -22,7 +22,7 @@ public class OutOrderItem {
     /**
      * 批次id
      */
-    private Integer batchId;
+    private String batchId;
     /**
      * 单位类型数量（例：kg，个）
      */

@@ -81,7 +81,7 @@ public class ProductionInOrderItemPayload {
     /**
      *
      */
-    private Integer batchId;
+    private String batchId;
     /**
      *
      */

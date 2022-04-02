@@ -33,7 +33,7 @@ public class WasteSaleOrder {
     /**
      *
      */
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      *
      */

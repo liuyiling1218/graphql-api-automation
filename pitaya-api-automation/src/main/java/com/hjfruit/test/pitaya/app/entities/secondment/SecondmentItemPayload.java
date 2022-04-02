@@ -37,7 +37,7 @@ public class SecondmentItemPayload {
     /**
      *
      */
-    private Integer batchId;
+    private String batchId;
     /**
      *
      */

@@ -18,7 +18,7 @@ public class CreateSaleOrderInput {
      * 仓库名称
      */
     @Needed
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      * 客户Id
      */

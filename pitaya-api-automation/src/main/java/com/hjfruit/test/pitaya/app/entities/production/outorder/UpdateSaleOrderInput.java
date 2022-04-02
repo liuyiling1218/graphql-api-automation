@@ -23,7 +23,7 @@ public class UpdateSaleOrderInput {
      * 仓库名称
      */
     @Needed
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      * 客户Id
      */

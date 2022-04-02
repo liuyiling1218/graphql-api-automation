@@ -29,7 +29,7 @@ public class SecondmentStockPayload {
     /**
      * 批次号
      */
-    private Integer batchId;
+    private String batchId;
     /**
      *
      */

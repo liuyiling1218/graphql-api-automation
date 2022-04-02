@@ -16,7 +16,7 @@ public class CheckInfoInput {
     /**
      * 仓库id
      */
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      *
      */

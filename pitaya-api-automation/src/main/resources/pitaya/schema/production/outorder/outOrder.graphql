@@ -214,7 +214,7 @@ type OutOrderItemPayload{
     #报损原因
     damageReason:String
     #1.5新增
-    batchId:Int
+    batchId:ID
     batchCode:String
     #库存单价
     stockUnitPrice:BigDecimal
@@ -263,13 +263,15 @@ type OutOrderPayload{
     # 客户类型翻译
     customerTypeName:String
     #调拨id
-    transferId:Int
+    transferId:ID
     #调拨类型 10:分拣仓-分拣仓 20:分拣仓-批发
     transferType:Int
     #调入组织id
     transferOrganizationId:Int
     #调入组织名称
     transferOrganizationName:String
+    #创建用户
+    userId:Int
     #联系电话
     createUserPhone:String
     #客户Id
@@ -283,7 +285,7 @@ type OutOrderPayload{
     #订单状态翻译
     outOrderStatusName:String
     #仓库Id
-    warehouseId:Int
+    warehouseId:ID
     #仓库名称
     warehouseName:String
     #创建人员

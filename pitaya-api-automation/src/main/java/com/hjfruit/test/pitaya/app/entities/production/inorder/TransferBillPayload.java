@@ -62,7 +62,7 @@ public class TransferBillPayload {
     /**
      * 调出仓库id
      */
-    private Integer sourceWarehouseId;
+    private String sourceWarehouseId;
     /**
      * 调出仓库名称
      */
@@ -82,7 +82,7 @@ public class TransferBillPayload {
     /**
      * 调入仓库id
      */
-    private Integer targetWarehouseId;
+    private String targetWarehouseId;
     /**
      * 调入仓库名称
      */
@@ -112,9 +112,13 @@ public class TransferBillPayload {
      */
     private String flowStatusName;
     /**
-     * 费用状态
+     *
      */
     private BillStatusEnum billStatus;
+    /**
+     * 费用状态
+     */
+    private Integer billStatusCode;
     /**
      * 费用状态名称
      */
@@ -179,4 +183,8 @@ public class TransferBillPayload {
      * 调入方合计
      */
     private BigDecimal targetTotalAmount;
+    /**
+     *
+     */
+    private Long recordUpdateTime;
 }

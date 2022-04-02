@@ -4,7 +4,7 @@ type CostOrderPayload {
     #申请编号（采购单号）
     applyCode:String
     #仓库id
-    warehouseId:Int
+    warehouseId:ID
     #仓库名称
     warehouseName:String
     #供应商id
@@ -154,6 +154,8 @@ input PageCostOrderInput {
     status:[Int]
     #货品类型
     commodityType:Int
+    #查询类型 10采购费用单 20采购费用单审核列表
+    queryType:Int
 }
 
 type PageCostOrderPayload {

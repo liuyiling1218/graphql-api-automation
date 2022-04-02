@@ -18,7 +18,7 @@ public class ListCommodityStockBatchInput {
     /**
      * 仓库id
      */
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      * 所属客户
      */

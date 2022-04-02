@@ -132,7 +132,7 @@ type DamagedOrderPayload{
     #订单状态翻译
     outOrderStatusName:String
     #仓库Id
-    warehouseId:Int
+    warehouseId:ID
     #仓库名称
     warehouseName:String
     #创建人员
@@ -177,7 +177,7 @@ input CreateDamagedOrderInput{
     #商品类型
     commodityTypeId:Int!
     #仓库id
-    warehouseId:Int!
+    warehouseId:ID!
     #订单备注
     outOrderDescription:String
     #任务id
@@ -187,7 +187,7 @@ input CreateDamagedOrderInput{
 }
 
 input CreateDamagedOrderItemInput{
-    batchId:Int!
+    batchId:ID!
     #商品skuID
     commoditySkuId:Int!
     #小单位数量
@@ -204,7 +204,7 @@ input UpdateDamagedOrderInput{
     #出库订单Id
     outOrderId:ID!
     #仓库名称
-    warehouseId:Int!
+    warehouseId:ID!
     #订单备注
     outOrderDescription:String
     #商品信息
@@ -316,7 +316,7 @@ input InOrderItem {
     #商品sku id
     commoditySkuId:Int!
     #批次id
-    batchId: Int
+    batchId:ID
     #出库库存记录明细id
     outStockRecordItemId: ID
     #单位类型数量（例：kg，个）
@@ -353,7 +353,7 @@ input OutOrderItem {
     #商品sku id
     commoditySkuId:Int!
     #批次id
-    batchId: Int
+    batchId:ID
     #单位类型数量（例：kg，个）
     unitQuantity:BigDecimal!
     #总计类型数量（例：件）
@@ -520,7 +520,7 @@ type Plan {
     #    配送地址名称
     customerDistributionName:String
     #    仓库id
-    warehouseId:Int
+    warehouseId:ID
     #    仓库名称
     warehouseName:String
     #生产日期

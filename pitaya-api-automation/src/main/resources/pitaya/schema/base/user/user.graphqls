@@ -10,7 +10,9 @@ type UserListPayload{
     createTime:String
     # 组织名称
     organizationName:String
-    roles:[String]
+    # 岗位
+    positions:[String]
+    # 仓库
     stores:[String]
 }
 
@@ -28,7 +30,7 @@ type UserPayload{
     # 组织名称
     organizationName:String
     organizationId:Int
-    roles:[RolePayload]
+    positions:[PositionPayload]
     stores:[UserStorePayload]
 }
 
@@ -43,7 +45,7 @@ type UserStorePayload{
     # 用户id
     userId:Int
     # 仓库ID
-    storehouseId:Int
+    storehouseId:ID
     # 仓库名称
     storehouseName:String
 }
@@ -51,7 +53,7 @@ input UserStoreInput{
     # 用户id
     userId:Int
     # 仓库ID
-    storehouseId:Int
+    storehouseId:ID
     # 仓库名称
     storehouseName:String
 }
@@ -61,18 +63,7 @@ input RoleInput{
 }
 input UserInput{
     userId:Int
-    # 用户名称
-    userName:String
-    # 用户电话号码
-    userPhoneNum:String
-    # 座机号码
-    landlineNum:String
-    # 创建时间
-    createTime:String
-    # 组织名称
-    organizationName:String
-    roles:[Int]
-    stores:[Int]
+    stores:[ID]
 }
 
 #用户账户密码返回
@@ -97,17 +88,18 @@ input MobileRepeatPayload{
 }
 
 input ProductInput{
-    #用户id
-    storehouseId:Int!
+    #仓库id
+    storehouseId:ID!
     #用户名称
     roleName:String
 
 }
 
+#创建和删除用户接口弃用,放在oss系统处理马,生产端只做和仓库的关联更新
 extend type Mutation {
-    createUser(userInput:UserInput):Int
+    #createUser(userInput:UserInput):Int
     updateUser(userInput:UserInput):Int
-    deleteUser(userId:Int):Int
+    #deleteUser(userId:Int):Int
 }
 
 extend type Query {

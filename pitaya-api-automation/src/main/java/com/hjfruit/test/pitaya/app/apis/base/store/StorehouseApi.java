@@ -2,10 +2,7 @@ package com.hjfruit.test.pitaya.app.apis.base.store;
 
 import com.hjfruit.test.pitaya.app.entities.base.store.WarehouseInput;
 import com.hjfruit.test.pitaya.app.entities.base.store.WarehousePayload;
-import fc.test.api.graphql.annotation.GraphqlGroup;
-import fc.test.api.graphql.annotation.GraphqlMutation;
-import fc.test.api.graphql.annotation.GraphqlQuery;
-import fc.test.api.graphql.annotation.Needed;
+import fc.test.api.graphql.annotation.*;
 import fc.test.api.graphql.entity.GraphqlConifg;
 
 import java.util.List;
@@ -22,14 +19,14 @@ public interface StorehouseApi {
     List<WarehousePayload> userWarehouse();
 
     @GraphqlQuery("")
-    WarehousePayload warehouse(@Needed Integer warehouseId);
+    WarehousePayload warehouse(@Needed @ID String warehouseId);
 
     @GraphqlMutation("")
-    Integer insertWarehouse(@Needed WarehouseInput warehouseInput);
+    String insertWarehouse(@Needed WarehouseInput warehouseInput);
 
     @GraphqlMutation("")
-    Integer updateWarehouse(@Needed WarehouseInput warehouseInput);
+    String updateWarehouse(@Needed WarehouseInput warehouseInput);
 
     @GraphqlMutation("")
-    Integer deleteWarehouse(@Needed Integer warehouseId);
+    String deleteWarehouse(@Needed @ID String warehouseId);
 }

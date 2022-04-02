@@ -145,7 +145,7 @@ public class OutOrderItemPayload {
     /**
      * 1.5新增
      */
-    private Integer batchId;
+    private String batchId;
     /**
      *
      */

@@ -33,4 +33,8 @@ public class GetTransferInOrderStatusInput {
      * 关键字查询
      */
     private String keyword;
+    /**
+     * 调拨去向筛选 10 分拣仓-分拣仓 20批发-分拣仓 30分拣仓-批发
+     */
+    private Integer direction;
 }

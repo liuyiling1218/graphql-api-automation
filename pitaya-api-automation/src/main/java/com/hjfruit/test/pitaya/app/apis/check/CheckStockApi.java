@@ -5,6 +5,7 @@ import com.hjfruit.test.pitaya.app.entities.check.*;
 import fc.test.api.graphql.annotation.GraphqlGroup;
 import fc.test.api.graphql.annotation.GraphqlMutation;
 import fc.test.api.graphql.annotation.GraphqlQuery;
+import fc.test.api.graphql.annotation.ID;
 import fc.test.api.graphql.entity.GraphqlConifg;
 
 import java.util.List;
@@ -21,10 +22,10 @@ public interface CheckStockApi {
     CheckRecordPageResultPayload checkPageRecords(Page page, CheckRecordConfitionInput checkRecordConfitionInput);
 
     @GraphqlQuery("")
-    CheckInfoPayload checkDetail(Integer checkId);
+    CheckInfoPayload checkDetail(@ID String checkId);
 
     @GraphqlQuery("")
-    CheckOrderPayload checkOrders(Integer checkId);
+    CheckOrderPayload checkOrders(@ID String checkId);
 
     @GraphqlMutation("")
     CheckStockResultPayload finishCheck(CheckInfoInput checkInfoInput);

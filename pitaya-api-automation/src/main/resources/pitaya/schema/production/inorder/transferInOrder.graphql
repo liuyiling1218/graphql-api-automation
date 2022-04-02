@@ -18,6 +18,8 @@ input GetTransferInOrderStatusInput{
     transferType:[Int]
     #关键字查询
     keyword:String
+    #调拨去向筛选 10 分拣仓-分拣仓 20批发-分拣仓 30分拣仓-批发
+    direction:Int
 }
 
 type TransferBillPayload{
@@ -44,7 +46,7 @@ type TransferBillPayload{
     # 商品类型名称
     commodityTypeName:String
     # 调出仓库id
-    sourceWarehouseId:Int
+    sourceWarehouseId:ID
     # 调出仓库名称
     sourceWarehouseName:String
     # 调出归属类型
@@ -54,7 +56,7 @@ type TransferBillPayload{
     # 调出归属名称
     sourceBelongName:String
     # 调入仓库id
-    targetWarehouseId:Int
+    targetWarehouseId:ID
     # 调入仓库名称
     targetWarehouseName:String
     # 调入归属类型
@@ -69,8 +71,9 @@ type TransferBillPayload{
     flowStatus:Int
     # 调拨申请状态名称
     flowStatusName:String
-    # 费用状态
     billStatus:BillStatusEnum
+    # 费用状态
+    billStatusCode:Int
     # 费用状态名称
     billStatusName:String
     # 调拨订单创建时间
@@ -103,6 +106,7 @@ type TransferBillPayload{
     sourceTotalAmount:BigDecimal
     # 调入方合计
     targetTotalAmount:BigDecimal
+    recordUpdateTime:Long
 }
 
 enum BillStatusEnum {
@@ -112,11 +116,12 @@ enum BillStatusEnum {
     BILL_BIZ_UN_REVIEWED
     BILL_FD_UN_REVIEWED
     BILL_COMPLETE
+    ERROR_BILL_STATUS
 }
 
 type GetTransferInOrderStatusPayload{
     #待提交
-    toSubmit:Int
+    toSubmit:Long
     #待处理
-    toProcess:Int
+    toProcess:Long
 }

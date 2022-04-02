@@ -137,7 +137,7 @@ public class TaskReturnMaterialCommodityPayload {
     /**
      *
      */
-    private Integer stockBatchId;
+    private String stockBatchId;
     /**
      *
      */

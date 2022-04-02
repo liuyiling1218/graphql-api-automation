@@ -20,6 +20,11 @@ public class ConfirmOutOrderItem {
     @Needed
     private String outOrderItemId;
     /**
+     *
+     */
+    @Needed
+    private Integer skuId;
+    /**
      * 周转筐数量
      */
     private Integer basketQuantity;

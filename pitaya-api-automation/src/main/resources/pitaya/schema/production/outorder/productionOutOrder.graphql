@@ -57,7 +57,7 @@ type ProductionOutOrderPayload{
     #分公司名称
     organizationName:String
     #仓库id
-    warehouseId:Int
+    warehouseId:ID
     #仓库名称
     warehouseName:String
     #备注信息
@@ -114,7 +114,7 @@ type ProductionOutOrderDetailPayload{
     stockUnitType: Int
     conversion: BigDecimal
     #批次id
-    batchId:Int
+    batchId:ID
     batchCode:String
     #实际领用量
     pickingUnitQuantity: BigDecimal

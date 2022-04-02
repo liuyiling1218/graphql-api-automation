@@ -133,7 +133,7 @@ public class TaskAcquireMaterialCommodityPayload {
     /**
      *
      */
-    private Integer stockBatchId;
+    private String stockBatchId;
     /**
      *
      */
@@ -141,7 +141,7 @@ public class TaskAcquireMaterialCommodityPayload {
     /**
      *
      */
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      *
      */

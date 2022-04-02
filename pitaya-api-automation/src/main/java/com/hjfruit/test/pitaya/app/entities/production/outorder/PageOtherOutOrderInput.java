@@ -24,7 +24,7 @@ public class PageOtherOutOrderInput {
      */
     private Integer commodityTypeId;
     /**
-     * 出库订单状态
+     * 出库订单状态(全部：null, 待提交：10， 待出库：20， 已完成：40， 已取消：50)
      */
     private Integer outOrderStatus;
     /**

@@ -48,7 +48,7 @@ public class UserPayload {
     /**
      *
      */
-    private List<RolePayload> roles;
+    private List<PositionPayload> positions;
     /**
      *
      */

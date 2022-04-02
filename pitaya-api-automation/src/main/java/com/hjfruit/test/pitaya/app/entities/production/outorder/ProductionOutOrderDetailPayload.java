@@ -101,7 +101,7 @@ public class ProductionOutOrderDetailPayload {
     /**
      * 批次id
      */
-    private Integer batchId;
+    private String batchId;
     /**
      *
      */

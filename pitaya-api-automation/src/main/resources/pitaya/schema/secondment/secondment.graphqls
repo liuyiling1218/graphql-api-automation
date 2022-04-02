@@ -4,7 +4,7 @@ type SecondmentItemPayload{
     commodityId :Int
     commodityName :String
     skuId :Int
-    batchId:Int
+    batchId:ID
     batchCode:String
     specOptionId :[Int]
     skuTextDescription:[String]
@@ -31,7 +31,7 @@ input SecondmentItemInput{
     commodityId :Int
     commodityName :String
     skuId :Int
-    batchId:Int
+    batchId:ID
     #    specOptionId :Int
     #    skuTextDescription:String
     transferTotalQuantity :Float
@@ -70,7 +70,7 @@ input  SecondmentInput{
     #调入客户名称
     inBelongName :String
     # 仓库id
-    warehouseId :Int
+    warehouseId :ID
     #仓库名称
     warehouseName :String
     #备注
@@ -104,7 +104,7 @@ type SecondmentPayload{
     #调入客户名称
     inBelongName :String
     # 仓库id
-    warehouseId :Int
+    warehouseId :ID
     #仓库名称
     warehouseName :String
     #操作人员
@@ -157,7 +157,7 @@ type SecondmentLogPayload{
 
 input SecondmentConditionInput{
     #仓库id
-    warehouseId:Int!
+    warehouseId:ID!
     #商品分类
     commodityTypeId:Int!
     #归属id
@@ -172,7 +172,7 @@ type SecondmentStockPayload{
     #商品名称
     commodityName:String
     #批次号
-    batchId:Int
+    batchId:ID
     batchCode:String
     #规格字符串，由后端组装
     skuTextDescriptionList:[String]

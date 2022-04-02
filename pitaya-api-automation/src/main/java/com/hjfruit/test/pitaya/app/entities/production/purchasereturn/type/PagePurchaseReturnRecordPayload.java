@@ -42,7 +42,7 @@ public class PagePurchaseReturnRecordPayload {
     /**
      * 所属仓库ID
      */
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      *
      */

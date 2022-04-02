@@ -62,7 +62,7 @@ input CreateAcquireInput{
     #商品类型Id
     commodityType:Int!
     #仓库名称
-    warehouseId:Int!
+    warehouseId:ID!
     #供应商Id
     supplierId:Int!
     #客户类型Id
@@ -80,7 +80,7 @@ input UpdateAcquireInput{
     #入库订单Id
     applyId:ID!
     #仓库名称
-    warehouseId:Int!
+    warehouseId:ID!
     #供应商Id
     supplierId:Int!
     #客户类型Id
@@ -171,7 +171,7 @@ type AcquirePayload{
     #入库状态
     applyStatusName:String
     #仓库Id
-    warehouseId:Int
+    warehouseId:ID
     #仓库名称
     warehouseName:String
     #供应商Id

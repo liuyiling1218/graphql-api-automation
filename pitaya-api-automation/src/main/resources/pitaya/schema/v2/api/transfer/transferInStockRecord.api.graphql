@@ -1,0 +1,30 @@
+extend type Query {
+    countTransferInStockRecord(queryRecordListInput:QueryRecordListInput):Int
+    transferInStockRecordDetail(inStockOrderDetailInput:InStockOrderDetailInput):InStockRecordListPayload
+}
+
+input QueryRecordListInput{
+    # 入库单ID
+    inOrderId:ID!
+    # 用户ID
+    userId:Int
+    # 组织ID
+    orgId:Int
+    # 系统ID
+    appId:Int
+    # 操作人可用仓库集合
+    userWarehouseIdList:[ID]
+    # 业务ID
+    businessId:ID
+}
+
+input InStockOrderDetailInput{
+    # 入库单ID
+    inOrderId:ID!
+    # 组织ID
+    orgId:Int
+    # 系统ID
+    appId:Int
+    # 操作人可用仓库集合
+    userWarehouseIdList:[ID]
+}

@@ -21,7 +21,7 @@ public class StockConditionInput {
     /**
      * 仓库id
      */
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      * 商品分类 果品 辅料 周转筐
      */

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 /**
- * 新增采购信息
+ * 新增其他入库信息
  */
 @Data
 @AllArgsConstructor
@@ -28,7 +28,7 @@ public class CreateOtherInOrderInput {
      * 仓库名称
      */
     @Needed
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      * 供应商Id
      */

@@ -77,7 +77,7 @@ public class TransferCommodityItemBillPayload {
     /**
      * 批次id
      */
-    private Integer batchId;
+    private String batchId;
     /**
      * 批次号
      */

@@ -18,7 +18,7 @@ public class InOrderRecordFilter {
     /**
      * 仓库Id（空为全部）
      */
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      * 入库类型Id（可空）
      */

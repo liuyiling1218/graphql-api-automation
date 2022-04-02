@@ -34,7 +34,7 @@ public class SecondmentItemInput {
     /**
      *
      */
-    private Integer batchId;
+    private String batchId;
     /**
      * specOptionId :IntskuTextDescription:String
      */

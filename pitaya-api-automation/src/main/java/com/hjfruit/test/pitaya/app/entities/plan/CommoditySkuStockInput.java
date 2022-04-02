@@ -28,7 +28,7 @@ public class CommoditySkuStockInput {
      *
      */
     @Needed
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      *
      */

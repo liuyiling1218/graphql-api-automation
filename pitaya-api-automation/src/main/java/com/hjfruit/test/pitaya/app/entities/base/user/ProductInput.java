@@ -13,10 +13,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProductInput {
     /**
-     * 用户id
+     * 仓库id
      */
     @Needed
-    private Integer storehouseId;
+    private String storehouseId;
     /**
      * 用户名称
      */

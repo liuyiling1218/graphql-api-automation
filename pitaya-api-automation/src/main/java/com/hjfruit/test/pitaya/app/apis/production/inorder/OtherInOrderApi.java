@@ -10,16 +10,16 @@ import fc.test.api.graphql.entity.GraphqlConifg;
  */
 @GraphqlGroup(client = GraphqlConifg.GraphqlClientType.PITAYA_APP)
 public interface OtherInOrderApi {
-    @GraphqlMutation("新增采购 返回inOrderId")
+    @GraphqlMutation("新增其他入库 返回inOrderId")
     String createOtherInOrder(CreateOtherInOrderInput createOtherInOrderInput);
 
     @GraphqlMutation("提交库管")
     String submitOtherInOrder(@Needed @ID String inOrderId);
 
-    @GraphqlMutation("修改采购订单")
+    @GraphqlMutation("修改其他入库订单")
     Boolean modifyOtherInOrder(ModifyOtherInOrderInput modifyOtherInOrderInput);
 
-    @GraphqlMutation("取消采购订单")
+    @GraphqlMutation("取消其他入库订单")
     Boolean cancelOtherInOrder(CancelOtherInOrderInput cancelOtherInOrderInput);
 
     @GraphqlQuery("查询其他入库订单")

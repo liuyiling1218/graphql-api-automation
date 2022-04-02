@@ -47,6 +47,10 @@ public class AuditInOrderItemPayload {
      */
     private String unitTypeName;
     /**
+     * 小单位类型
+     */
+    private Integer unitType;
+    /**
      * 副单位数量
      */
     private BigDecimal totalQuantity;
@@ -94,4 +98,8 @@ public class AuditInOrderItemPayload {
      * 毛重数量
      */
     private BigDecimal grossUnitQuantity;
+    /**
+     * 批次id
+     */
+    private String batchId;
 }

@@ -71,6 +71,10 @@ public class InboundRecordItemPayload {
      */
     private String batchCode;
     /**
+     * 批次id
+     */
+    private String batchId;
+    /**
      * 副单位与基本单位换算
      */
     private BigDecimal conversion;

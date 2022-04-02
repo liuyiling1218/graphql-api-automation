@@ -2,6 +2,6 @@ extend type Query {
 
     "查询付款方式的下拉列表接口：如 月结 半月结"
     payModes:[PayMode]
-    "查询费用类型：如 搬运费 "
+    "查询费用类型：1调拨采用类型 2采购费用类型"
     freightTypes:[FreightType]
 }

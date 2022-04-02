@@ -18,7 +18,7 @@ public class CheckDetailInput {
     /**
      *
      */
-    private Integer batchId;
+    private String batchId;
     /**
      *
      */

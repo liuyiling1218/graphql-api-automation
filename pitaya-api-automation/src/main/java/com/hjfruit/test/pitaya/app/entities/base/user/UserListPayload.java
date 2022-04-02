@@ -38,11 +38,11 @@ public class UserListPayload {
      */
     private String organizationName;
     /**
-     *
+     * 岗位
      */
-    private List<String> roles;
+    private List<String> positions;
     /**
-     *
+     * 仓库
      */
     private List<String> stores;
 }

@@ -36,7 +36,7 @@ public class CheckStockPayload {
     /**
      * 批次号
      */
-    private Integer batchId;
+    private String batchId;
     /**
      *
      */

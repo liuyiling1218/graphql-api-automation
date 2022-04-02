@@ -16,7 +16,7 @@ input PageOtherOutOrderInput{
     endTime:Long
     #商品类型
     commodityTypeId:Int
-    #出库订单状态
+    #出库订单状态(全部：null, 待提交：10， 待出库：20， 已完成：40， 已取消：50)
     outOrderStatus:Int
     #关键字搜索
     keyword:String
@@ -30,7 +30,7 @@ input CreateOtherOutOrderInput{
     #商品类型
     commodityTypeId:Int!
     #仓库id
-    warehouseId:Int!
+    warehouseId:ID!
     #客户Id
     customerId:Int
     customerType:Int!
@@ -41,7 +41,7 @@ input CreateOtherOutOrderInput{
 }
 
 input CreateOtherOutOrderItemInput{
-    batchId:Int!
+    batchId:ID!
     #商品skuID
     commoditySkuId:Int!
     #小单位数量
@@ -54,7 +54,7 @@ input UpdateOtherOutOrderInput{
     #出库订单Id
     outOrderId:ID!
     #仓库名称
-    warehouseId:Int!
+    warehouseId:ID!
     #客户Id
     customerId:Int
     #客户类型

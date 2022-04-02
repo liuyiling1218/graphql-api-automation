@@ -65,7 +65,7 @@ type PurchaseOrderPayload{
     #入库状态
     inOrderStatusName:String
     #仓库Id
-    warehouseId:Int
+    warehouseId:ID
     #仓库名称
     warehouseName:String
     #供应商Id
@@ -103,7 +103,7 @@ type PurchaseOrderPayload{
     #调拨类型 v2.0
     transferType:Int
     #调拨ID v2.0
-    transferId:Int
+    transferId:ID
     organizationId:Int
     organizationName:String
 }
@@ -185,7 +185,7 @@ input PurchaseOrderInsertInput{
     #商品类型Id
     commodityTypeId:Int!
     #仓库名称
-    warehouseId:Int!
+    warehouseId:ID!
     #供应商Id
     supplierId:Int!
     #客户类型Id
@@ -203,7 +203,7 @@ input PurchaseOrderUpdateInput{
     #入库订单Id
     inOrderId:ID!
     #仓库名称
-    warehouseId:Int!
+    warehouseId:ID!
     #供应商Id
     supplierId:Int!
     #客户类型Id

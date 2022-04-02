@@ -16,7 +16,7 @@ public class UpdateTransferOrderStatInput {
      *
      */
     @Needed
-    private String flowId;
+    private String billId;
     /**
      *
      */

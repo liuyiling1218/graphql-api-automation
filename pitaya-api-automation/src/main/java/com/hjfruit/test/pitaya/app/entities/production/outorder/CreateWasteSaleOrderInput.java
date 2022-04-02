@@ -19,7 +19,7 @@ public class CreateWasteSaleOrderInput {
      *
      */
     @Needed
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      *
      */

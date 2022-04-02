@@ -1,0 +1,31 @@
+extend type Query {
+    countTransferOutStockRecord(queryOutRecordListInput:QueryOutRecordListInput):Int
+    outStockRecordDetail(queryOutRecordListInput:QueryOutRecordListInput):OutStockRecordListPayload
+}
+
+# 入库请求
+input  QueryOutRecordListInput{
+    # 用户ID
+    userId:Int
+    # 组织ID
+    orgId:Int
+    # 系统ID
+    appId:Int
+    # 操作人可用仓库集合
+    userWarehouseIdList:[ID]
+    # 业务ID
+    businessId:ID
+    # 出库单ID
+    outOrderId:ID!
+}
+
+input  OutStockOrderDetailInput{
+    # 入库单ID
+    outOrderId:ID!
+    # 组织ID
+    orgId:Int
+    # 系统ID
+    appId:Int
+    # 操作人可用仓库集合
+    userWarehouseIdList:[ID]
+}

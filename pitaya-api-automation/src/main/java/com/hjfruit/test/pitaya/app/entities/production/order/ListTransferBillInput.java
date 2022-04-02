@@ -28,7 +28,7 @@ public class ListTransferBillInput {
     /**
      * 状态
      */
-    private List<Integer> flowStatus;
+    private List<Integer> billStatus;
     /**
      * 10 调拨出库 20 调拨入库
      */

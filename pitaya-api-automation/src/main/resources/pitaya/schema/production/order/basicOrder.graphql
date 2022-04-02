@@ -6,13 +6,13 @@ input UpdateTransferCommodityInput{
     # 商品类型
     commodityType:Int
     # 调出仓库id
-    sourceWarehouseId:Int
+    sourceWarehouseId:ID
     # 调出归属类型
     sourceBelongType:Int
     # 调出归属id
     sourceBelongId:Int
     # 调入仓库id
-    targetWarehouseId:Int
+    targetWarehouseId:ID
     # 调入归属id
     targetBelongId: Int
     # 备注信息
@@ -21,13 +21,15 @@ input UpdateTransferCommodityInput{
     flowTransferCommodityInput:[FlowTransferCommodityInput]
     # 运杂费用
     flowTransferOtherBillInput:[FlowTransferOtherBillInput]
+    # 调入系统id
+    targetAppId: Int
 }
 
 input FlowTransferCommodityInput{
     # sku id
     skuId:Int
     # 批次id
-    batchId:Int
+    batchId:ID
     # 总计数量
     totalQuantity:BigDecimal
     # 总计类型
@@ -123,6 +125,8 @@ input ListTransferOrderInput{
     commodityType:[Int]
     #调拨类型（10 仓库间调拨，20 跨组织调拨，30库存退货，40库存借调）
     transferType:[Int]
+    # 调拨方向 10 分拣仓-分拣仓 20 批发到分拣仓 30 分拣仓到批发
+    direction:Int
 }
 
 #分页对象
@@ -150,7 +154,7 @@ type TransferOrderPayload{
     commodityTypeName:String
 
     #调出仓库Id
-    sourceWarehouseId:Int
+    sourceWarehouseId:ID
     #调出仓库名称
     sourceWarehouseName:String
     #调出归属id
@@ -158,7 +162,7 @@ type TransferOrderPayload{
     #调出归属名称
     sourceBelongName:String
     #调入仓库Id
-    targetWarehouseId:Int
+    targetWarehouseId:ID
     #调入仓库名称
     targetWarehouseName:String
     #调入归属id
@@ -199,8 +203,12 @@ type TransferOrderPayload{
     billStatus:Int
     #费用状态名称
     billStatusName:String
-    #调拨驳回原因
-    transferRejectReason:String
+    #调拨驳回/取消原因
+    reason:String
+    #调拨去向筛选 10 分拣仓-分拣仓 20批发-分拣仓 30分拣仓-批发
+    direction:Int
+    sourceAppId:Int
+    targetAppId:Int
 }
 
 type ListTransferBillPayload {
@@ -223,8 +231,14 @@ input GetTransferOrderFeeStatusInput {
 }
 
 type GetTransferOrderFeeStatusPayload {
-    toSubmit:Int
-    submit:Int
+    toSubmit:Long
+    toAudit:Long
+}
+
+type TransferBillSummaryPayload {
+    toAudit:Long
+    toInSubmit:Long
+    toOutSubmit:Long
 }
 
 type TransferCommodityBillPayload {
@@ -270,7 +284,7 @@ type TransferCommodityItemBillPayload {
     #计价单位类型名称
     priceTypeName:String
     #批次id
-    batchId:Int
+    batchId:ID
     #批次号
     batchCode:String
     #创建时间

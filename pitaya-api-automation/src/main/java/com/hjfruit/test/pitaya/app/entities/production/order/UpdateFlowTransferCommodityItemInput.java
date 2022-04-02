@@ -24,15 +24,11 @@ public class UpdateFlowTransferCommodityItemInput {
     /**
      * 批次id
      */
-    private Integer batchId;
+    private String batchId;
     /**
      * 单价
      */
     private BigDecimal unitPrice;
-    /**
-     * 单价类型
-     */
-    private Integer priceType;
     /**
      * 小计
      */

@@ -28,7 +28,7 @@ public class CreateDamagedOrderInput {
      * 仓库id
      */
     @Needed
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      * 订单备注
      */

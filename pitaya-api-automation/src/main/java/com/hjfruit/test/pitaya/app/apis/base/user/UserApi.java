@@ -17,14 +17,8 @@ import java.util.List;
  */
 @GraphqlGroup(client = GraphqlConifg.GraphqlClientType.PITAYA_APP)
 public interface UserApi {
-    @GraphqlMutation("")
-    Integer createUser(UserInput userInput);
-
-    @GraphqlMutation("")
+    @GraphqlMutation("createUser(userInput:UserInput):Int")
     Integer updateUser(UserInput userInput);
-
-    @GraphqlMutation("")
-    Integer deleteUser(Integer userId);
 
     @GraphqlQuery("")
     List<Option> listProductLeader(@Needed ProductInput productInput);

@@ -23,7 +23,7 @@ public class CreateOtherOutOrderInput {
      * 仓库id
      */
     @Needed
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      * 客户Id
      */

@@ -21,7 +21,7 @@ type PagePurchaseReturnRecordPayload{
     # 采购退货状态描述
     statusDesc:String
     # 所属仓库ID
-    warehouseId:Int
+    warehouseId:ID
     warehouseName:String
     # 供应商ID
     supplierId:Int
@@ -77,7 +77,7 @@ type PurchaseReturnDetailPayload {
     # 采购退货状态描述
     statusDesc:String
     # 所属仓库
-    warehouseId:Int
+    warehouseId:ID
     warehouseName:String
     # 商品类型
     commodityType:Int

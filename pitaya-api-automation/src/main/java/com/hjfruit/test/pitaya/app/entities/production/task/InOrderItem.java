@@ -22,7 +22,7 @@ public class InOrderItem {
     /**
      * 批次id
      */
-    private Integer batchId;
+    private String batchId;
     /**
      * 出库库存记录明细id
      */

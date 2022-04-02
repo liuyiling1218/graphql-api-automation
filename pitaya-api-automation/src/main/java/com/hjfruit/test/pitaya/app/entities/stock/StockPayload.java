@@ -76,7 +76,7 @@ public class StockPayload {
     /**
      * 仓库名称
      */
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      *
      */

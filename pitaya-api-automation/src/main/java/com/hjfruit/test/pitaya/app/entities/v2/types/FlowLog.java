@@ -18,6 +18,10 @@ public class FlowLog {
     /**
      *
      */
+    private String typeName;
+    /**
+     *
+     */
     private String note;
     /**
      *
@@ -30,5 +34,9 @@ public class FlowLog {
     /**
      *
      */
-    private Long flowId;
+    private String createUserName;
+    /**
+     *
+     */
+    private String flowId;
 }

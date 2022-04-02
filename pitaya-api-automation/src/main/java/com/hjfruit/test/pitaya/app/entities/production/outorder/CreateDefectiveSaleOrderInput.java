@@ -17,7 +17,7 @@ public class CreateDefectiveSaleOrderInput {
     /**
      *
      */
-    private Integer warehouseId;
+    private String warehouseId;
     /**
      *
      */
