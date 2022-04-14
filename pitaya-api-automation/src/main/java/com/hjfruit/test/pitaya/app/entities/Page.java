@@ -9,8 +9,11 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class Page {
+    public Page(){
+        this.pageSize=1;
+        this.pageSize=10;
+    }
     /**
      *
      */

@@ -91,7 +91,7 @@ public class StoreHouseAction {
          * 断言：列表无相关数据
          */
         List<WarehousePayload> warehousePayloads = listWarehouse();
-        assertThat(warehousePayloads.stream().allMatch(o -> o.getWarehouseId().equals(warehouseId))).isFalse();
+        assertThat(warehousePayloads.stream().allMatch( o-> o.getWarehouseId().equals(warehouseId))).isFalse();
         return id;
     }
 

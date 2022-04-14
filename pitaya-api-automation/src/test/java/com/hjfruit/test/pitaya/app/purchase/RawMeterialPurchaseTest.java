@@ -1,6 +1,7 @@
 package com.hjfruit.test.pitaya.app.purchase;
 
 import com.hjfruit.test.pitaya.app.PitayaAppBaseTest;
+import com.hjfruit.test.pitaya.app.PitayaAppBaseTestV2;
 import com.hjfruit.test.pitaya.app.actions.production.inorder.AcquireOrderAction;
 import com.hjfruit.test.pitaya.app.actions.production.inorder.InOrderAuditAction;
 import com.hjfruit.test.pitaya.app.helper.purchase.RawMeterialPurchaseOrderHelper;
@@ -11,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @DisplayName("原料采购")
-public class RawMeterialPurchaseTest extends PitayaAppBaseTest {
+public class RawMeterialPurchaseTest extends PitayaAppBaseTestV2  {
     @Autowired
     AcquireOrderAction acquireOrderAction;
     @Autowired
