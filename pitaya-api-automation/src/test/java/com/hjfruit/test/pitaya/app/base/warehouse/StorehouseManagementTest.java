@@ -6,6 +6,10 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class StorehouseManagementTest extends PitayaAppBaseTestV2 {
     @Autowired
     StoreHouseAction storeHouseAction;
@@ -28,6 +32,7 @@ public class StorehouseManagementTest extends PitayaAppBaseTestV2 {
         warehouseUpdateInput.setRemark("[T]修改仓库备注");
         storeHouseAction.updateWarehouse(warehouseUpdateInput);
         //删除仓库
-        storeHouseAction.deleteWarehouse(warehouseId);
+//        storeHouseAction.deleteWarehouse(warehouseId);
+
     }
 }

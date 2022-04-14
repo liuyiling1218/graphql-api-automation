@@ -47,4 +47,11 @@ public class DatasourceConfig {
     DataSource commodityDatasource() {
         return DataSourceBuilder.create().build();
     }
+
+    @Bean
+    @ConfigurationProperties("spring.datasource.flow")
+    DataSource flowDatasource() {
+        return DataSourceBuilder.create().build();
+    }
+
 }

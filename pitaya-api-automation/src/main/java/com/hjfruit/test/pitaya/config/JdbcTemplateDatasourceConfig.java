@@ -40,4 +40,8 @@ public class JdbcTemplateDatasourceConfig {
     public JdbcTemplate commodity(@Qualifier("commodityDatasource") DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
+    @Bean()
+    public JdbcTemplate flow(@Qualifier("flowDatasource") DataSource dataSource) {
+        return new JdbcTemplate(dataSource);
+    }
 }

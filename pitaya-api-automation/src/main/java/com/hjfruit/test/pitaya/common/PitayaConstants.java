@@ -105,8 +105,8 @@ public class PitayaConstants {
         FRUIT(1, "水果"),
         FOOD(2, "食品"),
         ASSIST(3, "辅料"),
-        BOX(4, "周转筐");
-
+        BOX(4, "周转筐"),
+        TRANSPORT(5, "物流运输");
         /**
          * 供应商类型ID
          */
@@ -238,8 +238,6 @@ public class PitayaConstants {
             this.typeCode = typeCode;
             this.typeText = typeText;
         }
-
-
     }
 
     /**
@@ -325,6 +323,61 @@ public class PitayaConstants {
             this.secondmentStatusId = secondmentStatusId;
             this.secondmentStatusName = secondmentStatusName;
 
+        }
+    }
+    /**
+     * 计价方式
+     */
+    @Getter
+    public enum PricePositionType {
+
+        GROSS_WEIGHT(10, "毛重计价"),
+        NET_WEIGHT(20, "净重计价");
+
+        private int typeId;
+        private String typeName;
+
+        PricePositionType(int typeId, String typeName) {
+            this.typeId = typeId;
+            this.typeName = typeName;
+        }
+    }
+    /**
+     * 费用单状态
+     */
+    @Getter
+    public enum CostOrderStatus {
+
+        WAIT_CONFIRM(10, "待确认"),
+        WAIT_SUBMIT(20, "待提交"),
+        WAIT_BUSINESS_AUDIT(30, "待业务审核"),
+        WAIT_FINANCE_AUDIT(40, "待财务审核"),
+        COMPLETED(50, "已完成");
+
+        private int statusId;
+        private String statusName;
+
+        CostOrderStatus(int statusId, String statusName) {
+            this.statusId = statusId;
+            this.statusName = statusName;
+        }
+    }
+    /**
+     * 组织类型
+     */
+    @Getter
+    public enum OrgType {
+
+        ORG_WAIT_IMPLEMENTED("本系统-待实施组织"),
+        SYSTEM_WAIT_IMPLEMENTED("其他系统-待实施组织"),
+        ORG_IMPLEMENTED("本系统-已实施区域"),
+        SYSTEM_IMPLEMENTED("其他系统-已实施区域"),
+        COMPLETED("已完成");
+
+        private String typeName;
+
+        OrgType(String typeName) {
+            this.typeName = typeName;
         }
     }
 }

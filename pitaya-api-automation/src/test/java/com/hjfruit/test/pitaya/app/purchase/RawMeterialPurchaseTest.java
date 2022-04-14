@@ -4,7 +4,9 @@ import com.hjfruit.test.pitaya.app.PitayaAppBaseTest;
 import com.hjfruit.test.pitaya.app.PitayaAppBaseTestV2;
 import com.hjfruit.test.pitaya.app.actions.production.inorder.AcquireOrderAction;
 import com.hjfruit.test.pitaya.app.actions.production.inorder.InOrderAuditAction;
-import com.hjfruit.test.pitaya.app.helper.purchase.RawMeterialPurchaseOrderHelper;
+import com.hjfruit.test.pitaya.app.helper.base.CustomerHelper;
+import com.hjfruit.test.pitaya.app.helper.purchase.RawMeterialPurchaseApplyHelper;
+import com.hjfruit.test.pitaya.app.helper.purchase.RayMeterialPurchaseInOrderHelper;
 import com.hjfruit.test.pitaya.common.PitayaConstants;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.DisplayName;
@@ -12,48 +14,112 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @DisplayName("原料采购")
-public class RawMeterialPurchaseTest extends PitayaAppBaseTestV2  {
+public class RawMeterialPurchaseTest extends PitayaAppBaseTestV2 {
     @Autowired
     AcquireOrderAction acquireOrderAction;
     @Autowired
     InOrderAuditAction inOrderAuditAction;
     @Autowired
-    RawMeterialPurchaseOrderHelper rawMeterialPurchaseOrderHelper;
+    RawMeterialPurchaseApplyHelper rawMeterialPurchaseApplyHelper;
+    @Autowired
+    RayMeterialPurchaseInOrderHelper rayMeterialPurchaseInOrderHelper;
+    @Autowired
+    CustomerHelper customerHelper;
 
     @Test
-    @DisplayName("Flow:新增采购-提交库管-部分入库-全部入库")
-    void testFlow_create_submit_partIn_allIn() {
-        rawMeterialPurchaseOrderHelper.create(PitayaConstants.SupplierType.FOOD, PitayaConstants.CustomerType.NO_CUSTOMER, RandomStringUtils.random(200));
+    @DisplayName("Flow:新增采购(客户分组)-提交库管-全部入库")
+    void testFlow_createWithCustomerGroup_submit_allIn() {
+        String applyId = rawMeterialPurchaseApplyHelper.create();
+        rawMeterialPurchaseApplyHelper.update(applyId);
+        rawMeterialPurchaseApplyHelper.submit(applyId);
+        rayMeterialPurchaseInOrderHelper.allIn(applyId);
+    }
 
+    @Test
+    @DisplayName("Flow:新增采购(指定客户)-提交库管-全部入库")
+    void testFlow_createWithDesignatedCustomer_submit_allIn() {
+        String applyId = rawMeterialPurchaseApplyHelper.create(PitayaConstants.CustomerType.DESIGNATED_CUSTOMER, "");
+        rawMeterialPurchaseApplyHelper.update(applyId);
+        rawMeterialPurchaseApplyHelper.submit(applyId);
+        rayMeterialPurchaseInOrderHelper.allIn(applyId);
+    }
+
+    @Test
+    @DisplayName("Flow:新增采购(通用货品)-提交库管-全部入库")
+    void testFlow_createWithNoCustomer_submit_allIn() {
+        String applyId = rawMeterialPurchaseApplyHelper.create(PitayaConstants.CustomerType.NO_CUSTOMER, "");
+        rawMeterialPurchaseApplyHelper.update(applyId);
+        rawMeterialPurchaseApplyHelper.submit(applyId);
+        rayMeterialPurchaseInOrderHelper.allIn(applyId);
     }
 
     @Test
     @DisplayName("Flow:新增采购-提交库管-部分入库-完成入库")
     void testFlow_create_submit_partIn_completeIn() {
-
+        String applyId = rawMeterialPurchaseApplyHelper.create(PitayaConstants.CustomerType.NO_CUSTOMER, "");
+        rawMeterialPurchaseApplyHelper.update(applyId);
+        rawMeterialPurchaseApplyHelper.submit(applyId);
+        rayMeterialPurchaseInOrderHelper.partIn(applyId);
+        rayMeterialPurchaseInOrderHelper.complete(applyId);
     }
 
     @Test
     @DisplayName("Flow:新增采购-提交库管-部分入库-部分入库")
     void testFlow_create_submit_partIn_partIn() {
-
+        String applyId = rawMeterialPurchaseApplyHelper.create();
+        rawMeterialPurchaseApplyHelper.update(applyId);
+        rawMeterialPurchaseApplyHelper.submit(applyId);
+        rayMeterialPurchaseInOrderHelper.partIn(applyId);
+        rayMeterialPurchaseInOrderHelper.partIn(applyId);
     }
 
     @Test
     @DisplayName("Flow:新增采购-取消入库")
     void testFlow_create_cancel() {
-
+        String orderId = rawMeterialPurchaseApplyHelper.create();
+        rawMeterialPurchaseApplyHelper.cancel(orderId);
     }
 
     @Test
     @DisplayName("Flow:新增采购-提交库管-驳回-再次提交库管")
     void testFlow_create_submit_turndown_resubmit() {
-
+        String applyId = rawMeterialPurchaseApplyHelper.create();
+        rawMeterialPurchaseApplyHelper.submit(applyId);
+        rayMeterialPurchaseInOrderHelper.reject(applyId);
+        rawMeterialPurchaseApplyHelper.submit(applyId);
     }
 
     @Test
     @DisplayName("Flow:新增采购-修改订单-提交库管-全部入库")
     void testFlow_create_update_submit() {
+        String applyId = rawMeterialPurchaseApplyHelper.create();
+        rawMeterialPurchaseApplyHelper.update(applyId);
+        rawMeterialPurchaseApplyHelper.submit(applyId);
+        rayMeterialPurchaseInOrderHelper.allIn(applyId);
+    }
+
+    @Test
+    @DisplayName("Action:客户为通用货品时，创建采购订单")
+    void testException_create_nocustoemr() {
+//        customerHelper.switchCustomer(PitayaConstants.CustomerType.NO_CUSTOMER);
+    }
+
+    @Test
+    @DisplayName("Action:客户为客户分组时，创建采购订单")
+    void testException_create_custoemrgroup() {
+        rawMeterialPurchaseApplyHelper.create(PitayaConstants.CustomerType.CUSTOMER_GROUP, "");
+    }
+
+    @Test
+    @DisplayName("Action:客户为指定客户时，创建采购订单")
+    void testException_update_designatedcustomer() {
+
+    }
+
+    @Test
+    @DisplayName("Action:客户为指定客户时，创建采购订单")
+    void testException_create_designatedcustomer() {
+        System.out.println(RandomStringUtils.random(200));
 
     }
 

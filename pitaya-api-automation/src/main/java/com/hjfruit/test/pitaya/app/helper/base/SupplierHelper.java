@@ -61,6 +61,15 @@ public class SupplierHelper {
     }
 
     /**
+     * 获取 yunza 类别下的第一个供应商
+     *
+     * @return
+     */
+    public SupplierPayload supplierPages_getFirstTransportSupplier() {
+        return supplierPages_getFirstSupplierBySupplierTypeIds(Arrays.asList(PitayaConstants.SupplierType.TRANSPORT.getTypeId()));
+    }
+
+    /**
      * 获取具体供应商类型下的第一个供应商
      *
      * @param supplierTypeIds

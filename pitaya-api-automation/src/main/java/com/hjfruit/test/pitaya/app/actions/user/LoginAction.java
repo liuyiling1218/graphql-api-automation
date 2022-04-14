@@ -5,6 +5,7 @@ import com.hjfruit.test.pitaya.app.apis.user.LoginApi;
 import com.hjfruit.test.pitaya.app.entities.user.*;
 import com.hjfruit.test.pitaya.common.PitayaAutheration;
 import com.hjfruit.test.pitaya.common.PitayaBaseAction;
+import com.hjfruit.test.pitaya.common.PitayaConfig;
 import com.hjfruit.test.pitaya.common.PitayaConstants;
 import fc.test.api.graphql.Autheration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ public class LoginAction extends PitayaBaseAction {
     LoginApi loginApi;
     @Autowired
     UserApi userApi;
+    @Autowired
+    PitayaConfig pitayaConfig;
 
     /**
      * 获取验证码
@@ -48,6 +51,19 @@ public class LoginAction extends PitayaBaseAction {
         return loginApi.login(loginInput);
     }
 
+    public void logout() {
+        LoginPayload loginPayload = this.loginWithCode(pitayaConfig.getDefaultUser(), pitayaConfig.getDefaultCheckCode());
+        //绑定orgId
+        BindOrgInput bindOrgInput = new BindOrgInput();
+        bindOrgInput.setOrgId(pitayaConfig.getDefaultOrgId());
+        bindOrgInput.setBindToken(loginPayload.getToken());
+        BindOrgPayload bindOrgPayload = loginApi.bindOrg(bindOrgInput);
+
+        PitayaAutheration.orgId = pitayaConfig.getDefaultOrgId();
+        Autheration.token = bindOrgPayload.getToken();
+        Autheration.currentUser = pitayaConfig.getDefaultUser();
+    }
+
     /**
      * 密码登录
      *
@@ -72,6 +88,16 @@ public class LoginAction extends PitayaBaseAction {
         return loginApi.changePwd(changePwdInput);
     }
 
+    public void switchUserAndOrg(String mobile, String code, Integer orgId) {
+        LoginPayload loginPayload = this.loginWithCode(mobile, code);
+        Autheration.token = loginPayload.getToken();
+
+        BindOrgInput bindOrgInput = new BindOrgInput();
+        bindOrgInput.setOrgId(orgId);
+        bindOrgInput.setBindToken(Autheration.token);
+        BindOrgPayload bindOrgPayload = loginApi.bindOrg(bindOrgInput);
+        Autheration.token = bindOrgPayload.getToken();
+    }
 
     /**
      * 切换账号登录

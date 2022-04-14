@@ -1,6 +1,5 @@
 package com.hjfruit.test.pitaya.app;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.hjfruit.test.pitaya.PitayaBaseTest;
 import com.hjfruit.test.pitaya.app.actions.user.LoginAction;
@@ -132,6 +131,10 @@ public class PitayaAppBaseTestV2 extends PitayaBaseTest {
 
     }
 
+    public  void loginOut(String phone) {
+        sendSmsCode(phone);
+        loginByMsgCode(phone);
+    }
     public RequestSpecification commonRequest() {
         return given()
                 .relaxedHTTPSValidation()

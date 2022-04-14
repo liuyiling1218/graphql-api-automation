@@ -54,10 +54,10 @@ public class OtherInOrderAction {
             createOtherInOrderInput.setCustomerTypeId(PitayaConstants.CustomerType.NO_CUSTOMER.getCustomerTypeId());
         } else if (PitayaConstants.CustomerType.CUSTOMER_GROUP == customerType) {
             createOtherInOrderInput.setCustomerTypeId(PitayaConstants.CustomerType.CUSTOMER_GROUP.getCustomerTypeId());
-            createOtherInOrderInput.setCustomerId(customerHelper.allListCustomer().get(0).getCustomerGroupId());
+            createOtherInOrderInput.setCustomerId(customerHelper.getCustomer(PitayaConstants.CustomerType.NO_CUSTOMER).getBelongId());
         } else if (PitayaConstants.CustomerType.DESIGNATED_CUSTOMER == customerType) {
             createOtherInOrderInput.setCustomerTypeId(PitayaConstants.CustomerType.DESIGNATED_CUSTOMER.getCustomerTypeId());
-            createOtherInOrderInput.setCustomerId(customerHelper.allListCustomer_getFirstCustomer().getCustomerId());
+            createOtherInOrderInput.setCustomerId(customerHelper.getCustomer(PitayaConstants.CustomerType.DESIGNATED_CUSTOMER).getBelongId());
         }
         createOtherInOrderInput.setInOrderDescription(remark);
 

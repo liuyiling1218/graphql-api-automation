@@ -1,11 +1,15 @@
 package com.hjfruit.test.pitaya.app.helper.base;
 
 import com.hjfruit.test.pitaya.app.actions.base.commodity.CommodityQueryAction;
+import com.hjfruit.test.pitaya.app.actions.production.outorder.StockAction;
 import com.hjfruit.test.pitaya.app.entities.commodity.*;
+import com.hjfruit.test.pitaya.app.entities.production.outorder.CommodityStockBatchPayload;
+import com.hjfruit.test.pitaya.app.entities.production.outorder.ListCommodityStockBatchInput;
 import com.hjfruit.test.pitaya.common.PitayaConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +20,10 @@ public class CommodityHelper {
 
     @Autowired
     CommodityQueryAction commodityQueryAction;
-
+    @Autowired
+    StoreHouseHelper storeHouseHelper;
+    @Autowired
+    StockAction stockAction;
 
     /**
      * 根据商品类型 和数量 获取商品sku
@@ -106,4 +113,25 @@ public class CommodityHelper {
         }
         return commoditySkuPayloads;
     }
+    /**
+     * 获取商品sku库存
+     *
+     * @param commodityType
+     * @param commoditySkuType
+     * @return
+     */
+    public List<CommodityStockBatchPayload> getCommodityStockBatches(PitayaConstants.CommodityType commodityType, PitayaConstants.CommoditySkuType commoditySkuType) {
+        ListCommodityStockBatchInput listCommodityStockBatchInput = new ListCommodityStockBatchInput();
+        listCommodityStockBatchInput.setCommodityTypeId(commodityType.getTypeId());
+        listCommodityStockBatchInput.setWarehouseId(storeHouseHelper.userWarehouse_getFirstWarehouse().getWarehouseId());
+        List<CommodityStockBatchPayload> commodityStockBatchPayloads = stockAction.commodityStockBatches(listCommodityStockBatchInput);
+        System.out.println("commodityStockBatchPayloads:"+commodityStockBatchPayloads.size());
+        if (commoditySkuType == PitayaConstants.CommoditySkuType.DOUBLE_UNIT) {
+            return commodityStockBatchPayloads.stream().filter(o -> !o.getStockTotalType().equals(0)&&!o.getStockUnitQuantity().equals(new BigDecimal(0.0))).collect(Collectors.toList());
+        } else {
+            return commodityStockBatchPayloads.stream().filter(o -> o.getStockTotalType().equals(0)&&!o.getStockUnitQuantity().equals(new BigDecimal(0.0))).collect(Collectors.toList());
+        }
+    }
+
+
 }

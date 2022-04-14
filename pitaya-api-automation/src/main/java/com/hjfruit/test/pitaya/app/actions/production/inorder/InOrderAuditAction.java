@@ -38,7 +38,7 @@ public class InOrderAuditAction {
      * @param inOrderDetailInput
      * @return
      */
-    AuditInOrderPayload getAuditDetail(InOrderDetailInput inOrderDetailInput) {
+    public AuditInOrderPayload getAuditDetail(InOrderDetailInput inOrderDetailInput) {
         return inOrderAuditApi.getAuditDetail(inOrderDetailInput);
     }
 
@@ -114,7 +114,7 @@ public class InOrderAuditAction {
      * @param inOrderId
      * @return
      */
-    Boolean finishInbound(String inOrderId) {
+    public Boolean finishInbound(String inOrderId) {
         Boolean aBoolean = inOrderAuditApi.finishInbound(inOrderId);
         /*
          * 断言：
@@ -128,7 +128,7 @@ public class InOrderAuditAction {
      * @param confirmInput
      * @return
      */
-    Long confirmInbound(ConfirmInput confirmInput) {
+    public Long confirmInbound(ConfirmInput confirmInput) {
         Long aLong = inOrderAuditApi.confirmInbound(confirmInput);
 
         /*
@@ -143,7 +143,7 @@ public class InOrderAuditAction {
      * @param purchaseConfirmInput
      * @return
      */
-    Long confirmPurchaseInBound(PurchaseConfirmInput purchaseConfirmInput) {
+    public Long confirmPurchaseInBound(PurchaseConfirmInput purchaseConfirmInput) {
         Long aLong = inOrderAuditApi.confirmPurchaseInBound(purchaseConfirmInput);
         /*
          * 断言：
@@ -158,7 +158,7 @@ public class InOrderAuditAction {
      * @param rejectedInput
      * @return
      */
-    Boolean rejectPurchaseOrderAudit(RejectedInput rejectedInput) {
+    public Boolean rejectPurchaseOrderAudit(RejectedInput rejectedInput) {
         Boolean aBoolean = inOrderAuditApi.rejectPurchaseOrderAudit(rejectedInput);
         /*
          * 断言：
