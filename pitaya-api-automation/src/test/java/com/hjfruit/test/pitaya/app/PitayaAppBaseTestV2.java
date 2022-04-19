@@ -131,7 +131,7 @@ public class PitayaAppBaseTestV2 extends PitayaBaseTest {
 
     }
 
-    public  void loginOut(String phone) {
+    public  void switchUser(String phone) {
         sendSmsCode(phone);
         loginByMsgCode(phone);
     }

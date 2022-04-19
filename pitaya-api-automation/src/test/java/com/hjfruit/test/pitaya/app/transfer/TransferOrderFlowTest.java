@@ -45,7 +45,7 @@ public class TransferOrderFlowTest extends PitayaAppBaseTestV2 {
         System.out.println("orderId:" + orderId);
         transferOrderHelper.submit(orderId);
         transferOrderHelper.confirmOutOrder(orderId);
-        super.loginOut("18580870001");
+        super.switchUser("18580870001");
 //        loginAction.switchUserAndOrg("18580870001", "666666", 347);
         transferOrderHelper.confirmInOrder(orderId);
         loginAction.logout();

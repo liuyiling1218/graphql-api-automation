@@ -26,7 +26,7 @@ public class StorehouseManagementTest extends PitayaAppBaseTestV2 {
         //修改仓库
         WarehouseInput warehouseUpdateInput = new WarehouseInput();
         warehouseUpdateInput.setWarehouseId(warehouseId);
-        warehouseUpdateInput.setWarehouseName(RandomStringUtils.random(10));
+        warehouseUpdateInput.setWarehouseName(RandomStringUtils.random(20));
         warehouseUpdateInput.setHouseNumber("[T]修改仓库门牌号");
         warehouseUpdateInput.setAddress("[T]修改仓库地址");
         warehouseUpdateInput.setRemark("[T]修改仓库备注");

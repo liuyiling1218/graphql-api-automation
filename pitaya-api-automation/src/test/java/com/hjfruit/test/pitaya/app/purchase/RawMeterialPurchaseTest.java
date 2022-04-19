@@ -4,6 +4,8 @@ import com.hjfruit.test.pitaya.app.PitayaAppBaseTest;
 import com.hjfruit.test.pitaya.app.PitayaAppBaseTestV2;
 import com.hjfruit.test.pitaya.app.actions.production.inorder.AcquireOrderAction;
 import com.hjfruit.test.pitaya.app.actions.production.inorder.InOrderAuditAction;
+import com.hjfruit.test.pitaya.app.entities.commodity.CommoditySkuPayload;
+import com.hjfruit.test.pitaya.app.helper.base.CommodityHelper;
 import com.hjfruit.test.pitaya.app.helper.base.CustomerHelper;
 import com.hjfruit.test.pitaya.app.helper.purchase.RawMeterialPurchaseApplyHelper;
 import com.hjfruit.test.pitaya.app.helper.purchase.RayMeterialPurchaseInOrderHelper;
@@ -12,6 +14,9 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+import java.util.concurrent.Callable;
 
 @DisplayName("原料采购")
 public class RawMeterialPurchaseTest extends PitayaAppBaseTestV2 {
@@ -25,7 +30,8 @@ public class RawMeterialPurchaseTest extends PitayaAppBaseTestV2 {
     RayMeterialPurchaseInOrderHelper rayMeterialPurchaseInOrderHelper;
     @Autowired
     CustomerHelper customerHelper;
-
+    @Autowired
+    CommodityHelper commodityHelper;
     @Test
     @DisplayName("Flow:新增采购(客户分组)-提交库管-全部入库")
     void testFlow_createWithCustomerGroup_submit_allIn() {
@@ -102,6 +108,7 @@ public class RawMeterialPurchaseTest extends PitayaAppBaseTestV2 {
     @DisplayName("Action:客户为通用货品时，创建采购订单")
     void testException_create_nocustoemr() {
 //        customerHelper.switchCustomer(PitayaConstants.CustomerType.NO_CUSTOMER);
+
     }
 
     @Test
@@ -114,7 +121,8 @@ public class RawMeterialPurchaseTest extends PitayaAppBaseTestV2 {
     @DisplayName("Action:客户为指定客户时，创建采购订单")
     void testException_update_designatedcustomer() {
 
-    }
+
+     }
 
     @Test
     @DisplayName("Action:客户为指定客户时，创建采购订单")
