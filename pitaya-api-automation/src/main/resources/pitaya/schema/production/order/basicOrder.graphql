@@ -203,7 +203,9 @@ type TransferOrderPayload{
     billStatus:Int
     #费用状态名称
     billStatusName:String
-    #调拨驳回/取消原因
+    """
+    调拨驳回/取消原因(列表+详情)
+    """
     reason:String
     #调拨去向筛选 10 分拣仓-分拣仓 20批发-分拣仓 30分拣仓-批发
     direction:Int

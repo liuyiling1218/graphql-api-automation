@@ -1,12 +1,16 @@
 extend type Query {
     #查询销售订单
     pageSaleOrder(queryQueryOrderInput:QuerySaleOrderInput,page:Page):SaleOrderPagePayload
-    #查询订单详情
+    """成品销售:订单详情"""
     saleOrder(saleOrderInput:SaleOrderInput):SaleOrderPayload
     #状态数量查询接口
     countSaleOrderStatus(countSaleOrderStatusInput:CountSaleOrderStatusInput):SaleOrderStatusCountPayload
     #查询销售退货记录条数 v1.6
     countSaleReturnRecord(saleOrderInput:SaleOrderInput):Long
+    """成品销售:驳回申请统计角标"""
+    saleRejectStatistic:Int
+    """成品销售:检查是否存在出库操作"""
+    checkIfPicking(checkIfPickingInput:CheckIfPickingInput):CheckIfPickingPayload
 }
 
 extend type Mutation {
@@ -22,11 +26,64 @@ extend type Mutation {
     undoSaleOrder(undoSaleOrderInput:UndoSaleOrderInput):Boolean
     #更新实际销量 v1.6
     updateRealQuantity(updateRealQuantityInput:UpdateRealQuantityInput):Boolean
-    #更新预估销量 v1.6
+    """
+    成品销售:更新预估销量
+    """
     updatePlanQuantity(updatePlanQuantityInput:UpdatePlanQuantityInput):Boolean
     #复制订单
     copySaleOrder(saleOrderInput:SaleOrderInput):ID
+    """
+    成品销售:取消生产
+    """
+    cancelSaleProduction(cancelSaleProductionInput:CancelSaleProductionInput):CancelSaleProductionPayload
+
+    """
+    成品销售:拒绝申请通知清空
+    """
+    rejectNoticeEmptied(rejectNoticeEmptiedInput:RejectNoticeEmptiedInput):RejectNoticeEmptiedPayload
+
 }
+
+input CheckIfPickingInput {
+    outOrderItemId:ID!
+}
+
+type CheckIfPickingPayload {
+    result:Boolean
+}
+
+input RejectNoticeEmptiedInput {
+    outOrderId:ID!
+}
+
+type RejectNoticeEmptiedPayload {
+    result:Boolean
+}
+
+
+enum CommodityStatus {
+    UNRECOGNIZED,
+    """正常"""
+    NORMAL,
+    """取消中"""
+    CANCELING,
+    """已取消"""
+    CANCELLED,
+    """已拒绝"""
+    REJECTED
+}
+
+type CancelSaleProductionPayload {
+    result:Boolean
+}
+
+input CancelSaleProductionInput {
+    """
+    出库明细id
+    """
+    outOrderItemId:ID!
+}
+
 # v1.6
 input UpdateRealQuantityInput{
     outOrderId:ID!
@@ -42,6 +99,7 @@ input UpdatePlanQuantityInput{
 # v1.6
 input SaleOrderInput {
     outOrderId:ID!
+    requestFlag:RequestFlag!
 }
 input CountSaleOrderStatusInput{
     saleTime:Long!
@@ -113,6 +171,10 @@ type SaleOrderPayload{
     countReturnApply:Int
     #是否能操作 可操作返回true v1.6
     canSaleReturn:Boolean
+    """
+    拒绝统计数量
+    """
+    rejectCount:Int
 }
 
 type SaleOrderItemPayload{
@@ -149,6 +211,10 @@ type SaleOrderItemPayload{
     quantityLabel:String
     #品类Id
     categoryId:Int
+    """
+    商品状态 10 正常 20 取消中 30 已取消 40 已拒绝
+    """
+    commodityStatus:CommodityStatus
 }
 
 #销售列表条件

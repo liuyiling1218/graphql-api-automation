@@ -70,6 +70,8 @@ type TaskItemPayload {
     #规格要求
     specificationLabel:String
     #包装要求
+    packageRequireInfos:[OutOrderItemRequestPayload]
+    #包装要求
     packageLabel:String
     #品质要求
     quantityLabel:String
@@ -77,6 +79,11 @@ type TaskItemPayload {
     planQuantity: BigDecimal
     # 库存成品数量
     stockQuantity: BigDecimal
+    outOrderItemId:ID
+    """
+    商品状态 10 正常 20 取消中 30 已取消 40 已拒绝
+    """
+    commodityStatus: CommodityStatus
 }
 
 input UpdatePlanTaskInput {
@@ -126,6 +133,35 @@ input PauseOrContinueTaskInput {
     taskStatusCode: Int
 }
 
+input ConfirmCancelProductionInput {
+    """任务id"""
+    taskId:ID!
+    """出库明细id"""
+    outOrderItemId:ID!
+}
+
+input RequestRejectionInput {
+    """出库明细id"""
+    outOrderItemId:ID!
+}
+
+input CancelTaskInput {
+    """任务id"""
+    taskId:ID!
+}
+
+type ConfirmCancelProductionPayload {
+    result:Boolean
+}
+
+type RequestRejectionPayload {
+    result:Boolean
+}
+
+type CancelTaskPayload {
+    result:Boolean
+}
+
 extend type Query {
     # 增减记录列表
     addOrDeleteRecords(addOrDeleteRecordsInput:AddOrDeleteRecordsInput):[AddOrDeleteRecords]
@@ -136,4 +172,10 @@ extend type Mutation {
     pauseOrContinueTask(pauseOrContinueTaskInput:PauseOrContinueTaskInput):Boolean
     #任务退回
     taskReturned(taskId:ID):Boolean
+    """生产计划:取消生产"""
+    confirmCancelProduction(confirmCancelProductionInput:ConfirmCancelProductionInput):ConfirmCancelProductionPayload
+    """生产计划:拒绝申请"""
+    requestRejection(requestRejectionInput:RequestRejectionInput):RequestRejectionPayload
+    """生产计划:取消任务"""
+    cancelTask(cancelTaskInput:CancelTaskInput):CancelTaskPayload
 }

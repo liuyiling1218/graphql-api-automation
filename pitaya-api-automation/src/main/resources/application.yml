@@ -1,22 +1,22 @@
 spring:
   datasource:
     flow:
-      jdbc-url: jdbc:postgresql://192.168.0.239:5441/fc_flow?currentSchema=flow&useUnicode=true&characterEncoding=utf-8&TimeZone=Asia/Shanghai
+      jdbc-url: jdbc:postgresql://127.0.0.1:5441/fc_flow?currentSchema=flow&useUnicode=true&characterEncoding=utf-8&TimeZone=Asia/Shanghai
       username: flow
       password: flow
       driver-class-name: org.postgresql.Driver
     pitaya:
-      jdbc-url: jdbc:postgresql://192.168.0.246:5440/pitaya?useUnicode=true&characterEncoding=utf-8&TimeZone=Asia/Shanghai
+      jdbc-url: jdbc:postgresql://127.0.0.1:5440/pitaya?useUnicode=true&characterEncoding=utf-8&TimeZone=Asia/Shanghai
       username: pitaya
       password: pitaya
       driver-class-name: org.postgresql.Driver
     peach:
-      jdbc-url: jdbc:postgresql://192.168.0.246:5440/peach?currentSchema=wholesale&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&rewriteBatchedStatements=true&TimeZone=Asia/Shanghai
+      jdbc-url: jdbc:postgresql://127.0.0.1:5440/peach?currentSchema=wholesale&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&rewriteBatchedStatements=true&TimeZone=Asia/Shanghai
       username: peach
       password: peach
       driver-class-name: org.postgresql.Driver
     fc-user:
-      jdbc-url: jdbc:postgresql://192.168.0.239:5441/fc_mdm?currentSchema=fc_user_center&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&rewriteBatchedStatements=true&TimeZone=Asia/Shanghai
+      jdbc-url: jdbc:postgresql://127.0.0.1:5441/fc_mdm?currentSchema=fc_user_center&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&rewriteBatchedStatements=true&TimeZone=Asia/Shanghai
       username: hj
       password: hj
       driver-class-name: org.postgresql.Driver

@@ -162,5 +162,9 @@ type TaskReturnMaterialCommodityPayload{
     outStockRecordId:ID
     pickingUnitQuantity:BigDecimal
     pickingTotalQuantity:BigDecimal
+    """
+    单位换算关系
+    """
+    conversion:BigDecimal
 }
 

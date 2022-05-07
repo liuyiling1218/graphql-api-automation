@@ -2,10 +2,7 @@ package com.hjfruit.test.pitaya.app.actions.base.supplier;
 
 import com.hjfruit.test.pitaya.app.apis.base.supplier.SupplierApi;
 import com.hjfruit.test.pitaya.app.entities.Page;
-import com.hjfruit.test.pitaya.app.entities.base.supplier.SupplierConditionInput;
-import com.hjfruit.test.pitaya.app.entities.base.supplier.SupplierInput;
-import com.hjfruit.test.pitaya.app.entities.base.supplier.SupplierPagePayload;
-import com.hjfruit.test.pitaya.app.entities.base.supplier.SupplierPayload;
+import com.hjfruit.test.pitaya.app.entities.base.supplier.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -36,8 +33,8 @@ public class SupplierAction {
      * @param supplierId
      * @return
      */
-    public SupplierPayload supplier(Integer supplierId) {
-        return supplierApi.supplier(supplierId);
+    public SupplierPayload supplier(GetSupplierInput getSupplierInput) {
+        return supplierApi.supplier(getSupplierInput);
     }
 
     /**

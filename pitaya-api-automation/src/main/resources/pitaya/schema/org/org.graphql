@@ -1,17 +1,29 @@
 extend type Query {
-    #获取组织树
+    """
+    组织: 获取组织树
+    """
     orgTree(input:String):String
 }
 
 type OrgTreePayload{
-    # 组织id
+    """
+    组织id
+    """
     key: Int
-    # 组织名称
+    """
+    组织名称
+    """
     name: String
-    # 系统id
-    appId: Int
-    # 是否禁用
-    disable: Boolean
-    # 子节点
+    """
+    父节点Id
+    """
+    parentId: Int
+    """
+    是否禁用
+    """
+    disabled: Boolean
+    """
+    子节点
+    """
     children: [OrgTreePayload]
 }

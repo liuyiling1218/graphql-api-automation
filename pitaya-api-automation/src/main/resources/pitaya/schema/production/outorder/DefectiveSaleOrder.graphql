@@ -34,5 +34,5 @@ input CreateDefectiveItemInput {
     commoditySkuId:Int
     saleQuantity:BigDecimal
     saleTotalPrice:BigDecimal
-    photos:[String]!
+    photos:[String!]!
 }

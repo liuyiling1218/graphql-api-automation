@@ -94,3 +94,8 @@ enum BusinessType {
     # 其他出库
     BIZ_OUT_STOCK
 }
+
+interface QuantityInterface {
+    unitQuantity:BigDecimal
+    totalQuantity:BigDecimal
+}

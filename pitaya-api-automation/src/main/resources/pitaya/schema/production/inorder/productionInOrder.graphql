@@ -3,7 +3,7 @@ extend type Query {
     inOrderList(productionInOrderListInput:ProductionInOrderListInput!):ProductionInOrderListPayload
     #出库订单列表数量统计
     inOrderStatusStatistics(orderStatusStatisticsInput:OrderStatusStatisticsInput):OrderStatusStatisticsPayload
-    #单个入库订单详情
+    """生产任务:入库单据详情:"""
     inOrderDetail(inOrderId:ID!):ProductionInOrderPayload
     #入库订单记录
     inOrderLog(inOrderId:ID!):ProductionInOrderLogListPayload
@@ -95,7 +95,9 @@ type ProductionInOrderPayload{
     updateBy:Int
     #商品信息
     commodities:[ProductionInOrderItemPayload]
-    #取消订单备注
+    """
+    驳回/取消原因（列表/详情通用）
+    """
     cancelDescription:String
 
 }
@@ -135,7 +137,23 @@ type ProductionInOrderItemPayload{
     conversion: BigDecimal
     unitQuantityPicking: BigDecimal
     totalQuantityPicking: BigDecimal
+    """
+    入库完成数量统计
+    """
+    inStockFinishedQuantity: InStockFinishedQuantity
 }
+
+type InStockFinishedQuantity implements QuantityInterface {
+    """
+    实际入库单位类型数量
+    """
+    unitQuantity:BigDecimal
+    """
+    实际入库总计类型数量
+    """
+    totalQuantity:BigDecimal
+}
+
 type ProductionInOrderLogListPayload{
     inOrderLogList:[ProductionInOrderLogPayload]
 }

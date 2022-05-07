@@ -1,6 +1,7 @@
 package com.hjfruit.test.pitaya.app.stock.other;
 
 import com.hjfruit.test.pitaya.app.PitayaAppBaseTest;
+import com.hjfruit.test.pitaya.app.PitayaAppBaseTestV2;
 import com.hjfruit.test.pitaya.app.actions.stock.other.OtherInOrderAction;
 import com.hjfruit.test.pitaya.app.helper.base.CommodityHelper;
 import com.hjfruit.test.pitaya.app.helper.base.StoreHouseHelper;
@@ -21,7 +22,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @DisplayName("其他入库")
-public class DefectiveOtherInOrderActionTest extends PitayaAppBaseTest {
+public class DefectiveOtherInOrderActionTest extends PitayaAppBaseTestV2 {
     @Autowired
     OtherInOrderAction otherInOrderAction;
     @Autowired

@@ -1,108 +1,115 @@
 extend type Query{
-  commodityCategories(listCommodityCategoryInput:ListCommodityCategoryInput):[CommodityCategoryPayload]
-  commodities(listCommodityInput:ListCommodityInput):[CommodityPayload]
-  commoditySpecs(listCommoditySpecInput:ListCommoditySpecInput):[CommoditySpecPayload]
-  commoditySkues(listCommoditySkuInput:ListCommoditySkuInput):[CommoditySkuPayload]
-  commoditySku(getCommoditySkuInput:GetCommoditySkuInput):CommoditySkuPayload
+    commodityCategories(listCommodityCategoryInput:ListCommodityCategoryInput):[CommodityCategoryPayload]
+    commodities(listCommodityInput:ListCommodityInput):[CommodityPayload]
+    commoditySpecs(listCommoditySpecInput:ListCommoditySpecInput):[CommoditySpecPayload]
+    commoditySkues(listCommoditySkuInput:ListCommoditySkuInput):[CommoditySkuPayload]
+    commoditySku(getCommoditySkuInput:GetCommoditySkuInput):CommoditySkuPayload
 }
 input ListCommodityCategoryInput{
-  #  FRUIT(1, "水果"),
-  #FOOD(2, "食品"),
-  #ASSIST(3, "辅料"),
-  #BOX(4, "周转筐"),
-  #RAW_MATERIAL(5, "原料"),
-  #PRODUCT(6, "成品"),
-  #HALF_PRODUCT(7, "半成品"),
-  #DEFECTIVE(8, "次品");
-  commodityTypeId:[Int]
+    #  FRUIT(1, "水果"),
+    #FOOD(2, "食品"),
+    #ASSIST(3, "辅料"),
+    #BOX(4, "周转筐"),
+    #RAW_MATERIAL(5, "原料"),
+    #PRODUCT(6, "成品"),
+    #HALF_PRODUCT(7, "半成品"),
+    #DEFECTIVE(8, "次品");
+    commodityTypeId:[Int]
 }
 input GetCommoditySkuInput{
-  commoditySkuId:Int!
+    commoditySkuId:Int!
 }
 
 input ListCommoditySkuInput {
-  commodityId:Int
-  hasBom:Boolean
-  #  FRUIT(1, "水果"),
-  #FOOD(2, "食品"),
-  #ASSIST(3, "辅料"),
-  #BOX(4, "周转筐"),
-  #RAW_MATERIAL(5, "原料"),
-  #PRODUCT(6, "成品"),
-  #HALF_PRODUCT(7, "半成品"),
-  #DEFECTIVE(8, "次品");
-  commodityTypeId:[Int]
+    commodityId:Int
+    hasBom:Boolean
+    #  FRUIT(1, "水果"),
+    #FOOD(2, "食品"),
+    #ASSIST(3, "辅料"),
+    #BOX(4, "周转筐"),
+    #RAW_MATERIAL(5, "原料"),
+    #PRODUCT(6, "成品"),
+    #HALF_PRODUCT(7, "半成品"),
+    #DEFECTIVE(8, "次品");
+    commodityTypeId:[Int]
 }
 type CommoditySkuPayload{
-  commodityPayload:CommodityPayload
-  commodityId:Int
-  commodityName:String
-  commoditySkuId:Int
-  status:Int
-  unitQuantity:BigDecimal
-  unitType:Int
-  unitTypeName:String
-  totalQuantity:BigDecimal
-  totalType:Int
-  totalTypeName:String
-  property:[Int]
-  bomId:Int
-  createTime:Int
-  createBy:Int
-  updateTime:Int
-  updateBy:Int
-  Deleted:Int
-  commoditySpecOptionId:[Int]
-  skuTextDescription:[String]
-
+    commodityPayload:CommodityPayload
+    commodityId:Int
+    commodityName:String
+    commoditySkuId:Int
+    status:Int
+    unitQuantity:BigDecimal
+    unitType:Int
+    unitTypeName:String
+    totalQuantity:BigDecimal
+    totalType:Int
+    totalTypeName:String
+    property:[Int]
+    bomId:Int
+    createTime:Int
+    createBy:Int
+    updateTime:Int
+    updateBy:Int
+    Deleted:Int
+    commoditySpecOptionId:[Int]
+    skuTextDescription:[String]
+    """
+    商品换算关系
+    """
+    conversion:BigDecimal
 }
 
 input ListCommoditySpecInput{
-  commodityId:Int
+    commodityId:Int
 }
 #商品品类实体
 type CommodityCategoryPayload {
-  #品类id
-  categoryId: Int
-  #品类名称
-  categoryName: String
+    #品类id
+    categoryId: Int
+    #品类名称
+    categoryName: String
 }
 
 input ListCommodityInput{
-  # 分类id
-  categoryId:Int
-  #是否需要有bom
-  hasBom:Boolean
-  # 商品类型 果品 辅料 周转筐 食品
-  commodityTypeId:[Int]
-  # 商品名称模糊查询
-  commodityName:String
+    # 分类id
+    categoryId:Int
+    #是否需要有bom
+    hasBom:Boolean
+    # 商品类型 果品 辅料 周转筐 食品
+    commodityTypeId:[Int]
+    # 商品名称模糊查询
+    commodityName:String
+    """
+    spu下sku的属性 v2.4.0
+    """
+    skuProperties:[Int]
 }
 
 type CommodityPayload {
-  commodityId:Int
-  commodityName:String
-  commodityTypeId:Int
-  commodityTypeName:String
-  commodityCategoryId:Int
-  commodityCategoryName:String
-  commodityVarietyId:Int
-  commodityVarietyName:String
-  commodityPlaceOriginId:Int
-  commodityPlaceOriginName:String
+    commodityId:Int
+    commodityName:String
+    commodityTypeId:Int
+    commodityTypeName:String
+    commodityCategoryId:Int
+    commodityCategoryName:String
+    commodityVarietyId:Int
+    commodityVarietyName:String
+    commodityPlaceOriginId:Int
+    commodityPlaceOriginName:String
 }
 
 type CommoditySpecPayload {
-  commodityId:Int
-  commoditySpecId:Int
-  commoditySpecName:String
-  commoditySpecSort:Int
-  commoditySpecOption:[CommoditySpecOptionPayload]
+    commodityId:Int
+    commoditySpecId:Int
+    commoditySpecName:String
+    commoditySpecSort:Int
+    commoditySpecOption:[CommoditySpecOptionPayload]
 }
 
 type CommoditySpecOptionPayload {
-  commoditySpecOptionId :Int
-  commoditySpecOptionName :String
+    commoditySpecOptionId :Int
+    commoditySpecOptionName :String
 }
 
 

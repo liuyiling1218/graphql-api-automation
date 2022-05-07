@@ -1,6 +1,7 @@
 package com.hjfruit.test.pitaya.app.actions.base.customer;
 
-import com.hjfruit.test.pitaya.app.apis.base.customer.CutomerApi;
+import com.hjfruit.test.pitaya.app.apis.base.customer.CustomerApi;
+
 import com.hjfruit.test.pitaya.app.entities.Page;
 import com.hjfruit.test.pitaya.app.entities.base.customer.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import java.util.List;
 @Component
 public class CustomerAction {
     @Autowired
-    CutomerApi cutomerApi;
+    CustomerApi customerApi;
 
     /**
      * 客户列表
@@ -20,8 +21,8 @@ public class CustomerAction {
      * @param keyword
      * @return
      */
-    public CustomerPagePayload customers(Page page, String keyword) {
-        return cutomerApi.customers(page, keyword);
+    public CustomerPagePayload customers(Page page,CustomersInput customersInput ) {
+        return customerApi.customers(page, customersInput);
     }
 
     /**
@@ -31,7 +32,7 @@ public class CustomerAction {
      * @return
      */
     public CustomerPayload customer(Integer customerId) {
-        return cutomerApi.customer(customerId);
+        return customerApi.customer(customerId);
     }
 
     /**
@@ -41,7 +42,7 @@ public class CustomerAction {
      * @return
      */
     public List<CustomerPayload> listCustomer(CustomerListInput customerListInput) {
-        return cutomerApi.listCustomer(customerListInput);
+        return customerApi.listCustomer(customerListInput);
     }
 
     /**
@@ -50,7 +51,7 @@ public class CustomerAction {
      * @return
      */
     public List<CustomerPayload> allListCustomer() {
-        return cutomerApi.allListCustomer();
+        return customerApi.allListCustomer();
 
     }
 
@@ -60,7 +61,7 @@ public class CustomerAction {
      * @return
      */
     public List<CustomerGroupPayload> customerGroups() {
-        return cutomerApi.customerGroups();
+        return customerApi.customerGroups();
     }
 
     /**
@@ -69,7 +70,7 @@ public class CustomerAction {
      * @return
      */
     public CustomerPayload orgCustomer() {
-        return cutomerApi.orgCustomer();
+        return customerApi.orgCustomer();
 
     }
 
@@ -80,7 +81,7 @@ public class CustomerAction {
      * @return
      */
     public Integer createCustomer(CustomerInput customerInput) {
-        Integer customerId = cutomerApi.createCustomer(customerInput);
+        Integer customerId = customerApi.createCustomer(customerInput);
         return customerId;
     }
 
@@ -91,7 +92,7 @@ public class CustomerAction {
      * @return
      */
     public Integer updateCustomer(CustomerInput customerInput) {
-        Integer customerId = cutomerApi.updateCustomer(customerInput);
+        Integer customerId = customerApi.updateCustomer(customerInput);
         return customerId;
 
     }
@@ -103,7 +104,7 @@ public class CustomerAction {
      * @return
      */
     public Integer deleteCustomer(Integer customerId) {
-        Integer customer = cutomerApi.deleteCustomer(customerId);
+        Integer customer = customerApi.deleteCustomer(customerId);
 
         return customer;
     }
@@ -115,7 +116,7 @@ public class CustomerAction {
      * @return
      */
     public Integer createCustomerDistribution(CustomerDistributionInput customerDistributionInput) {
-        Integer customerDistributionId = cutomerApi.createCustomerDistribution(customerDistributionInput);
+        Integer customerDistributionId = customerApi.createCustomerDistribution(customerDistributionInput);
         return customerDistributionId;
     }
 
@@ -126,7 +127,7 @@ public class CustomerAction {
      * @return
      */
     public Integer updateCustomerDistribution(CustomerDistributionInput customerDistributionInput) {
-        Integer customerDistributionId = cutomerApi.updateCustomerDistribution(customerDistributionInput);
+        Integer customerDistributionId = customerApi.updateCustomerDistribution(customerDistributionInput);
         return customerDistributionId;
     }
 
@@ -137,7 +138,7 @@ public class CustomerAction {
      * @return
      */
     public Integer deleteCustomerDistribution(Integer distributionId) {
-        Integer customerDistributionId = cutomerApi.deleteCustomerDistribution(distributionId);
+        Integer customerDistributionId = customerApi.deleteCustomerDistribution(distributionId);
         return customerDistributionId;
     }
 }

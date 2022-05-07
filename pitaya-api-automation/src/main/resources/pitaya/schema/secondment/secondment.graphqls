@@ -111,6 +111,9 @@ type SecondmentPayload{
     operateName:String
     #操作时间
     operateDate:Long
+    """
+    操作原因（驳回原因）
+    """
     description:String
     #备注
     remark :String

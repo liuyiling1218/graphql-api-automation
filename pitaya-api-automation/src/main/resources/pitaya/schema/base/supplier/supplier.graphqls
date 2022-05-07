@@ -31,6 +31,14 @@ type SupplierPayload{
     supplierTypeId:Int
     "供应商类型名称"
     typeName:String
+    """
+    供应商属性Id v2.4
+    """
+    attribute:SupplierAttribute
+    """
+    供应商所属组织 v2.4
+    """
+    belongOrg:Org
 }
 
 input SupplierInput{
@@ -44,6 +52,14 @@ input SupplierInput{
     tfn:String
     "供应商类型 2.3新增  1：水果 2：食品 3：辅料 4：周转筐 5：运杂"
     supplierTypeId:Int
+    """
+    供应商属性 v2.4
+    """
+    attribute:SupplierAttribute
+    """
+    供应商所属组织 v2.4
+    """
+    belongOrgId:Int
 }
 
 #客户分页实体
@@ -58,22 +74,49 @@ input SupplierConditionInput{
     keyword:String
     "供应商类型 2.3新增  1：水果 2：食品 3：辅料 4：周转筐 5：运杂"
     supplierTypeId:[Int]
+    """
+    供应商属性 v2.4
+    """
+    attribute:SupplierAttribute
+}
+
+input GetSupplierInput{
+    """
+    供应商Id
+    """
+    supplierId:Int!
+    """
+    供应商类型
+    """
+    supplierTypeId:Int!
 }
 
 extend type Query {
-    "供应商分页列表接口"
+    """
+    供应商: 供应商分页列表接口
+    """
     supplierPages(page:Page,supplierCondition:SupplierConditionInput):SupplierPagePayload
-    "供应商详情接口"
-    supplier(supplierId:Int):SupplierPayload
-    "供应商下拉列表接口"
+    """
+    供应商: 供应商详情接口
+    """
+    supplier(getSupplierInput:GetSupplierInput):SupplierPayload
+    """
+    供应商: 供应商下拉列表接口
+    """
     suppliers(supplierCondition:SupplierConditionInput):[SupplierPayload]!
 }
 
 extend type Mutation {
-    # 创建供应商
+    """
+    供应商: 创建供应商
+    """
     createSupplier(supplierInput:SupplierInput):Int
-    # 更新供应商
+    """
+    供应商: 更新供应商
+    """
     updateSupplier(supplierInput:SupplierInput):Int
-    # 删除供应商
+    """
+    供应商: 删除供应商
+    """
     deleteSupplier(supplierId:Int):Int
 }

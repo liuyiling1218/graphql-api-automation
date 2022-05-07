@@ -3,7 +3,7 @@ extend type Query {
     outOrderList(productionOutOrderListInput:ProductionOutOrderListInput!):[ProductionOutOrderPayload]
     #出库订单列表数量统计
     outOrderStatusStatistics(orderStatusStatisticsInput:OrderStatusStatisticsInput):OrderStatusStatisticsPayload
-    #查询出库订单详情
+    """生产任务:出库单据详情:"""
     outOrderDetail(outOrderId:ID!):ProductionOutOrderPayload
     #查询出库订单记录
     outOrderLog(outOrderId:ID!):[ProductionOutOrderLogPayload]
@@ -74,7 +74,9 @@ type ProductionOutOrderPayload{
     updateBy:Int
     #商品信息
     commodities:[ProductionOutOrderDetailPayload]
-    #取消订单备注
+    """
+    驳回或取消原因（列表/详情通用）
+    """
     cancelDescription:String
 }
 
@@ -125,7 +127,23 @@ type ProductionOutOrderDetailPayload{
     damageReason:String
     #报损照片
     photos:[String]
+    """
+    出库完成数量统计
+    """
+    outStockFinishedQuantity:OutStockFinishedQuantity
 }
+
+type OutStockFinishedQuantity implements QuantityInterface {
+    """
+    实际完成出库单位类型数量
+    """
+    unitQuantity:BigDecimal
+    """
+    实际完成出库总计类型数量
+    """
+    totalQuantity:BigDecimal
+}
+
 type ProductionOutOrderLogPayload{
     #出库订单日志id
     outOrderLogId: Int

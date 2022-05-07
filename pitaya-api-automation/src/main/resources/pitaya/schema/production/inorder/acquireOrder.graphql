@@ -186,7 +186,9 @@ type AcquirePayload{
     createTime:Long
     #订单备注
     note:String
-    #驳回（取消）原因
+    """
+    驳回（取消）原因(列表+详情)
+    """
     errorDescription:String
     #总价合计
     #    totalPrice:BigDecimal

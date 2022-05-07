@@ -9,7 +9,9 @@ extend type Query {
     countInbounded(inOrderDetailInput:InOrderDetailInput):Long
     #入库记录
     inboundRecord(inOrderDetailInput:InOrderDetailInput):InboundListPayload
-    #入库记录列表（入库记录）
+    """
+    入库记录: 入库记录列表（入库记录）
+    """
     pageInOrderRecord(inOrderRecordCondition:InOrderRecordFilter,page:Page):PageInOrderRecordPayload
     #获取入库记录详情（入库记录）
     getInOrderRecordDetail(inOrderDetailInput:InOrderDetailInput):InOrderRecordDetailPayload
@@ -88,7 +90,12 @@ type ToBeInboundPayload{
     #待入库数量
     waitUnitQuantity:BigDecimal
     waitTotalQuantity:BigDecimal
+    """
+    2.3.1新增 0 其他 10 净重 20 毛重
+    """
+    pricePosition: Int
 }
+
 #已入库商品信息
 type InboundRecordPayload{
     #已入库商品信息
@@ -351,6 +358,19 @@ type AuditInOrderItemPayload{
     grossUnitQuantity:BigDecimal
     #批次id
     batchId:ID
+    """
+    已入库总计数量
+    """
+    inBoundTotalQuantity:BigDecimal
+    """
+    已入库净重数量
+    """
+    inBoundUnitQuantity:BigDecimal
+    """
+    已入库毛重数量
+    """
+    inBoundGrossUnitQuantity:BigDecimal
+
 }
 
 type InOrderRecordListPayload{
@@ -457,10 +477,16 @@ input ConfirmItemInput{
 input InOrderRecordFilter{
     #入库时间
     inOrderTime:Long
-    #仓库Id（空为全部）
-    warehouseId:ID
+    """
+    客户类型（空为全部）
+    """
+    customerType:Int
+    """
+    客户Id
+    """
+    customerId:Int
     #入库类型Id（可空）
     inOrderTypeId:Int
-    #订单号/客户（模糊查询）
+    #订单号/商品名称（模糊查询）
     keyword:String
 }

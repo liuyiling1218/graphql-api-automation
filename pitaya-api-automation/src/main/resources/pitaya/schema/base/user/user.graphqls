@@ -32,6 +32,14 @@ type UserPayload{
     organizationId:Int
     positions:[PositionPayload]
     stores:[UserStorePayload]
+    """
+    身份证号码
+    """
+    idNum:String
+    """
+    用户状态
+    """
+    status:UserStatus
 }
 
 type UserPageResult{
@@ -64,6 +72,26 @@ input RoleInput{
 input UserInput{
     userId:Int
     stores:[ID]
+}
+input PageUserInput{
+    """
+    组织ID
+    """
+    orgId:Int!
+    """
+    员工姓名
+    """
+    name:String
+    """
+    用户状态
+    """
+    status:UserStatus
+}
+type PageUserPayload{
+    records: [UserPayload]
+    pageCurrent:Int
+    pageSize:Int
+    totalRecords:Long
 }
 
 #用户账户密码返回
@@ -110,4 +138,8 @@ extend type Query {
     userBaseInfo(phoneNum:String!):UserPayload
     # 1.9新增 查询用户组织列表
     listUserOrg(listUserOrgInput:ListUserOrgInput,page:Page):[Organization]
+    """
+    分页查询员工信息
+    """
+    pageUser(input:PageUserInput!,page:Page!):PageUserPayload
 }

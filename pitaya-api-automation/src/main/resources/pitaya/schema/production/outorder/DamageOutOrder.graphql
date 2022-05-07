@@ -46,7 +46,7 @@ input CreateDamageOutOrderItemInput{
     #报损原因
     damageReason:String!
     #拍照记录
-    photos:[String]!
+    photos:[String!]!
 }
 
 input UpdateDamageOutOrderInput{

@@ -3,6 +3,8 @@ input OverviewStatusInput {
     planDate:Long!
     #类型
     createType:Int
+    #渠道
+    channelId:Int
 }
 
 type OverviewStatusPayload {
@@ -19,6 +21,8 @@ input PageOverviewInput {
     planDate:Long!
     #10待审核 30进行中 40已完成
     planStatus:Int
+    #客户所属渠道id
+    channelId:Int
 }
 
 type PageOverviewResult {

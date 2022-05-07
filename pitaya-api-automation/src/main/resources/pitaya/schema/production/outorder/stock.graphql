@@ -2,6 +2,10 @@ extend type Query {
     stockBatches(stockBatchQueryInput:StockBatchQueryInput):[StockBatchPayload]
     commodityStockBatches(listCommodityStockBatchInput:ListCommodityStockBatchInput):[CommodityStockBatchPayload]
     skuStocks(stockSkuInput:ListSkuStockInput):[SkuStockPayload]
+    """
+    库存商品: 分页查询库存
+    """
+    pageCommodityStockBatch(input:PageCommodityStockBatchInput,page:Page!):PageCommodityStockBatchPayload
 }
 
 type SkuStockPayload {
@@ -66,6 +70,38 @@ input ListCommodityStockBatchInput{
     customerType:Int
     #关键字查询
     keyword:String
+}
+"""
+分页查询商品库存
+"""
+input PageCommodityStockBatchInput{
+    """
+    商品类型
+    """
+    commodityTypeId:Int
+    """
+    仓库id
+    """
+    warehouseId:ID
+    """
+    所属客户
+    """
+    customerId:Int
+    """
+    所属客户类型
+    """
+    customerType:Int
+    """
+    关键字查询
+    """
+    keyword:String
+}
+
+type PageCommodityStockBatchPayload{
+    pageCurrent:Int!
+    pageSize:Int!
+    totalRecords:Long!
+    records:[CommodityStockBatchPayload!]
 }
 
 type CommodityStockBatchPayload{

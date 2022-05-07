@@ -6,6 +6,19 @@ input CommodityInput {
     commoditySkuId: Int!
     #期望数量
     expectNum: BigDecimal!
+
+    """规格要求"""
+    specificationLabel:String
+    """包装要求"""
+    packageLabel:String
+    """
+    2.2新增 包装要求的商品id列表
+    2.2新增 包装要求列表
+    """
+    packageIds:[ID]
+    packageRequireInfos:[OutOrderItemRequestInput]
+    """品质要求"""
+    quantityLabel:String
 }
 
 #商品详情实体
