@@ -1,0 +1,30 @@
+"""
+客户属性
+"""
+enum CustomerAttribute{
+    """
+    内部
+    """
+    INTERNAL
+    """
+    外部
+    """
+    EXTERNAL
+}
+"""
+客户类型
+"""
+enum CustomerType{
+    """
+    个人
+    """
+    PERSONAL
+    """
+    公司
+    """
+    COMPANY
+    """
+    零售
+    """
+    RETAIL
+}

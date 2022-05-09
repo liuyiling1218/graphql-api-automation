@@ -1,0 +1,31 @@
+extend type Query {
+    """
+    位置: 获取省市区列表
+    """
+    locationInformation(input:LocationInput):ListLocationPayload
+    """
+    位置: 模糊搜索地址
+    """
+    locationSearch(input:LocationSearchInput):ListSearchedLocationPayload
+}
+
+input LocationInput{
+    """
+    父节点Id(根节点不用传)
+    """
+    id:ID
+    """
+    类型
+    """
+    locationType:LocationType!
+}
+input LocationSearchInput{
+    """
+    父节点ID
+    """
+    id:ID
+    """
+    简称（关键字）
+    """
+    name:String
+}

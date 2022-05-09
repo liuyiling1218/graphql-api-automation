@@ -1,0 +1,22 @@
+enum UserStatus{
+    """
+    无法识别
+    """
+    UNRECOGNIZED
+    """
+    异常状态
+    """
+    USER_ERROR_STATUS
+    """
+    在职
+    """
+    ON_JOB
+    """
+    停职
+    """
+    SUSPENDED
+    """
+    离职
+    """
+    DEPARTURE
+}

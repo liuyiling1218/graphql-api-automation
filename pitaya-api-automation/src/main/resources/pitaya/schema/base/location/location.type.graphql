@@ -1,0 +1,54 @@
+"""
+下拉省市区地址
+"""
+type LocationPayload{
+    """
+    id
+    """
+    id:ID
+    """
+    类型
+    """
+    locationType:LocationType
+    """
+    名称
+    """
+    name:String
+    """
+    是否存在子节点
+    """
+    hasChildren:Boolean
+    """
+    首字母
+    """
+    firstChar:String
+}
+type ListLocationPayload{
+    records:[LocationPayload!]
+}
+
+"""
+关键字查询结果
+"""
+type SearchedLocationPayload{
+    """
+    id
+    """
+    id:ID!
+    """
+    简称
+    """
+    name:String!
+    """
+    名称
+    """
+    detailName:String!
+    """
+    地理位置坐标
+    """
+    location:[Float]
+}
+
+type ListSearchedLocationPayload{
+    records:[SearchedLocationPayload!]
+}

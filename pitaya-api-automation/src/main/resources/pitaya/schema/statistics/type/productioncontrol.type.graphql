@@ -1,0 +1,242 @@
+type ProductionControlPayload {
+    """
+    组长分析
+    """
+    leaderAnalysis:LeaderAnalysisPayload
+    """
+    库管分析
+    """
+    keeperAnalysis:KeeperAnalysisPayload
+    """
+    任务分析
+    """
+    taskAnalysis:TaskAnalysisPayload
+    """
+    计划分析
+    """
+    planAnalysis:PlanAnalysisPayload
+    """
+    商品分析
+    """
+    commodityAnalysis:CommodityAnalysisPaylaod
+}
+
+#库管情况
+type KeeperAnalysisPayload {
+    """
+    库管数量
+    """
+    keeperQuantity:Int
+    """
+    入库操作总数
+    """
+    inStockTotal:Int
+    """
+    出库操作总数
+    """
+    outStockTotal:Int
+}
+
+#组长情况
+type LeaderAnalysisPayload {
+    """
+    组长数量
+    """
+    leaderQuantity:Int
+    """
+    任务总数
+    """
+    totalTask:Int
+    """
+    已完成任务
+    """
+    completedTask:Int
+    """
+    未完成任务
+    """
+    undoneTask:Int
+    """
+    单量总数（已分配任务预估销量+备货生产数量）
+    """
+    orderQuantity:BigDecimal
+    """
+    已完成数量
+    """
+    completedOrder:BigDecimal
+    """
+    未完成数量
+    """
+    undoneOrder:BigDecimal
+}
+
+#任务分析
+type TaskAnalysisPayload {
+    """
+    任务总数
+    """
+    totalTask:Int
+    """
+    按渠道统计任务
+    """
+    channelStatistics:[ChannelStatisticsPayload]
+}
+
+#渠道统计任务
+type ChannelStatisticsPayload {
+    """
+    渠道名称
+    """
+    channelName:String
+    """
+    计划生产
+    """
+    expectNum:BigDecimal
+    """
+    完成/已生产
+    """
+    completed:BigDecimal
+    """
+    未完成/未生产
+    """
+    undone:BigDecimal
+}
+
+#计划分析
+type PlanAnalysisPayload {
+    """
+    计划总数
+    """
+    totalPlan:Int
+    """
+    成品销售计划数量
+    """
+    productionSale:Int
+    """
+    成品销售创建计划完成数量
+    """
+    completedSale:Int
+    """
+    成品销售创建计划未完成数量
+    """
+    undoneSale:Int
+    """
+    备货生产计划数量
+    """
+    productionStock:Int
+    """
+    备货生产创建计划完成数量
+    """
+    completedStock:Int
+    """
+    备货生产创建计划未完成数量
+    """
+    undoneStock:Int
+}
+
+#商品分析
+type CommodityAnalysisPaylaod {
+    """
+    商品sku数量总数
+    """
+    commoditySkuTotal:Int
+    """
+    已生产
+    """
+    completed:BigDecimal
+    """
+    未生产
+    """
+    undone:BigDecimal
+    """
+    按渠道统计商品
+    """
+    channelStatistics:[ChannelStatisticsPayload]
+}
+
+#组长情况
+type LeaderConditionPayload {
+    """
+    组长名称
+    """
+    leaderName:String
+    """
+    任务总数
+    """
+    totalTask:Int
+    """
+    已完成任务
+    """
+    completedTask:Int
+    """
+    未完成任务
+    """
+    undoneTask:Int
+    """
+    单量总数
+    """
+    orderQuantity:BigDecimal
+    """
+    已完成单量
+    """
+    completedOrder:BigDecimal
+    """
+    未完成单量
+    """
+    undoneOrder:BigDecimal
+}
+
+#库管情况
+type KeeperConditionPayload {
+    """
+    库管名称
+    """
+    keeperName:String
+    """
+    入库操作总数
+    """
+    inStockTotal:Int
+    """
+    入库操作
+    """
+    inStockOperate:CommodityOperatePayload
+    """
+    出库操作总数
+    """
+    outStockTotal:Int
+    """
+    出库操作
+    """
+    outStockOperate:CommodityOperatePayload
+}
+
+#商品操作
+type CommodityOperatePayload {
+    """
+    原料
+    """
+    rawMaterial:Int
+    """
+    辅料
+    """
+    assist:Int
+    """
+    成品
+    """
+    product:Int
+    """
+    半成品
+    """
+    halfProduct:Int
+    """
+    次品
+    """
+    defective:Int
+    """
+    退货品
+    """
+    return:Int
+    """
+    周转筐
+    """
+    box:Int
+}

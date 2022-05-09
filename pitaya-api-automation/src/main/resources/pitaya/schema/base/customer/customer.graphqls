@@ -1,0 +1,241 @@
+#客户返回实体
+type CustomerPayload{
+    # 客户ID
+    customerId:Int
+    # 客户分组ID
+    customerGroupId:Int
+    # 客户分组名称
+    customerGroupName:String
+    # 客户名称
+    customerName:String
+    """
+    客户简称/别名
+    """
+    customerShortName:String
+    # 备注信息
+    remark:String
+    # 创建时间
+    createTime:Long
+    # 配送信息
+    customerDistribution:[CustomerDistributionPayload]
+    """
+    客户类型
+    """
+    type:CustomerType
+    """
+    客户属性
+    """
+    attribute:CustomerAttribute
+    """
+    手机号
+    """
+    phone:String
+    """
+    客户身份证号
+    """
+    idNumber:String
+    """
+    客户所属组织
+    """
+    belongOrganization:Org
+    """
+    客户相关员工信息
+    """
+    customerUserId:Int
+    """
+    员工状态（离职/停职）
+    """
+    userStatus:UserStatus
+}
+#客户分组实体
+type CustomerGroupPayload{
+    customerGroupId:Int
+    customerGroupName:String
+    customerPayloadList:[CustomerPayload]
+}
+
+#客户分页实体
+type CustomerPagePayload{
+    records: [CustomerPayload]
+    pageCurrent:Int
+    pageSize:Int
+    totalRecords:Long
+}
+
+input CustomerInput{
+    # 客户ID
+    customerId:Int
+    # 客户分组ID
+    customerGroupId:Int
+    # 客户分组名称
+    customerGroupName:String
+    # 客户名称
+    customerName:String!
+    # 客户简称
+    customerShortName:String
+    # 备注信息
+    remark:String
+    customerDistributions: [CustomerDistributionInput!]!
+    """
+    客户手机号
+    """
+    phone:String
+    """
+    客户身份证号
+    """
+    idNumber:String
+    """
+    客户属性
+    """
+    attribute:CustomerAttribute!
+    """
+    客户类型
+    """
+    type:CustomerType!
+    """
+    客户所属组织 内部公司和个人必传
+    """
+    belongOrgId:Int
+    """
+    客户关联用户 内部个人必传
+    """
+    customerUserId:Int
+
+}
+input CustomerListInput{
+    # 客户分组ID
+    customerGroupId:Int
+}
+#
+input CustomerDistributionInput{
+    # 配送ID
+    distributionId:Int
+    # 客户ID
+    customerId:Int
+    # 配送名称
+    distributionName:String
+    # 联系人
+    contacts:String
+    # 联系电话
+    phoneNum:String
+    """
+    省
+    """
+    provinceId:ID!
+    """
+    市
+    """
+    cityId:ID!
+    """
+    区
+    """
+    districtId:ID!
+    """
+    详细地址
+    """
+    detailedAddress:String!
+    """
+    经纬度
+    """
+    coordinate:[Float]
+
+}
+#
+type CustomerDistributionPayload{
+    # 配送ID
+    distributionId:Int
+    # 客户ID
+    customerId:Int
+    # 配送名称
+    distributionName:String
+    # 联系人
+    contacts:String
+    # 联系电话
+    phoneNum:String
+    """
+    配送地址
+    """
+    distributionAddr:String @deprecated(reason: "v2.4版本移除")
+    """
+    省
+    """
+    province:LocationPayload
+    """
+    市
+    """
+    city:LocationPayload
+    """
+    区
+    """
+    district:LocationPayload
+    """
+    详细地址
+    """
+    detailedAddress:String
+    """
+    经纬度
+    """
+    coordinate:[Float]
+}
+
+input CustomersInput{
+    keyword:String
+    """
+    客户属性
+    """
+    attribute:CustomerAttribute
+}
+
+# 客户分页返回值,这种语法生成的是个接口，无法使用
+#union CustomerPageResult = CustomerPage | PageResult
+
+extend type Query {
+    """
+    客户: 客户分页列表
+    """
+    customers(page:Page,customersInput:CustomersInput):CustomerPagePayload
+    """
+    客户: 客户详情
+    """
+    customer(customerId: Int):CustomerPayload
+    """
+    客户: 客户列表
+    """
+    listCustomer(customerListInput:CustomerListInput):[CustomerPayload]
+    allListCustomer:[CustomerPayload]
+    """
+    客户: 客户分组列表
+    """
+    customerGroups:[CustomerGroupPayload]
+    """
+    客户: 无客户信息接口查询
+    """
+    orgCustomer:CustomerPayload
+}
+
+extend type Mutation {
+    """
+    客户: 创建客户
+    """
+    createCustomer(customerInput:CustomerInput):Int
+    """
+    客户: 更新客户
+    """
+    updateCustomer(customerInput:CustomerInput):Int
+    """
+    客户: 删除客户
+    """
+    deleteCustomer(customerId:Int):Int @deprecated(reason: "v2.4移除，使用大接口进行信息维护")
+    """
+    客户: 创建客户地址
+    """
+    createCustomerDistribution(customerDistributionInput:CustomerDistributionInput):Int @deprecated(reason: "v2.4移除，使用大接口进行信息维护")
+    """
+    客户: 更新客户地址
+    """
+    updateCustomerDistribution(customerDistributionInput:CustomerDistributionInput):Int
+    """
+    客户: 删除客户地址
+    """
+    deleteCustomerDistribution(distributionId:Int):Int @deprecated(reason: "v2.4移除，使用大接口进行信息维护")
+}

@@ -1,0 +1,21 @@
+extend type Query {
+    """
+    生产管控: 生产管控查询接口
+    """
+    getProduction(input:GetProductionInput):ProductionControlPayload
+    """
+    生产管控: 组长情况
+    """
+    listLeaderCondition(input:GetProductionInput):[LeaderConditionPayload]
+    """
+    生产管控: 库管情况
+    """
+    listKeeperCondition(input:GetProductionInput):[KeeperConditionPayload]
+}
+
+input GetProductionInput {
+    """
+    日期
+    """
+    date:Long!
+}

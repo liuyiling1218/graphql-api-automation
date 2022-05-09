@@ -1,0 +1,158 @@
+type CommodityConvertPayload {
+    """
+    订单id
+    """
+    convertOrderId:ID
+    """
+    订单code
+    """
+    convertOrderCode:ID
+    """
+    订单类型
+    """
+    convertType:ConvertType
+    """
+    订单类型
+    """
+    convertTypeName:String
+    """
+    状态
+    """
+    status:OrderStatus
+    """
+    状态名称
+    """
+    statusName:String
+    """
+    客户类型
+    """
+    belongType:Int
+    """
+    客户id
+    """
+    belongId:Int
+    """
+    客户名称
+    """
+    belongName:String
+    """
+    组织信息
+    """
+    org:Org
+    """
+    仓库信息
+    """
+    warehouse:Warehouse
+    """
+    备注
+    """
+    remark:String
+    """
+    状态描述
+    """
+    statusRemark:String
+    """
+    创建人信息
+    """
+    createBy:User
+    """
+    创建时间
+    """
+    createTime:Long
+    """
+    商品
+    """
+    commodities:[CommodityConvertItemPayload]
+    """
+    日志
+    """
+    convertLogs:[ConvertOrderLogPadload]
+}
+
+type ConvertOrderLogPadload {
+    """
+    日志id
+    """
+    convertLogId:ID
+    """
+    订单id
+    """
+    convertOrderId:ID
+    """
+    操作类型
+    """
+    typeText:String
+    """
+    操作说明
+    """
+    description:String
+    """
+    操作人
+    """
+    createBy:User
+    """
+    操作时间
+    """
+    createTime:Long
+}
+
+type CommandOrderResp {
+    """
+    订单id
+    """
+    orderId:ID!
+}
+
+type CommodityConvertItemPayload {
+    """
+    item id
+    """
+    itemId:ID!
+    """
+    批次id
+    """
+    batchId:ID!
+    """
+    库存unit数量
+    """
+    stockUnitQuantity:BigDecimal
+    """
+    库存total数量
+    """
+    stockTotalQuantity:BigDecimal
+    """
+    批次code
+    """
+    batchCode:String!
+    """
+    商品信息
+    """
+    commodityDetail:CommoditySku
+    """
+    小单位信息
+    """
+    unitType:Unit
+    """
+    副单位信息
+    """
+    totalType:Unit
+    """
+    单价单位信息
+    """
+    priceType:Unit
+    """
+    unit 数量
+    """
+    unitQuantity:BigDecimal
+    """
+    total 数量
+    """
+    totalQuantity:BigDecimal
+}
+
+type PageCommodityConvertPayload {
+    records:[CommodityConvertPayload]
+    pageCurrent: Int
+    pageSize: Int
+    totalRecords: Long
+}

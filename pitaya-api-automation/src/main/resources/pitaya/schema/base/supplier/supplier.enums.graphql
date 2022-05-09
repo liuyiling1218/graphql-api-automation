@@ -1,0 +1,13 @@
+"""
+供应商属性
+"""
+enum SupplierAttribute{
+    """
+    内部
+    """
+    INTERNAL
+    """
+    外部
+    """
+    EXTERNAL
+}

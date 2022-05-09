@@ -1,0 +1,85 @@
+type Org {
+    """
+    组织id
+    """
+    orgId:Int
+    """
+    组织名称
+    """
+    orgName:String
+}
+
+type Warehouse {
+    """
+    仓库id
+    """
+    warehouseId:ID
+    """
+    仓库名称
+    """
+    warehouseName:String
+}
+
+type Unit {
+    """
+    单位id
+    """
+    unitId:Int
+    """
+    单位名称
+    """
+    unitName:String
+}
+
+type User {
+    """
+    userid
+    """
+    userId:Int
+    """
+    user名称
+    """
+    userName:String
+}
+
+type CommoditySku {
+    """
+    skuid
+    """
+    commoditySkuId:Int
+    """
+    sku名称
+    """
+    commoditySkuName:String
+    """
+    商品id
+    """
+    commodityId:Int
+    """
+    商品名称
+    """
+    commodityName:String
+    """
+    规格选项id
+    """
+    commoditySpecOptionId:[Int]
+    """
+    规格选项名称
+    """
+    commoditySpecOptionName:[String]
+    """
+    商品换算关系
+    """
+    conversion:BigDecimal
+}
+
+type Supplier{
+    """
+    供应商Id
+    """
+    supplierId:Int
+    """
+    供应商名称
+    """
+    supplierName:String
+}

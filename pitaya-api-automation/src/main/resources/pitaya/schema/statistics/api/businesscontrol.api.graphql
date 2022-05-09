@@ -1,0 +1,17 @@
+extend type Query {
+    """
+    业务管控: 业务管控查询接口
+    """
+    listBusiness(input:ListBusinessInput):[BusinessPayload]
+    """
+    业务管控: 组织下有客户的渠道列表
+    """
+    listOrgChannel:[Option]
+}
+
+input ListBusinessInput {
+    """
+    日期
+    """
+    date:Long!
+}

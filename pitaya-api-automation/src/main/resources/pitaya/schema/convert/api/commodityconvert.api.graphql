@@ -1,0 +1,198 @@
+extend type Query {
+    """
+    商品转换: 分页查询商品转换列表
+    """
+    pageCommodityConvert(input:PageCommodityConvertInput,page:Page):PageCommodityConvertPayload
+    """
+    商品转换: 转换订单详情
+    """
+    getConvertDetail(input:OrderIdInput):CommodityConvertPayload
+    """
+    商品转换: 分页查询商品转换待审核列表
+    """
+    pageAuditCommodityConvert(page:Page):PageCommodityConvertPayload
+    """
+    商品转换: 指定状态的数量查询
+    """
+    getStatusCount(input:GetStatusCountInput):Int
+}
+
+extend type Mutation {
+    """
+    商品转换: 创建商品转换订单
+    """
+    createConvertOrder(input:CreateConvertInput):CommandOrderResp
+    """
+    商品转换: 更新商品转换订单
+    """
+    updateConvertOrder(input:UpdateConvertInput):CommandOrderResp
+    """
+    商品转换: 提交订单
+    """
+    submitOrder(input:CommondOrderStatusInput):Boolean
+    """
+    商品转换: 取消订单
+    """
+    cancelOrder(input:CommondOrderStatusInput):Boolean
+    """
+    商品转换: 审核订单
+    """
+    auditOrder(input:CommondOrderStatusInput):Boolean
+    """
+    商品转换: 驳回订单
+    """
+    rejectOrder(input:CommondOrderStatusInput):Boolean
+}
+
+input GetStatusCountInput {
+    """
+    开始时间
+    """
+    startDate:Long
+    """
+    结束时间
+    """
+    endDate:Long
+    """
+    状态
+    """
+    status:OrderStatus!
+}
+
+input OrderIdInput {
+    orderId:ID!
+}
+
+input CommondOrderStatusInput {
+    """
+    订单id
+    """
+    orderId:ID!
+    """
+    状态原因
+    """
+    statusRemark:String
+}
+
+
+input CreateConvertInput {
+    """
+    转换类型
+    """
+    convertType:ConvertType!
+    """
+    仓库id
+    """
+    warehouseId:ID!
+    """
+    客户类型
+    """
+    belongType:Int!
+    """
+    客户id
+    """
+    belongId:Int!
+    """
+    备注
+    """
+    remark:String
+    """
+    商品明细
+    """
+    convertItems:[CommondConvertItemInput]
+}
+
+input UpdateConvertInput {
+    """
+    订单id
+    """
+    convertOrderId:ID!
+    """
+    仓库id
+    """
+    warehouseId:ID!
+    """
+    客户类型
+    """
+    belongType:Int!
+    """
+    客户id
+    """
+    belongId:Int!
+    """
+    备注
+    """
+    remark:String
+    """
+    商品明细
+    """
+    convertItems:[CommondConvertItemInput]
+}
+
+input CommondConvertItemInput {
+    """
+    批次id
+    """
+    batchId:ID!
+    """
+    sku_id
+    """
+    skuId:Int!
+    """
+    unit数量
+    """
+    unitQuantity:BigDecimal!
+    """
+    total数量
+    """
+    totalQuantity:BigDecimal!
+}
+
+input PageCommodityConvertInput {
+    """
+    关键词查询
+    """
+    keyword:String
+    """
+    开始时间
+    """
+    startDate:Long
+    """
+    结束时间
+    """
+    endDate:Long
+    """
+    状态
+    """
+    status:OrderStatus
+    """
+    转换类型
+    """
+    convertType:ConvertType
+}
+
+enum ConvertType {
+    """
+    成品转半成品
+    """
+    PRODUCT_TO_HALF
+}
+
+enum OrderStatus {
+    """
+    待提交
+    """
+    TO_SUBMIT
+    """
+    待审核
+    """
+    TO_BE_AUDIT
+    """
+    已完成
+    """
+    COMPLETED
+    """
+    已取消
+    """
+    CANCELED
+}

@@ -1,0 +1,26 @@
+enum LocationType{
+    """
+    无法识别的值
+    """
+    UNRECOGNIZED
+    """
+    未指定
+    """
+    UNSPECIFIED
+    """
+    仅用于返回值。表示此版本中未知的值
+    """
+    UNKNOWN
+    """
+    省
+    """
+    PROVINCE
+    """
+    市
+    """
+    CITY
+    """
+    县
+    """
+    COUNTY
+}
