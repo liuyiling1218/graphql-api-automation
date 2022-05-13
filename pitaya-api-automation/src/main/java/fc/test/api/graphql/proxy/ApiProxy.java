@@ -446,6 +446,8 @@ public class ApiProxy<T> implements InvocationHandler, ApplicationContextAware {
                 Date.class.isAssignableFrom(subReturnType) ||
                 subReturnType.isPrimitive()) {
             subResult.append(subReturnType.getName());
+        }else if(Float.class.isAssignableFrom(subReturnType)){
+            subResult.append(subReturnType.getSimpleName());
         } else if (List.class.isAssignableFrom(subReturnType)) {
             Field[] declaredFields = subReturnType.getDeclaredFields();
             for (Field field : declaredFields) {
@@ -502,6 +504,7 @@ public class ApiProxy<T> implements InvocationHandler, ApplicationContextAware {
                                 Long.class.isAssignableFrom(parameterClazz) ||
                                 Boolean.class.isAssignableFrom(parameterClazz) ||
                                 BigDecimal.class.isAssignableFrom(parameterClazz) ||
+                                Float.class.isAssignableFrom(parameterClazz) ||
                                 Date.class.isAssignableFrom(parameterClazz)) {
                             subResult.append(field.getName()).append("\\n");
                         } else {
@@ -515,7 +518,8 @@ public class ApiProxy<T> implements InvocationHandler, ApplicationContextAware {
                     log.info(field.getType().getSimpleName());
                 } else{
                     String name = field.getType().getSimpleName();
-                    subResult.append(Character.toLowerCase(name.charAt(0)) + name.substring(1));
+//                    subResult.append(Character.toLowerCase(name.charAt(0)) + name.substring(1));
+                    subResult.append(field.getName());
                     subResult.append(generateSubReturnFeildString(field.getType()));
                 }
             }
