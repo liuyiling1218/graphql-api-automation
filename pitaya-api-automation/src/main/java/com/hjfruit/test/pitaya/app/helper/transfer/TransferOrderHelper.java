@@ -47,7 +47,7 @@ public class TransferOrderHelper {
     @Autowired
     InOrderAuditAction inOrderAuditAction;
     @Autowired
-    @Qualifier("flow")
+    @Qualifier("wms")
     JdbcTemplate flowJdbcTemplate;
 
 

@@ -20,7 +20,7 @@ public class RayMeterialPurchaseInOrderHelper {
     @Autowired
     AcquireOrderAction acquireOrderAction;
     @Autowired
-    @Qualifier("flow")
+    @Qualifier("wms")
     JdbcTemplate flowJdbcTemplate;
 
 
@@ -67,13 +67,13 @@ public class RayMeterialPurchaseInOrderHelper {
     }
 
     private String getInorderId(String applyId) {
-        String sql = "select order_id from flow_in_stock_order where business_id=" + applyId;
+        String sql = "select order_id from wms.flow_in_stock_order where business_id=" + applyId;
         String orderId = flowJdbcTemplate.queryForObject(sql, String.class);
         return orderId;
     }
 
     public String getBillId(String applyId) {
-        String sql = "select bill_id from flow_apply where apply_id=" + applyId;
+        String sql = "select bill_id from wms.flow_apply where apply_id=" + applyId;
         String billId = flowJdbcTemplate.queryForObject(sql, String.class);
         return billId;
     }

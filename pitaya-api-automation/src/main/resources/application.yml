@@ -1,7 +1,7 @@
 spring:
   datasource:
-    flow:
-      jdbc-url: jdbc:postgresql://127.0.0.1:5441/fc_flow?currentSchema=flow&useUnicode=true&characterEncoding=utf-8&TimeZone=Asia/Shanghai
+    wms:
+      jdbc-url: jdbc:postgresql://127.0.0.1:5441/wms?currentSchema=wms
       username: flow
       password: flow
       driver-class-name: org.postgresql.Driver

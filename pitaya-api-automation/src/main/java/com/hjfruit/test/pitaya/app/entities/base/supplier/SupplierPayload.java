@@ -86,5 +86,5 @@ public class SupplierPayload {
     /**
      *
      */
-    private List<Org> belongOrg;
+    private Org belongOrg;
 }

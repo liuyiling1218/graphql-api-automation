@@ -41,7 +41,7 @@ public class JdbcTemplateDatasourceConfig {
         return new JdbcTemplate(dataSource);
     }
     @Bean()
-    public JdbcTemplate flow(@Qualifier("flowDatasource") DataSource dataSource) {
+    public JdbcTemplate wms(@Qualifier("wmsDatasource") DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
 }

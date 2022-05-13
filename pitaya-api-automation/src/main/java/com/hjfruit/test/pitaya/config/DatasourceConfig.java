@@ -49,8 +49,8 @@ public class DatasourceConfig {
     }
 
     @Bean
-    @ConfigurationProperties("spring.datasource.flow")
-    DataSource flowDatasource() {
+    @ConfigurationProperties("spring.datasource.wms")
+    DataSource wmsDatasource() {
         return DataSourceBuilder.create().build();
     }
 
