@@ -30,7 +30,7 @@ public class RawMeterialPurchaseTest extends PitayaAppBaseTestV2 {
     @Test
     @DisplayName("Flow:新增采购(客户分组)-提交库管-全部入库")
     void testFlow_createWithCustomerGroup_submit_allIn() {
-        String applyId = rawMeterialPurchaseApplyHelper.create();
+        String applyId = rawMeterialPurchaseApplyHelper.Rawcreate();
         rawMeterialPurchaseApplyHelper.update(applyId);
         rawMeterialPurchaseApplyHelper.submit(applyId);
         rayMeterialPurchaseInOrderHelper.allIn(applyId);
@@ -39,7 +39,7 @@ public class RawMeterialPurchaseTest extends PitayaAppBaseTestV2 {
     @Test
     @DisplayName("Flow:新增采购(指定客户)-提交库管-全部入库")
     void testFlow_createWithDesignatedCustomer_submit_allIn() {
-        String applyId = rawMeterialPurchaseApplyHelper.create(PitayaConstants.CustomerType.DESIGNATED_CUSTOMER, "");
+        String applyId = rawMeterialPurchaseApplyHelper.create(PitayaConstants.CustomerType.DESIGNATED_CUSTOMER, "", PitayaConstants.CommodityType.RAW_MATERIAL);
         rawMeterialPurchaseApplyHelper.update(applyId);
         rawMeterialPurchaseApplyHelper.submit(applyId);
         rayMeterialPurchaseInOrderHelper.allIn(applyId);
@@ -48,7 +48,7 @@ public class RawMeterialPurchaseTest extends PitayaAppBaseTestV2 {
     @Test
     @DisplayName("Flow:新增采购(通用货品)-提交库管-全部入库")
     void testFlow_createWithNoCustomer_submit_allIn() {
-        String applyId = rawMeterialPurchaseApplyHelper.create(PitayaConstants.CustomerType.NO_CUSTOMER, "");
+        String applyId = rawMeterialPurchaseApplyHelper.create(PitayaConstants.CustomerType.NO_CUSTOMER, "",PitayaConstants.CommodityType.RAW_MATERIAL);
         rawMeterialPurchaseApplyHelper.update(applyId);
         rawMeterialPurchaseApplyHelper.submit(applyId);
         rayMeterialPurchaseInOrderHelper.allIn(applyId);
@@ -57,7 +57,7 @@ public class RawMeterialPurchaseTest extends PitayaAppBaseTestV2 {
     @Test
     @DisplayName("Flow:新增采购-提交库管-部分入库-完成入库")
     void testFlow_create_submit_partIn_completeIn() {
-        String applyId = rawMeterialPurchaseApplyHelper.create(PitayaConstants.CustomerType.NO_CUSTOMER, "");
+        String applyId = rawMeterialPurchaseApplyHelper.create(PitayaConstants.CustomerType.NO_CUSTOMER, "",PitayaConstants.CommodityType.RAW_MATERIAL);
         rawMeterialPurchaseApplyHelper.update(applyId);
         rawMeterialPurchaseApplyHelper.submit(applyId);
         rayMeterialPurchaseInOrderHelper.partIn(applyId);
@@ -67,7 +67,7 @@ public class RawMeterialPurchaseTest extends PitayaAppBaseTestV2 {
     @Test
     @DisplayName("Flow:新增采购-提交库管-部分入库-部分入库")
     void testFlow_create_submit_partIn_partIn() {
-        String applyId = rawMeterialPurchaseApplyHelper.create();
+        String applyId = rawMeterialPurchaseApplyHelper.Rawcreate();
         rawMeterialPurchaseApplyHelper.update(applyId);
         rawMeterialPurchaseApplyHelper.submit(applyId);
         rayMeterialPurchaseInOrderHelper.partIn(applyId);
@@ -77,14 +77,14 @@ public class RawMeterialPurchaseTest extends PitayaAppBaseTestV2 {
     @Test
     @DisplayName("Flow:新增采购-取消入库")
     void testFlow_create_cancel() {
-        String orderId = rawMeterialPurchaseApplyHelper.create();
+        String orderId = rawMeterialPurchaseApplyHelper.Rawcreate();
         rawMeterialPurchaseApplyHelper.cancel(orderId);
     }
 
     @Test
     @DisplayName("Flow:新增采购-提交库管-驳回-再次提交库管")
     void testFlow_create_submit_turndown_resubmit() {
-        String applyId = rawMeterialPurchaseApplyHelper.create();
+        String applyId = rawMeterialPurchaseApplyHelper.Rawcreate();
         rawMeterialPurchaseApplyHelper.submit(applyId);
         rayMeterialPurchaseInOrderHelper.reject(applyId);
         rawMeterialPurchaseApplyHelper.submit(applyId);
@@ -93,7 +93,7 @@ public class RawMeterialPurchaseTest extends PitayaAppBaseTestV2 {
     @Test
     @DisplayName("Flow:新增采购-修改订单-提交库管-全部入库")
     void testFlow_create_update_submit() {
-        String applyId = rawMeterialPurchaseApplyHelper.create();
+        String applyId = rawMeterialPurchaseApplyHelper.Rawcreate();
         rawMeterialPurchaseApplyHelper.update(applyId);
         rawMeterialPurchaseApplyHelper.submit(applyId);
         rayMeterialPurchaseInOrderHelper.allIn(applyId);
@@ -109,7 +109,7 @@ public class RawMeterialPurchaseTest extends PitayaAppBaseTestV2 {
     @Test
     @DisplayName("Action:客户为客户分组时，创建采购订单")
     void testException_create_custoemrgroup() {
-        rawMeterialPurchaseApplyHelper.create(PitayaConstants.CustomerType.CUSTOMER_GROUP, "");
+        rawMeterialPurchaseApplyHelper.create(PitayaConstants.CustomerType.CUSTOMER_GROUP, "",PitayaConstants.CommodityType.RAW_MATERIAL);
     }
 
     @Test

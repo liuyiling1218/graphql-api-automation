@@ -2,6 +2,7 @@ package com.hjfruit.test.pitaya.app.helper.purchase;
 
 import com.hjfruit.test.pitaya.app.actions.production.inorder.AcquireOrderAction;
 import com.hjfruit.test.pitaya.app.actions.v2.api.BaseAction;
+import com.hjfruit.test.pitaya.app.apis.plan.PlanTaskItemApi;
 import com.hjfruit.test.pitaya.app.entities.commodity.CommoditySkuPayload;
 import com.hjfruit.test.pitaya.app.entities.production.inorder.*;
 import com.hjfruit.test.pitaya.app.entities.v2.types.FreightType;
@@ -40,8 +41,12 @@ public class RawMeterialPurchaseApplyHelper {
     BaseAction baseAction;
 
 
-    public String create() {
-        return create(PitayaConstants.CustomerType.DESIGNATED_CUSTOMER, RandomStringUtils.random(200));
+    public String Rawcreate() {
+        return create(PitayaConstants.CustomerType.DESIGNATED_CUSTOMER, RandomStringUtils.random(200), PitayaConstants.CommodityType.RAW_MATERIAL);
+    }
+
+    public String Accessoriescreate() {
+        return create(PitayaConstants.CustomerType.DESIGNATED_CUSTOMER, RandomStringUtils.random(200), PitayaConstants.CommodityType.ASSIST);
     }
 
     /**
@@ -49,7 +54,7 @@ public class RawMeterialPurchaseApplyHelper {
      * @param remark
      * @return
      */
-    public String create(PitayaConstants.CustomerType customerType, String remark) {
+    public String create(PitayaConstants.CustomerType customerType, String remark, PitayaConstants.CommodityType commodityType) {
         //获取仓库
         String warehouseId = storeHouseHelper.userWarehouse_getFirstWarehouse().getWarehouseId();
         //获取供应商
@@ -58,10 +63,11 @@ public class RawMeterialPurchaseApplyHelper {
         CustomerModel customerModel = customerHelper.getCustomer(customerType);
 
         //获取随机2个商品SKU
-        List<CommoditySkuPayload> commoditySkues = commodityHelper.getCommoditySkues(PitayaConstants.CommodityType.RAW_MATERIAL, 2);
+//        List<CommoditySkuPayload> commoditySkues = commodityHelper.getCommoditySkues(PitayaConstants.CommodityType.RAW_MATERIAL, 2);
+          List<CommoditySkuPayload> commoditySkues = commodityHelper.getCommoditySkues(commodityType, 2);
 
         CreateAcquireInput createAcquireInput = new CreateAcquireInput();
-        createAcquireInput.setCommodityType(PitayaConstants.CommodityType.RAW_MATERIAL.getTypeId());
+        createAcquireInput.setCommodityType(commodityType.getTypeId());
         createAcquireInput.setWarehouseId(warehouseId);
         createAcquireInput.setSupplierId(supplierId);
         createAcquireInput.setBelongType(customerModel.getBelongType());
