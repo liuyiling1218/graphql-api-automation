@@ -52,7 +52,7 @@ public class CommodityHelper {
 
         if (Arrays.asList(PitayaConstants.CommodityType.RAW_MATERIAL,
                 PitayaConstants.CommodityType.DEFECTIVE,
-                PitayaConstants.CommodityType.HALF_PRODUCT,
+                PitayaConstants.CommodityType.PRODUCT,
                 PitayaConstants.CommodityType.HALF_PRODUCT,
                 PitayaConstants.CommodityType.REBACK).contains(commodityType)) {
             listCommodityCategoryInput.setCommodityTypeId(Arrays.asList(PitayaConstants.CommodityType.FRUIT.getTypeId(), PitayaConstants.CommodityType.FOOD.getTypeId()));
@@ -71,7 +71,7 @@ public class CommodityHelper {
             listCommodityInput.setHasBom(false);
             if (Arrays.asList(PitayaConstants.CommodityType.RAW_MATERIAL,
                     PitayaConstants.CommodityType.DEFECTIVE,
-                    PitayaConstants.CommodityType.HALF_PRODUCT,
+                    PitayaConstants.CommodityType.PRODUCT,
                     PitayaConstants.CommodityType.HALF_PRODUCT,
                     PitayaConstants.CommodityType.REBACK).contains(commodityType)) {
                 listCommodityInput.setCommodityTypeId(Arrays.asList(PitayaConstants.CommodityType.FRUIT.getTypeId(), PitayaConstants.CommodityType.FOOD.getTypeId()));

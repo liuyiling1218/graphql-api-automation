@@ -22,6 +22,7 @@ RayMeterialPurchaseInOrderHelper rayMeterialPurchaseInOrderHelper;
         rawMeterialPurchaseApplyHelper.submit(applyId);
         rayMeterialPurchaseInOrderHelper.allIn(applyId);
 
+
     }
 
     @Test

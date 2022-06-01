@@ -40,7 +40,7 @@ public class OtherInOrderAction {
      * @param remark
      * @return
      */
-    public String createOtherInOrder(PitayaConstants.CommodityType commodityType, PitayaConstants.CustomerType customerType, String remark) {
+    public String createOtherInOrder(PitayaConstants.CommodityType commodityType, PitayaConstants.CustomerType customerType) {
         CreateOtherInOrderInput createOtherInOrderInput = new CreateOtherInOrderInput();
         createOtherInOrderInput.setInOrderTypeId(PitayaConstants.InOrderType.OTHER_IN_APPLY.getTypeCode());
         createOtherInOrderInput.setCommodityTypeId(commodityType.getTypeId());
@@ -59,11 +59,13 @@ public class OtherInOrderAction {
             createOtherInOrderInput.setCustomerTypeId(PitayaConstants.CustomerType.DESIGNATED_CUSTOMER.getCustomerTypeId());
             createOtherInOrderInput.setCustomerId(customerHelper.getCustomer(PitayaConstants.CustomerType.DESIGNATED_CUSTOMER).getBelongId());
         }
-        createOtherInOrderInput.setInOrderDescription(remark);
+        createOtherInOrderInput.setInOrderDescription("创建其它入库订单");
 
         //准备商品sku数据
 //        List<CommoditySkuPayload> commoditySkues = commodityComponent.getCommoditySkues(commodityType, 10);
-        List<CommoditySkuPayload> commoditySkues = commodityHelper.getCommoditySkues(commodityType, PitayaConstants.CommoditySkuType.SINGLE_UNIT, 10);
+
+
+        List<CommoditySkuPayload> commoditySkues = commodityHelper.getCommoditySkues(commodityType, PitayaConstants.CommoditySkuType.DOUBLE_UNIT, 2);
 
         createOtherInOrderInput.setCommodities(commoditySkues.stream().map(o -> {
             CreateOtherOrderItemInput createOtherOrderItemInput = new CreateOtherOrderItemInput();

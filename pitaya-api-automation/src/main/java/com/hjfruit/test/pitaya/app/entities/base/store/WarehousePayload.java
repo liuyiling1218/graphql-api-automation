@@ -1,5 +1,6 @@
 package com.hjfruit.test.pitaya.app.entities.base.store;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ public class WarehousePayload {
     /**
      *
      */
+
     private String warehouseId;
     /**
      *
