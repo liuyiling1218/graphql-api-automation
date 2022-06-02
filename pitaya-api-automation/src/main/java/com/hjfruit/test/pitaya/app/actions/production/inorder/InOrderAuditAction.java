@@ -7,6 +7,8 @@ import com.hjfruit.test.pitaya.app.entities.production.inorder.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
 @Component
 public class InOrderAuditAction {
     @Autowired
@@ -99,12 +101,13 @@ public class InOrderAuditAction {
      * @param rejectedInput
      * @return
      */
-    Boolean rejectedInOrderAudit(RejectedInput rejectedInput) {
+    public Boolean rejectedInOrderAudit(RejectedInput rejectedInput) {
         Boolean aBoolean = inOrderAuditApi.rejectedInOrderAudit(rejectedInput);
 
         /*
          * 断言：
          */
+        assertThat(aBoolean).isTrue();
         return aBoolean;
     }
 

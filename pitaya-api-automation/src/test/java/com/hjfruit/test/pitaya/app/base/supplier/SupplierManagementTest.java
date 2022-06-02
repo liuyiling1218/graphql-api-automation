@@ -24,7 +24,6 @@ public class SupplierManagementTest extends PitayaAppBaseTestV2 {
         Integer supplier = supplierAction.createSupplier(supplierInput);
         supplierInput.setSupplierId(supplier);
         supplierAction.updateSupplier(supplierInput);
-
 //        supplierAction.deleteSupplier(supplier);
     }
 }

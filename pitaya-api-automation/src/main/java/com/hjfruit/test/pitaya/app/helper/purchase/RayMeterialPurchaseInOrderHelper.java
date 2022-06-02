@@ -105,4 +105,36 @@ public class RayMeterialPurchaseInOrderHelper {
         purchaseConfirmInput.setInOrderType(auditDetail.getInOrderTypeId());
         return inOrderAuditAction.confirmPurchaseInBound(purchaseConfirmInput);
     }
+    //其他入库
+    public  Long otherInOrder(String inorderId) {
+        InOrderDetailInput inOrderDetailInput = new InOrderDetailInput();
+        inOrderDetailInput.setInOrderId(inorderId);
+        inOrderDetailInput.setDataType(PitayaConstants.InOrderType.OTHER_IN_APPLY.getTypeCode());
+        AuditInOrderPayload auditDetail = inOrderAuditAction.getAuditDetail(inOrderDetailInput);
+        ConfirmInput confirmInput = new ConfirmInput();
+        confirmInput.setInOrderId(inorderId);
+        confirmInput.setRemark("其他入库成功啦！");
+        confirmInput.setItems(auditDetail.getCommodities().stream().map(o -> {
+            ConfirmItemInput confirmItemInput = new ConfirmItemInput();
+            confirmItemInput.setInOrderItemId(o.getInOrderItemId());
+            confirmItemInput.setCommodityId(o.getCommodityId());
+            confirmItemInput.setCommoditySkuId(o.getCommoditySkuId());
+            confirmItemInput.setUnitQuantity(o.getUnitQuantity());
+            confirmItemInput.setTotalQuantity(o.getTotalQuantity());
+            confirmItemInput.setTotalPrice(o.getUnitTotalPrice());
+            confirmItemInput.setBatchId(o.getBatchId());
+            confirmItemInput.setUnitType(o.getUnitType());
+            return confirmItemInput;
+        }).collect(Collectors.toList()));
+
+    return inOrderAuditAction.confirmInbound(confirmInput);
+    }
+    //其他入库订单驳回
+    public Boolean rejectedInOrder(String inorderId) {
+        RejectedInput rejectedInput=new RejectedInput();
+        rejectedInput.setInOrderId(inorderId);
+        rejectedInput.setRejectedDescription(RandomStringUtils.random(30));
+        return inOrderAuditAction.rejectedInOrderAudit(rejectedInput);
+    }
+
 }

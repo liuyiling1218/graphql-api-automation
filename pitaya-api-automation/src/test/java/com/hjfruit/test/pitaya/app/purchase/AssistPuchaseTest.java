@@ -1,6 +1,4 @@
 package com.hjfruit.test.pitaya.app.purchase;
-
-import com.hjfruit.test.pitaya.app.PitayaAppBaseTest;
 import com.hjfruit.test.pitaya.app.PitayaAppBaseTestV2;
 import com.hjfruit.test.pitaya.app.helper.purchase.RawMeterialPurchaseApplyHelper;
 import com.hjfruit.test.pitaya.app.helper.purchase.RayMeterialPurchaseInOrderHelper;
@@ -21,8 +19,6 @@ RayMeterialPurchaseInOrderHelper rayMeterialPurchaseInOrderHelper;
         rawMeterialPurchaseApplyHelper.update(applyId);
         rawMeterialPurchaseApplyHelper.submit(applyId);
         rayMeterialPurchaseInOrderHelper.allIn(applyId);
-
-
     }
 
     @Test
