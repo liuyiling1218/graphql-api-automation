@@ -40,6 +40,7 @@ public class ApiProxy<T> implements InvocationHandler, ApplicationContextAware {
 
     public ApiProxy(Class<T> apiType) {
         this.apiType = apiType;
+
     }
 
     @Override
@@ -47,6 +48,7 @@ public class ApiProxy<T> implements InvocationHandler, ApplicationContextAware {
         String clientUrl = "";
         //接口返回结果解析
         GraphqlGroup graphqlGroup = apiType.getAnnotation(GraphqlGroup.class);
+
 
         List<GrpahqlClient> clients = GraphqlConifg.clients;
         for (GrpahqlClient grpahqlClient : clients) {
@@ -412,7 +414,8 @@ public class ApiProxy<T> implements InvocationHandler, ApplicationContextAware {
                         Long.class.isAssignableFrom(clazz) ||
                         Boolean.class.isAssignableFrom(clazz) ||
                         BigDecimal.class.isAssignableFrom(clazz) ||
-                        Date.class.isAssignableFrom(clazz)) {
+                        Date.class.isAssignableFrom(clazz)||
+                clazz.isEnum()) {
                     result.append(field.getName()).append("\\n");
                 } else if (List.class.isAssignableFrom(clazz)) {
                     Class<?> parameterClazz = null;
@@ -426,11 +429,13 @@ public class ApiProxy<T> implements InvocationHandler, ApplicationContextAware {
                     result.append(field.getName()).append(generateSubReturnFeildString(parameterClazz));
 
                 } else {
-                    result.append(generateSubReturnFeildString(field.getType()));
+                    result.append(field.getName()).append(generateSubReturnFeildString(field.getType()));
                 }
             }
+
             return result + "}";
         }
+
         return result.toString();
 
     }

@@ -30,7 +30,7 @@ public class DefectiveOtherInOrderActionTest extends PitayaAppBaseTestV2 {
     @DisplayName("新增其他入库订单")
     class CreateTest {
         @Test
-        @DisplayName("新增原料订单-编辑订单-提交库管-全部入库")
+        @DisplayName("新增原料订单-提交库管-驳回订单-再次提交库管-全部入库")
         public void test_create_raw_material() {
             String otherInOrder = otherInOrderAction.createOtherInOrder(PitayaConstants.CommodityType.RAW_MATERIAL, PitayaConstants.CustomerType.NO_CUSTOMER);
             otherInOrderAction.submitOtherInOrder(otherInOrder);
