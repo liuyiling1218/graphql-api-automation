@@ -128,7 +128,6 @@ public class PitayaAppBaseTestV2 extends PitayaBaseTest {
         JSONObject jsonObject = JSONObject.parseObject(login.body().asString());
         return jsonObject.getString("data");
 
-
     }
 
     public  void switchUser(String phone) {

@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -73,7 +74,7 @@ public class RawMeterialPurchaseApplyHelper {
         createAcquireInput.setBelongType(customerModel.getBelongType());
         createAcquireInput.setBelongId(customerModel.getBelongId());
         createAcquireInput.setNote(remark);
-        createAcquireInput.setCommodities(commoditySkues.stream().map(o ->
+        List<CreateAcquireItemInput> collect = commoditySkues.stream().map(o ->
         {
             CreateAcquireItemInput createAcquireItemInput = new CreateAcquireItemInput();
             createAcquireItemInput.setSkuId(o.getCommoditySkuId());
@@ -82,10 +83,18 @@ public class RawMeterialPurchaseApplyHelper {
             createAcquireItemInput.setPriceType(o.getUnitType());
             createAcquireItemInput.setUnitQuantity(new BigDecimal(100.22));
             createAcquireItemInput.setUnitType(o.getUnitType());
-            createAcquireItemInput.setTotalQuantity(new BigDecimal(102.24));
-            createAcquireItemInput.setTotalType(o.getTotalType());
+            if(!commodityType.equals(PitayaConstants.CommodityType.ASSIST)) {
+                createAcquireItemInput.setTotalQuantity(new BigDecimal(102.24));
+                createAcquireItemInput.setTotalType(o.getTotalType());
+            }else{
+                createAcquireItemInput.setTotalQuantity(new BigDecimal(0));
+                createAcquireItemInput.setTotalType(0);
+            }
             return createAcquireItemInput;
-        }).collect(Collectors.toList()));
+        }).collect(Collectors.toList());
+        createAcquireInput.setCommodities(collect);
+
+
 
         //获取费用类型
         FreightType freightType = baseAction.freightTypes().get(0);

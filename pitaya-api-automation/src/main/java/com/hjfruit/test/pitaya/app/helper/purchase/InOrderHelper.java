@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 import java.util.stream.Collectors;
 
 @Component
-public class RayMeterialPurchaseInOrderHelper {
+public class InOrderHelper {
     @Autowired
     InOrderAuditAction inOrderAuditAction;
     @Autowired
@@ -67,11 +67,13 @@ public class RayMeterialPurchaseInOrderHelper {
     }
 
     private String getInorderId(String applyId) {
-        String sql = "select order_id from wms.flow_in_stock_order where business_id=" + applyId;
-        String orderId = flowJdbcTemplate.queryForObject(sql, String.class);
-        return orderId;
-    }
+         String sql = "select order_id from wms.flow_in_stock_order where deleted=99 and business_id=" + applyId;
+            String orderId = flowJdbcTemplate.queryForObject(sql, String.class);
+            return orderId;
 
+
+
+    }
     public String getBillId(String applyId) {
         String sql = "select bill_id from wms.flow_apply where apply_id=" + applyId;
         String billId = flowJdbcTemplate.queryForObject(sql, String.class);
@@ -105,7 +107,7 @@ public class RayMeterialPurchaseInOrderHelper {
         purchaseConfirmInput.setInOrderType(auditDetail.getInOrderTypeId());
         return inOrderAuditAction.confirmPurchaseInBound(purchaseConfirmInput);
     }
-    //其他入库
+    //其他入库类型(全部入库)
     public  Long otherInOrder(String inorderId) {
         InOrderDetailInput inOrderDetailInput = new InOrderDetailInput();
         inOrderDetailInput.setInOrderId(inorderId);
@@ -127,7 +129,31 @@ public class RayMeterialPurchaseInOrderHelper {
             return confirmItemInput;
         }).collect(Collectors.toList()));
 
-    return inOrderAuditAction.confirmInbound(confirmInput);
+        return inOrderAuditAction.confirmInbound(confirmInput);
+    }
+    //其他入库类型(部分入库)
+
+    public  Long otherInOrderPartIn(String inorderId) {
+        InOrderDetailInput inOrderDetailInput = new InOrderDetailInput();
+        inOrderDetailInput.setInOrderId(inorderId);
+        inOrderDetailInput.setDataType(PitayaConstants.InOrderType.OTHER_IN_APPLY.getTypeCode());
+        AuditInOrderPayload auditDetail = inOrderAuditAction.getAuditDetail(inOrderDetailInput);
+        ConfirmInput confirmInput = new ConfirmInput();
+        confirmInput.setInOrderId(inorderId);
+        confirmInput.setRemark("其他入库成功啦！");
+        confirmInput.setItems(auditDetail.getCommodities().stream().map(o -> {
+            ConfirmItemInput confirmItemInput = new ConfirmItemInput();
+            confirmItemInput.setInOrderItemId(o.getInOrderItemId());
+            confirmItemInput.setCommodityId(o.getCommodityId());
+            confirmItemInput.setCommoditySkuId(o.getCommoditySkuId());
+            confirmItemInput.setUnitQuantity(o.getUnitQuantity().divide(new BigDecimal(4)));
+            confirmItemInput.setTotalQuantity(o.getTotalQuantity().divide(new BigDecimal(4)));
+            confirmItemInput.setTotalPrice(o.getUnitTotalPrice());
+            confirmItemInput.setBatchId(o.getBatchId());
+            confirmItemInput.setUnitType(o.getUnitType());
+            return confirmItemInput;
+        }).collect(Collectors.toList()));
+        return inOrderAuditAction.confirmInbound(confirmInput);
     }
     //其他入库订单驳回
     public Boolean rejectedInOrder(String inorderId) {

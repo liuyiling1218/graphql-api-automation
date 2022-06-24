@@ -23,6 +23,7 @@ public class ConfirmInput {
     /**
      * 本次入库操作备注信息
      */
+
     private String remark;
     /**
      * 入库商品信息

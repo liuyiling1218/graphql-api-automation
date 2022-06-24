@@ -42,7 +42,7 @@ public class OtherInOrderAction {
      * 创建其他入库
      *
      * @param commodityType
-     * @param remark
+     * @param
      * @return
      */
     public String createOtherInOrder(PitayaConstants.CommodityType commodityType, PitayaConstants.CustomerType customerType) {
@@ -67,7 +67,7 @@ public class OtherInOrderAction {
         createOtherInOrderInput.setInOrderDescription("创建其它入库订单");
 
         List<CreateOtherOrderItemInput> createOtherOrderItemInputs = new ArrayList<>();
-        if (Arrays.asList(PitayaConstants.CommodityType.ASSIST,PitayaConstants.CommodityType.DEFECTIVE,PitayaConstants.CommodityType.BOX).contains(commodityType)) {
+        if (Arrays.asList(PitayaConstants.CommodityType.ASSIST, PitayaConstants.CommodityType.DEFECTIVE, PitayaConstants.CommodityType.BOX).contains(commodityType)) {
             List<CommoditySkuPayload> commoditySkues = commodityHelper.getCommoditySkues(commodityType, PitayaConstants.CommoditySkuType.SINGLE_UNIT, 2);
             for (CommoditySkuPayload commoditySkuPayload : commoditySkues) {
                 CreateOtherOrderItemInput createOtherOrderItemInput = new CreateOtherOrderItemInput();
@@ -80,7 +80,7 @@ public class OtherInOrderAction {
                 createOtherOrderItemInputs.add(createOtherOrderItemInput);
             }
             createOtherInOrderInput.setCommodities(createOtherOrderItemInputs);
-        }else {
+        } else {
             List<CommoditySkuPayload> commoditySkues = commodityHelper.getCommoditySkues(commodityType, PitayaConstants.CommoditySkuType.DOUBLE_UNIT, 2);
             for (CommoditySkuPayload commoditySkuPayload : commoditySkues) {
                 CreateOtherOrderItemInput createOtherOrderItemInput = new CreateOtherOrderItemInput();
@@ -98,7 +98,7 @@ public class OtherInOrderAction {
         return otherInOrderApi.createOtherInOrder(createOtherInOrderInput);
     }
 
-        //准备商品sku数据
+    //准备商品sku数据
 //        List<CommoditySkuPayload> commoditySkues = commodityComponent.getCommoditySkues(commodityType, 10);
 //        List<CommoditySkuPayload> commoditySkues = commodityHelper.getCommoditySkues(commodityType, PitayaConstants.CommoditySkuType.DOUBLE_UNIT, 2);
 //
@@ -112,6 +112,7 @@ public class OtherInOrderAction {
 //            createOtherOrderItemInput.setTotalPrice(new BigDecimal(200.31));
 //            return createOtherOrderItemInput;
 //        }).collect(Collectors.toList()));
+
     /**
      * 新增其他入库
      *
@@ -134,16 +135,57 @@ public class OtherInOrderAction {
 
     /**
      * 修改其他入库订单
+     * 新增时创建两个商品，修改时干掉一个。
      *
      * @param
      * @return
      */
-    public Boolean modifyOtherInOrder(String inOrderId) {
-      ModifyOtherInOrderInput modifyOtherInOrderInput=new ModifyOtherInOrderInput();
+    public Boolean modifyOtherInOrder(String inOrderId, String remark) {
         PurchaseOrderPayload purchaseOrderPayload = purchaseOrderApi.purchaseDetail(inOrderId);
-
-
+        ModifyOtherInOrderInput modifyOtherInOrderInput = new ModifyOtherInOrderInput();
+        modifyOtherInOrderInput.setInOrderId(purchaseOrderPayload.getInOrderId());
+        modifyOtherInOrderInput.setInOrderDescription(purchaseOrderPayload.getInOrderDescription());
+        modifyOtherInOrderInput.setCustomerId(purchaseOrderPayload.getCustomerId());
+        modifyOtherInOrderInput.setSupplierId(purchaseOrderPayload.getSupplierId());
+        modifyOtherInOrderInput.setWarehouseId(purchaseOrderPayload.getWarehouseId());
+        modifyOtherInOrderInput.setCustomerTypeId(purchaseOrderPayload.getCustomerTypeId());
+        modifyOtherInOrderInput.setCommodities(purchaseOrderPayload.getCommodities().stream().filter(o -> o.getCommodityName().equals("猕猴桃")).map(o ->{
+            CreateOtherOrderItemInput createOtherOrderItemInput = new CreateOtherOrderItemInput();
+            createOtherOrderItemInput.setCommoditySkuId(o.getCommoditySkuId());
+            createOtherOrderItemInput.setUnitPrice(o.getUnitPrice());
+            createOtherOrderItemInput.setTotalPrice(o.getTotalPrice());
+            createOtherOrderItemInput.setTotalQuantity(o.getTotalQuantity());
+            createOtherOrderItemInput.setUnitPriceType(o.getUnitPriceType());
+            createOtherOrderItemInput.setUnitQuantity(o.getUnitQuantity());
+            return createOtherOrderItemInput;
+        }).collect(Collectors.toList()));
         return otherInOrderApi.modifyOtherInOrder(modifyOtherInOrderInput);
+    }
+
+    /**
+     * 正常修改订单
+     */
+    public Boolean modifyOtherInOrder(String inOrderId) {
+        PurchaseOrderPayload purchaseOrderPayload = purchaseOrderApi.purchaseDetail(inOrderId);
+        ModifyOtherInOrderInput modifyOtherInOrderInput = new ModifyOtherInOrderInput();
+        modifyOtherInOrderInput.setInOrderId(purchaseOrderPayload.getInOrderId());
+        modifyOtherInOrderInput.setInOrderDescription(purchaseOrderPayload.getInOrderDescription());
+        modifyOtherInOrderInput.setCustomerId(purchaseOrderPayload.getCustomerId());
+        modifyOtherInOrderInput.setSupplierId(purchaseOrderPayload.getSupplierId());
+        modifyOtherInOrderInput.setWarehouseId(purchaseOrderPayload.getWarehouseId());
+        modifyOtherInOrderInput.setCustomerTypeId(purchaseOrderPayload.getCustomerTypeId());
+        modifyOtherInOrderInput.setCommodities(purchaseOrderPayload.getCommodities().stream().map(o ->{
+            CreateOtherOrderItemInput createOtherOrderItemInput = new CreateOtherOrderItemInput();
+            createOtherOrderItemInput.setCommoditySkuId(o.getCommoditySkuId());
+            createOtherOrderItemInput.setUnitPrice(o.getUnitPrice());
+            createOtherOrderItemInput.setTotalPrice(o.getTotalPrice());
+            createOtherOrderItemInput.setTotalQuantity(o.getTotalQuantity());
+            createOtherOrderItemInput.setUnitPriceType(o.getUnitPriceType());
+            createOtherOrderItemInput.setUnitQuantity(o.getUnitQuantity());
+            return createOtherOrderItemInput;
+        }).collect(Collectors.toList()));
+        return otherInOrderApi.modifyOtherInOrder(modifyOtherInOrderInput);
+
     }
 
     /**
@@ -154,11 +196,21 @@ public class OtherInOrderAction {
      */
     public Boolean cancelOtherInOrder() {
         String otherInOrder = createOtherInOrder(PitayaConstants.CommodityType.RAW_MATERIAL, PitayaConstants.CustomerType.NO_CUSTOMER);
-        CancelOtherInOrderInput cancelOtherInOrderInput=new CancelOtherInOrderInput();
+        CancelOtherInOrderInput cancelOtherInOrderInput = new CancelOtherInOrderInput();
         cancelOtherInOrderInput.setInOrderId(otherInOrder);
         cancelOtherInOrderInput.setInOrderDescription("取消订单ING");
         return otherInOrderApi.cancelOtherInOrder(cancelOtherInOrderInput);
     }
+
+    public Boolean cancelOtherInOrder(String inOrderId){
+        CancelOtherInOrderInput cancelOtherInOrderInput = new CancelOtherInOrderInput();
+        cancelOtherInOrderInput.setInOrderId(inOrderId);
+        cancelOtherInOrderInput.setInOrderDescription("取消订单ING");
+        return otherInOrderApi.cancelOtherInOrder(cancelOtherInOrderInput);
+
+    }
+
+
 
     /**
      * 查询其他入库订单
@@ -170,4 +222,5 @@ public class OtherInOrderAction {
     public PageOtherInOrderPayload pageOtherInOrder(PageOtherInOrderInput pageOtherInOrderInput, Page page) {
         return otherInOrderApi.pageOtherInOrder(pageOtherInOrderInput, page);
     }
+
 }

@@ -3,8 +3,9 @@ package com.hjfruit.test.pitaya.app.transfer;
 import com.hjfruit.test.pitaya.app.PitayaAppBaseTestV2;
 import com.hjfruit.test.pitaya.app.actions.production.outorder.TransferOutOrderAction;
 import com.hjfruit.test.pitaya.app.actions.user.LoginAction;
+import com.hjfruit.test.pitaya.app.helper.purchase.InOrderHelper;
 import com.hjfruit.test.pitaya.app.helper.purchase.RawMeterialPurchaseApplyHelper;
-import com.hjfruit.test.pitaya.app.helper.purchase.RayMeterialPurchaseInOrderHelper;
+
 import com.hjfruit.test.pitaya.app.helper.transfer.TransferOrderHelper;
 import com.hjfruit.test.pitaya.common.PitayaConstants;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +24,7 @@ public class TransferOrderFlowTest extends PitayaAppBaseTestV2 {
     @Autowired
     RawMeterialPurchaseApplyHelper rawMeterialPurchaseApplyHelper;
     @Autowired
-    RayMeterialPurchaseInOrderHelper rayMeterialPurchaseInOrderHelper;
+    InOrderHelper inOrderHelper;
     @Autowired
     LoginAction loginAction;
 
