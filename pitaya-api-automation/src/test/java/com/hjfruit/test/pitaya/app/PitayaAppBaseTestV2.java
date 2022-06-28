@@ -40,6 +40,9 @@ public class PitayaAppBaseTestV2 extends PitayaBaseTest {
     @Autowired
     PitayaConfig pitayaConfig;
 
+//    public static final String env = "test";
+    private static String env = "demo";
+
 
     @BeforeAll
     public void beforAll() {
@@ -63,15 +66,23 @@ public class PitayaAppBaseTestV2 extends PitayaBaseTest {
         System.setProperty("https.protocols", "TSLv1.1");
 
         //假设一切正常
-
-        sendSmsCode("15023925077");
-        String token = loginByMsgCode("15023925077");
-        Autheration.token = token;
-        listAllUserInfo(token);
-        chooseTenant(token);
-        listUserOrg(2, token);
-        chooseOrg(token,"341");
-
+        if (env.equals("test")) {
+            sendSmsCode("15023925077");
+            String token = loginByMsgCode("15023925077");
+            Autheration.token = token;
+            listAllUserInfo(token);
+            chooseTenant(token);
+            listUserOrg(2, token);
+            chooseOrg(token, "341");
+        } else if (env.equals("demo")) {
+            sendSmsCode("15803605089");
+            String token = loginByMsgCode("15803605089");
+            Autheration.token = token;
+            listAllUserInfo(token);
+            chooseTenant(token);
+            listUserOrg(2, token);
+            chooseOrg(token, "388");
+        }
 
 
         System.out.println("============beforeEach End============");
@@ -82,7 +93,7 @@ public class PitayaAppBaseTestV2 extends PitayaBaseTest {
                 commonRequest()
                         .header("authorization", token)
                         .body("{\"orgId\": \"" + orgId + "\"}");
-        Response login = requestSpecification.post("https://auth-test.hjgpscm.com/auth/chooseOrg");
+        Response login = requestSpecification.post("https://auth-" + env + ".hjgpscm.com/auth/chooseOrg");
 
     }
 
@@ -91,7 +102,7 @@ public class PitayaAppBaseTestV2 extends PitayaBaseTest {
                 commonRequest()
                         .header("authorization", token)
                         .body("{\"appId\": \"" + appId + "\"}");
-        Response login = requestSpecification.post("https://auth-test.hjgpscm.com/auth/listOrg");
+        Response login = requestSpecification.post("https://auth-" + env + ".hjgpscm.com/auth/listOrg");
     }
 
     private void chooseTenant(String token) {
@@ -99,7 +110,7 @@ public class PitayaAppBaseTestV2 extends PitayaBaseTest {
                 commonRequest()
                         .header("authorization", token)
                         .body("{\"tenantId\": \"1\"}");
-        Response login = requestSpecification.post("https://auth-test.hjgpscm.com/auth/chooseTenant");
+        Response login = requestSpecification.post("https://auth-" + env + ".hjgpscm.com/auth/chooseTenant");
     }
 
     private void listAllUserInfo(String token) {
@@ -107,7 +118,7 @@ public class PitayaAppBaseTestV2 extends PitayaBaseTest {
         RequestSpecification requestSpecification =
                 commonRequest()
                         .header("authorization", token);
-        Response login = requestSpecification.post("https://auth-test.hjgpscm.com/auth/getUserAllInfo");
+        Response login = requestSpecification.post("https://auth-" + env + ".hjgpscm.com/auth/getUserAllInfo");
         JSONObject jsonObject = JSONObject.parseObject(login.body().asString());
         System.out.println(jsonObject.getJSONObject("data").toString());
 
@@ -116,7 +127,7 @@ public class PitayaAppBaseTestV2 extends PitayaBaseTest {
     private void sendSmsCode(String phone) {
         RequestSpecification requestSpecification = commonRequest()
                 .body("{\"phone\":\"" + phone + "\"}");
-        Response sendSmsCode = requestSpecification.post("https://auth-test.hjgpscm.com/auth/sendCodeMsg");
+        Response sendSmsCode = requestSpecification.post("https://auth-" + env + ".hjgpscm.com/auth/sendCodeMsg");
 
     }
 
@@ -124,7 +135,7 @@ public class PitayaAppBaseTestV2 extends PitayaBaseTest {
         RequestSpecification requestSpecification =
                 commonRequest()
                         .body("{\"phone\":\"" + phone + "\",\"code\": \"666666\"}");
-        Response login = requestSpecification.post("https://auth-test.hjgpscm.com/auth/loginByMsgCodeOnApp");
+        Response login = requestSpecification.post("https://auth-" + env + ".hjgpscm.com/auth/loginByMsgCodeOnApp");
         JSONObject jsonObject = JSONObject.parseObject(login.body().asString());
         return jsonObject.getString("data");
 

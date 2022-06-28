@@ -9,8 +9,6 @@ import com.hjfruit.test.pitaya.app.helper.base.SupplierHelper;
 import com.hjfruit.test.pitaya.app.helper.purchase.InOrderHelper;
 import com.hjfruit.test.pitaya.common.PitayaConstants;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

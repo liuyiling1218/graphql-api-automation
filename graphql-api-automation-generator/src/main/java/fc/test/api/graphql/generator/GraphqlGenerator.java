@@ -38,6 +38,9 @@ public class GraphqlGenerator {
             if (subPackage.contains("interface")) {
                 subPackage = subPackage.replace("interface", "interfaces");
             }
+            if (List.of(".base.time", ".base").contains(subPackage)) {
+                continue;
+            }
             importEntitiesStringBuilder.append("import " + basePackageName + ".entities" + subPackage + ".*" + ";\n");
         }
 
@@ -61,7 +64,6 @@ public class GraphqlGenerator {
                     if (entityName.contains(".type")) {
                         entityName = entityName.replace(".type", "");
                     }
-
                     TypeDefinition typeDefinition = type.getValue();
                     //封裝comment
                     StringBuilder commentStringBuilder = new StringBuilder();
@@ -94,8 +96,10 @@ public class GraphqlGenerator {
                         entityStringBuilder.append("public enum " + entityName + "{\n");
                     } else {
                         entityStringBuilder.append("@Data\n");
+                        if (checkFields(typeDefinition)) {
                         entityStringBuilder.append("@AllArgsConstructor\n");
                         entityStringBuilder.append("@NoArgsConstructor\n");
+                        }
                         entityStringBuilder.append("public class " + entityName + "{\n");
                     }
                     generateFields(typeDefinition, entityStringBuilder);
@@ -225,6 +229,16 @@ public class GraphqlGenerator {
         bufferedWriter.close();
     }
 
+    private static boolean checkFields(TypeDefinition typeDefinition) {
+        if (typeDefinition.getChildren().isEmpty()) {
+            return false;
+        }
+        if(List.of("ConfigValuePayload","Query","Mutation","QuantityInterface","Node","PageList").contains(typeDefinition.getName())){
+            return false;
+        }
+        return true;
+    }
+
     private static void generateFields(TypeDefinition typeDefinition, StringBuilder entityStringBuilder) {
         String definitionName = typeDefinition.getName();
         if (typeDefinition instanceof ObjectTypeDefinition || typeDefinition instanceof InputObjectTypeDefinition) {
@@ -249,7 +263,11 @@ public class GraphqlGenerator {
                     FieldDefinition fieldDefinition = (FieldDefinition) node;
                     Type type = fieldDefinition.getType();
                     generateFieldString(type, entityStringBuilder);
-                    entityStringBuilder.append(" " + fieldDefinition.getName() + ";\n");
+                    if (List.of("return").contains(fieldDefinition.getName())) {
+                        entityStringBuilder.append(" _" + fieldDefinition.getName() + ";\n");
+                    } else {
+                        entityStringBuilder.append(" " + fieldDefinition.getName() + ";\n");
+                    }
                 } else if (node instanceof InputValueDefinition) {
                     InputValueDefinition inputValueDefinition = (InputValueDefinition) node;
                     Type type = inputValueDefinition.getType();
