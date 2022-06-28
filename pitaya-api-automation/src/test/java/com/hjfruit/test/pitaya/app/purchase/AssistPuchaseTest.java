@@ -7,7 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@DisplayName("辅料采购")
+@DisplayName("辅料采购相关流程")
 public class AssistPuchaseTest extends PitayaAppBaseTestV2 {
 @Autowired
 RawMeterialPurchaseApplyHelper rawMeterialPurchaseApplyHelper;

@@ -20,9 +20,9 @@ public class GraphqlConifg {
 
         GrpahqlClient pitayaApp = new GrpahqlClient();
         pitayaApp.setClientType(GraphqlClientType.PITAYA_APP);
-//        pitayaApp.setClientUrl("https://pitaya-test.hjgpscm.com/graphql");
+        pitayaApp.setClientUrl("https://pitaya-test.hjgpscm.com/graphql");
 //        pitayaApp.setClientUrl("http://192.168.10.233:9406/graphql");
-        pitayaApp.setClientUrl("https://pitaya-demo.hjgpscm.com/graphql");
+//        pitayaApp.setClientUrl("https://pitaya-demo.hjgpscm.com/graphql");
         GrpahqlClient pitayaWeb = new GrpahqlClient();
         pitayaWeb.setClientType(GraphqlClientType.PITAYA_WEB);
         pitayaWeb.setClientUrl("https://pitaya-test.hjgpscm.com/graphql-web");

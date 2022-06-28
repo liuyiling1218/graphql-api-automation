@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-@DisplayName("原料采购")
+@DisplayName("原料采购相关流程")
 public class RawMeterialPurchaseTest extends PitayaAppBaseTestV2 {
     @Autowired
     AcquireOrderAction acquireOrderAction;

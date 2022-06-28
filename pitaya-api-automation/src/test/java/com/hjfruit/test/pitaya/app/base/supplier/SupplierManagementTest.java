@@ -8,7 +8,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
+@DisplayName("供应商相关流程")
 public class SupplierManagementTest extends PitayaAppBaseTestV2 {
     @Autowired
     SupplierAction supplierAction;

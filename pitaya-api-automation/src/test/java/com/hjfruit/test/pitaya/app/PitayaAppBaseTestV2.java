@@ -40,8 +40,8 @@ public class PitayaAppBaseTestV2 extends PitayaBaseTest {
     @Autowired
     PitayaConfig pitayaConfig;
 
-//    public static final String env = "test";
-    private static String env = "demo";
+    public static final String env = "test";
+//    private static String env = "demo";
 
 
     @BeforeAll

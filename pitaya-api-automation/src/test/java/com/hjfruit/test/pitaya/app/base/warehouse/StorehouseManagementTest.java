@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@DisplayName("仓库相关流程")
 public class StorehouseManagementTest extends PitayaAppBaseTestV2 {
     @Autowired
     StoreHouseAction storeHouseAction;
