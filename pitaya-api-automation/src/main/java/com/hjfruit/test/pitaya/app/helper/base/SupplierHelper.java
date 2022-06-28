@@ -78,7 +78,7 @@ public class SupplierHelper {
     public SupplierPayload supplierPages_getFirstSupplierBySupplierTypeIds(List<Integer> supplierTypeIds) {
         SupplierConditionInput supplierConditionInput = new SupplierConditionInput();
         supplierConditionInput.setSupplierTypeId(supplierTypeIds);
-        SupplierPagePayload supplierPagePayload = supplierPages(new Page(1,10), supplierConditionInput);
+        SupplierPagePayload supplierPagePayload = supplierPages(new Page(1, 10), supplierConditionInput);
         return supplierPagePayload.getRecords().get(0);
     }
 

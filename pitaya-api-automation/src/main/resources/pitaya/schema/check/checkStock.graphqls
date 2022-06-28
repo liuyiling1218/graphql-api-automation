@@ -200,6 +200,10 @@ type CheckStockPayload{
     #归属类型
     belongType:Int
     belongName:String
+    """
+    displayBelongName
+    """
+    displayBelongName:String
     unitPrice :Float
     priceType:Int
     priceTypeName:String

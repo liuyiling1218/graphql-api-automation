@@ -12,11 +12,11 @@ import com.hjfruit.test.pitaya.common.PitayaConstants;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class OtherInorderHelper {
@@ -30,6 +30,7 @@ public class OtherInorderHelper {
     CommodityHelper commodityHelper;
     @Autowired
     CustomerHelper customerHelper;
+
     public String create(PitayaConstants.CommodityType commodityType) {
         //otherInOrderAction.createOtherInOrder(PitayaConstants.CommodityType.DEFECTIVE, PitayaConstants.CustomerType.NO_CUSTOMER, RandomStringUtils.random(200));
         CreateOtherInOrderInput createOtherInOrderInput = new CreateOtherInOrderInput();
@@ -41,7 +42,7 @@ public class OtherInorderHelper {
         createOtherInOrderInput.setInOrderDescription(RandomStringUtils.random(200));
         List<CreateOtherOrderItemInput> createOtherOrderItemInputs = new ArrayList<>();
 //List<CommoditySkuPayload> commoditySkues = commodityHelper.getCommoditySkues(PitayaConstants.CommodityType.ASSIST, PitayaConstants.CommoditySkuType.SINGLE_UNIT, 2);
-        if (Arrays.asList(PitayaConstants.CommodityType.ASSIST,PitayaConstants.CommodityType.DEFECTIVE,PitayaConstants.CommodityType.BOX).contains(commodityType)) {
+        if (Arrays.asList(PitayaConstants.CommodityType.ASSIST, PitayaConstants.CommodityType.DEFECTIVE, PitayaConstants.CommodityType.BOX).contains(commodityType)) {
             List<CommoditySkuPayload> commoditySkues = commodityHelper.getCommoditySkues(commodityType, PitayaConstants.CommoditySkuType.SINGLE_UNIT, 2);
             for (CommoditySkuPayload commoditySkuPayload : commoditySkues) {
                 CreateOtherOrderItemInput createOtherOrderItemInput = new CreateOtherOrderItemInput();
@@ -54,7 +55,7 @@ public class OtherInorderHelper {
                 createOtherOrderItemInputs.add(createOtherOrderItemInput);
             }
             createOtherInOrderInput.setCommodities(createOtherOrderItemInputs);
-        }else {
+        } else {
             List<CommoditySkuPayload> commoditySkues = commodityHelper.getCommoditySkues(commodityType, PitayaConstants.CommoditySkuType.DOUBLE_UNIT, 2);
             for (CommoditySkuPayload commoditySkuPayload : commoditySkues) {
                 CreateOtherOrderItemInput createOtherOrderItemInput = new CreateOtherOrderItemInput();
@@ -83,10 +84,6 @@ public class OtherInorderHelper {
 
 
     }
-
-
-
-
 
 
 }

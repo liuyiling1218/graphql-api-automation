@@ -101,6 +101,7 @@ public class DefectiveOtherInOrderActionTest extends PitayaAppBaseTestV2 {
         public void test_create_cancel() {
             otherInOrderAction.cancelOtherInOrder();
         }
+
         @Test
         @DisplayName("新增原料订单-提交订单-驳回订单-取消订单")
         public void test_turn_down_cancel() {

@@ -84,6 +84,7 @@ public class RawMeterialPurchaseTest extends PitayaAppBaseTestV2 {
         rawMeterialPurchaseApplyHelper.submit(applyId);
         inOrderHelper.reject(applyId);
         rawMeterialPurchaseApplyHelper.submit(applyId);
+        inOrderHelper.allIn(applyId);
     }
     @Test
     @DisplayName("Flow:新增采购-修改订单-提交库管-全部入库")

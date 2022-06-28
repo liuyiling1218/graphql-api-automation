@@ -41,6 +41,10 @@ type StockPayload{
     belongId:Int
     #归属name
     belongName:String
+    """
+    displayBelongName
+    """
+    displayBelongName:String
     #仓库名称
     warehouseId:ID
     warehouseName:String

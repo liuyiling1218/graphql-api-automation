@@ -14,3 +14,13 @@ type PayMode{
  code:Int
  message:String
 }
+
+enum PayModeEnum {
+ UNRECOGNIZED
+ """月结"""
+ MONTH_PAY
+ """半月结"""
+ HALF_MONTH_PAY
+ """次结"""
+ ONCE_PAY
+}

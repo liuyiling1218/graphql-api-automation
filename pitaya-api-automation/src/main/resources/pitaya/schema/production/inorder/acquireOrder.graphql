@@ -66,9 +66,9 @@ input CreateAcquireInput{
     #供应商Id
     supplierId:Int!
     #客户类型Id
-    belongType:Int
+    belongType:Int!
     #客户Id
-    belongId:Int
+    belongId:Int!
     #订单备注
     note:String
     #商品信息
@@ -84,9 +84,9 @@ input UpdateAcquireInput{
     #供应商Id
     supplierId:Int!
     #客户类型Id
-    belongType:Int
+    belongType:Int!
     #客户Id
-    belongId:Int
+    belongId:Int!
     #订单备注
     note:String
     #商品信息
@@ -203,7 +203,7 @@ type AcquirePayload{
     #申请操作记录
     operationLog:[FlowApplyOperationLogPayload]
     # 是否可退货
-    canReturn:Boolean
+    exitReturn:Boolean
     # 退货记录数量
     returnCount:Int
     # 费用单ID

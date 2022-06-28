@@ -31,6 +31,13 @@ type Unit {
     unitName:String
 }
 
+type UnitQuantity {
+    """单位"""
+    unit:Unit
+    """数量"""
+    quantity:BigDecimal
+}
+
 type User {
     """
     userid
@@ -40,11 +47,15 @@ type User {
     user名称
     """
     userName:String
+    """
+    电话号码
+    """
+    phoneNum:String
 }
 
 type CommoditySku {
     """
-    skuid
+    sku
     """
     commoditySkuId:Int
     """
@@ -73,6 +84,17 @@ type CommoditySku {
     conversion:BigDecimal
 }
 
+type CommoditySkuStock {
+    """商品sku"""
+    commoditySku:CommoditySku
+    """小单位数量"""
+    unit:UnitQuantity
+    """大单位数量"""
+    total:UnitQuantity
+    """单位数量"""
+    unitPrice:UnitQuantity
+}
+
 type Supplier{
     """
     供应商Id
@@ -82,4 +104,35 @@ type Supplier{
     供应商名称
     """
     supplierName:String
+}
+
+type Customer{
+    """
+    客户Id
+    """
+    customerId:Int
+    """
+    客户名称
+    """
+    customerName:String
+    """
+    客户类型
+    """
+    customerType:Int
+}
+
+type StockBatch{
+    """
+    批次ID
+    """
+    batchId:ID
+    """
+    批次号
+    """
+    batchCode:String
+}
+
+type Quantity {
+    unitQuantity: BigDecimal
+    totalQuantity: BigDecimal
 }

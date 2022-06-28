@@ -2,7 +2,6 @@ package com.hjfruit.test.pitaya.app.helper.purchase;
 
 import com.hjfruit.test.pitaya.app.actions.production.inorder.AcquireOrderAction;
 import com.hjfruit.test.pitaya.app.actions.v2.api.BaseAction;
-import com.hjfruit.test.pitaya.app.apis.plan.PlanTaskItemApi;
 import com.hjfruit.test.pitaya.app.entities.commodity.CommoditySkuPayload;
 import com.hjfruit.test.pitaya.app.entities.production.inorder.*;
 import com.hjfruit.test.pitaya.app.entities.v2.types.FreightType;
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -65,7 +63,7 @@ public class RawMeterialPurchaseApplyHelper {
 
         //获取随机2个商品SKU
 //        List<CommoditySkuPayload> commoditySkues = commodityHelper.getCommoditySkues(PitayaConstants.CommodityType.RAW_MATERIAL, 2);
-          List<CommoditySkuPayload> commoditySkues = commodityHelper.getCommoditySkues(commodityType, 2);
+        List<CommoditySkuPayload> commoditySkues = commodityHelper.getCommoditySkues(commodityType, 2);
 
         CreateAcquireInput createAcquireInput = new CreateAcquireInput();
         createAcquireInput.setCommodityType(commodityType.getTypeId());
@@ -83,17 +81,16 @@ public class RawMeterialPurchaseApplyHelper {
             createAcquireItemInput.setPriceType(o.getUnitType());
             createAcquireItemInput.setUnitQuantity(new BigDecimal(100.22));
             createAcquireItemInput.setUnitType(o.getUnitType());
-            if(!commodityType.equals(PitayaConstants.CommodityType.ASSIST)) {
+            if (!commodityType.equals(PitayaConstants.CommodityType.ASSIST)) {
                 createAcquireItemInput.setTotalQuantity(new BigDecimal(102.24));
                 createAcquireItemInput.setTotalType(o.getTotalType());
-            }else{
+            } else {
                 createAcquireItemInput.setTotalQuantity(new BigDecimal(0));
                 createAcquireItemInput.setTotalType(0);
             }
             return createAcquireItemInput;
         }).collect(Collectors.toList());
         createAcquireInput.setCommodities(collect);
-
 
 
         //获取费用类型

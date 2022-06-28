@@ -35,6 +35,8 @@ type TransferBillPayload{
     orderCode:String
     # 来源id
     sourceId:ID
+    # 来源APP
+    sourceAppId:Int
     # 调拨申请类型
     flowType:Int
     # 调拨申请类型名称
@@ -107,16 +109,6 @@ type TransferBillPayload{
     # 调入方合计
     targetTotalAmount:BigDecimal
     recordUpdateTime:Long
-}
-
-enum BillStatusEnum {
-    UNRECOGNIZED
-    BILL_UN_CONFIRMED
-    BILL_UN_SUBMITTED
-    BILL_BIZ_UN_REVIEWED
-    BILL_FD_UN_REVIEWED
-    BILL_COMPLETE
-    ERROR_BILL_STATUS
 }
 
 type GetTransferInOrderStatusPayload{

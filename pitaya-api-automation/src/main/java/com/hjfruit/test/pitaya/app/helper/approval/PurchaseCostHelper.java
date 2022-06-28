@@ -1,7 +1,7 @@
 package com.hjfruit.test.pitaya.app.helper.approval;
 
 import com.hjfruit.test.pitaya.app.actions.cost.CostOrderAction;
-import com.hjfruit.test.pitaya.app.entities.cost.UpdateCostStatusInput;
+import com.hjfruit.test.pitaya.app.entities.cost.apply.UpdateCostStatusInput;
 import com.hjfruit.test.pitaya.common.PitayaConstants;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

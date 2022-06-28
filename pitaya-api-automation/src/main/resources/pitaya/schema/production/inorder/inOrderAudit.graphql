@@ -223,6 +223,14 @@ type AuditInOrderPayload{
     deliveryFee:BigDecimal
     #客户配送地址
     customerDistributionName:String
+    """
+    源AppId
+    """
+    sourceAppId:Int
+    """
+    目标AppId
+    """
+    targetAppId:Int
 }
 
 type InOrderRecordDetailPayload{

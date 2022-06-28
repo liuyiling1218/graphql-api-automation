@@ -48,6 +48,8 @@ input StockBatchQueryInput{
     customerType:Int!
     commoditySkuId:Int!
     commodityTypeId:Int
+    """退货订单ID v2.6.0采购退货新增 仅采购退货使用"""
+    outStockId:ID
 }
 type StockBatchPayload{
     batchId:ID
@@ -59,6 +61,8 @@ type StockBatchPayload{
     unitType:Int
     totalType:Int
     createTime:Long
+    """换算单位"""
+    conversion:BigDecimal
 }
 input ListCommodityStockBatchInput{
     commodityTypeId:Int

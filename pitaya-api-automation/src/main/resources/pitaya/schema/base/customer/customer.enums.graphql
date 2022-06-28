@@ -15,6 +15,7 @@ enum CustomerAttribute{
 客户类型
 """
 enum CustomerType{
+    UN_USED_FIELD
     """
     个人
     """
@@ -27,4 +28,25 @@ enum CustomerType{
     零售
     """
     RETAIL
+}
+"""
+归属类型
+"""
+enum BelongType{
+    """
+    公司: 10
+    """
+    COMPANY
+    """
+    客户: 20
+    """
+    CUSTOMER
+    """
+    渠道: 30
+    """
+    CHANNEL
+    """
+    地址: 40
+    """
+    ADDRESS
 }

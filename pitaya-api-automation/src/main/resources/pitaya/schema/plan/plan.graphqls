@@ -60,6 +60,8 @@ type ProductionPlanPayload {
     commodityType: Int
     """取消生产"""
     saleCancelCount: Int
+    """计划任务暂停数"""
+    taskPauses:Int
 }
 
 #生产计划详情
@@ -74,6 +76,7 @@ type ProductionPlanDetailPayload {
     planStatus: Int
     #任务状态名称
     planStatusName: String
+    customerType: Int
     #客户所属id
     customerId: Int
     #客户所属名称
@@ -196,7 +199,7 @@ input CancelPlanInput {
     #计划id
     planId:ID!
     #计划文字描述
-    planLogDescription: String!
+    planLogDescription: String
 }
 
 #生产计划操作日志
@@ -249,6 +252,7 @@ input CommoditySkuStockInput {
     warehouseId:ID!
     belongId:Int!
     belongType:Int!
+    customerDistributionId:Int!
 }
 
 extend type Query {

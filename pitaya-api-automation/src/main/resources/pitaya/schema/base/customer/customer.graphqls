@@ -114,6 +114,10 @@ input CustomerDistributionInput{
     customerId:Int
     # 配送名称
     distributionName:String
+    """
+    联系人Id
+    """
+    contactId:Int
     # 联系人
     contacts:String
     # 联系电话
@@ -127,9 +131,9 @@ input CustomerDistributionInput{
     """
     cityId:ID!
     """
-    区
+    区 可能不存在区级别（广东东莞）
     """
-    districtId:ID!
+    districtId:ID
     """
     详细地址
     """
@@ -148,6 +152,10 @@ type CustomerDistributionPayload{
     customerId:Int
     # 配送名称
     distributionName:String
+    """
+    联系人Id
+    """
+    contactId:Int
     # 联系人
     contacts:String
     # 联系电话
@@ -185,6 +193,57 @@ input CustomersInput{
     """
     attribute:CustomerAttribute
 }
+"""
+客户树请求(为空表示全量返回)
+"""
+input CustomerTreeInput{
+    """
+    业务类型
+    """
+    businessType:AllBusinessType
+    """
+    商品类型
+    """
+    commodityType:Int
+    """
+    模糊搜索关键词
+    """
+    keyword:String
+}
+
+"""
+客户树返回
+"""
+type CustomerTreePayload{
+    """
+    客户类型
+    """
+    belongType:Int!
+    """
+    客户ID
+    """
+    belongId:Int!
+    """
+    客户名称
+    """
+    belongName:String
+    """
+    是否可见
+    """
+    visible:Boolean
+    """
+    是否可选择
+    """
+    optional:Boolean
+    """
+    父节点
+    """
+    parent:CustomerTreePayload
+    """
+    子节点集合
+    """
+    children:[CustomerTreePayload]
+}
 
 # 客户分页返回值,这种语法生成的是个接口，无法使用
 #union CustomerPageResult = CustomerPage | PageResult
@@ -211,6 +270,10 @@ extend type Query {
     客户: 无客户信息接口查询
     """
     orgCustomer:CustomerPayload
+    """
+    客户: 按条件获取整体客户树(客户下拉接口)
+    """
+    customerTree(customerTreeInput:CustomerTreeInput):[CustomerTreePayload]
 }
 
 extend type Mutation {

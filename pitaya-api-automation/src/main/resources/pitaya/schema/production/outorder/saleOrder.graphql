@@ -175,6 +175,10 @@ type SaleOrderPayload{
     拒绝统计数量
     """
     rejectCount:Int
+    """
+    计划详情
+    """
+    plan:Plan
 }
 
 type SaleOrderItemPayload{

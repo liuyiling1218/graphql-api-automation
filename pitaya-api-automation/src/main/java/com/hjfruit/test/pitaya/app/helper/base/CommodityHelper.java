@@ -113,6 +113,7 @@ public class CommodityHelper {
         }
         return commoditySkuPayloads;
     }
+
     /**
      * 获取商品sku库存
      *
@@ -125,11 +126,11 @@ public class CommodityHelper {
         listCommodityStockBatchInput.setCommodityTypeId(commodityType.getTypeId());
         listCommodityStockBatchInput.setWarehouseId(storeHouseHelper.userWarehouse_getFirstWarehouse().getWarehouseId());
         List<CommodityStockBatchPayload> commodityStockBatchPayloads = stockAction.commodityStockBatches(listCommodityStockBatchInput);
-        System.out.println("commodityStockBatchPayloads:"+commodityStockBatchPayloads.size());
+        System.out.println("commodityStockBatchPayloads:" + commodityStockBatchPayloads.size());
         if (commoditySkuType == PitayaConstants.CommoditySkuType.DOUBLE_UNIT) {
-            return commodityStockBatchPayloads.stream().filter(o -> !o.getStockTotalType().equals(0)&&!o.getStockUnitQuantity().equals(new BigDecimal(0.0))).collect(Collectors.toList());
+            return commodityStockBatchPayloads.stream().filter(o -> !o.getStockTotalType().equals(0) && !o.getStockUnitQuantity().equals(new BigDecimal(0.0))).collect(Collectors.toList());
         } else {
-            return commodityStockBatchPayloads.stream().filter(o -> o.getStockTotalType().equals(0)&&!o.getStockUnitQuantity().equals(new BigDecimal(0.0))).collect(Collectors.toList());
+            return commodityStockBatchPayloads.stream().filter(o -> o.getStockTotalType().equals(0) && !o.getStockUnitQuantity().equals(new BigDecimal(0.0))).collect(Collectors.toList());
         }
     }
 

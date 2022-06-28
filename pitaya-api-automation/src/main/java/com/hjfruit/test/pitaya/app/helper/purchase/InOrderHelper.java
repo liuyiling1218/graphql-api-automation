@@ -67,13 +67,13 @@ public class InOrderHelper {
     }
 
     private String getInorderId(String applyId) {
-         String sql = "select order_id from wms.flow_in_stock_order where deleted=99 and business_id=" + applyId;
-            String orderId = flowJdbcTemplate.queryForObject(sql, String.class);
-            return orderId;
-
+        String sql = "select order_id from wms.flow_in_stock_order where deleted=99 and business_id=" + applyId;
+        String orderId = flowJdbcTemplate.queryForObject(sql, String.class);
+        return orderId;
 
 
     }
+
     public String getBillId(String applyId) {
         String sql = "select bill_id from wms.flow_apply where apply_id=" + applyId;
         String billId = flowJdbcTemplate.queryForObject(sql, String.class);
@@ -107,8 +107,9 @@ public class InOrderHelper {
         purchaseConfirmInput.setInOrderType(auditDetail.getInOrderTypeId());
         return inOrderAuditAction.confirmPurchaseInBound(purchaseConfirmInput);
     }
+
     //其他入库类型(全部入库)
-    public  Long otherInOrder(String inorderId) {
+    public Long otherInOrder(String inorderId) {
         InOrderDetailInput inOrderDetailInput = new InOrderDetailInput();
         inOrderDetailInput.setInOrderId(inorderId);
         inOrderDetailInput.setDataType(PitayaConstants.InOrderType.OTHER_IN_APPLY.getTypeCode());
@@ -133,7 +134,7 @@ public class InOrderHelper {
     }
     //其他入库类型(部分入库)
 
-    public  Long otherInOrderPartIn(String inorderId) {
+    public Long otherInOrderPartIn(String inorderId) {
         InOrderDetailInput inOrderDetailInput = new InOrderDetailInput();
         inOrderDetailInput.setInOrderId(inorderId);
         inOrderDetailInput.setDataType(PitayaConstants.InOrderType.OTHER_IN_APPLY.getTypeCode());
@@ -155,9 +156,10 @@ public class InOrderHelper {
         }).collect(Collectors.toList()));
         return inOrderAuditAction.confirmInbound(confirmInput);
     }
+
     //其他入库订单驳回
     public Boolean rejectedInOrder(String inorderId) {
-        RejectedInput rejectedInput=new RejectedInput();
+        RejectedInput rejectedInput = new RejectedInput();
         rejectedInput.setInOrderId(inorderId);
         rejectedInput.setRejectedDescription(RandomStringUtils.random(30));
         return inOrderAuditAction.rejectedInOrderAudit(rejectedInput);

@@ -75,6 +75,73 @@ type MonitorPayload {
     #负责人
     createUserName:String
     productionCommodityPayload:[ProductionCommodityPayload]
+    """
+    领料情况
+    """
+    pickDetail:[ProductionProcessPayload]
+    """
+    入库情况
+    """
+    inStockDetail:[ProductionProcessPayload]
+    """
+    退料情况
+    """
+    returnDetail:[ProductionProcessPayload]
+    """
+    报损情况
+    """
+    damageDetail:[ProductionProcessPayload]
+}
+
+type ProductionProcessPayload {
+    """
+    商品类型id
+    """
+    commodityTypeId:Int
+    """
+    商品类型名称
+    """
+    commodityTypeName:String
+    """
+    商品名称
+    """
+    commodityName:String
+    """
+    商品sku名称
+    """
+    commodityTextDescription:[String]
+    """
+    申请unit数量
+    """
+    applyUnitQuantity:BigDecimal
+    """
+    实际unit数量
+    """
+    actualUnitQuantity:BigDecimal
+    """
+    unit单位id
+    """
+    unitType:Int
+    """
+    unit单位名称
+    """
+    unitTypeName:String
+    """
+    实际total数量
+    """
+    actualTotalQuantity:BigDecimal
+    """
+    申请total数量
+    """
+    applyTotalQuantity:BigDecimal
+    """
+    total单位id
+    """
+    totalType:Int
+    """
+    total单位名称
+    """
+    totalTypeName:String
 }
 
 type ProductionCommodityPayload {
@@ -86,6 +153,8 @@ type ProductionCommodityPayload {
     commodityName:String
     #规格
     commoditySpecOptionName:String
+    #预估销量
+    planQuantity:Int
     #已生产数量
     completedNum:BigDecimal
     #计划生产数量
