@@ -18,6 +18,7 @@ public class DefectiveOtherOutOrderFlowTest extends PitayaAppBaseTestV2 {
     CommodityHelper commodityHelper;
     @Autowired
     TransferOrderHelper transferOrderHelper;
+
     @Test
     @DisplayName("新增原料-修改订单-提交库管-全部出库")
     public void test_flow_create_submit_allIn() {
@@ -64,21 +65,44 @@ public class DefectiveOtherOutOrderFlowTest extends PitayaAppBaseTestV2 {
         transferOrderHelper.confirmOutOrder(otherOutOrder);
 
     }
+
     @Test
     @DisplayName("新增退货品-修改订单-提交库管-全部出库")
-    public void test_flow_create_update_submit_Returned(){
+    public void test_flow_create_update_submit_Returned() {
         String otherOutOrder = otherOutOrderAction.createOtherOutOrder(PitayaConstants.CommodityType.REBACK);
         otherOutOrderAction.updateOtherOutOrder(otherOutOrder);
         otherOutOrderAction.submitOutOrder(otherOutOrder);
         transferOrderHelper.confirmOutOrder(otherOutOrder);
     }
+
     @Test
     @DisplayName("新增周转筐-修改订单-提交库管-全部出库")
-    public void test_flow_create_update_submit_turnover_basket(){
+    public void test_flow_create_update_submit_turnover_basket() {
         String otherOutOrder = otherOutOrderAction.createOtherOutOrder(PitayaConstants.CommodityType.BOX);
         otherOutOrderAction.updateOtherOutOrder(otherOutOrder);
         otherOutOrderAction.submitOutOrder(otherOutOrder);
         transferOrderHelper.confirmOutOrder(otherOutOrder);
 
+    }
+
+    @Test
+    @DisplayName("新增采购-提交库管-驳回-再次提交-全部入库")
+    public void test_flow_create_update_submit_turn_submit_Warehousing() {
+        String otherOutOrder = otherOutOrderAction.createOtherOutOrder(PitayaConstants.CommodityType.RAW_MATERIAL);
+        otherOutOrderAction.updateOtherOutOrder(otherOutOrder);
+        otherOutOrderAction.submitOutOrder(otherOutOrder);
+        transferOrderHelper.reject(otherOutOrder);
+        otherOutOrderAction.submitOutOrder(otherOutOrder);
+        transferOrderHelper.confirmOutOrder(otherOutOrder);
+    }
+
+    @Test
+    @DisplayName("新增采购-提交库管-部分入库-完成入库")
+    public void test_flow_create_update_submit_Partial_storage_Complete_warehousing() {
+        String otherOutOrder = otherOutOrderAction.createOtherOutOrder(PitayaConstants.CommodityType.RAW_MATERIAL);
+        otherOutOrderAction.updateOtherOutOrder(otherOutOrder);
+        otherOutOrderAction.submitOutOrder(otherOutOrder);
+        transferOrderHelper.PartOut(otherOutOrder);
+        transferOrderHelper.completeOut(otherOutOrder);
     }
 }

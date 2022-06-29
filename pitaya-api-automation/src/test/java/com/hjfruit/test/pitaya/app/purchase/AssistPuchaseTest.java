@@ -4,6 +4,7 @@ import com.hjfruit.test.pitaya.app.helper.purchase.InOrderHelper;
 import com.hjfruit.test.pitaya.app.helper.purchase.RawMeterialPurchaseApplyHelper;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,6 +14,7 @@ public class AssistPuchaseTest extends PitayaAppBaseTestV2 {
 RawMeterialPurchaseApplyHelper rawMeterialPurchaseApplyHelper;
 @Autowired
 InOrderHelper inOrderHelper;
+
     @Test
     @DisplayName("Flow:新增采购-修改订单-提交库管-全部入库")
     void testFlow_create_submit_partIn_allIn() {

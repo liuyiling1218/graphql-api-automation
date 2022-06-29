@@ -179,4 +179,38 @@ public class TransferOrderHelper {
 //        confirmInput.setDeliveryFee(new BigDecimal(0));
         return inOrderAuditAction.confirmInbound(confirmInput);
     }
+    /**
+     * 部分出库
+     */
+     public  Boolean PartOut(String orderId){
+         OutOrderInput outOrderInput = new OutOrderInput();
+         outOrderInput.setOutOrderId(orderId);
+         OutOrderPayload outOrderPayload = outOrderAction.outOrder(outOrderInput);
+         ConfirmOutOrderInput confirmOutOrderInput = new ConfirmOutOrderInput();
+         confirmOutOrderInput.setOutOrderId(orderId);
+         confirmOutOrderInput.setItems(outOrderPayload.getCommodityList().stream().map(o -> {
+             ConfirmOutOrderItem confirmOutOrderItem = new ConfirmOutOrderItem();
+             confirmOutOrderItem.setOutOrderItemId(o.getOutOrderItemId());
+             confirmOutOrderItem.setSkuId(o.getCommoditySkuId());
+//            confirmOutOrderItem.setBasketQuantity();
+//            confirmOutOrderItem.setBasketCustomerId();
+             BatchStockItem batchStockItem = new BatchStockItem();
+             batchStockItem.setBatchStockId(o.getBatchId());
+             batchStockItem.setUnitQuantity(o.getUnitQuantity().divide(new BigDecimal(2)));
+             batchStockItem.setTotalQuantity(o.getTotalQuantity().divide(new BigDecimal(2)));
+             confirmOutOrderItem.setBatchStockItems(Arrays.asList(batchStockItem));
+             return confirmOutOrderItem;
+         }).collect(Collectors.toList()));
+         confirmOutOrderInput.setRemark(RandomStringUtils.random(200));
+//        confirmOutOrderInput.setDeliveryFee();
+         return outOrderMutationAction.confirmOutOrder(confirmOutOrderInput);
+     }
+    /**
+     *
+     * 完成出库
+     */
+      public Boolean completeOut(String orderId) {
+          FinishOutOrderInput finishOutOrderInput = FinishOutOrderInput.builder().outOrderId(orderId).build();
+          return outOrderMutationAction.finishOutOrder(finishOutOrderInput);
+      }
 }

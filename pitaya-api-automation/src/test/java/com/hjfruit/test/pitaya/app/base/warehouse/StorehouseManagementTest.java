@@ -3,17 +3,16 @@ import com.hjfruit.test.pitaya.app.PitayaAppBaseTestV2;
 import com.hjfruit.test.pitaya.app.actions.base.store.StoreHouseAction;
 import com.hjfruit.test.pitaya.app.entities.base.store.WarehouseInput;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.Ignore;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.ArrayList;
-import java.util.List;
 @DisplayName("仓库相关流程")
 public class StorehouseManagementTest extends PitayaAppBaseTestV2 {
     @Autowired
     StoreHouseAction storeHouseAction;
     @Test
+    @Ignore
     @DisplayName("FLOW:创建-修改-删除")
     public void flow_create_update_delete() {
         //创建仓库

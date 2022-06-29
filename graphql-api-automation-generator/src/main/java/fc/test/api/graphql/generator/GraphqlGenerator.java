@@ -80,6 +80,7 @@ public class GraphqlGenerator {
                     //封装field
                     entityStringBuilder.append("package " + basePackageName + ".entities" + subPackage + ";\n");
                     entityStringBuilder.append("import lombok.Data;\n");
+                    entityStringBuilder.append("import lombok.Builder;\n");
                     entityStringBuilder.append("import lombok.AllArgsConstructor;\n");
                     entityStringBuilder.append("import lombok.NoArgsConstructor;\n");
                     entityStringBuilder.append("import java.util.List;\n");
@@ -96,6 +97,7 @@ public class GraphqlGenerator {
                         entityStringBuilder.append("public enum " + entityName + "{\n");
                     } else {
                         entityStringBuilder.append("@Data\n");
+                        entityStringBuilder.append("@Builder\n");
                         if (checkFields(typeDefinition)) {
                         entityStringBuilder.append("@AllArgsConstructor\n");
                         entityStringBuilder.append("@NoArgsConstructor\n");

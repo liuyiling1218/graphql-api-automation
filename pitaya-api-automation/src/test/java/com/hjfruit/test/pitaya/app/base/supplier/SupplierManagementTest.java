@@ -5,6 +5,7 @@ import com.hjfruit.test.pitaya.app.actions.base.supplier.SupplierAction;
 import com.hjfruit.test.pitaya.app.entities.base.supplier.SupplierInput;
 import com.hjfruit.test.pitaya.common.PitayaConstants;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.Ignore;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ public class SupplierManagementTest extends PitayaAppBaseTestV2 {
     @Autowired
     SupplierAction supplierAction;
     @Test
+    @Ignore
     @DisplayName("创建-编辑-删除")
     void create_update_delete() {
         SupplierInput supplierInput = new SupplierInput();

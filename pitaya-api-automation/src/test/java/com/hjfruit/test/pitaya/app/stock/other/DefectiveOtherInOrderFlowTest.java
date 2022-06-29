@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @DisplayName("其他入库相关流程")
-public class DefectiveOtherInOrderActionTest extends PitayaAppBaseTestV2 {
+public class DefectiveOtherInOrderFlowTest extends PitayaAppBaseTestV2 {
     @Autowired
     OtherInOrderAction otherInOrderAction;
     @Autowired
