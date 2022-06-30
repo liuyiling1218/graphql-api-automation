@@ -22,9 +22,10 @@ public class CustomerHelper {
             customerModel.setBelongId(customerPayload.getCustomerId());
         } else {
             List<CustomerPayload> customerPayloads = customerApi.allListCustomer();
-            if (customerType == PitayaConstants.CustomerType.CUSTOMER_GROUP) {
-                customerModel.setBelongId(customerPayloads.get(0).getCustomerGroupId());
-            } else if (customerType == PitayaConstants.CustomerType.DESIGNATED_CUSTOMER) {
+            if (customerType == PitayaConstants.CustomerType.DESIGNATED_CUSTOMER) {
+                customerModel.setBelongId(customerPayloads.get(0).getCustomerId());
+                customerModel.setCustomerDistributionId(customerPayloads.get(0).getCustomerDistribution().get(0).getDistributionId());
+            } else if (customerType == PitayaConstants.CustomerType.CUSTOMER_GROUP) {
                 customerModel.setBelongId(customerPayloads.get(0).getCustomerId());
             }
         }

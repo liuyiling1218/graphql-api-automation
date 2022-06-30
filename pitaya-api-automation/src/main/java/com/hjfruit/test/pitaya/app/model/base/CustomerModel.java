@@ -6,5 +6,6 @@ import lombok.Data;
 public class CustomerModel {
     private Integer belongType;
     private Integer belongId;
+    private Integer customerDistributionId;
 
 }
