@@ -302,6 +302,8 @@ public class GraphqlGenerator {
                 if (i != enumValueDefinitions.size() - 1) {
                     entityStringBuilder.append(enumValueDefinitions.get(i).getName());
                     entityStringBuilder.append(",");
+                }else{
+                    entityStringBuilder.append(enumValueDefinitions.get(i).getName());
                 }
             }
         } else {
