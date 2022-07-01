@@ -1,0 +1,200 @@
+"""
+App类型
+"""
+enum AppType{
+    UNKNOWN
+    """
+    星桥物流
+    """
+    DURIAN
+    """
+    星桥生产
+    """
+    PITAYA
+    """
+    运营平台
+    """
+    OPERATION
+    """
+    星桥批发
+    """
+    PEACH
+    """
+    星图
+    """
+    LONGAN
+    """
+    关务
+    """
+    CUSTOMS
+    """
+    运输
+    """
+    TRANSPORTATION
+    """
+    星桥商超
+    """
+    SUPERMARKET
+}
+
+"""
+所有业务类型：入库订单类型，出库订单类型，计划类型，任务类型,实时库存，借调，出入库记录，运营监管等
+"""
+enum AllBusinessType{
+    """
+    默认
+    """
+    DEFAULT
+    """
+    入库订单：成品入库: 10
+    """
+    PRODUCTION_IN_APPLY
+    """
+    入库订单：原料采购: 20
+    """
+    RAW_PURCHASE
+    """
+    入库订单：原料退料: 30
+    """
+    RAW_RETURN
+    """
+    入库订单：半成品入库: 40
+    """
+    SEMI_FINISHED_IN_APPLY
+    """
+    入库订单：次品入库: 50
+    """
+    DEFECTIVE_IN_APPLY
+    """
+    入库订单：辅料采购: 60
+    """
+    SUB_PURCHASE
+    """
+    入库订单：辅料退料: 70
+    """
+    SUB_RETURN
+    """
+    入库订单：盘点入库: 90
+    """
+    CHECK_IN_APPLY
+    """
+    入库订单：其他入库: 100
+    """
+    OTHER_IN_APPLY
+    """
+    入库订单：销售归还: 110
+    """
+    TURNOVER_BASKET_RETURN
+    """
+    入库订单：销售退货: 120
+    """
+    SALES_RETURN
+    """
+    入库订单：退货品退料: 130
+    """
+    RETURNED_GOODS_RETURN
+    """
+    入库订单：半成品退料: 140
+    """
+    SEMI_FINISHED_PRODUCTS_RETURN
+    """
+    入库订单：调拨入库: 150
+    """
+    TRANSFER_IN_APPLY
+
+    """
+    出库订单: 原料领料: 10
+    """
+    RAW_MATERIAL_ACQUISITION
+    """
+    出库订单: 辅料领料: 20
+    """
+    SUPPLEMENTARY_MATERIAL_ACQUISITION
+    """
+    出库订单: 退货品领料: 25
+    """
+    RETURNED_GOODS_OUT
+    """
+    出库订单: 成品销售: 30
+    """
+    FINISHED_PRODUCT_ACQUISITION
+    """
+    出库订单: 半成品领料: 50
+    """
+    SEMI_FINISHED_PRODUCT_ACQUISITION
+    """
+    出库订单: 其他出库: 60
+    """
+    OTHER_ACQUISITION
+    """
+    出库订单: 报损出库: 70
+    """
+    DAMAGED_ACQUISITION
+    """
+    出库订单: 盘点出库: 80
+    """
+    CHECK_ACQUISITION
+    """
+    出库订单: 次品销售: 90
+    """
+    DEFECTIVE_SALE
+    """
+    出库订单: 采购退货: 100
+    """
+    PURCHASE_RETURN
+    """
+    出库订单: 调拨出库: 110
+    """
+    TRANSFER_OUT_APPLY
+    """
+    出库订单: 原料报损: 150
+    """
+    DAMAGED_RAW_MATERIAL
+    """
+    出库订单: 半成品报损: 160
+    """
+    DAMAGED_SEMI_FINISHED_PRODUCT
+    """
+    出库订单: 退货品报损: 170
+    """
+    DAMAGED_RETURNED_GOODS
+    """
+    出库订单: 生产报损: 180
+    """
+    DAMAGED_PRODUCTION
+
+    """
+    生产计划: 备货生产: 10
+    """
+    CREATE_MANUALLY
+    """
+    生产计划: 销售生产: 20
+    """
+    CREATE_AUTOMATICALLY
+
+    """
+    实时库存
+    """
+    REALTIME_STOCK
+    """
+    商品借调
+    """
+    SECONDED
+    """
+    商品转换
+    """
+    COMMODITY_CONVERT
+    """
+    任务监控
+    """
+    TASK_MONITOR
+    """
+    入库记录
+    """
+    IN_STOCK_RECORD
+    """
+    出库记录
+    """
+    OUT_STOCK_RECORD
+
+}

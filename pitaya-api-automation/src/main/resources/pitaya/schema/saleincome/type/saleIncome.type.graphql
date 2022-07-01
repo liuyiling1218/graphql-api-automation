@@ -1,0 +1,152 @@
+"""
+销售收入单
+"""
+type SaleIncomeOrderPayload{
+    """ 收入单ID """
+    incomeId:ID
+    """ 销售收入单状态 """
+    incomeStatus:IncomeStatus
+    """ 销售收入单状态名字 """
+    incomeStatusName:String
+    """ 销售收入单号 """
+    incomeCode:String
+    """ 来源ID """
+    sourceId:ID
+    """ 收入单来源类型 """
+    sourceType:SaleIncomeSourceType
+    """ 收入单来源类型名称 """
+    sourceTypeName:String
+    """ 仓库Id """
+    warehouse:Warehouse
+    remark:String
+    rejectReason: String
+    """ 创建人 """
+    user:User
+    createTime:Long
+    """ 销售商品信息 """
+    commoditiesList:[SaleIncomeOrderItemPayload]
+    """ 操作日志信息 """
+    logs:[SaleIncomeOrderLogPayload]
+    """ 销售总金额 """
+    saleTotalPrice:BigDecimal
+
+}
+"""
+销售收入单商品
+"""
+type SaleIncomeOrderItemPayload{
+    """ 商品明细ID """
+    incomeItemId:ID
+    """ 收入单ID """
+    incomeId:ID
+    """ 商品SKUId """
+    commoditySkuId:Int
+    """ 商品名字 """
+    commodityName:String
+    """ 商品类型 """
+    commodityType:Int
+    """ 商品类型 """
+    commodityTypeName:String
+    """ 商品单位数量 """
+    unitQuantity:BigDecimal
+    """ 商品单位数量单位 """
+    unitType:Unit
+    """ 销售金额 """
+    saleMoney:BigDecimal
+    """ 拍照记录 """
+    photosList:[String!]
+}
+
+"""
+销售收入日志
+"""
+type SaleIncomeOrderLogPayload{
+    """ 销售收入日志ID """
+    incomeLogId:ID
+    """ 销售收入单ID """
+    incomeId:ID
+    """ 日志类型 """
+    type:SaleIncomeLogType
+    """ 日志类型文字 """
+    typeText:String
+    """ 备注 """
+    remark:String
+    """ 创建时间 """
+    createTime:Long
+    """ 用户信息 """
+    user:User
+}
+
+"""
+销售收入状态(10:待提交 20:待业务人员审核 30:待财务人员审核 40:已完成)
+"""
+enum IncomeStatus{
+    """ 未指定的 """
+    IncomeStatus_UNSPECIFIED
+    """ 待提交 """
+    UN_SUBMIT
+    """ 待业务人员审核 """
+    UN_BUSINESS_AUDIT
+    """ 待财务人员审核 """
+    UN_FINANCIAL_AUDIT
+    """ 已完成 """
+    FINISHED
+}
+
+"""
+来源类型(10: 次品销售 20: 废旧品销售)
+"""
+enum SaleIncomeSourceType{
+    SaleIncomeSourceType_UNSPECIFIED
+    """ 次品销售 """
+    DEFECTIVE_SALES
+    """ 废旧品销售 """
+    SALE_OF_WASTE_PRODUCTS
+}
+
+"""
+操作类型（10：创建信息 20：提交信息 30：业务审核信息 40：财务审核信息 50：完成信息）
+"""
+enum SaleIncomeLogType{
+    SaleIncomeLogType_UNSPECIFIED
+    """ 创建信息 """
+    CREATE
+    """ 提交信息 """
+    SUBMIT
+    """ 业务审核信息 """
+    BUSINESS_AUDIT
+    """ 财务审核信息 """
+    FINANCIAL_AUDIT
+    """ 完成信息 """
+    FINISHED
+    """ 驳回信息 """
+    REJECTED
+}
+
+type PageSaleIncomeOrderPayload {
+    records: [SaleIncomeOrderPayload]
+    pageCurrent: Int
+    pageSize: Int
+    totalRecords: Long
+}
+
+type SaleIncomeOrderStatusStatisticPayload {
+    """待提交"""
+    waitSubmit:Int
+    """ 待业务审核 """
+    unBusinessAudit:Int
+    """ 待财务审核 """
+    unFinancialAudit:Int
+    """已完成"""
+    finished:Int
+}
+
+type SaleIncomeOrderStatisticPayload {
+    orderCount:Int
+    auditCount:Int
+}
+
+enum IncomeOperation {
+    ORDER
+    AUDIT
+}

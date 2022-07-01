@@ -1,0 +1,118 @@
+extend type Query {
+    """
+    采购退货费用单: 退货费用单分页
+    """
+    pageReturnsBill(pageReturnsBillInput:PageReturnsBillInput,page:Page):PageReturnBillPayload
+    """
+    采购退货费用单: 退货费用详情
+    """
+    getReturnsBillDetail (getReturnsBillDetailInput:GetReturnsBillDetailInput):ReturnBillPayload
+    """
+    采购退货费用单: 各类型费用单状态数量查询
+    """
+    statusGroupCount (statusGroupCountInput:StatusGroupCountInput):StatusGroupCountPayload
+}
+
+extend type Mutation {
+    """
+    采购退货费用单: 修改货款
+    """
+    updateReturnsCommodityBill (updateReturnsCommodityBillInput:UpdateReturnsCommodityBillInput):Boolean
+    """
+    采购退货费用单: 修改运杂
+    """
+    updateReturnsOtherBill (updateReturnsOtherBillInput:UpdateReturnsOtherBillInput):Boolean
+    """
+    采购退货费用单: 提交审核
+    """
+    submitReturnsBill(updateReturnsBillStatusInput:UpdateReturnsBillStatusInput):Boolean
+    """
+    采购退货费用单: 驳回费用审核订单
+    """
+    rejectReturnsBill(updateReturnsBillStatusInput:UpdateReturnsBillStatusInput):Boolean
+    """
+    采购退货费用单: 审核通过
+    """
+    acceptReturnsBill(updateReturnsBillStatusInput:UpdateReturnsBillStatusInput):Boolean
+}
+
+"""采购退货费用单分页查询参数"""
+input PageReturnsBillInput {
+    """查询开始时间"""
+    startTime:Long
+    """查询结束时间"""
+    endTime:Long
+    """
+    查询状态
+    采购费用管理：待提交[BILL_UN_SUBMITTED],已提交[BILL_BIZ_UN_REVIEWED, BILL_FD_UN_REVIEWED, BILL_COMPLETE]
+    采购费用审核：待审核[BILL_BIZ_UN_REVIEWED]，已审核[BILL_FD_UN_REVIEWED, BILL_COMPLETE]
+    """
+    billStatusList:[BillStatusEnum]!
+    """货品类型"""
+    commodityType:Int
+    """页面类型"""
+    pageBillType:PageReturnType!
+}
+
+"""获取退货费用单详情req"""
+input GetReturnsBillDetailInput {
+    """退货单id"""
+    returnId:ID!
+}
+
+input StatusGroupCountInput {
+    """费用单来源类型 1出库,2入库,3采购,4采购退货 不传查所有类型"""
+    billSpecificSourcesList:[BillSpecificSourceEnum]
+}
+
+""" 修改商品req"""
+input UpdateReturnsCommodityBillInput {
+    """ 退货单id"""
+    returnId:ID!
+    """ 备注"""
+    note:String
+    """ 货款明细"""
+    updateReturnsCommodityItemReqList:[UpdateCommodityItemInput]
+}
+
+""" 修改货款明细"""
+input UpdateCommodityItemInput {
+    """ 货款明细id"""
+    itemId:ID!
+    """ 单价"""
+    unitPrice:BigDecimal!
+    """ 小计价格"""
+    amount:BigDecimal!
+    """ skuID"""
+    skuId:Int!
+}
+
+""" 修改运杂req"""
+input UpdateReturnsOtherBillInput {
+    """ 退货单id"""
+    returnId:ID!
+    """ 运杂"""
+    returnsOtherBillReqList:[ReturnsOtherBillInput]!
+}
+
+""" 运杂费用"""
+input ReturnsOtherBillInput {
+    """ 费用类型"""
+    billFreightType:Int!
+    """ 付款方式"""
+    payMode:Int!
+    """ 供应商id"""
+    supplierId:Int!
+    """ 费用金额"""
+    amount:BigDecimal!
+    """ 备注"""
+    note:String
+}
+
+""" 变更调拨费用单状态"""
+input UpdateReturnsBillStatusInput {
+    """ 退货单ID"""
+    returnId:ID!
+    """ 驳回原因"""
+    refuseNote:String
+}

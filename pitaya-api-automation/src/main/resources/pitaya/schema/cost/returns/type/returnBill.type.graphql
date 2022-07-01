@@ -1,0 +1,312 @@
+"""
+采购退货单类型
+"""
+enum PurchaseReturnTypeEnum {
+    """
+    无法识别
+    """
+    UNRECOGNIZED
+    """
+    错误类型
+    """
+    RETURNS_TYPE_ERROR
+    """
+    扣损
+    """
+    PURCHASE_DEDUCTION
+    """
+    退货
+    """
+    PURCHASE_RETURNS
+}
+
+enum BillSpecificSourceEnum {
+    """无法识别"""
+    UNRECOGNIZED
+    """错误来源"""
+    ERROR_SOURCE
+    """调拨出库"""
+    CK
+    """调拨入库"""
+    RK
+    """采购"""
+    CG
+    """采购退货"""
+    CT
+}
+
+
+type PageReturnBillPayload {
+    pageCurrent: Int
+    pageSize: Int
+    totalRecords: Long
+    records:[ReturnBillPayload]
+}
+
+type ReturnBillPayload {
+    """
+    退货单ID
+    """
+    returnId:ID
+    """
+    退货单编码
+    """
+    returnCode:String
+    """
+    关联采购单号
+    """
+    applyCode:String
+    """
+    所属仓库
+    """
+    warehouse:Warehouse
+    """
+    供应商
+    """
+    supplier:Supplier
+    """
+    退货单创建人/退货人
+    """
+    createBy:User
+    """
+    退货单时间
+    """
+    createTime:Long
+    """
+    退货类型
+    """
+    returnType:PurchaseReturnTypeEnum
+    """
+    退货类型
+    """
+    returnTypeName:String
+    """
+    费用单状态
+    """
+    status:BillStatusEnum
+    """
+    费用单状态名称
+    """
+    statusName:String
+    """
+    出库审核人
+    """
+    auditUser:User
+    """
+    出库时间
+    """
+    auditTime:Long
+    """
+    提交人
+    """
+    submitUser:User
+    """
+    提交时间
+    """
+    submitTime:Long
+    """
+    货品类型
+    """
+    commodityType:Int
+    """
+    货品类型名称
+    """
+    commodityTypeName:String
+    """
+    备注
+    """
+    note:String
+    """
+    驳回原因
+    """
+    refuseNote:String
+    """
+    归属类型
+    """
+    belongType:Int
+    """
+    归属id
+    """
+    belongId:Int
+    """
+    归属名称
+    """
+    belongName:String
+    """
+    费用单操作记录
+    """
+    billAuditDetailRespList:[BillAuditDetailPayload]
+    """
+    退货商品
+    """
+    returnsCommodityBillResp:ReturnsCommodityBillPayload
+    """
+    运杂
+    """
+    returnsOtherBillResp:ReturnsOtherBillPayload
+}
+
+"""
+费用单审核信息
+"""
+type BillAuditDetailPayload {
+    """
+    状态
+    """
+    status:BillStatusEnum
+    """
+    状态
+    """
+    statusName:String
+    """
+    操作人
+    """
+    user:User
+    """
+    操作时间
+    """
+    createTime:Long
+}
+
+"""
+退货商品汇总信息
+"""
+type ReturnsCommodityBillPayload {
+    """
+    货款单号
+    """
+    billCode:String
+    """
+    备注
+    """
+    remark:String
+    """
+    总金额
+    """
+    totalAmount:BigDecimal
+    """
+    明细数据
+    """
+    returnsCommodityItemRespList:[ReturnsCommodityItemPayload]
+}
+
+"""
+退货商品信息
+"""
+type ReturnsCommodityItemPayload {
+    """
+    sku id
+    """
+    sku:CommoditySku
+    """
+    批次id
+    """
+    batch:StockBatch
+    """
+    总计数量
+    """
+    totalQuantity:BigDecimal
+    """
+    总计类型
+    """
+    totalType:Unit
+    """
+    单位数量
+    """
+    unitQuantity:BigDecimal
+    """
+    单位类型
+    """
+    unitType:Unit
+    """
+    单价
+    """
+    unitPrice:BigDecimal
+    """
+    单价类型
+    """
+    priceType:Unit
+    """
+    小计金额
+    """
+    amount:BigDecimal
+    """
+    货款明细id
+    """
+    itemId:ID
+}
+
+"""
+退货运杂费用
+"""
+type ReturnsOtherBillPayload {
+    """
+    运杂费单号
+    """
+    billCode:String
+    """
+    总金额
+    """
+    totalAmount:BigDecimal
+    """
+    运杂费明细列表
+    """
+    returnsOtherItemBillRespList:[ReturnsOtherItemBillPayload]
+}
+
+type ReturnsOtherItemBillPayload {
+    """
+    运杂费类型ID
+    """
+    billType:Int
+    """
+    运杂费类型名称
+    """
+    billTypeName:String
+    """
+    运杂费用金额
+    """
+    amount:BigDecimal
+    """
+    供应商ID
+    """
+    supplier:Supplier
+    """
+    备注
+    """
+    note:String
+    """
+    结算方式
+    """
+    payMode:Int
+    """
+    结算方式名称
+    """
+    payModeName:String
+}
+
+type StatusGroupCountPayload {
+    statusGroupCounts:[StatusGroupCount]
+}
+
+""" 符合状态条数返回"""
+type StatusGroupCount {
+    """待确认"""
+    unConfirmed:Int
+    """待提交"""
+    unSubmitted:Int
+    """待业务审核"""
+    bizUnReviewed:Int
+    """待财务审核"""
+    fdUnReviewed:Int
+    """已完成"""
+    complete:Int
+    """1调拨出库，2调拨入库，3采购，4采购退货"""
+    billSpecificSource:BillSpecificSourceEnum
+}
+enum PageReturnType{
+    """费用管理"""
+    BILL_MANAGE
+    """费用审核"""
+    BILL_AUDIT
+}

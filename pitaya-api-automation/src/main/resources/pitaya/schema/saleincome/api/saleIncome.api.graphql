@@ -1,0 +1,66 @@
+extend type Query {
+    """销售收入单: 列表"""
+    pageSaleIncomeOrder(pageSaleIncomeOrderInput:PageSaleIncomeOrderInput,page:Page):PageSaleIncomeOrderPayload
+    """销售收入单: 查询详情"""
+    getSaleIncomeOrder(input:GetSaleIncomeInput):SaleIncomeOrderPayload
+    """销售收入单: 工作台角标统计"""
+    saleIncomeOrderStatistic:SaleIncomeOrderStatisticPayload
+    """销售收入单: 列表页状态统计"""
+    saleIncomeOrderStatusStatistic(saleIncomeOrderStatusStatisticInput:SaleIncomeOrderStatusStatisticInput):SaleIncomeOrderStatusStatisticPayload
+}
+
+extend type Mutation {
+    """销售收入单: 修改"""
+    updateSaleIncomeOrder(updateSaleIncomeOrderInput:UpdateSaleIncomeOrderInput):Boolean
+    """销售收入单: 提交"""
+    submitSaleIncomeOrder(submitSaleIncomeOrderInput:SubmitSaleIncomeOrderInput):Boolean
+    """销售收入单: 业务审核"""
+    auditSaleIncomeOrder(auditSaleIncomeOrderInput:AuditSaleIncomeOrderInput):Boolean
+    """销售收入单: 驳回"""
+    rejectSaleIncomeOrder(rejectSaleIncomeOrderInput:RejectSaleIncomeOrderInput):Boolean
+}
+
+
+"""
+查询销售收入详情入参
+"""
+input GetSaleIncomeInput{
+    incomeId:ID!
+}
+
+input PageSaleIncomeOrderInput {
+    """类型 10：次品销售 20：废旧品销售"""
+    sourceType:SaleIncomeSourceType
+    """销售收入状态(10:待提交 20:待业务人员审核 30:待财务人员审核 40:已完成)"""
+    incomeStatus:[IncomeStatus]!
+    """收入类型"""
+    incomeOperation:IncomeOperation!
+}
+
+input UpdateSaleIncomeOrderInput {
+    incomeId:ID!
+    remark:String
+    updateSaleIncomeOrderItems:[UpdateSaleIncomeOrderItemInput]
+}
+
+input UpdateSaleIncomeOrderItemInput {
+    incomeItemId:ID!
+    saleMoney:BigDecimal!
+}
+
+input SubmitSaleIncomeOrderInput {
+    incomeId:ID!
+}
+
+input AuditSaleIncomeOrderInput {
+    incomeId:ID!
+}
+
+input RejectSaleIncomeOrderInput {
+    incomeId:ID!
+    remark:String!
+}
+
+input SaleIncomeOrderStatusStatisticInput {
+    sourceType:SaleIncomeSourceType
+}

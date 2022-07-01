@@ -1,0 +1,86 @@
+type PurchaseReturnInsertPayload{
+    id:ID!
+}
+
+"""退货类型枚举"""
+enum PurchaseReturnsType {
+    RETURNS_TYPE_ERROR
+    UNRECOGNIZED
+    """扣损"""
+    PURCHASE_DEDUCTION
+    """退货"""
+    PURCHASE_RETURNS
+}
+
+enum PurchaseStatus {
+    FLOW_RETURNS_STATUS_ERROR
+    UNRECOGNIZED
+    """待提交"""
+    FLOW_RETURNS_STATUS_WAIT_SUBMIT
+    """待处理"""
+    FLOW_RETURNS_STATUS_WAIT_PROCESSED
+    """已完成"""
+    FLOW_RETURNS_STATUS_COMPLETED
+    """已取消"""
+    FLOW_RETURNS_STATUS_CANCEL
+}
+
+type PagePurchaseReturnPayload {
+    records: [PurchaseReturnPayload]
+    pageCurrent: Int
+    pageSize: Int
+    totalRecords: Long
+}
+
+type PurchaseReturnPayload {
+    returnId:ID
+    returnType:PurchaseReturnsType
+    returnTypeName:String
+    status:PurchaseStatus
+    statusName:String
+    applyCode:String
+    note:String
+    supplier:Supplier
+    customer:Customer
+    warehouse:Warehouse
+    commodityType:Int
+    commodityTypeName:String
+    user:User
+    createTime:Long
+    returnsCommodityRespList:[ReturnsCommodityPayload]
+    returnOtherRespList:[ReturnOtherPayload]
+    billId:ID
+    flowLogs:[FlowLog]
+    returnCode:String
+    applyBillId:ID
+}
+
+type ReturnsCommodityPayload {
+    returnId:ID
+    commoditySku:CommoditySku
+    unitType:Unit
+    unitQuantity:BigDecimal
+    totalType:Unit
+    totalQuantity:BigDecimal
+    unitPrice:BigDecimal
+    totalPrice:BigDecimal
+    unitPriceType:Unit
+    finishedQuantity:Quantity
+}
+
+type ReturnOtherPayload {
+    billType:ID
+    billTypeName:String
+    amount:BigDecimal
+    supplier:Supplier
+    note:String
+    payMode:PayModeEnum
+    payModeName:String
+}
+
+type ReturnStatusStatisticPayload {
+    waitSubmitCount:Int
+    waitProcessedCount:Int
+    completeCount:Int
+    cancelCount:Int
+}

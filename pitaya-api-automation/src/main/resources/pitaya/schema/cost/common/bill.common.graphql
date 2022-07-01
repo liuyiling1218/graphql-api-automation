@@ -1,0 +1,19 @@
+"""
+费用单状态
+"""
+enum BillStatusEnum {
+    """未识别"""
+    UNRECOGNIZED
+    """待确认"""
+    BILL_UN_CONFIRMED
+    """待提交"""
+    BILL_UN_SUBMITTED
+    """待业务审核"""
+    BILL_BIZ_UN_REVIEWED
+    """待财务审核"""
+    BILL_FD_UN_REVIEWED
+    """已完成"""
+    BILL_COMPLETE
+    """错误状态"""
+    ERROR_BILL_STATUS
+}
