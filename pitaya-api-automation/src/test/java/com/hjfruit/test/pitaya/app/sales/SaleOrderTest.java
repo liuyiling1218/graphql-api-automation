@@ -40,7 +40,7 @@ public class SaleOrderTest extends PitayaAppBaseTestV2 {
     }
 
     @Test
-    @DisplayName("创建成品销售订单-修改订单")
+    @DisplayName("创建成品销售订单-提交生产")
     public void create_submit() {
         String saleOrder = saleOderAction.createSaleOrder();
         saleOderAction.submitSaleOrder(saleOrder);
