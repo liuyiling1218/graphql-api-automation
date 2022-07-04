@@ -95,7 +95,7 @@ public class TimeUtil {
     }
 
     /**
-     * 获取当天结束时间戳
+     * 获取当天开始时间戳
      *
      * @return
      */

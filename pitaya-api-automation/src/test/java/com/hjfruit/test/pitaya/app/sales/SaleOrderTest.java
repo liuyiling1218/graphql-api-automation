@@ -1,12 +1,11 @@
 package com.hjfruit.test.pitaya.app.sales;
 
 import com.hjfruit.test.pitaya.app.PitayaAppBaseTestV2;
-import com.hjfruit.test.pitaya.app.actions.plan.PlanAction;
 import com.hjfruit.test.pitaya.app.actions.saleorder.SaleOderAction;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
+@DisplayName("成品销售相关流程")
 public class SaleOrderTest extends PitayaAppBaseTestV2 {
     @Autowired
     SaleOderAction saleOderAction;

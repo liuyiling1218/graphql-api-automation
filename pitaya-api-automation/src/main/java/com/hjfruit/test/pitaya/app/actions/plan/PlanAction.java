@@ -9,8 +9,8 @@ import com.hjfruit.test.pitaya.app.entities.plan.*;
 import com.hjfruit.test.pitaya.app.entities.production.outorder.RequestFlag;
 import com.hjfruit.test.pitaya.app.entities.production.outorder.SaleOrderInput;
 import com.hjfruit.test.pitaya.app.entities.production.outorder.SaleOrderPayload;
-import com.hjfruit.test.pitaya.app.entities.production.task.Plan;
 import com.hjfruit.test.pitaya.common.PitayaConstants;
+import com.hjfruit.test.pitaya.utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -53,6 +53,7 @@ public class PlanAction {
     }
 
     /**
+     * 分配生产任务
      * @param orderId
      * @return
      */
@@ -146,7 +147,7 @@ public class PlanAction {
      * 修改生产计划基础信息
      */
      public String  doUpdatePlanBaseInfo(String planId){
-         PlanBaseInfoInput planBaseInfoInput=PlanBaseInfoInput.builder().planId(planId).planDescription("修改基础信息").planStartTime(System.currentTimeMillis()).planEndTime(System.currentTimeMillis()+10000000).build();
+         PlanBaseInfoInput planBaseInfoInput=PlanBaseInfoInput.builder().planId(planId).planDescription("修改基础信息").planStartTime(TimeUtil.getDailyStartTimeStamp()).planEndTime(TimeUtil.getDailyEndTimeStamp()).build();
          return planApi.doUpdatePlanBaseInfo(planBaseInfoInput);
      }
 
