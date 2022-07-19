@@ -30,6 +30,7 @@ public class SalesProductionPlan extends PitayaAppBaseTestV2 {
         planAction.doInsertPlanTask(planId);
         planAction.doPublishPlan(planId);
     }
+
     @Test
     @DisplayName("提交生产-分配生产任务-删除任务-发布生产计划")
     public void submit_distribute_delete_release() {
@@ -41,7 +42,7 @@ public class SalesProductionPlan extends PitayaAppBaseTestV2 {
         planAction.doPublishPlan(planId);
     }
     @Test
-    @DisplayName("提交生产-分配生产任务-删除任务-发布生产计划")
+    @DisplayName("提交生产-分配生产任务-更新任务明细（删除其中一个商品）-发布生产计划")
     public void submit_distribute_delete_production_release() {
         String saleOrder = saleOderAction.createSaleOrder();
         saleOderAction.submitSaleOrder(saleOrder);

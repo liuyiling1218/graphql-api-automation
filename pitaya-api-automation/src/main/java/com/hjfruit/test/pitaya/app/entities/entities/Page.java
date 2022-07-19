@@ -1,4 +1,4 @@
-package com.hjfruit.test.pitaya.entities;
+package com.hjfruit.test.pitaya.app.entities.entities;
 
 import lombok.Data;
 

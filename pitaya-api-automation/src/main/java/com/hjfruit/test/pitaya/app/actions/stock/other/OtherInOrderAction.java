@@ -20,6 +20,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
 /**
  * 其他入库
  */
@@ -96,6 +98,7 @@ public class OtherInOrderAction {
 
         }
         return otherInOrderApi.createOtherInOrder(createOtherInOrderInput);
+
     }
 
     //准备商品sku数据

@@ -305,6 +305,36 @@ public class PitayaConstants {
     }
 
     /**
+     * 生产任务状态
+     */
+    @Getter
+    public enum TaskStatus {
+
+        NO_STATUS(10, ""),
+
+        TO_BE_PRODUCED(20, "待生产"),
+
+        IN_PRODUCTION(30, "生产中"),
+
+        TERMINATION(35, "暂停中"),
+
+        COMPLETED(40, "已完成"),
+
+        CANCELLED(50, "已取消");
+
+        private final int code;
+        private final String taskStatusName;
+
+        TaskStatus(int code, String taskStatusName) {
+            this.code = code;
+            this.taskStatusName=taskStatusName;
+
+        }
+    }
+
+
+
+    /**
      * 借调状态
      */
     @Getter
