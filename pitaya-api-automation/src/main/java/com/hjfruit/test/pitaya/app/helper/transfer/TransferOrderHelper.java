@@ -2,6 +2,7 @@ package com.hjfruit.test.pitaya.app.helper.transfer;
 
 import com.hjfruit.test.pitaya.app.actions.production.inorder.InOrderAuditAction;
 import com.hjfruit.test.pitaya.app.actions.production.outorder.OutOrderAction;
+import com.hjfruit.test.pitaya.app.actions.production.outorder.StockAction;
 import com.hjfruit.test.pitaya.app.actions.production.outorder.TransferOutOrderAction;
 import com.hjfruit.test.pitaya.app.entities.production.inorder.AuditInOrderPayload;
 import com.hjfruit.test.pitaya.app.entities.production.inorder.ConfirmInput;
@@ -25,6 +26,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
@@ -49,7 +51,8 @@ public class TransferOrderHelper {
     @Autowired
     @Qualifier("wms")
     JdbcTemplate flowJdbcTemplate;
-
+    @Autowired
+    StockAction stockAction;
 
     public String create(PitayaConstants.CommodityType commodityType, PitayaConstants.OrgType orgType, String remark) {
         CreateTransferOrderInput createTransferOrderInput = new CreateTransferOrderInput();
@@ -140,7 +143,18 @@ public class TransferOrderHelper {
 //            confirmOutOrderItem.setBasketQuantity();
 //            confirmOutOrderItem.setBasketCustomerId();
             BatchStockItem batchStockItem = new BatchStockItem();
-            batchStockItem.setBatchStockId(o.getBatchId());
+            if(Objects.isNull(o.getBatchId()) || Long.parseLong(o.getBatchId()) <=0L){
+                StockBatchQueryInput stockBatchQueryInput=new StockBatchQueryInput();
+                stockBatchQueryInput.setCustomerId(outOrderPayload.getCustomerId());
+                stockBatchQueryInput.setCustomerType(outOrderPayload.getCustomerType());
+                stockBatchQueryInput.setCommoditySkuId(o.getCommoditySkuId());
+                stockBatchQueryInput.setCommodityTypeId(outOrderPayload.getCommodityTypeId());
+                List<StockBatchPayload> stockBatchPayloads = stockAction.stockBatches(stockBatchQueryInput);
+                StockBatchPayload stockBatchPayload = stockBatchPayloads.stream().findFirst().orElseThrow(() -> new RuntimeException("当前商品无库存"));
+                batchStockItem.setBatchStockId(stockBatchPayload.getBatchId());
+            }else {
+                batchStockItem.setBatchStockId(o.getBatchId());
+            }
             batchStockItem.setUnitQuantity(o.getUnitQuantity());
             batchStockItem.setTotalQuantity(o.getTotalQuantity());
             confirmOutOrderItem.setBatchStockItems(Arrays.asList(batchStockItem));

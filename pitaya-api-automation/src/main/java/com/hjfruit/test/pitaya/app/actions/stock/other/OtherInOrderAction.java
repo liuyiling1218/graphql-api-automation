@@ -11,6 +11,8 @@ import com.hjfruit.test.pitaya.app.helper.base.CustomerHelper;
 import com.hjfruit.test.pitaya.app.helper.base.StoreHouseHelper;
 import com.hjfruit.test.pitaya.app.helper.base.SupplierHelper;
 import com.hjfruit.test.pitaya.common.PitayaConstants;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -95,10 +97,13 @@ public class OtherInOrderAction {
                 createOtherOrderItemInputs.add(createOtherOrderItemInput);
             }
             createOtherInOrderInput.setCommodities(createOtherOrderItemInputs);
-
         }
-        return otherInOrderApi.createOtherInOrder(createOtherInOrderInput);
-
+        String otherInOrder = otherInOrderApi.createOtherInOrder(createOtherInOrderInput);
+//        OtherMapper mapper = Mappers.getMapper(OtherMapper.class);
+//        ModifyOtherInOrderInput modifyOtherInOrderInput = mapper.otherInOrder(createOtherInOrderInput);
+//        modifyOtherInOrderInput.setInOrderId(otherInOrder);
+//        otherInOrderApi.modifyOtherInOrder(modifyOtherInOrderInput);
+        return otherInOrder;
     }
 
     //准备商品sku数据
@@ -187,6 +192,7 @@ public class OtherInOrderAction {
             createOtherOrderItemInput.setUnitQuantity(o.getUnitQuantity());
             return createOtherOrderItemInput;
         }).collect(Collectors.toList()));
+
         return otherInOrderApi.modifyOtherInOrder(modifyOtherInOrderInput);
 
     }
@@ -226,4 +232,9 @@ public class OtherInOrderAction {
         return otherInOrderApi.pageOtherInOrder(pageOtherInOrderInput, page);
     }
 
+    @Mapper
+    public static interface OtherMapper {
+
+        ModifyOtherInOrderInput otherInOrder(CreateOtherInOrderInput createOtherInOrderInput);
+    }
 }

@@ -1,3 +1,4 @@
+/*
 package com.hjfruit.test.pitaya.app.base.supplier;
 
 import com.hjfruit.test.pitaya.app.PitayaAppBaseTestV2;
@@ -26,6 +27,7 @@ public class SupplierManagementTest extends PitayaAppBaseTestV2 {
         Integer supplier = supplierAction.createSupplier(supplierInput);
         supplierInput.setSupplierId(supplier);
         supplierAction.updateSupplier(supplierInput);
-//        supplierAction.deleteSupplier(supplier);
+        supplierAction.deleteSupplier(supplier);
     }
 }
+*/

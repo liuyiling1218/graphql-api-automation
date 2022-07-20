@@ -1,3 +1,4 @@
+/*
 package com.hjfruit.test.pitaya.app.base.warehouse;
 import com.hjfruit.test.pitaya.app.PitayaAppBaseTestV2;
 import com.hjfruit.test.pitaya.app.actions.base.store.StoreHouseAction;
@@ -31,7 +32,8 @@ public class StorehouseManagementTest extends PitayaAppBaseTestV2 {
         warehouseUpdateInput.setRemark("[T]修改仓库备注");
         storeHouseAction.updateWarehouse(warehouseUpdateInput);
         //删除仓库
-//        storeHouseAction.deleteWarehouse(warehouseId);
+        storeHouseAction.deleteWarehouse(warehouseId);
 
     }
 }
+*/
