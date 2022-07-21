@@ -196,5 +196,80 @@ enum AllBusinessType{
     出库记录
     """
     OUT_STOCK_RECORD
+    """
+    配送单/配送费用单
+    """
+    DELIVERY
+}
 
+"""入库类型"""
+enum InOrderType{
+    """未指定"""
+    DEFAULT
+    """成品入库"""
+    PRODUCTION_IN_APPLY
+    """原料采购"""
+    RAW_PURCHASE
+    """原料退料"""
+    RAW_RETURN
+    """半成品入库"""
+    SEMI_FINISHED_IN_APPLY
+    """次品入库"""
+    DEFECTIVE_IN_APPLY
+    """辅料采购"""
+    SUB_PURCHASE
+    """辅料退料"""
+    SUB_RETURN
+    """盘点入库"""
+    CHECK_IN_APPLY
+    """其他入库"""
+    OTHER_IN_APPLY
+    """销售归还"""
+    TURNOVER_BASKET_RETURN
+    """销售退货"""
+    SALES_RETURN
+    """退货品退料"""
+    RETURNED_GOODS_RETURN
+    """半成品退料"""
+    SEMI_FINISHED_PRODUCTS_RETURN
+    """调拨入库"""
+    TRANSFER_IN_APPLY
+}
+
+"""出库类型"""
+enum OutOrderType{
+    """未指定"""
+    DEFAULT
+    """原料领料"""
+    RAW_MATERIAL_ACQUISITION
+    """辅料领料"""
+    SUPPLEMENTARY_MATERIAL_ACQUISITION
+    """退货品领料"""
+    RETURNED_GOODS_OUT
+    """成品销售"""
+    FINISHED_PRODUCT_ACQUISITION
+    """半成品领料"""
+    SEMI_FINISHED_PRODUCT_ACQUISITION
+    """其他出库"""
+    OTHER_ACQUISITION
+    """报损出库"""
+    DAMAGED_ACQUISITION
+    """盘点出库"""
+    CHECK_ACQUISITION
+    """次品销售"""
+    DEFECTIVE_SALE
+    """采购退货"""
+    PURCHASE_RETURN
+    """调拨出库"""
+    TRANSFER_OUT_APPLY
+    """原料报损"""
+    DAMAGED_RAW_MATERIAL
+    """半成品报损"""
+    DAMAGED_SEMI_FINISHED_PRODUCT
+    """退货品报损"""
+    DAMAGED_RETURNED_GOODS
+    """生产报损"""
+    DAMAGED_PRODUCTION
+    """废旧品销售"""
+    SALE_OF_WASTE_PRODUCTS
 }

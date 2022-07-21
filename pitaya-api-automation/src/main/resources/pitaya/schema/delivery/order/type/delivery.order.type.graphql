@@ -1,0 +1,123 @@
+# 配送单信息
+type DeliveryOrderDetailPayload {
+    """配送单ID"""
+    orderId: ID
+    """仓库ID"""
+    warehouse: Warehouse
+    """客户信息集合"""
+    belongInfo:[SummaryAddressInfo]
+    """业务员名字"""
+    businessUserName: String
+    """车牌号"""
+    carNum: String
+    """车辆类型"""
+    carType: String
+    """配送方式"""
+    deliveryType: DeliveryMethodEnum
+    """配送方式描述"""
+    deliveryTypeDesc: String
+    """司机联系方式"""
+    driverContact: String
+    """司机姓名"""
+    driverName: String
+    """配送单号"""
+    orderCode: String
+    """配送单状态"""
+    orderStatus: DeliveryOrderStatusEnum
+    """配送单状态描述"""
+    orderStatusDesc: String
+    """组织ID"""
+    org: Org
+    """配送货物销售订单日期"""
+    saleOrderDate: Long
+    """创建人"""
+    createBy:User
+    """创建时间"""
+    createTime:Long
+    """配送单费用明细"""
+    deliveryOrderFee:[DeliveryOrderFeePayload]
+    """配送单商品明细"""
+    deliveryOrderItem:[DeliveryOrderItemPayload]
+}
+
+# 配送单商品明细
+type DeliveryOrderItemPayload {
+    """客户信息"""
+    belongInfo: AddressInfo
+    """配送单商品明细ID"""
+    itemId: ID
+    """配送单号"""
+    orderId: ID
+    """关联销售单ID"""
+    saleOrderId: ID
+    """关联销售单号"""
+    saleOrderCode:String
+    """商品信息"""
+    commodityDetail:[DeliveryOrderCommodityItemPayload]
+}
+
+type DeliveryOrderCommodityItemPayload{
+    """配送费用单商品明细ID as key"""
+    itemId:ID
+    """商品sku"""
+    sku:CommoditySku
+    """已配送数量"""
+    quantity:BigDecimal
+}
+
+# 配送单费用明细
+type DeliveryOrderFeePayload {
+    """配送费用"""
+    amount: BigDecimal
+    """配送费用单号"""
+    billId: ID
+    """费用项Id"""
+    feeItemId: ID
+    """配送费用类型"""
+    feeType: DeliveryFeeTypeEnum
+    """配送费用类型描述"""
+    feeTypeDesc: String
+    """支付方式"""
+    payMode: DeliveryFeePayModeEnum
+    """支付方式描述"""
+    payModeDesc: String
+    """备注"""
+    remark: String
+    """供应商"""
+    supplier:Supplier
+}
+
+type DeliveryOrderStatusCountPayload{
+    """待提交"""
+    unSubmit:Int
+}
+
+type SaleGoodsInfoListPayload {
+    """客户信息"""
+    belongInfo: AddressInfo
+    """销售单号Id"""
+    saleOrderId: ID
+    """销售单号"""
+    saleOrderCode: ID
+    """销售订单时间"""
+    saleOrderDate: Long
+    """销售单商品列表"""
+    saleGoodsItemInfo:[SaleGoodsItemInfoPayload]
+}
+
+type SaleGoodsItemInfoPayload {
+    """商品信息"""
+    commodityDetail:CommoditySku
+    """已配送数量"""
+    quantity:BigDecimal
+}
+
+# 配送单状态枚举
+enum DeliveryOrderStatusEnum {
+    """待提交"""
+    UN_SUBMIT
+    """已完成"""
+    COMPLETED
+    """已取消"""
+    CANCELED
+}

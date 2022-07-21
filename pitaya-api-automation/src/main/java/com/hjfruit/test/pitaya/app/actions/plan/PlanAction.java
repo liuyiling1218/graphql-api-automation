@@ -150,6 +150,10 @@ public class PlanAction {
          PlanBaseInfoInput planBaseInfoInput=PlanBaseInfoInput.builder().planId(planId).planDescription("修改基础信息").planStartTime(TimeUtil.getDailyStartTimeStamp()).planEndTime(TimeUtil.getDailyEndTimeStamp()).build();
          return planApi.doUpdatePlanBaseInfo(planBaseInfoInput);
      }
-
-
+    /**
+     * 完成计划
+     */
+     public Boolean completePlan(String planId){
+         return planApi.completePlan(planId);
+     }
 }

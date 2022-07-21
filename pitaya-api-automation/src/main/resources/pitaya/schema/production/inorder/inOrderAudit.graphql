@@ -378,7 +378,10 @@ type AuditInOrderItemPayload{
     已入库毛重数量
     """
     inBoundGrossUnitQuantity:BigDecimal
-
+    """
+    商品信息
+    """
+    skuDetail:CommoditySku
 }
 
 type InOrderRecordListPayload{

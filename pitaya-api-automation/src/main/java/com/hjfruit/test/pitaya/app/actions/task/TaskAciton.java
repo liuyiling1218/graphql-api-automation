@@ -3,21 +3,20 @@ package com.hjfruit.test.pitaya.app.actions.task;
 import com.hjfruit.test.pitaya.app.apis.commodity.PlanTaskCommodityQueryApi;
 import com.hjfruit.test.pitaya.app.apis.plan.PlanApi;
 import com.hjfruit.test.pitaya.app.apis.plan.PlanTaskApi;
+import com.hjfruit.test.pitaya.app.apis.production.inorder.ProductionInOrderApi;
 import com.hjfruit.test.pitaya.app.apis.production.outorder.ProductionOutOrderApi;
 import com.hjfruit.test.pitaya.app.apis.production.task.ProductionTaskApi;
 import com.hjfruit.test.pitaya.app.entities.Page;
-import com.hjfruit.test.pitaya.app.entities.commodity.MoreCommoditiesPageResult;
-import com.hjfruit.test.pitaya.app.entities.commodity.PageMoreCommoditiesInput;
-import com.hjfruit.test.pitaya.app.entities.commodity.TaskAcquireMaterialCommodityPayload;
+import com.hjfruit.test.pitaya.app.entities.commodity.*;
 import com.hjfruit.test.pitaya.app.entities.plan.PauseOrContinueTaskInput;
 import com.hjfruit.test.pitaya.app.entities.plan.ProductionPlanDetailPayload;
-import com.hjfruit.test.pitaya.app.entities.production.task.BeginTask;
-import com.hjfruit.test.pitaya.app.entities.production.task.OutOrder;
-import com.hjfruit.test.pitaya.app.entities.production.task.OutOrderItem;
-import com.hjfruit.test.pitaya.app.entities.production.task.TaskCondition;
+import com.hjfruit.test.pitaya.app.entities.production.outorder.OutOrderUpdateInput;
+import com.hjfruit.test.pitaya.app.entities.production.task.*;
 import com.hjfruit.test.pitaya.app.helper.base.CommodityHelper;
 import com.hjfruit.test.pitaya.common.PitayaConstants;
 import com.hjfruit.test.pitaya.utils.TimeUtil;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -41,6 +40,9 @@ public class TaskAciton {
     PlanTaskCommodityQueryApi planTaskCommodityQueryApi;
     @Autowired
     ProductionOutOrderApi productionOutOrderApi;
+    @Autowired
+    ProductionInOrderApi productionInOrderApi;
+
     /**
      * 开始任务
      * @param planId
@@ -75,7 +77,7 @@ public class TaskAciton {
         return planTaskApi.pauseOrContinueTask(pauseOrContinueTaskInput);
     }
     /**
-     *新增领料订单
+     *新增-修改领料订单
      */
     public String addOutOrder(String planId,PitayaConstants.CommodityType commodityType){
         ProductionPlanDetailPayload productionPlanDetail = planApi.getProductionPlanDetail(planId);
@@ -103,15 +105,73 @@ public class TaskAciton {
         outOrder.setOutOrderItem(taskAcquireMaterialCommodityPayloads.stream().map(o->{
             OutOrderItem outOrderItem=new OutOrderItem();
             outOrderItem.setCommoditySkuId(o.getCommoditySkuId());
-            outOrderItem.setUnitQuantity(new BigDecimal(2.2));
-            outOrderItem.setTotalQuantity(new BigDecimal(2.2));
+            outOrderItem.setUnitQuantity(new BigDecimal(8.8));
+            outOrderItem.setTotalQuantity(new BigDecimal(8.8));
             return outOrderItem;
         }).collect(Collectors.toList()));
         String s = productionTaskApi.addOutOrder(outOrder);
+        outOrderMapper mapper = Mappers.getMapper(outOrderMapper.class);
+        OutOrderUpdateInput outOrderUpdateInput = mapper.add_modify(outOrder);
+        outOrderUpdateInput.setOutOrderId(s);
+        productionOutOrderApi.modifyOutOrder(outOrderUpdateInput);
         return s;
     }
 
+    /**
+     * 创建生产入库申请单
+     */
+       public String addInOrder(String planId,PitayaConstants.CommodityType commodityType){
+           ProductionPlanDetailPayload productionPlanDetail = planApi.getProductionPlanDetail(planId);
+           String taskId = productionPlanDetail.getTask().get(0).getTaskId();
+           ListTaskInCommodityInput listTaskInCommodityInput=new ListTaskInCommodityInput();
+           InOrder inOrder=new InOrder();
+           inOrder.setTaskId(taskId);
+           inOrder.setCommodityTypeId(commodityType.getTypeId());
+           if (commodityType.getTypeName().contains("成品")){
+               inOrder.setInOrderType(PitayaConstants.InOrderType.PRODUCTION_IN_APPLY.getTypeCode());
+               listTaskInCommodityInput.setInOrderType(PitayaConstants.InOrderType.PRODUCTION_IN_APPLY.getTypeCode());
+           }else if (commodityType.getTypeName().contains("半成品")){
+               inOrder.setInOrderType(PitayaConstants.InOrderType.SEMI_FINISHED_IN_APPLY.getTypeCode());
+               listTaskInCommodityInput.setInOrderType(PitayaConstants.InOrderType.SEMI_FINISHED_IN_APPLY.getTypeCode());
+           }else if (commodityType.getTypeName().contains("次品")){
+               inOrder.setInOrderType(PitayaConstants.InOrderType.DEFECTIVE_IN_APPLY.getTypeCode());
+               listTaskInCommodityInput.setInOrderType(PitayaConstants.InOrderType.DEFECTIVE_IN_APPLY.getTypeCode());
+           }
+           inOrder.setInOrderDescription("测试生产入库~~！~！~！~");
+           listTaskInCommodityInput.setTaskId(taskId);
+           listTaskInCommodityInput.setCommodityType(productionPlanDetail.getCommodityType());
+           List<CommoditySkuPayload> commoditySkuPayloads = planTaskCommodityQueryApi.taskInCommodities(listTaskInCommodityInput);
+           inOrder.setInOrderItem(commoditySkuPayloads.stream().map(o->{
+               InOrderItem inOrderItem=new InOrderItem();
+               inOrderItem.setCommoditySkuId(o.getCommoditySkuId());
+               inOrderItem.setUnitQuantity(new BigDecimal(8.8));
+               inOrderItem.setTotalQuantity(new BigDecimal(8.8));
+                return inOrderItem;
+           }).collect(Collectors.toList()));
+              return productionTaskApi.addInOrder(inOrder);
+       }
+    /**
+     * 生产入库提交库管
+     */
+      public String submitInOrder(String orderId){
+          return productionInOrderApi.submitInOrder(orderId);
 
+      }
+    /**
+     * 完成任务
+     */
+    public Boolean completeTask(String planId){
+        ProductionPlanDetailPayload productionPlanDetail = planApi.getProductionPlanDetail(planId);
+        String taskId = productionPlanDetail.getTask().get(0).getTaskId();
+        return productionTaskApi.completeTask(taskId);
+    }
+    //创建领料单实体与修改建立映射关系
+    @Mapper
+    public interface outOrderMapper{
+
+      OutOrderUpdateInput add_modify(OutOrder outOrder);
+
+  }
 
 
 

@@ -25,7 +25,7 @@ extend type Mutation {
     #撤销生产
     undoSaleOrder(undoSaleOrderInput:UndoSaleOrderInput):Boolean
     #更新实际销量 v1.6
-    updateRealQuantity(updateRealQuantityInput:UpdateRealQuantityInput):Boolean
+#    updateRealQuantity(updateRealQuantityInput:UpdateRealQuantityInput):Boolean
     """
     成品销售:更新预估销量
     """
@@ -273,7 +273,7 @@ input CreateSaleOrderItemInput{
     #销售单价
     salePrice:BigDecimal
     #规格要求
-    specificationLabel:String
+    specificationLabel:String!
     #包装要求
     packageLabel:String
     """
@@ -281,9 +281,9 @@ input CreateSaleOrderItemInput{
     2.2新增 包装要求列表
     """
     packageIds:[ID]
-    packageRequireInfos:[OutOrderItemRequestInput]
+    packageRequireInfos:[OutOrderItemRequestInput]!
     #品质要求
-    quantityLabel:String
+    quantityLabel:String!
 }
 """
 包装要求信息

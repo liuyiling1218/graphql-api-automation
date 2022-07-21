@@ -1,0 +1,92 @@
+extend type Query {
+    """
+    配送费用单: 配送费用单列表
+    """
+    pageDeliveryBill(pageDeliveryBillInput:PageDeliveryBillInput,page:Page):PageDeliveryBillPayload
+    """
+    配送费用单: 配送费用单详情
+    """
+    getDeliveryBill(getDeliveryBillInput:GetDeliveryBillInput):DeliveryBillPayload
+    """
+    配送费用单: 配送费用单状态查询
+    """
+    deliveryBillStatusCount:DeliveryBillStatusCountPayload
+    """
+    配送费用单: 配送方式下拉
+    """
+    deliveryBillDeliveryMethod:[StringOption]
+    """
+    配送费用单: 配送费用类型下拉
+    """
+    deliveryBillType:[StringOption]
+    """
+    配送费用单: 配送费用结算方式下拉
+    """
+    deliveryBillPayMode:[StringOption]
+}
+
+
+extend type Mutation {
+    """
+    配送费用单: 修改配送费用
+    """
+    updateDeliveryBillFee(updateDeliveryBillFeeInput:UpdateDeliveryBillFeeInput):Boolean
+    """
+    配送费用单: 提交配送费用
+    """
+    submitDeliveryBillFee(updateDeliveryBillStatusInput:UpdateDeliveryBillStatusInput):Boolean
+    """
+    配送费用单: 驳回配送费用
+    """
+    rejectDeliveryBillFee(updateDeliveryBillStatusInput:UpdateDeliveryBillStatusInput):Boolean
+    """
+    配送费用单: 审核配送费用
+    """
+    auditDeliveryBillFee(updateDeliveryBillStatusInput:UpdateDeliveryBillStatusInput):Boolean
+}
+
+input PageDeliveryBillInput{
+    """状态"""
+    status:PageDeliveryBillStatusEnum!
+    """客户地址ID"""
+    addressId:Int
+    """开始时间"""
+    startTime:Long
+    """结束时间"""
+    endTime:Long
+}
+
+input GetDeliveryBillInput{
+    """配送费用单Id"""
+    deliveryBillId:ID!
+}
+
+input UpdateDeliveryBillFeeInput{
+    """配送费用Id"""
+    deliveryBillId:ID!
+    """费用信息"""
+    billFeeItems:[UpdateDeliveryBillFeeItemInput!]!
+}
+
+input UpdateDeliveryBillFeeItemInput{
+    """费用类型"""
+    billType:DeliveryFeeTypeEnum!
+    """供应商Id"""
+    supplierId:Int!
+    """结算方式"""
+    deliveryBillPayMode:DeliveryFeePayModeEnum
+    """金额"""
+    amount:BigDecimal
+    """备注信息"""
+    remark:String
+}
+
+input UpdateDeliveryBillStatusInput{
+    """配送费用单Id"""
+    deliveryBillId:ID!
+    """备注信息"""
+    remark:String
+}
+
+
+

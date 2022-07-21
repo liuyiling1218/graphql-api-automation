@@ -157,7 +157,7 @@ public class OtherInOrderAction {
         modifyOtherInOrderInput.setSupplierId(purchaseOrderPayload.getSupplierId());
         modifyOtherInOrderInput.setWarehouseId(purchaseOrderPayload.getWarehouseId());
         modifyOtherInOrderInput.setCustomerTypeId(purchaseOrderPayload.getCustomerTypeId());
-        modifyOtherInOrderInput.setCommodities(purchaseOrderPayload.getCommodities().stream().filter(o -> o.getCommodityName().equals("猕猴桃")).map(o ->{
+        modifyOtherInOrderInput.setCommodities(purchaseOrderPayload.getCommodities().stream().filter(o -> o.getCommodityName().equals("甘肃天水花牛苹果")).map(o ->{
             CreateOtherOrderItemInput createOtherOrderItemInput = new CreateOtherOrderItemInput();
             createOtherOrderItemInput.setCommoditySkuId(o.getCommoditySkuId());
             createOtherOrderItemInput.setUnitPrice(o.getUnitPrice());

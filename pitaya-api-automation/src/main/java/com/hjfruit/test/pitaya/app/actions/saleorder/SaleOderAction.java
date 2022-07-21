@@ -114,6 +114,7 @@ public class SaleOderAction {
             createSaleOrderItemInput.setCommoditySkuId(o.getCommoditySkuId());
             createSaleOrderItemInput.setPlanQuantity(9);
             createSaleOrderItemInput.setSalePrice(new BigDecimal(2.8));
+            createSaleOrderItemInput.setSpecificationLabel("个头要大");
             createSaleOrderItemInput.setQuantityLabel("品質要好");
             OutOrderItemRequestInput outOrderItemRequestInput = OutOrderItemRequestInput.builder().requestText("250A胶盒").commodityId(commodityId.longValue()).build();
             List<OutOrderItemRequestInput> packageRequireInfos = new ArrayList<>();

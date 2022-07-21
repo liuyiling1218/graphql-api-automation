@@ -1,0 +1,264 @@
+type PageDeliveryBillPayload{
+    pageCurrent: Int
+    pageSize: Int
+    totalRecords: Long
+    records:[DeliveryBillPayload]
+}
+
+type DeliveryBillPayload {
+    """
+    配送费用单ID
+    """
+    billId:ID
+    """
+    配送单ID
+    """
+    orderId:ID
+    """
+    配送费用单号
+    """
+    billCode:String
+    """
+    配送费用单状态
+    """
+    billStatus:DeliveryBillStatusEnum
+    """
+    配送费用单状态
+    """
+    billStatusDesc:String
+    """
+    仓库ID
+    """
+    warehouse:Warehouse
+    """
+    客户信息集合：地址数据集合
+    """
+    belongInfo:[SummaryAddressInfo]
+    """
+    司机姓名
+    """
+    driverName:String
+    """
+    联系方式
+    """
+    driverContact:String
+    """
+    车辆类型
+    """
+    carType:String
+    """
+    车牌号
+    """
+    carNum:String
+    """
+    配送方式
+    """
+    deliveryType:DeliveryMethodEnum
+    """
+    配送方式
+    """
+    deliveryTypeDesc:String
+    """
+    业务员名字
+    """
+    businessUserName:String
+    """
+    状态备注信息
+    """
+    statusNote:String
+    """
+    组织ID
+    """
+    org:Org
+    """
+    创建人
+    """
+    createBy:User
+    """
+    创建时间
+    """
+    createTime:Long
+    """
+    配送信息
+    """
+    items:[DeliveryBillItemPayload]
+    """
+    费用信息
+    """
+    feeItems:[DeliveryBillFeeItemPayload]
+    """
+    操作日志信息
+    """
+    logs:[DeliveryBillLogPayload]
+}
+
+
+type DeliveryBillItemPayload {
+    """
+    关联销售单 as key
+    """
+    saleOrderId:ID
+    """
+    配送费用单ID
+    """
+    billId:ID
+    """
+    配送信息
+    """
+    address:AddressInfo
+    """
+    关联销售单号
+    """
+    saleOrderCode:String
+    """
+    商品信息
+    """
+    commodities:[DeliveryBillCommodityItemPayload]
+}
+
+type DeliveryBillCommodityItemPayload{
+    """
+    配送费用单商品明细ID as key
+    """
+    itemId:ID
+    """
+    商品skiId
+    """
+    sku:CommoditySku
+    """
+    货品数量
+    """
+    quantity:BigDecimal
+}
+
+
+type DeliveryBillFeeItemPayload {
+    """
+    费用项Id
+    """
+    feeItemId:ID
+    """
+    配送费用单号
+    """
+    billId:ID
+    """
+    费用类型
+    """
+    feeType:DeliveryFeeTypeEnum
+    """
+    费用类型描述
+    """
+    feeTypeDesc:String
+    """
+    供应商Id
+    """
+    supplier:Supplier
+    """
+    费用金额
+    """
+    amount:BigDecimal
+    """
+    结算方式
+    """
+    payMode:DeliveryFeePayModeEnum
+    """
+    结算方式描述
+    """
+    payModeDesc:String
+    """
+    备注信息
+    """
+    remark:String
+}
+
+type DeliveryBillLogPayload {
+    """
+    配送费用单日志ID
+    """
+    logId:ID
+    """
+    配送费用单Id
+    """
+    billId:ID
+    """
+    订单日志类型
+    """
+    logType:String
+    """
+    日志类型描述
+    """
+    logTypeDesc:String
+    """
+    备注信息
+    """
+    remark:String
+    """
+    创建人
+    """
+    createBy:User
+    """
+    创建时间
+    """
+    createTime:Long
+}
+
+type DeliveryBillStatusCountPayload{
+    """待提交"""
+    unSubmit:Int
+    """待审核"""
+    unAudit:Int
+}
+
+
+enum PageDeliveryBillStatusEnum{
+    """待提交"""
+    UN_SUBMIT
+    """已提交"""
+    SUBMITTED
+    """待审核"""
+    UN_AUDIT
+    """已审核"""
+    AUDITED
+}
+
+enum DeliveryBillStatusEnum{
+    """待提交"""
+    UN_SUBMIT
+    """待业务人员审核"""
+    UN_BIZ_AUDIT
+    """待财务人员审核"""
+    UN_FD_AUDIT
+    """已完成"""
+    COMPLETE
+}
+
+enum DeliveryFeePayModeEnum{
+    """次结"""
+    PER_PAY
+    """日结"""
+    DAILY_PAY
+    """半月结"""
+    HALF_MOON_PAY
+    """月结"""
+    MONTHLY_PAY
+}
+
+enum DeliveryMethodEnum{
+    """常温"""
+    AMBIENT
+    """冷链"""
+    COLD_CHAIN
+}
+
+enum DeliveryFeeTypeEnum{
+    """运费"""
+    FREIGHT
+    """装车费"""
+    LOADING_FEE
+    """卸车费"""
+    UNLOADING_FEE
+    """冷藏费"""
+    COLD_STORAGE_FEE
+    """其他费用"""
+    OTHER_FEE
+}

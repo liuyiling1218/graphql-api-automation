@@ -1,0 +1,154 @@
+extend type Query{
+    """配送单: 获取配送单列表"""
+    pageDeliveryOrder(deliveryOrderQueryInput:DeliveryOrderQueryInput,page:Page):PageDeliveryOrderPayload
+    """配送单: 获取配送单列表详情"""
+    deliveryOrderDetail(deliveryOrderDetailQueryInput:DeliveryOrderDetailQueryInput):DeliveryOrderDetailPayload
+    """配送单: 获取配送单列表统计数据"""
+    deliveryOrderStatusCount:DeliveryOrderStatusCountPayload
+    """配送单: 选择配送货物"""
+    querySaleGoodsList(saleGoodsListQueryInput:SaleGoodsListQueryInput):[SaleGoodsInfoListPayload]
+}
+extend type Mutation {
+    """配送单: 保存"""
+    addDeliveryOrder(addDeliveryOrderInput:AddDeliveryOrderInput):ID
+    """配送单: 修改"""
+    updateDeliveryOrder(updateDeliveryOrderInput:UpdateDeliveryOrderInput):Boolean
+    """配送单: 提交配送单"""
+    submitDeliveryOrder(submitDeliveryOrderInput:SubmitDeliveryOrderInput):Boolean
+    """配送单: 取消"""
+    cancelDeliveryOrder(cancelDeliveryOrderInput:CancelDeliveryOrderInput):Boolean
+}
+
+input SubmitDeliveryOrderInput{
+    """配送单订单ID"""
+    orderId: ID!
+}
+
+input CancelDeliveryOrderInput{
+    """配送单订单ID"""
+    orderId: ID!
+}
+#新增配送单入参
+input AddDeliveryOrderInput {
+    """仓库ID"""
+    warehouseId: ID!
+    """客户信息集合：基于地址的Id集合"""
+    addressId: [Int]!
+    """业务员名字"""
+    businessUserName: String
+    """车牌号"""
+    carNum: String
+    """车辆类型"""
+    carType: String!
+    """配送方式"""
+    deliveryType: DeliveryMethodEnum!
+    """司机联系方式"""
+    driverContact: String
+    """司机姓名"""
+    driverName: String
+    """配送货物销售订单日期"""
+    saleOrderDate: Long!
+    """配送单费用明细"""
+    deliveryOrderFee:[DeliveryOrderFeeInput!]!
+    """配送单商品明细"""
+    deliveryOrderItem:[DeliveryOrderItemInput!]!
+}
+
+#修改配送单入参
+input UpdateDeliveryOrderInput {
+    """配送单ID"""
+    orderId:ID!
+    """仓库ID"""
+    warehouseId: ID!
+    """客户信息集合：基于地址的Id集合"""
+    addressId: [Int]!
+    """业务员名字"""
+    businessUserName: String
+    """车牌号"""
+    carNum: String
+    """车辆类型"""
+    carType: String!
+    """配送方式"""
+    deliveryType: DeliveryMethodEnum!
+    """司机联系方式"""
+    driverContact: String
+    """司机姓名"""
+    driverName: String
+    """配送货物销售订单日期"""
+    saleOrderDate: Long!
+    """配送单费用明细"""
+    deliveryOrderFee:[DeliveryOrderFeeInput!]!
+    """配送单商品明细"""
+    deliveryOrderItem:[DeliveryOrderItemInput!]!
+}
+
+# 配送单费用明细
+input DeliveryOrderFeeInput {
+    """供应商ID"""
+    supplierId:Int!
+    """配送费用"""
+    amount: BigDecimal!
+    """配送费用类型"""
+    feeType: DeliveryFeeTypeEnum!
+    """支付模式"""
+    payMode: DeliveryFeePayModeEnum!
+    """备注"""
+    remark: String
+}
+
+# 配送单商品明细
+input DeliveryOrderItemInput {
+    """配送地址ID"""
+    addressId: Int!
+    """销售单号ID"""
+    saleOrderId: ID!
+    """关联销售单号Code"""
+    saleOrderCode:String!
+    """配送单配送的商品项明细"""
+    deliveryOrderItemList:[DeliveryOrderItemListInput!]!
+}
+
+# 配送单配送的商品项明细
+input DeliveryOrderItemListInput{
+    """配送数量"""
+    quantity: BigDecimal!
+    """商品sku"""
+    skuId:Int!
+}
+
+#获取配送单列表查询入参
+input DeliveryOrderQueryInput {
+    """配送单状态"""
+    orderStatus: DeliveryOrderStatusEnum!
+    """客户地址ID"""
+    addressId:Int
+    """开始时间"""
+    startDate:Long
+    """结束时间"""
+    endDate:Long
+}
+
+#获取配送单详情查询入参
+input DeliveryOrderDetailQueryInput {
+    """配送单ID"""
+    orderId: ID!
+}
+
+#获取销售计划商品列表入参
+input SaleGoodsListQueryInput {
+    """销售日期"""
+    saleDate:Long!
+    """客户地址ID集合"""
+    addressId: [Int]!
+}
+
+#分页对象
+type PageDeliveryOrderPayload {
+    records: [DeliveryOrderDetailPayload]
+    pageCurrent: Int
+    pageSize: Int
+    totalRecords: Long
+}
+
+
+

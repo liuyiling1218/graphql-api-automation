@@ -1,0 +1,104 @@
+extend type Mutation {
+    """成品销售退货:新增销售退货单"""
+    createSaleReturn(saleReturnInsertInput:SaleReturnInsertInput):SaleReturnInsertPayload
+    """成品销售退货:修改销售退货单"""
+    updateSaleReturn(saleReturnUpdateInput:SaleReturnUpdateInput):Boolean
+    """成品销售退货:取消销售退货单"""
+    cancelSaleReturn(saleReturnCancelInput:SaleReturnCancelInput):Boolean
+    """成品销售退货:提交销售退货单"""
+    submitSaleReturn(saleReturnSubmitInput:SaleReturnSubmitInput):Boolean
+}
+
+extend type Query {
+    """成品销售退货:选择商品"""
+    listSaleReturnCommodities(listSaleReturnCommoditiesInput:ListSaleReturnCommoditiesInput):[ListSaleReturnCommoditiesPayload]
+    """成品销售退货:查询销售退货订单列表"""
+    pageSaleReturn(pageSaleReturnInput:PageSaleReturnInput,page:Page):SaleReturnPagePayload
+    """成品销售退货:查询销售退货订单不同状态记录条数"""
+    countSaleReturn(countSaleReturnInput:CountSaleReturnInput):CountSaleReturnPayload
+    """成品销售退货:退货单详情"""
+    getSaleReturn(getSaleReturnInput:GetSaleReturnInput):SaleReturnPayload
+    """成品销售退货:销售退货入库记录（以前的接口，不晓得哪里有用到）"""
+    inboundRecords(outOrderId:ID!):[InboundListPayload]
+}
+
+input SaleReturnSubmitInput {
+    inOrderId:ID!
+}
+
+"""销售退货:选择商品Input"""
+input ListSaleReturnCommoditiesInput{
+    """所属仓库Id"""
+    warehouseId:ID!
+    """客户地址Id"""
+    customerDistributionId:ID!
+    """销售日期"""
+    saleTime:Long!
+    """修改时需要传入入库订单单号"""
+    inOrderId:ID
+}
+
+input PageSaleReturnInput{
+    """查询时间条件"""
+    timeRange:TimeRange!
+    """入库类型"""
+    inOrderType:InOrderType!
+    """订单状态"""
+    orderStatus:InOrderStatus
+    """查询关键字（退货单号/销售客户名称/商品名称，模糊查询）"""
+    keyword:String
+}
+
+input CountSaleReturnInput{
+    """退货时间"""
+    returnTime:TimeRange!
+    """入库状态类型"""
+    inOrderType:InOrderType!
+}
+
+"""成品销售退货新增Input"""
+input SaleReturnInsertInput{
+    """退货原因"""
+    remark:String!
+    """商品信息（成品销售单）"""
+    outOrdersCommoditiesInput:[OutOrdersCommoditiesInput]!
+}
+
+"""销售退货更新Input"""
+input SaleReturnUpdateInput{
+    """退货单Id"""
+    inOrderId:ID!
+    """退货原因"""
+    remark:String!
+    """商品信息（成品销售单）"""
+    outOrdersCommoditiesInput:[OutOrdersCommoditiesInput]!
+}
+
+input OutOrdersCommoditiesInput{
+    """销售单Id"""
+    outOrderId:ID!
+    """商品信息"""
+    commodities:[SaleReturnItemInput]!
+}
+
+"""销售退货取消Input"""
+input SaleReturnCancelInput{
+    """退货单Id"""
+    inOrderId:ID!
+    """取消描述"""
+    inOrderDescription:String
+}
+
+input SaleReturnItemInput{
+    """skuID"""
+    skuId:Int!
+    """退货量大单位"""
+    returnTotalQuantity:BigDecimal!
+    """退货量小单位"""
+    returnUnitQuantity:BigDecimal!
+}
+
+input GetSaleReturnInput{
+    """退货单ID"""
+    inOrderId:ID!
+}

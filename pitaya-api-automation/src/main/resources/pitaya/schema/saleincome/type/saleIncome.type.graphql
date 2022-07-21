@@ -22,15 +22,36 @@ type SaleIncomeOrderPayload{
     rejectReason: String
     """ 创建人 """
     user:User
+    """" 销售客户 """
+    customer:Customer
     createTime:Long
     """ 销售商品信息 """
     commoditiesList:[SaleIncomeOrderItemPayload]
+    """ 成本信息 """
+    saleCostOrderItems:[SaleCostOrderItemPayload]
     """ 操作日志信息 """
     logs:[SaleIncomeOrderLogPayload]
-    """ 销售总金额 """
-    saleTotalPrice:BigDecimal
-
+    """ 销售成本id """
+    saleCostOrderId:ID
+    """ 金额统计 """
+    functionalField:FunctionalField
 }
+
+type FunctionalField {
+    saleTotalPrice:BigDecimal
+    saleTotalIncome:BigDecimal
+    saleTotalCost:BigDecimal
+}
+
+type SaleCostOrderItemPayload {
+    saleCostOrderItemId:ID
+    saleCostOrderId:ID
+    outOrderItemId:ID
+    commodity:CommoditySku
+    packagingFee:BigDecimal
+    materialFee:BigDecimal
+}
+
 """
 销售收入单商品
 """
@@ -40,7 +61,7 @@ type SaleIncomeOrderItemPayload{
     """ 收入单ID """
     incomeId:ID
     """ 商品SKUId """
-    commoditySkuId:Int
+    commoditySku:CommoditySku
     """ 商品名字 """
     commodityName:String
     """ 商品类型 """
@@ -55,6 +76,9 @@ type SaleIncomeOrderItemPayload{
     saleMoney:BigDecimal
     """ 拍照记录 """
     photosList:[String!]
+    outOrderItemId:ID
+    salePrice:BigDecimal
+    remark:String
 }
 
 """
@@ -78,15 +102,19 @@ type SaleIncomeOrderLogPayload{
 }
 
 """
-销售收入状态(10:待提交 20:待业务人员审核 30:待财务人员审核 40:已完成)
+销售收入状态(10:待提交 15:财务已驳回 20:待业务人员审核 30:待财务人员审核 40:已完成)
 """
 enum IncomeStatus{
     """ 未指定的 """
     IncomeStatus_UNSPECIFIED
     """ 待提交 """
     UN_SUBMIT
+    """ 财务已驳回 """
+    FINANCIAL_REJECT
     """ 待业务人员审核 """
     UN_BUSINESS_AUDIT
+    """ 待内勤人员审核 """
+    UN_BACK_OFFICE_AUDIT
     """ 待财务人员审核 """
     UN_FINANCIAL_AUDIT
     """ 已完成 """
@@ -102,6 +130,8 @@ enum SaleIncomeSourceType{
     DEFECTIVE_SALES
     """ 废旧品销售 """
     SALE_OF_WASTE_PRODUCTS
+    """ 成品销售 """
+    SALE_PRODUCTS
 }
 
 """
@@ -115,6 +145,8 @@ enum SaleIncomeLogType{
     SUBMIT
     """ 业务审核信息 """
     BUSINESS_AUDIT
+    """ 内勤审核信息 """
+    BACK_OFFICE_AUDIT
     """ 财务审核信息 """
     FINANCIAL_AUDIT
     """ 完成信息 """
@@ -133,8 +165,12 @@ type PageSaleIncomeOrderPayload {
 type SaleIncomeOrderStatusStatisticPayload {
     """待提交"""
     waitSubmit:Int
+    """财务已驳回"""
+    financialReject:Int
     """ 待业务审核 """
     unBusinessAudit:Int
+    """ 待内勤人员审核 """
+    unBackOfficeAudit:Int
     """ 待财务审核 """
     unFinancialAudit:Int
     """已完成"""

@@ -308,4 +308,8 @@ type TransferCommodityItemBillPayload {
     conversion:BigDecimal
     #小计
     amount:BigDecimal
+    """
+    商品信息
+    """
+    skuDetail:CommoditySku
 }

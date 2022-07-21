@@ -1,4 +1,4 @@
-extend type Mutation {
+"""extend type Mutation {
     #新增销售退货
     createSaleReturn(saleReturnInsertInput:SaleReturnInsertInput):ID
     #修改销售退货
@@ -60,4 +60,9 @@ input SaleReturnItemPayload{
     returnTotalQuantity:BigDecimal!
     #退货数量基本单位
     returnUnitQuantity:BigDecimal!
+}
+"""
+type comment{
+    """之前的销售退货注释掉了，这个先不用，v2.7开发中，新的schema在 ../api与../type"""
+    comment:String
 }

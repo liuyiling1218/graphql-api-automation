@@ -1,0 +1,120 @@
+"""成品销售退货:新增销售退货单payload"""
+type SaleReturnInsertPayload {
+    """退货单ID"""
+    inOrderId:ID
+}
+
+"""成品销售退货:选择商品payload"""
+type ListSaleReturnCommoditiesPayload{
+    """销售客户地址"""
+    customer:Customer
+    """销售时间"""
+    saleTime:Long
+    """销售单Id"""
+    outOrderId:ID
+    """销售单号"""
+    outOrderCode:String
+    """退货单id（冗余此字段for data fetch，修改时才会有值）"""
+    inOrderId:ID
+    """商品信息"""
+    commodities:[ListSaleReturnCommoditiesItemPayload]
+}
+
+type ListSaleReturnCommoditiesItemPayload{
+    """商品sku"""
+    commoditySku:CommoditySku
+    """小单位"""
+    unitType:Unit
+    """大单位"""
+    totalType:Unit
+    """出库总量"""
+    outBoundTotalQuantity:BigDecimal
+    """已退货量"""
+    saleReturnFinishedTotalQuantity:BigDecimal
+    """可退货量"""
+    saleReturnableQuantity:BigDecimal
+}
+
+"""分页对象"""
+type SaleReturnPagePayload{
+    """销售退货列表"""
+    records:[SaleReturnPayload]
+    pageCurrent: Int
+    pageSize: Int
+    totalRecords: Long
+}
+
+type SaleReturnPayload{
+    """入库记录数"""
+    countInBounds:Int
+    """入库订单（销售退货单）Id"""
+    inOrderId:ID
+    """成品销售退货单：退货单号"""
+    inOrderCode:String
+    """入库类型"""
+    inOrderType:InOrderType
+    """入库类型名称（销售退货）"""
+    inOrderTypeName:String
+    """商品类型Id"""
+    commodityTypeId:Int
+    """商品类型名称（退货品）"""
+    commodityTypeName:String
+    """所属仓库"""
+    warehouse:Warehouse
+    """销售日期"""
+    saleTime:Long
+    """销售客户"""
+    customer:Customer
+    """创建时间"""
+    createTime:Long
+    """创建人"""
+    createUser:User
+    """退货原因"""
+    remark:String
+    """退货单入库状态"""
+    inOrderStatus:InOrderStatus
+    """退货单状态名称"""
+    inOrderStatusName:String
+    """单据最新备注：驳回（取消）原因，依据单据状态而定"""
+    latestDescription:String
+    """商品信息"""
+    commodities:[SaleReturnCommoditiesItemPayload]
+}
+
+type SaleReturnCommoditiesItemPayload{
+    """销售单出库order id"""
+    outOrderId:ID
+    """销售单号"""
+    outOrderCode:String
+    """商品skuId（冗余此字段 for data fetch）"""
+    commoditySkuId:Int
+    """退货单ID（冗余此字段 for data fetch）"""
+    inOrderId:ID
+    """商品sku"""
+    commoditySku:CommoditySku
+    """本次退货量大单位"""
+    totalType:Unit
+    """本次退货量小单位"""
+    unitType:Unit
+    """本次退货量大单位数量"""
+    returnQuantity:Quantity
+    """退货量相关数据"""
+    saleReturnQuantity:SaleReturnQuantity
+}
+
+"""记录条数"""
+type CountSaleReturnPayload{
+    """待提交记录条数"""
+    toSubmit:Long
+    """待入库记录条数"""
+    toInbound:Long
+}
+
+type SaleReturnQuantity {
+    """出库总量"""
+    outBoundTotalQuantity:BigDecimal
+    """已退货量"""
+    saleReturnFinishedTotalQuantity:BigDecimal
+    """可退货量"""
+    saleReturnableQuantity:BigDecimal
+}

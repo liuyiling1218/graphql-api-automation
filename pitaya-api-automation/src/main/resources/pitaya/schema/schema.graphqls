@@ -11,6 +11,13 @@ type Option{
     value:Int
 }
 
+type StringOption{
+    """描述"""
+    label:String
+    """值"""
+    value:String
+}
+
 input Page{
     pageCurrent:Int
     pageSize:Int
