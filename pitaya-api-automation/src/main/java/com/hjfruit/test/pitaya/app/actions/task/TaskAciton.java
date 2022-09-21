@@ -139,13 +139,17 @@ public class TaskAciton {
            }
            inOrder.setInOrderDescription("测试生产入库~~！~！~！~");
            listTaskInCommodityInput.setTaskId(taskId);
-           listTaskInCommodityInput.setCommodityType(productionPlanDetail.getCommodityType());
+           listTaskInCommodityInput.setCommodityType(commodityType.getTypeId());
            List<CommoditySkuPayload> commoditySkuPayloads = planTaskCommodityQueryApi.taskInCommodities(listTaskInCommodityInput);
            inOrder.setInOrderItem(commoditySkuPayloads.stream().map(o->{
                InOrderItem inOrderItem=new InOrderItem();
                inOrderItem.setCommoditySkuId(o.getCommoditySkuId());
                inOrderItem.setUnitQuantity(new BigDecimal(8.8));
-               inOrderItem.setTotalQuantity(new BigDecimal(8.8));
+               if(commodityType.getTypeName().contains("次品")){
+                   inOrderItem.setTotalQuantity(new BigDecimal(0));
+               }else{
+                   inOrderItem.setTotalQuantity(new BigDecimal(8.8));
+               }
                 return inOrderItem;
            }).collect(Collectors.toList()));
               return productionTaskApi.addInOrder(inOrder);
