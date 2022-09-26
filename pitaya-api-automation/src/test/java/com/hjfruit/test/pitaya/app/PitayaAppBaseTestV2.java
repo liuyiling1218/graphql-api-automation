@@ -160,14 +160,6 @@ public class PitayaAppBaseTestV2 extends PitayaBaseTest {
                 .urlEncodingEnabled(true)
                 .contentType(ContentType.JSON);
     }
-
-    static class LoginResponse<T> {
-        public String code;
-        public String message;
-        public T data;
-
-    }
-
     @AfterAll
     public void afterAll() {
 //        pitayaBaseAction.clear();
