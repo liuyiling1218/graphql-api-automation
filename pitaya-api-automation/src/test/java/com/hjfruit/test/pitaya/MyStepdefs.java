@@ -13,11 +13,12 @@ import com.hjfruit.test.pitaya.common.PitayaConstants;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.spring.CucumberContextConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@CucumberContextConfiguration
 public class MyStepdefs extends PitayaAppBaseTestV2 {
     @Autowired
     StoreHouseHelper storeHouseHelper;
