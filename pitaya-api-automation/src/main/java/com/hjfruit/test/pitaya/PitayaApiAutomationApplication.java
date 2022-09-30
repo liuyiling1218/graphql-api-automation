@@ -2,6 +2,7 @@ package com.hjfruit.test.pitaya;
 
 import com.hjfruit.test.pitaya.common.PitayaConfig;
 import fc.test.api.graphql.annotation.ApiScan;
+import io.cucumber.junit.Cucumber;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
