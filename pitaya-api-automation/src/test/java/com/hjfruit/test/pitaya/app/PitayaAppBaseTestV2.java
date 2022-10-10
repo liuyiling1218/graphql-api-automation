@@ -63,7 +63,7 @@ public class PitayaAppBaseTestV2 extends PitayaBaseTest {
     public void beforeEach() throws IOException, InterruptedException {
         System.out.println("============beforeEach Start============");
 //        https://stackoverflow.com/questions/28908835/ssl-peer-shut-down-incorrectly-in-java
-        System.setProperty("https.protocols", "TSLv1.1");
+//        System.setProperty("https.protocols", "TSLv1.1");
 
         //假设一切正常
         if (env.equals("test")) {

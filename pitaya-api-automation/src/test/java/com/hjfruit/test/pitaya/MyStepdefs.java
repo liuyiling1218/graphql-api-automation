@@ -15,10 +15,11 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.spring.CucumberContextConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
-@CucumberContextConfiguration
 public class MyStepdefs extends PitayaAppBaseTestV2 {
     @Autowired
     StoreHouseHelper storeHouseHelper;
@@ -36,7 +37,8 @@ public class MyStepdefs extends PitayaAppBaseTestV2 {
     private Integer customerId;
     private List<CommoditySkuPayload> commoditySkues;
     @Given("用户成功登录星桥生产APP")
-    public void 用户成功登录星桥生产app() {
+    public void 用户成功登录星桥生产app() throws IOException, InterruptedException {
+        beforeEach();
     }
     @When("新增原料商品类型")
     public void 新增原料商品类型() {
