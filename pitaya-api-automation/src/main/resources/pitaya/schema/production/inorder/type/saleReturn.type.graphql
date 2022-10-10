@@ -5,7 +5,7 @@ type SaleReturnInsertPayload {
 }
 
 """成品销售退货:选择商品payload"""
-type ListSaleReturnCommoditiesPayload{
+type ListSaleReturnCommoditiesPayload implements CustomerBase{
     """销售客户地址"""
     customer:Customer
     """销售时间"""
@@ -20,7 +20,7 @@ type ListSaleReturnCommoditiesPayload{
     commodities:[ListSaleReturnCommoditiesItemPayload]
 }
 
-type ListSaleReturnCommoditiesItemPayload{
+type ListSaleReturnCommoditiesItemPayload implements UnitTypeBase & TotalTypeBase & CommoditySkuBase{
     """商品sku"""
     commoditySku:CommoditySku
     """小单位"""
@@ -44,7 +44,7 @@ type SaleReturnPagePayload{
     totalRecords: Long
 }
 
-type SaleReturnPayload{
+type SaleReturnPayload implements WarehouseBase & CreateUserBase & CustomerBase & BelongOrgBase{
     """入库记录数"""
     countInBounds:Int
     """入库订单（销售退货单）Id"""
@@ -79,9 +79,13 @@ type SaleReturnPayload{
     latestDescription:String
     """商品信息"""
     commodities:[SaleReturnCommoditiesItemPayload]
+    """
+    所属组织
+    """
+    belongOrg:Org
 }
 
-type SaleReturnCommoditiesItemPayload{
+type SaleReturnCommoditiesItemPayload implements UnitTypeBase & TotalTypeBase & CommoditySkuBase{
     """销售单出库order id"""
     outOrderId:ID
     """销售单号"""

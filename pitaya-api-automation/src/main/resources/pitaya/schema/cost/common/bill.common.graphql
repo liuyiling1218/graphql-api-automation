@@ -2,8 +2,9 @@
 费用单状态
 """
 enum BillStatusEnum {
-    """未识别"""
     UNRECOGNIZED
+    """错误状态"""
+    ERROR_BILL_STATUS
     """待确认"""
     BILL_UN_CONFIRMED
     """待提交"""
@@ -14,6 +15,46 @@ enum BillStatusEnum {
     BILL_FD_UN_REVIEWED
     """已完成"""
     BILL_COMPLETE
-    """错误状态"""
-    ERROR_BILL_STATUS
+    """已取消"""
+    BILL_CANCEL
+    """财务已确认"""
+    BILL_FD_CONFIRMED
+}
+
+enum BillMainTypeEnum{
+    UNRECOGNIZED
+    """无"""
+    ERROR_MAIN_TYPE
+    """调拨费"""
+    ALLOT_FEE
+    """空柜费"""
+    EMPTY_CABINET_FEE
+    """还箱费"""
+    RETURN_BOX_FEE
+    """产地费用"""
+    ORIGIN_FEE
+    """回款费用"""
+    PAYMENT_FEE
+    """空柜区域费用"""
+    EMPTY_CABINET_AREA_BILL
+    """空柜费用调整"""
+    EMPTY_CABINET_ADJUST_BILL
+    """空柜调整确认费用"""
+    EMPTY_CABINET_ADJUST_AFFIRM_BILL
+    """还箱调整费用"""
+    RETURN_BOX_ADJUST_FEE
+    """还箱调整确认费用"""
+    RETURN_BOX_ADJUST_AFFIRM_FEE
+    """计调调整费用"""
+    DOLLARS_FOR_FEE
+    """计调调整确认费用"""
+    DOLLARS_ADJUST_AFFIRM_FEE
+    """采购"""
+    CG_BILL_FEE
+    """采购退货"""
+    CT_BILL_FEE
+    """销售"""
+    SALE_BILL_FEE
+    """销售退货费用"""
+    SALE_RETURN_BILL_FEE
 }

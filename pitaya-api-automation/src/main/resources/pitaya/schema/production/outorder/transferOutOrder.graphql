@@ -70,6 +70,10 @@ input CreateTransferOrderInput{
     flowTransferOtherBillInput:[FlowTransferOtherBillInput]
     # 调入系统id
     targetAppId: Int
+    """ 所属组织 """
+    belongOrgId:Int!
+    """ 调入组织 """
+    targetBelongOrgId:Int!
 }
 
 input GetTransferOutOrderStatusInput{

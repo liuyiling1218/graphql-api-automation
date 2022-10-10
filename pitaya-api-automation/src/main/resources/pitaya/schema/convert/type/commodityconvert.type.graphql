@@ -1,4 +1,4 @@
-type CommodityConvertPayload {
+type CommodityConvertPayload implements OrgBase & WarehouseBase & CreateByBase{
     """
     订单id
     """
@@ -69,7 +69,7 @@ type CommodityConvertPayload {
     convertLogs:[ConvertOrderLogPadload]
 }
 
-type ConvertOrderLogPadload {
+type ConvertOrderLogPadload implements CreateByBase{
     """
     日志id
     """
@@ -103,7 +103,7 @@ type CommandOrderResp {
     orderId:ID!
 }
 
-type CommodityConvertItemPayload {
+type CommodityConvertItemPayload implements UnitTypeBase & TotalTypeBase & PriceTypeBase & CommodityDetailBase & ConvertToSkuBase{
     """
     item id
     """
@@ -148,6 +148,14 @@ type CommodityConvertItemPayload {
     total 数量
     """
     totalQuantity:BigDecimal
+    """
+    照片
+    """
+    photos:[String]
+    """
+    转换后sku信息
+    """
+    convertToSku:CommoditySku
 }
 
 type PageCommodityConvertPayload {

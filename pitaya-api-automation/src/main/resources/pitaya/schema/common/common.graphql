@@ -1,143 +1,8 @@
-type Org {
-    """
-    组织id
-    """
-    orgId:Int
-    """
-    组织名称
-    """
-    orgName:String
-}
-
-type Warehouse {
-    """
-    仓库id
-    """
-    warehouseId:ID
-    """
-    仓库名称
-    """
-    warehouseName:String
-}
-
-type Unit {
-    """
-    单位id
-    """
-    unitId:Int
-    """
-    单位名称
-    """
-    unitName:String
-}
-
-type UnitQuantity {
+type UnitQuantity implements UnitBase{
     """单位"""
     unit:Unit
     """数量"""
     quantity:BigDecimal
-}
-
-type User {
-    """
-    userid
-    """
-    userId:Int
-    """
-    user名称
-    """
-    userName:String
-    """
-    电话号码
-    """
-    phoneNum:String
-}
-
-type CommoditySku {
-    """
-    sku
-    """
-    commoditySkuId:Int
-    """
-    sku名称
-    """
-    commoditySkuName:String
-    """
-    商品id
-    """
-    commodityId:Int
-    """
-    商品名称
-    """
-    commodityName:String
-    """
-    规格选项id
-    """
-    commoditySpecOptionId:[Int]
-    """
-    规格选项名称
-    """
-    commoditySpecOptionName:[String]
-    """
-    商品换算关系
-    """
-    conversion:BigDecimal
-    """
-    总计单位类型
-    """
-    totalType:Unit
-    """
-    基本单位类型
-    """
-    unitType:Unit
-}
-
-type CommoditySkuStock {
-    """商品sku"""
-    commoditySku:CommoditySku
-    """小单位数量"""
-    unit:UnitQuantity
-    """大单位数量"""
-    total:UnitQuantity
-    """单位数量"""
-    unitPrice:UnitQuantity
-}
-
-type Supplier{
-    """
-    供应商Id
-    """
-    supplierId:Int
-    """
-    供应商名称
-    """
-    supplierName:String
-}
-
-type Customer{
-    """
-    客户Id
-    """
-    customerId:Int
-    """
-    客户名称
-    """
-    customerName:String
-    """
-    客户类型
-    """
-    customerType:Int
-}
-
-type StockBatch{
-    """
-    批次ID
-    """
-    batchId:ID
-    """
-    批次号
-    """
-    batchCode:String
 }
 
 type Quantity {
@@ -145,20 +10,21 @@ type Quantity {
     totalQuantity: BigDecimal
 }
 
-type AddressInfo{
-    """地址Id"""
-    addressId:Int
-    """地址名称"""
-    addressName:String
-    """配送地址"""
-    deliveryName:String
-    """归属类型"""
-    belongType:Int
-}
-
-type SummaryAddressInfo{
+type SummaryAddressInfo implements AddressInfoBase{
     """地址信息"""
     addressInfo:AddressInfo
+}
+
+type SummaryCustomerAddressInfo implements CustomerAddressInfoBase{
+    """客户或地址信息"""
+    customerAddressInfo:CustomerAddressInfo
+}
+
+input CustomerInfo{
+    """客户Id"""
+    customerId:Int
+    """客户类型"""
+    customerType:Int
 }
 
 input TimeRange{
@@ -179,4 +45,27 @@ enum InOrderStatus{
     FINISHED
     """50 已取消"""
     CANCELED
+}
+
+enum OutOrderStatusEnum{
+    """未指定"""
+    OUT_ORDER_STATUS_UNSPECIFIED
+    """10 待提交"""
+    TO_BE_SUBMIT
+    """15 待审核"""
+    TO_BE_AUDIT
+    """16 生产中"""
+    IN_PRODUCTION
+    """20 待出库"""
+    TO_BE_OUT
+    """30 部分出库"""
+    OUTING
+    """35 待接收"""
+    TO_BE_RECEIVED
+    """40 已完成"""
+    FINISHED
+    """50 已取消"""
+    CANCELED
+    """60 已驳回"""
+    REJECTED
 }

@@ -36,6 +36,8 @@ input ListSaleReturnCommoditiesInput{
     saleTime:Long!
     """修改时需要传入入库订单单号"""
     inOrderId:ID
+    """v2.8 从成品销售计划退货仅展示该销售计划单"""
+    outOrderId:ID
 }
 
 input PageSaleReturnInput{

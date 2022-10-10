@@ -7,6 +7,18 @@ extend type Query {
     getTransferInOrderStatus(getTransferInOrderStatusInput:GetTransferInOrderStatusInput):GetTransferInOrderStatusPayload
 }
 
+extend type Mutation {
+    """
+    调拨入库:修改入库仓库
+    """
+    updateTransferInOrderWarehouse(updateTransferInOrderWarehouseInput:UpdateTransferInOrderWarehouseInput):ID
+}
+
+input UpdateTransferInOrderWarehouseInput {
+    inOrderId:ID!
+    warehouseId:ID!
+}
+
 input GetTransferInOrderStatusInput{
     #订单起始时间
     startTime:Long
@@ -22,7 +34,7 @@ input GetTransferInOrderStatusInput{
     direction:Int
 }
 
-type TransferBillPayload{
+type TransferBillPayload implements TargetBelongOrgBase & BelongOrgBase {
     # 费用单id
     billId:ID
     # 调拨申请单id
@@ -109,6 +121,10 @@ type TransferBillPayload{
     # 调入方合计
     targetTotalAmount:BigDecimal
     recordUpdateTime:Long
+    """ 所属组织 """
+    belongOrg:Org
+    """ 调入所属组织 """
+    targetBelongOrg:Org
 }
 
 type GetTransferInOrderStatusPayload{

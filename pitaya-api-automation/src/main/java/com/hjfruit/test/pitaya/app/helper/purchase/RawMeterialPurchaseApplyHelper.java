@@ -71,6 +71,7 @@ public class RawMeterialPurchaseApplyHelper {
         createAcquireInput.setSupplierId(supplierId);
         createAcquireInput.setBelongType(customerModel.getBelongType());
         createAcquireInput.setBelongId(customerModel.getBelongId());
+        createAcquireInput.setBelongOrgId(customerModel.getBelongId());
         createAcquireInput.setNote(remark);
         List<CreateAcquireItemInput> collect = commoditySkues.stream().map(o ->
         {
@@ -93,19 +94,19 @@ public class RawMeterialPurchaseApplyHelper {
         createAcquireInput.setCommodities(collect);
 
 
-        //获取费用类型
-        FreightType freightType = baseAction.freightTypes().get(0);
-
-        //获取付款方式
-        PayMode payMode = baseAction.payModes().get(0);
-
-        CreateCostInput createCostInput = new CreateCostInput();
-        createCostInput.setTypeId(freightType.getFreightId());
-        createCostInput.setSupplierId(supplierHelper.supplierPages_getFirstSupplierBySupplierTypeIds(Arrays.asList(PitayaConstants.SupplierType.TRANSPORT.getTypeId())).getSupplierId());
-        createCostInput.setAmount(new BigDecimal(200.02));
-        createCostInput.setNote("");
-        createCostInput.setPayMode(payMode.getCode());
-        createAcquireInput.setCosts(Arrays.asList(createCostInput));
+//        //获取费用类型
+//        FreightType freightType = baseAction.freightTypes().get(0);
+//
+//        //获取付款方式
+//        PayMode payMode = baseAction.payModes().get(0);
+//
+//        CreateCostInput createCostInput = new CreateCostInput();
+//        createCostInput.setTypeId(freightType.getFreightId());
+//        createCostInput.setSupplierId(supplierHelper.supplierPages_getFirstSupplierBySupplierTypeIds(Arrays.asList(PitayaConstants.SupplierType.TRANSPORT.getTypeId())).getSupplierId());
+//        createCostInput.setAmount(new BigDecimal(200.02));
+//        createCostInput.setNote("");
+//        createCostInput.setPayMode(payMode.getCode());
+//        createAcquireInput.setCosts(Arrays.asList(createCostInput));
         return acquireOrderAction.createAcquire(createAcquireInput);
     }
 
@@ -133,15 +134,15 @@ public class RawMeterialPurchaseApplyHelper {
             createAcquireItemInput.setTotalType(o.getTotalType());
             return createAcquireItemInput;
         }).collect(Collectors.toList()));
-        updateAcquireInput.setCosts(acquirePayload.getCosts().stream().map(o -> {
-            CreateCostInput createCostInput = new CreateCostInput();
-            createCostInput.setTypeId(o.getTypeId());
-            createCostInput.setSupplierId(o.getSupplierId());
-            createCostInput.setAmount(o.getAmount());
-            createCostInput.setNote(o.getNote());
-            createCostInput.setPayMode(o.getPayMode());
-            return createCostInput;
-        }).collect(Collectors.toList()));
+//        updateAcquireInput.setCosts(acquirePayload.getCosts().stream().map(o -> {
+//            CreateCostInput createCostInput = new CreateCostInput();
+//            createCostInput.setTypeId(o.getTypeId());
+//            createCostInput.setSupplierId(o.getSupplierId());
+//            createCostInput.setAmount(o.getAmount());
+//            createCostInput.setNote(o.getNote());
+//            createCostInput.setPayMode(o.getPayMode());
+//            return createCostInput;
+//        }).collect(Collectors.toList()));
         return acquireOrderAction.updateAcquire(updateAcquireInput);
     }
 

@@ -1,5 +1,5 @@
 extend type Query {
-    #查询销售订单
+    """成品销售:列表分页"""
     pageSaleOrder(queryQueryOrderInput:QuerySaleOrderInput,page:Page):SaleOrderPagePayload
     """成品销售:订单详情"""
     saleOrder(saleOrderInput:SaleOrderInput):SaleOrderPayload
@@ -124,7 +124,7 @@ type SaleOrderStatusCountPayload{
     finished:Int
 }
 
-type SaleOrderPayload{
+type SaleOrderPayload implements BelongOrgBase {
     #出库订单Id
     outOrderId:ID
     #出库类型出库订单类型，10：原料领料、20辅料领料 30 成品销售
@@ -179,6 +179,10 @@ type SaleOrderPayload{
     计划详情
     """
     plan:Plan
+    """
+    所属组织
+    """
+    belongOrg:Org
 }
 
 type SaleOrderItemPayload{
@@ -233,18 +237,20 @@ input QuerySaleOrderInput{
 
 #新增销售信息
 input CreateSaleOrderInput{
-    #仓库名称
+    """ 仓库名称 """
     warehouseId:ID!
-    #客户Id
+    """ 客户Id """
     customerId:Int!
-    #客户地址
+    """ 客户地址 """
     customerDistributionId:Int!
-    #销售时间
+    """ 销售时间 """
     saleTime: Long!
-    #订单备注
+    """ 订单备注 """
     outOrderDescription:String
-    #商品信息
+    """ 商品信息 """
     commodityList:[CreateSaleOrderItemInput]!
+    """ 所属组织 """
+    belongOrgId:Int
 }
 input UpdateSaleOrderInput{
     #出库订单Id
@@ -261,6 +267,8 @@ input UpdateSaleOrderInput{
     outOrderDescription:String
     #商品信息
     commodityList:[CreateSaleOrderItemInput]!
+    """ 所属组织 """
+    belongOrgId:Int
 }
 
 input CreateSaleOrderItemInput{

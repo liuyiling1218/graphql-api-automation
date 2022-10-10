@@ -1,5 +1,6 @@
 extend type Query{
     #查询订单详情
+    """v2.8 次品销售:详情页"""
     outOrder(outOrderInput:OutOrderInput):OutOrderPayload
     #查询订单商品项
     outOrderItems(outOrderItemsInput:OutOrderItemsInput):[OutOrderItemPayload]
@@ -8,6 +9,7 @@ extend type Query{
     #出库申请单分页接口
     pageOutOrder(pageOutOrderInput:PageOutOrderInput,page:Page):OutOrderPagePayload
     #状态数量查询接口
+    """v2.8 次品销售:状态统计"""
     countOutOrderStatus(countOutOrderStatusInput:CountOutOrderStatusInput):OutOrderStatusCountPayload
     #根据出库类型查询待办数量
     countOutOrderType(countOutOrderTypeInput:CountOutOrderTypeInput):OutOrderTypeCountPayload
@@ -32,6 +34,8 @@ type OutOrderStatusCountPayload{
     toOutbound:Int
     #已完成
     finished:Int
+    """v2.8 次品销售:新增已驳回状态"""
+    rejected:Int
 
 }
 
@@ -254,10 +258,25 @@ type OutOrderItemPayload{
     商品状态 10 正常 20 取消中 30 已取消 40 已拒绝
     """
     commodityStatus:CommodityStatus
+    """v2.8 销售单号信息"""
+    saleOrderInfo:SaleOrderInfoPayload
+    """v2.8 次品销售:库存量"""
+    unitStockQuantity:BigDecimal
+    """v2.8 原件销售:库存量"""
+    stockQuantity:StockQuantity
+}
+
+type SaleOrderInfoPayload{
+    """出库订单id"""
+    outOrderId:ID
+    """v2.8 销售单号Id"""
+    saleOrderId:ID
+    """销售单号Code"""
+    saleOrderCode:String
 }
 
 
-type OutOrderPayload{
+type OutOrderPayload implements BelongOrgBase & TargetBelongOrgBase{
     #出库订单Id
     outOrderId:ID
     #出库类型出库订单类型，10：原料领料、20辅料领料 30 成品销售
@@ -332,4 +351,17 @@ type OutOrderPayload{
     deliveryFee:BigDecimal  @deprecated(reason: "当前字段已被弃用")
     organizationId:Int
     organizationName:String
+    """v2.8 次品销售:付款方式"""
+    payMethod:PayMethodEnum
+    """v2.8 次品销售:付款方式描述"""
+    payMethodDesc:String
+    """v2.8 销售单号信息"""
+    saleOrderInfo:SaleOrderInfoPayload
+    """v2.8 次品销售:销售收入单"""
+    saleIncomeOrder:SaleIncomeOrderPayload
+    """v2.9 次品销售, 采购退货, 原件销售:所属组织"""
+    belongOrg:Org
+    """ 调入所属组织 """
+    targetBelongOrg:Org
+
 }

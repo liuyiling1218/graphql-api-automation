@@ -1,4 +1,4 @@
-type SupplierPayload{
+type SupplierPayload implements BelongOrgBase{
     "供应商id"
     supplierId:Int
     "供应商名称"
@@ -91,6 +91,34 @@ input GetSupplierInput{
     supplierTypeId:Int!
 }
 
+
+input GetSupplierBaseInput{
+    """
+    供应商名字
+    """
+    supplierName:String!
+}
+
+type SupplierBasePayload{
+    """供应商属性"""
+    attribute: Int
+    """供应商门牌号"""
+    houseNum: String
+    """供应商主表id"""
+    id: Int
+    """座机号码"""
+    landlineNum: String
+    """供应商名称"""
+    name: String
+    """联系电话"""
+    phoneNum: String
+    """供应商地址"""
+    supplierAddress: String
+    """纳税人识别号"""
+    tfn: String
+}
+
+
 extend type Query {
     """
     供应商: 供应商分页列表接口
@@ -104,6 +132,10 @@ extend type Query {
     供应商: 供应商下拉列表接口
     """
     suppliers(supplierCondition:SupplierConditionInput):[SupplierPayload]!
+    """
+    供应商: 获取供应商基本信息
+    """
+    getSupplierBase(getSupplierBaseInput:GetSupplierBaseInput):SupplierBasePayload
 }
 
 extend type Mutation {

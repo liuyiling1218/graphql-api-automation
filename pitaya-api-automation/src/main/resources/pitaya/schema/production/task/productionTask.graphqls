@@ -203,6 +203,12 @@ input CreateDamagedOrderItemInput{
     damageReason:String!
     #拍照记录
     photos:[String]!
+    """ 报损成本单价 """
+    salePrice:BigDecimal!
+    """ 报损成本单价类型 """
+    salePriceType:Int!
+    """ 报损成本总价 """
+    unitTotalPrice:BigDecimal!
 }
 
 input UpdateDamagedOrderInput{

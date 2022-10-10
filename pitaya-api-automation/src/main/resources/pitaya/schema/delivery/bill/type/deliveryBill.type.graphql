@@ -5,7 +5,7 @@ type PageDeliveryBillPayload{
     records:[DeliveryBillPayload]
 }
 
-type DeliveryBillPayload {
+type DeliveryBillPayload implements OrgBase & WarehouseBase & CreateByBase & BelongOrgBase{
     """
     配送费用单ID
     """
@@ -33,7 +33,7 @@ type DeliveryBillPayload {
     """
     客户信息集合：地址数据集合
     """
-    belongInfo:[SummaryAddressInfo]
+    belongInfo:[SummaryCustomerAddressInfo]
     """
     司机姓名
     """
@@ -90,10 +90,14 @@ type DeliveryBillPayload {
     操作日志信息
     """
     logs:[DeliveryBillLogPayload]
+    """
+    所属组织
+    """
+    belongOrg: Org
 }
 
 
-type DeliveryBillItemPayload {
+type DeliveryBillItemPayload implements CustomerAddressInfoBase{
     """
     关联销售单 as key
     """
@@ -103,9 +107,9 @@ type DeliveryBillItemPayload {
     """
     billId:ID
     """
-    配送信息
+    客户信息
     """
-    address:AddressInfo
+    customerAddressInfo: CustomerAddressInfo
     """
     关联销售单号
     """
@@ -116,7 +120,7 @@ type DeliveryBillItemPayload {
     commodities:[DeliveryBillCommodityItemPayload]
 }
 
-type DeliveryBillCommodityItemPayload{
+type DeliveryBillCommodityItemPayload implements SkuBase{
     """
     配送费用单商品明细ID as key
     """
@@ -132,7 +136,7 @@ type DeliveryBillCommodityItemPayload{
 }
 
 
-type DeliveryBillFeeItemPayload {
+type DeliveryBillFeeItemPayload implements SupplierBase{
     """
     费用项Id
     """
@@ -171,7 +175,7 @@ type DeliveryBillFeeItemPayload {
     remark:String
 }
 
-type DeliveryBillLogPayload {
+type DeliveryBillLogPayload implements CreateByBase{
     """
     配送费用单日志ID
     """

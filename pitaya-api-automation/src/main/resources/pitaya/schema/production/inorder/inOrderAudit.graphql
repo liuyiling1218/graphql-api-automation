@@ -1,36 +1,36 @@
 extend type Query {
-    #查询入库订单记录条数(入库审核)
+    """入库审核: 查询入库订单记录条数(入库审核)"""
     countInOrderAudit:CountInOrderPayload
-    #查询待审核入库订单列表(入库审核)
+    """入库审核: 查询待审核入库订单列表(入库审核)"""
     pageAuditInOrder(commodityType:Int!,page:Page):PageInAuditRecordPayload
-    #查询订单详情(入库审核)
+    """入库审核: 查询订单详情(入库审核)"""
     getAuditDetail(inOrderDetailInput:InOrderDetailInput):AuditInOrderPayload
-    #查询订单已入库记录条数
+    """入库审核: 查询订单已入库记录条数"""
     countInbounded(inOrderDetailInput:InOrderDetailInput):Long
-    #入库记录
+    """入库审核: 入库记录"""
     inboundRecord(inOrderDetailInput:InOrderDetailInput):InboundListPayload
     """
     入库记录: 入库记录列表（入库记录）
     """
     pageInOrderRecord(inOrderRecordCondition:InOrderRecordFilter,page:Page):PageInOrderRecordPayload
-    #获取入库记录详情（入库记录）
+    """入库审核: 获取入库记录详情（入库记录）"""
     getInOrderRecordDetail(inOrderDetailInput:InOrderDetailInput):InOrderRecordDetailPayload
-    #采购入库记录
+    """入库审核: 采购入库记录"""
     purchaseInOrderLog(inOrderId:ID!):ProductionInOrderLogListPayload
 
 }
 extend type Mutation {
-    #驳回订单
+    """入库审核: 驳回订单"""
     rejectedInOrderAudit(rejectedInput:RejectedInput):Boolean
-    #完成入库
+    """入库审核: 完成入库"""
     finishInbound(inOrderId:ID!):Boolean
-    #确认入库 返回订单状态
+    """入库审核: 确认入库 返回订单状态"""
     confirmInbound(confirmInput:ConfirmInput):Long
-    #采购确定入库
+    """入库审核: 采购确定入库"""
     confirmPurchaseInBound(purchaseConfirmInput:PurchaseConfirmInput):Long
-    #采购入库驳回订单
+    """入库审核: 采购入库驳回订单"""
     rejectPurchaseOrderAudit(rejectedInput:RejectedInput):Boolean
-    #采购完成入库
+    """入库审核: 采购完成入库"""
     finishPurchaseOrderInBound("入库订单ID" inOrderId:ID!):Boolean
 }
 
@@ -162,7 +162,7 @@ type PageInOrderRecordPayload{
     totalRecords: Long
 }
 
-type AuditInOrderPayload{
+type AuditInOrderPayload implements BelongOrgBase{
     #入库订单Id
     inOrderId:ID
     #入库类型
@@ -231,6 +231,10 @@ type AuditInOrderPayload{
     目标AppId
     """
     targetAppId:Int
+    """
+    所属组织
+    """
+    belongOrg:Org
 }
 
 type InOrderRecordDetailPayload{
@@ -322,7 +326,7 @@ type InOrderRecordItemDetailPayload{
 }
 
 
-type AuditInOrderItemPayload{
+type AuditInOrderItemPayload implements SkuDetailBase{
     #item列表Id
     inOrderItemId:ID
     #SPUId
@@ -465,6 +469,9 @@ input ConfirmInput{
     belongId:Int
     #预估运费
     deliveryFee:BigDecimal
+    warehouseId:ID
+    """ 所属组织（仅限于批发和货柜调拨给生产时无所属组织选项） """
+    belongOrgId:Int
 }
 input ConfirmItemInput{
     #item列表Id

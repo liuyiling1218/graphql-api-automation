@@ -235,9 +235,15 @@ public class GraphqlGenerator {
         if (typeDefinition.getChildren().isEmpty()) {
             return false;
         }
-        if(List.of("ConfigValuePayload","Query","Mutation","QuantityInterface","Node","PageList").contains(typeDefinition.getName())){
-            return false;
+        if(typeDefinition.getName().contains("ConfigValuePayload")||
+                typeDefinition.getName().contains("Base")||
+                typeDefinition.getName().contains("Node")||
+                typeDefinition.getName().contains("Interface")||
+                typeDefinition.getName().contains("PageList")){
+              return false;
         }
+
+
         return true;
     }
 

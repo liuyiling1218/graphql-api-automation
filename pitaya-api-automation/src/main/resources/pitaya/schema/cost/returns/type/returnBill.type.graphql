@@ -20,22 +20,6 @@ enum PurchaseReturnTypeEnum {
     PURCHASE_RETURNS
 }
 
-enum BillSpecificSourceEnum {
-    """无法识别"""
-    UNRECOGNIZED
-    """错误来源"""
-    ERROR_SOURCE
-    """调拨出库"""
-    CK
-    """调拨入库"""
-    RK
-    """采购"""
-    CG
-    """采购退货"""
-    CT
-}
-
-
 type PageReturnBillPayload {
     pageCurrent: Int
     pageSize: Int
@@ -43,7 +27,7 @@ type PageReturnBillPayload {
     records:[ReturnBillPayload]
 }
 
-type ReturnBillPayload {
+type ReturnBillPayload implements WarehouseBase & CreateByBase & AuditUserBase & SubmitUserBase & SupplierBase & BelongOrgBase{
     """
     退货单ID
     """
@@ -144,12 +128,20 @@ type ReturnBillPayload {
     运杂
     """
     returnsOtherBillResp:ReturnsOtherBillPayload
+    """
+    所属组织
+    """
+    belongOrg:Org
+    """手工单号"""
+    manualCode:String
+    """费用单Id 修改手工单号使用"""
+    billId:ID
 }
 
 """
 费用单审核信息
 """
-type BillAuditDetailPayload {
+type BillAuditDetailPayload implements UserBase{
     """
     状态
     """
@@ -166,6 +158,8 @@ type BillAuditDetailPayload {
     操作时间
     """
     createTime:Long
+    """日志信息"""
+    note:String
 }
 
 """
@@ -193,7 +187,7 @@ type ReturnsCommodityBillPayload {
 """
 退货商品信息
 """
-type ReturnsCommodityItemPayload {
+type ReturnsCommodityItemPayload implements UnitTypeBase & TotalTypeBase & PriceTypeBase & SkuBase & StockBatchBase{
     """
     sku id
     """
@@ -234,6 +228,18 @@ type ReturnsCommodityItemPayload {
     货款明细id
     """
     itemId:ID
+    """采购 unit数量"""
+    applyUnitQuantity:BigDecimal
+    """采购 total数量"""
+    applyTotalQuantity:BigDecimal
+    """已退货unit数量"""
+    returnUnitQuantity:BigDecimal
+    """已退货total数量"""
+    returnTotalQuantity:BigDecimal
+    """sku入库unit净重量"""
+    inStockUnitQuantity:BigDecimal
+    """sku入库total数量"""
+    inStockTotalQuantity:BigDecimal
 }
 
 """
@@ -254,55 +260,32 @@ type ReturnsOtherBillPayload {
     returnsOtherItemBillRespList:[ReturnsOtherItemBillPayload]
 }
 
-type ReturnsOtherItemBillPayload {
-    """
-    运杂费类型ID
-    """
-    billType:Int
-    """
-    运杂费类型名称
-    """
-    billTypeName:String
-    """
-    运杂费用金额
-    """
-    amount:BigDecimal
-    """
-    供应商ID
-    """
-    supplier:Supplier
-    """
-    备注
-    """
+type ReturnsOtherItemBillPayload implements SupplierBase{
+    """ 费用项id"""
+    costId:ID
+    """ 规则id"""
+    ruleId:ID
+    """费用名称"""
+    costName:String
+    """ 备注"""
     note:String
-    """
-    结算方式
-    """
-    payMode:Int
-    """
-    结算方式名称
-    """
-    payModeName:String
+    """ 金额"""
+    amount:BigDecimal
+    """ 具体字段值"""
+    data:String
+    """ 业务规则扩展 (客户id或者供应商id)"""
+    supplier:Supplier
+    """规则列表"""
+    ruleFieldList:[FieldPayload]
 }
 
 type StatusGroupCountPayload {
-    statusGroupCounts:[StatusGroupCount]
-}
-
-""" 符合状态条数返回"""
-type StatusGroupCount {
-    """待确认"""
-    unConfirmed:Int
-    """待提交"""
-    unSubmitted:Int
-    """待业务审核"""
-    bizUnReviewed:Int
-    """待财务审核"""
-    fdUnReviewed:Int
-    """已完成"""
-    complete:Int
-    """1调拨出库，2调拨入库，3采购，4采购退货"""
-    billSpecificSource:BillSpecificSourceEnum
+    """ 状态"""
+    billStatus:BillStatusEnum
+    """ 数量"""
+    number:Int
+    """ 类型"""
+    billMainType:BillMainTypeEnum
 }
 enum PageReturnType{
     """费用管理"""

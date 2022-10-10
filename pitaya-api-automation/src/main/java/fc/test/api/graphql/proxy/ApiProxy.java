@@ -521,7 +521,10 @@ public class ApiProxy<T> implements InvocationHandler, ApplicationContextAware {
                     throw new RuntimeException("暂不支持" + field.getType().getName() + "类型的接口返回值定义");
                 } else if (field.getType().isEnum()) {
                     log.info(field.getType().getSimpleName());
-                } else{
+                }else if(field.getType().getSimpleName().contains("Base")){
+
+                }
+                else{
                     String name = field.getType().getSimpleName();
 //                    subResult.append(Character.toLowerCase(name.charAt(0)) + name.substring(1));
                     subResult.append(field.getName());

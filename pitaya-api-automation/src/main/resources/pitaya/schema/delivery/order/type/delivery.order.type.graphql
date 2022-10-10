@@ -1,11 +1,11 @@
 # 配送单信息
-type DeliveryOrderDetailPayload {
+type DeliveryOrderDetailPayload implements OrgBase & WarehouseBase & CreateByBase & BelongOrgBase{
     """配送单ID"""
     orderId: ID
     """仓库ID"""
     warehouse: Warehouse
     """客户信息集合"""
-    belongInfo:[SummaryAddressInfo]
+    belongInfo:[SummaryCustomerAddressInfo]
     """业务员名字"""
     businessUserName: String
     """车牌号"""
@@ -38,12 +38,14 @@ type DeliveryOrderDetailPayload {
     deliveryOrderFee:[DeliveryOrderFeePayload]
     """配送单商品明细"""
     deliveryOrderItem:[DeliveryOrderItemPayload]
+    """所属组织"""
+    belongOrg: Org
 }
 
 # 配送单商品明细
-type DeliveryOrderItemPayload {
+type DeliveryOrderItemPayload implements CustomerAddressInfoBase{
     """客户信息"""
-    belongInfo: AddressInfo
+    customerAddressInfo: CustomerAddressInfo
     """配送单商品明细ID"""
     itemId: ID
     """配送单号"""
@@ -54,19 +56,31 @@ type DeliveryOrderItemPayload {
     saleOrderCode:String
     """商品信息"""
     commodityDetail:[DeliveryOrderCommodityItemPayload]
+    """出库单ID"""
+    outOrderId:ID
+    """出库记录数量"""
+    outOrderQuantity:BigDecimal
+    """销售单订单类型，200成品销售，210原件销售"""
+    orderType: Int
+    """商品类型id"""
+    commodityTypeId: Int
+    """商品类型名称"""
+    commodityTypeName: String
 }
 
-type DeliveryOrderCommodityItemPayload{
+type DeliveryOrderCommodityItemPayload implements SkuBase{
     """配送费用单商品明细ID as key"""
     itemId:ID
     """商品sku"""
     sku:CommoditySku
     """已配送数量"""
     quantity:BigDecimal
+    """销售单商品ID"""
+    saleOrderItemId: ID
 }
 
 # 配送单费用明细
-type DeliveryOrderFeePayload {
+type DeliveryOrderFeePayload implements SupplierBase{
     """配送费用"""
     amount: BigDecimal
     """配送费用单号"""
@@ -92,9 +106,9 @@ type DeliveryOrderStatusCountPayload{
     unSubmit:Int
 }
 
-type SaleGoodsInfoListPayload {
+type SaleGoodsInfoListPayload implements CustomerAddressInfoBase{
     """客户信息"""
-    belongInfo: AddressInfo
+    customerAddressInfo:CustomerAddressInfo
     """销售单号Id"""
     saleOrderId: ID
     """销售单号"""
@@ -103,19 +117,31 @@ type SaleGoodsInfoListPayload {
     saleOrderDate: Long
     """销售单商品列表"""
     saleGoodsItemInfo:[SaleGoodsItemInfoPayload]
+    """销售单订单类型,200成品销售，210原件销售"""
+    orderType: Int
+    """商品类型id"""
+    commodityTypeId: Int
+    """商品类型名称"""
+    commodityTypeName: String
 }
 
-type SaleGoodsItemInfoPayload {
+type SaleGoodsItemInfoPayload implements CommodityDetailBase{
     """商品信息"""
     commodityDetail:CommoditySku
     """已配送数量"""
     quantity:BigDecimal
+    """是否显示该商品"""
+    needShow:Boolean
+    """销售单商品ID"""
+    saleOrderItemId: ID
 }
 
 # 配送单状态枚举
 enum DeliveryOrderStatusEnum {
     """待提交"""
     UN_SUBMIT
+    """待出库"""
+    UN_OUT_STOCK
     """已完成"""
     COMPLETED
     """已取消"""

@@ -23,6 +23,10 @@ input UpdateTransferCommodityInput{
     flowTransferOtherBillInput:[FlowTransferOtherBillInput]
     # 调入系统id
     targetAppId: Int
+    """ 所属组织 """
+    belongOrgId:Int!
+    """ 调入组织 """
+    targetBelongOrgId:Int!
 }
 
 input FlowTransferCommodityInput{
@@ -137,7 +141,7 @@ type ListTransferOrderPayload{
     totalRecords: Long
 }
 
-type TransferOrderPayload{
+type TransferOrderPayload implements BelongOrgBase & TargetBelongOrgBase{
     #调拨订单id
     flowId:ID
     #调拨单号
@@ -157,7 +161,7 @@ type TransferOrderPayload{
     sourceWarehouseId:ID
     #调出仓库名称
     sourceWarehouseName:String
-    #调出归属id
+    """ 调出归属id """
     sourceBelongId:Int
     #调出归属名称
     sourceBelongName:String
@@ -211,6 +215,10 @@ type TransferOrderPayload{
     direction:Int
     sourceAppId:Int
     targetAppId:Int
+    """ 所属组织 """
+    belongOrg:Org
+    """ 调入所属组织 """
+    targetBelongOrg:Org
 }
 
 type ListTransferBillPayload {
@@ -254,7 +262,7 @@ type TransferCommodityBillPayload {
     transferCommodityItemBills:[TransferCommodityItemBillPayload]
 }
 
-type TransferCommodityItemBillPayload {
+type TransferCommodityItemBillPayload implements SkuDetailBase{
     #订单明细id
     itemId:ID
     #商品id

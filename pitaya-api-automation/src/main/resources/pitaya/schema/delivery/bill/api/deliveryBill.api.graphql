@@ -48,8 +48,10 @@ extend type Mutation {
 input PageDeliveryBillInput{
     """状态"""
     status:PageDeliveryBillStatusEnum!
-    """客户地址ID"""
-    addressId:Int
+    """配送客户ID"""
+    customerId: Int
+    """配送客户类型"""
+    customerType: Int
     """开始时间"""
     startTime:Long
     """结束时间"""

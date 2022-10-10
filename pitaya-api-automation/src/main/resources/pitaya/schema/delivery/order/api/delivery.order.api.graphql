@@ -32,26 +32,28 @@ input CancelDeliveryOrderInput{
 input AddDeliveryOrderInput {
     """仓库ID"""
     warehouseId: ID!
-    """客户信息集合：基于地址的Id集合"""
-    addressId: [Int]!
+    """客户信息集合"""
+    belongInfo: [CustomerInfo]!
     """业务员名字"""
     businessUserName: String
     """车牌号"""
-    carNum: String
+    carNum: String!
     """车辆类型"""
     carType: String!
     """配送方式"""
     deliveryType: DeliveryMethodEnum!
     """司机联系方式"""
-    driverContact: String
+    driverContact: String!
     """司机姓名"""
-    driverName: String
+    driverName: String!
     """配送货物销售订单日期"""
     saleOrderDate: Long!
     """配送单费用明细"""
     deliveryOrderFee:[DeliveryOrderFeeInput!]!
     """配送单商品明细"""
     deliveryOrderItem:[DeliveryOrderItemInput!]!
+    """所属组织ID"""
+    belongOrgId:Int!
 }
 
 #修改配送单入参
@@ -60,8 +62,8 @@ input UpdateDeliveryOrderInput {
     orderId:ID!
     """仓库ID"""
     warehouseId: ID!
-    """客户信息集合：基于地址的Id集合"""
-    addressId: [Int]!
+    """客户信息集合"""
+    belongInfo: [CustomerInfo]!
     """业务员名字"""
     businessUserName: String
     """车牌号"""
@@ -80,6 +82,8 @@ input UpdateDeliveryOrderInput {
     deliveryOrderFee:[DeliveryOrderFeeInput!]!
     """配送单商品明细"""
     deliveryOrderItem:[DeliveryOrderItemInput!]!
+    """所属组织ID"""
+    belongOrgId:Int!
 }
 
 # 配送单费用明细
@@ -98,14 +102,22 @@ input DeliveryOrderFeeInput {
 
 # 配送单商品明细
 input DeliveryOrderItemInput {
-    """配送地址ID"""
-    addressId: Int!
+    """配送客户ID"""
+    customerId: Int!
+    """配送客户类型"""
+    customerType: Int!
     """销售单号ID"""
     saleOrderId: ID!
     """关联销售单号Code"""
     saleOrderCode:String!
     """配送单配送的商品项明细"""
     deliveryOrderItemList:[DeliveryOrderItemListInput!]!
+    """销售单订单类型,200成品销售，210原件销售"""
+    orderType: Int!
+    """商品类型id"""
+    commodityTypeId: Int!
+    """商品类型名称"""
+    commodityTypeName: String!
 }
 
 # 配送单配送的商品项明细
@@ -114,14 +126,18 @@ input DeliveryOrderItemListInput{
     quantity: BigDecimal!
     """商品sku"""
     skuId:Int!
+    """销售单商品ID"""
+    saleOrderItemId: ID!
 }
 
 #获取配送单列表查询入参
 input DeliveryOrderQueryInput {
     """配送单状态"""
     orderStatus: DeliveryOrderStatusEnum!
-    """客户地址ID"""
-    addressId:Int
+    """配送客户ID"""
+    customerId: Int
+    """配送客户类型"""
+    customerType: Int
     """开始时间"""
     startDate:Long
     """结束时间"""
@@ -138,8 +154,10 @@ input DeliveryOrderDetailQueryInput {
 input SaleGoodsListQueryInput {
     """销售日期"""
     saleDate:Long!
-    """客户地址ID集合"""
-    addressId: [Int]!
+    """客户信息集合"""
+    belongInfo: [CustomerInfo]!
+    """所属仓库ID"""
+    warehouseId: ID!
 }
 
 #分页对象

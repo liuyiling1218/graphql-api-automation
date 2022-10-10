@@ -1,7 +1,7 @@
 """
 销售收入单
 """
-type SaleIncomeOrderPayload{
+type SaleIncomeOrderPayload implements WarehouseBase & UserBase & CustomerBase & BelongOrgBase{
     """ 收入单ID """
     incomeId:ID
     """ 销售收入单状态 """
@@ -35,6 +35,11 @@ type SaleIncomeOrderPayload{
     saleCostOrderId:ID
     """ 金额统计 """
     functionalField:FunctionalField
+    totalAmount:BigDecimal
+    commodityTypeName: String
+    payMode:OutOrderPayModeEnum
+    """ 所属组织 """
+    belongOrg:Org
 }
 
 type FunctionalField {
@@ -43,7 +48,7 @@ type FunctionalField {
     saleTotalCost:BigDecimal
 }
 
-type SaleCostOrderItemPayload {
+type SaleCostOrderItemPayload implements CommodityBase{
     saleCostOrderItemId:ID
     saleCostOrderId:ID
     outOrderItemId:ID
@@ -55,7 +60,7 @@ type SaleCostOrderItemPayload {
 """
 销售收入单商品
 """
-type SaleIncomeOrderItemPayload{
+type SaleIncomeOrderItemPayload implements UnitTypeBase & TotalTypeBase & CommoditySkuBase & PriceTypeBase{
     """ 商品明细ID """
     incomeItemId:ID
     """ 收入单ID """
@@ -64,10 +69,6 @@ type SaleIncomeOrderItemPayload{
     commoditySku:CommoditySku
     """ 商品名字 """
     commodityName:String
-    """ 商品类型 """
-    commodityType:Int
-    """ 商品类型 """
-    commodityTypeName:String
     """ 商品单位数量 """
     unitQuantity:BigDecimal
     """ 商品单位数量单位 """
@@ -79,12 +80,18 @@ type SaleIncomeOrderItemPayload{
     outOrderItemId:ID
     salePrice:BigDecimal
     remark:String
+    totalQuantity:BigDecimal
+    totalType:Unit
+    batchId:Int
+    batchCode:String
+    totalSalePrice:BigDecimal
+    priceType:Unit
 }
 
 """
 销售收入日志
 """
-type SaleIncomeOrderLogPayload{
+type SaleIncomeOrderLogPayload implements UserBase{
     """ 销售收入日志ID """
     incomeLogId:ID
     """ 销售收入单ID """
@@ -119,6 +126,10 @@ enum IncomeStatus{
     UN_FINANCIAL_AUDIT
     """ 已完成 """
     FINISHED
+    """ 业务人员驳回 """
+    BUSINESS_REJECT
+    """ 已取消 """
+    CANCELED
 }
 
 """
@@ -132,6 +143,8 @@ enum SaleIncomeSourceType{
     SALE_OF_WASTE_PRODUCTS
     """ 成品销售 """
     SALE_PRODUCTS
+    """ 原件销售 """
+    ORIGINAL_SALE
 }
 
 """
@@ -153,6 +166,8 @@ enum SaleIncomeLogType{
     FINISHED
     """ 驳回信息 """
     REJECTED
+    """ 取消信息 """
+    CANCELED
 }
 
 type PageSaleIncomeOrderPayload {
@@ -163,9 +178,9 @@ type PageSaleIncomeOrderPayload {
 }
 
 type SaleIncomeOrderStatusStatisticPayload {
-    """待提交"""
+    """ 待提交 """
     waitSubmit:Int
-    """财务已驳回"""
+    """ 财务人员已驳回 """
     financialReject:Int
     """ 待业务审核 """
     unBusinessAudit:Int
@@ -173,8 +188,12 @@ type SaleIncomeOrderStatusStatisticPayload {
     unBackOfficeAudit:Int
     """ 待财务审核 """
     unFinancialAudit:Int
-    """已完成"""
+    """ 已完成 """
     finished:Int
+    """ 业务人员已驳回 """
+    businessReject:Int
+    """ 已取消 """
+    canceled:Int
 }
 
 type SaleIncomeOrderStatisticPayload {

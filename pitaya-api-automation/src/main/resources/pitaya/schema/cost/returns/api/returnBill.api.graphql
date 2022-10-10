@@ -8,9 +8,9 @@ extend type Query {
     """
     getReturnsBillDetail (getReturnsBillDetailInput:GetReturnsBillDetailInput):ReturnBillPayload
     """
-    采购退货费用单: 各类型费用单状态数量查询
+    聚合费用状态统计: 各类型费用单状态数量查询 通过业务类型+状态去确定数量统计
     """
-    statusGroupCount (statusGroupCountInput:StatusGroupCountInput):StatusGroupCountPayload
+    statusGroupCount (statusGroupCountInput:StatusGroupCountInput):[StatusGroupCountPayload]
 }
 
 extend type Mutation {
@@ -34,6 +34,18 @@ extend type Mutation {
     采购退货费用单: 审核通过
     """
     acceptReturnsBill(updateReturnsBillStatusInput:UpdateReturnsBillStatusInput):Boolean
+    """
+    采购退货费用单: 修改手工单号
+    """
+    updateManualCode(input:UpdateManualCodeInput):Boolean
+}
+input UpdateManualCodeInput{
+    """费用单Id"""
+    billId:ID!
+    """手工单号"""
+    manualCode:String!
+    """费用类型"""
+    type:BillMainTypeEnum!
 }
 
 """采购退货费用单分页查询参数"""
@@ -44,8 +56,8 @@ input PageReturnsBillInput {
     endTime:Long
     """
     查询状态
-    采购费用管理：待提交[BILL_UN_SUBMITTED],已提交[BILL_BIZ_UN_REVIEWED, BILL_FD_UN_REVIEWED, BILL_COMPLETE]
-    采购费用审核：待审核[BILL_BIZ_UN_REVIEWED]，已审核[BILL_FD_UN_REVIEWED, BILL_COMPLETE]
+    采购费用管理：待提交[BILL_UN_SUBMITTED],已提交[BILL_BIZ_UN_REVIEWED, BILL_FD_UN_REVIEWED,BILL_FD_CONFIRMED, BILL_COMPLETE]
+    采购费用审核：待审核[BILL_BIZ_UN_REVIEWED]，已审核[BILL_FD_UN_REVIEWED,BILL_FD_CONFIRMED, BILL_COMPLETE]
     """
     billStatusList:[BillStatusEnum]!
     """货品类型"""
@@ -61,8 +73,8 @@ input GetReturnsBillDetailInput {
 }
 
 input StatusGroupCountInput {
-    """费用单来源类型 1出库,2入库,3采购,4采购退货 不传查所有类型"""
-    billSpecificSourcesList:[BillSpecificSourceEnum]
+    """费用单来源类型"""
+    billMainTypeList:[BillMainTypeEnum]
 }
 
 """ 修改商品req"""
@@ -73,6 +85,8 @@ input UpdateReturnsCommodityBillInput {
     note:String
     """ 货款明细"""
     updateReturnsCommodityItemReqList:[UpdateCommodityItemInput]
+    """手工单号"""
+    manualCode:String
 }
 
 """ 修改货款明细"""
@@ -97,16 +111,18 @@ input UpdateReturnsOtherBillInput {
 
 """ 运杂费用"""
 input ReturnsOtherBillInput {
-    """ 费用类型"""
-    billFreightType:Int!
-    """ 付款方式"""
-    payMode:Int!
-    """ 供应商id"""
-    supplierId:Int!
-    """ 费用金额"""
-    amount:BigDecimal!
+    """ 费用项id"""
+    costId:ID
+    """ 规则id"""
+    ruleId:ID
     """ 备注"""
     note:String
+    """ 金额"""
+    amount:BigDecimal
+    """ 具体字段值"""
+    data:String
+    """ 业务规则扩展id (客户id或者供应商id)"""
+    extendId:Int
 }
 
 """ 变更调拨费用单状态"""

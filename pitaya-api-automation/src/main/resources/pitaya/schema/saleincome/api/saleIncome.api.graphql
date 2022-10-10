@@ -10,8 +10,8 @@ extend type Query {
 }
 
 extend type Mutation {
-    """销售收入单: 修改"""
-    updateSaleIncomeOrder(updateSaleIncomeOrderInput:UpdateSaleIncomeOrderInput):Boolean
+#    """销售收入单: 修改"""
+#    updateSaleIncomeOrder(updateSaleIncomeOrderInput:UpdateSaleIncomeOrderInput):Boolean
     """销售收入单: 提交"""
     submitSaleIncomeOrder(submitSaleIncomeOrderInput:SubmitSaleIncomeOrderInput):Boolean
     """销售收入单: 业务/内勤审核"""
@@ -31,7 +31,7 @@ input GetSaleIncomeInput{
 input PageSaleIncomeOrderInput {
     """类型 10：次品销售 20：废旧品销售 30：成品销售"""
     sourceType:SaleIncomeSourceType
-    """销售收入状态(10:待提交 15:财务已驳回 20:待业务人员审核 25:待内勤人员审核 30:待财务人员审核 40:已完成)"""
+    """销售收入状态(10:待提交 15:财务已驳回 20:待业务人员审核 25:待内勤人员审核 30:待财务人员审核 40:已完成 50:业务人员驳回)"""
     incomeStatus:[IncomeStatus]!
     """收入类型"""
     incomeOperation:IncomeOperation!
@@ -39,11 +39,11 @@ input PageSaleIncomeOrderInput {
     timeRange:TimeRange
 }
 
-input UpdateSaleIncomeOrderInput {
-    incomeId:ID!
-    remark:String
-    updateSaleIncomeOrderItems:[UpdateSaleIncomeOrderItemInput]
-}
+#input UpdateSaleIncomeOrderInput {
+#    incomeId:ID!
+#    remark:String
+#    updateSaleIncomeOrderItems:[UpdateSaleIncomeOrderItemInput]
+#}
 
 input UpdateSaleIncomeOrderItemInput {
     incomeItemId:ID!
@@ -68,7 +68,7 @@ input SaleCostOrderItemInput {
 
 input SaleIncomeOrderInput {
     outOrderItemId:ID
-    unitQuantity:BigDecimal
+    quantity:BigDecimal
     salePrice:BigDecimal
     remark:String
 }
@@ -80,4 +80,5 @@ input RejectSaleIncomeOrderInput {
 
 input SaleIncomeOrderStatusStatisticInput {
     sourceType:SaleIncomeSourceType
+    incomeOperation:IncomeOperation!
 }

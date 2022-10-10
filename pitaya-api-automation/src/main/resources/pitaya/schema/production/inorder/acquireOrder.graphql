@@ -1,20 +1,20 @@
 extend type Query {
-    #查询采购订单
+    """采购: 查询采购订单"""
     listAcquire(listAcquireFilter:ListAcquireFilter,page:Page):AcquirePageResultPayload
-    #查询采购订单详情
+    """采购: 查询采购订单详情"""
     getAcquire(getAcquireInput:GetAcquireInput!):AcquirePayload
-    #查询采购订单不同状态记录条数
+    """采购: 查询采购订单不同状态记录条数"""
     countAcquire(countAcquireFilter:CountAcquireFilter):CountAcquirePayload
 }
 
 extend type Mutation {
-    #新增采购 返回inOrderId
+    """采购: 新增采购 返回inOrderId"""
     createAcquire(createAcquireInput:CreateAcquireInput):ID
-    #修改采购订单
+    """采购: 修改采购订单"""
     updateAcquire(updateAcquireInput:UpdateAcquireInput):Boolean
-    #提交库管
+    """采购: 提交库管"""
     submitAcquire(submitAcquireInput:SubmitAcquireInput!):ID
-    #取消采购订单
+    """采购: 取消采购订单"""
     cancelAcquire(cancelAcquireInput:CancelAcquireInput):Boolean
 }
 
@@ -53,9 +53,11 @@ input ListAcquireFilter{
     #商品类型
     commodityType:Int
     #订单状态（全部，10待提交，20待入库 ，30已完成，40已取消）
-    applyStatus:Int
+    applyStatus:[Int]
     #查询关键字（订单号/客户，模糊查询）
     keyword:String
+    """供应商Id集合"""
+    supplierIdList:[Int]
 }
 #新增采购信息
 input CreateAcquireInput{
@@ -75,6 +77,10 @@ input CreateAcquireInput{
     commodities:[CreateAcquireItemInput!]!
     #费用信息
     costs:[CreateCostInput]
+    """模板Id"""
+    templateId:ID
+    """所属组织 v2.9.0"""
+    belongOrgId:Int!
 }
 input UpdateAcquireInput{
     #入库订单Id
@@ -93,6 +99,10 @@ input UpdateAcquireInput{
     commodities:[CreateAcquireItemInput!]!
     #费用信息
     costs:[CreateCostInput]
+    """模板Id"""
+    templateId:ID
+    """所属组织 v2.9.0"""
+    belongOrgId:Int!
 }
 input CreateAcquireItemInput{
     #商品skuID
@@ -108,18 +118,30 @@ input CreateAcquireItemInput{
     #总计数量
     totalQuantity:BigDecimal
     totalType:Int
+    """商品总计金额"""
+    totalAmount:BigDecimal
+    """标记 v2.9.0"""
+    markList:[AcquireMarkEnum]
+    """赠送unit数量 v2.9.0"""
+    giveUnitQuantity:BigDecimal
+    """赠送total数量 v2.9.0"""
+    giveTotalQuantity:BigDecimal
+    """关联采购单号"""
+    relevancyCode:String
 }
 input CreateCostInput{
-    #费用类型
-    typeId:Int!
-    #供应商名称 v2.3 name->Id
-    supplierId:Int!
-    #金额
-    amount:BigDecimal!
-    #备注
+    """ 费用项id"""
+    costId:ID
+    """ 规则id"""
+    ruleId:ID
+    """ 备注"""
     note:String
-    #付款方式
-    payMode:Int!
+    """ 金额"""
+    amount:BigDecimal
+    """ 具体字段值"""
+    data:String
+    """ 业务规则扩展id (客户id或者供应商id)"""
+    extendId:Int
 }
 
 
@@ -133,6 +155,8 @@ type CountAcquirePayload{
     finished:Long
     #已取消记录条数
     canceled:Long
+    """已驳回"""
+    refused:Long
 }
 
 
@@ -145,7 +169,7 @@ type AcquirePageResultPayload{
     totalRecords: Long
 }
 
-type AcquirePayload{
+type AcquirePayload implements BelongOrgBase{
     #入库订单Id
     applyId:ID
     #入库类型
@@ -208,6 +232,14 @@ type AcquirePayload{
     returnCount:Int
     # 费用单ID
     billId:ID
+    """
+    所属组织 v2.9.0
+    """
+    belongOrg:Org
+    """已经存在的退货类型"""
+    existReturnTypeList:[Int]
+    """手工单号"""
+    manualCode:String
 }
 
 type AcquireItemPayload{
@@ -241,25 +273,37 @@ type AcquireItemPayload{
     totalPrice:BigDecimal
     #副单位与基本单位关系转换
     conversion:BigDecimal
+    """标记 v2.9.0"""
+    markList:[AcquireMarkEnum]
+    """赠送unit数量 v2.9.0"""
+    giveUnitQuantity:BigDecimal
+    """赠送total数量 v2.9.0"""
+    giveTotalQuantity:BigDecimal
+    """入库total数量"""
+    inStockTotalQuantity:BigDecimal
+    """入库毛重"""
+    inStockGrossUnitQuantity:BigDecimal
+    """入库净重"""
+    inStockUnitQuantity:BigDecimal
+    """入库单价"""
+    inStockPrice:BigDecimal
+    """关联采购单号"""
+    relevancyCode:String
 }
 
-type CostItemPayload{
-    #费用类型
-    typeId:Int
-    #费用类型名称
-    typeName:String
-    #供应商信息
-    supplierName:String
-    #金额
-    amount:BigDecimal
-    #备注
+type CostItemPayload implements SupplierBase{
+    """ 费用项id"""
+    costId:ID
+    """ 规则id"""
+    ruleId:ID
+    """ 备注"""
     note:String
-    #供应商Id
-    supplierId:Int
-    #付款方式Id
-    payMode:Int
-    #付款方式名字
-    payModeName:String
+    """ 金额"""
+    amount:BigDecimal
+    """ 具体字段值"""
+    data:String
+    """ 业务规则扩展 (客户id或者供应商id)"""
+    supplier:Supplier
 }
 type ListAcquireLogPayload{
     #操作类型

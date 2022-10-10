@@ -45,6 +45,12 @@ input CreateDamageOutOrderItemInput{
     totalQuantity:BigDecimal
     #报损原因
     damageReason:String!
+    #成本单价
+    stockUnitPrice:BigDecimal!
+    #单价单位
+    stockUnitPriceType:Int!
+    #成本总价
+    stockTotalPrice:BigDecimal!
     #拍照记录
     photos:[String!]!
 }

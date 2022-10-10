@@ -3,6 +3,10 @@ extend type Query {
     组织: 获取组织树
     """
     orgTree(input:String):String
+    """
+    组织: 选择所属组织
+    """
+    listBelongOrg(input:ListBelongOrgInput):[BelongOrgPayload]
 }
 
 type OrgTreePayload{
@@ -26,4 +30,25 @@ type OrgTreePayload{
     子节点
     """
     children: [OrgTreePayload]
+}
+
+input ListBelongOrgInput{
+    """是否包含本组织"""
+    containsSelfOrg:Boolean!
+    """ 组织id """
+    orgId:Int
+    """ 标签id """
+    labelId:Int
+}
+
+
+type BelongOrgPayload{
+    """
+    组织id
+    """
+    orgId:Int
+    """
+    组织名称
+    """
+    orgName:String
 }

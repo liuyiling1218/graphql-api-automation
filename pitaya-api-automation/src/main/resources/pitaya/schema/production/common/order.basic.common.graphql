@@ -99,3 +99,12 @@ interface QuantityInterface {
     unitQuantity:BigDecimal
     totalQuantity:BigDecimal
 }
+
+enum AcquireMarkEnum{
+    """包损耗"""
+    PACKET_LOSS
+    """赠送"""
+    GIVE
+    """补损"""
+    COMPENSATION
+}

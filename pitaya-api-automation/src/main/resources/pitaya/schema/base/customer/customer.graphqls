@@ -1,5 +1,5 @@
 #客户返回实体
-type CustomerPayload{
+type CustomerPayload implements BelongOrganizationBase{
     # 客户ID
     customerId:Int
     # 客户分组ID
@@ -35,7 +35,7 @@ type CustomerPayload{
     """
     idNumber:String
     """
-    客户所属组织
+    所属组织
     """
     belongOrganization:Org
     """
@@ -145,7 +145,7 @@ input CustomerDistributionInput{
 
 }
 #
-type CustomerDistributionPayload{
+type CustomerDistributionPayload implements ProvinceBase & CityBase & DistrictBase{
     # 配送ID
     distributionId:Int
     # 客户ID
@@ -192,6 +192,8 @@ input CustomersInput{
     客户属性
     """
     attribute:CustomerAttribute
+    """ 所属组织 """
+    belongOrgId:Int
 }
 """
 客户树请求(为空表示全量返回)
@@ -209,6 +211,10 @@ input CustomerTreeInput{
     模糊搜索关键词
     """
     keyword:String
+    """
+    所属组织 for2.9所属组织
+    """
+    belongOrgId:Int
 }
 
 """
@@ -245,6 +251,56 @@ type CustomerTreePayload{
     children:[CustomerTreePayload]
 }
 
+input GetCustomerBaseInput{
+    """
+    客户类型
+    """
+    type: CustomerType!
+    """
+    联系电话
+    """
+    phone:String
+    """
+    客户名字
+    """
+    name:String
+}
+
+"""
+客户基本信息
+"""
+type CustomerBasePayload{
+    """客户属性"""
+    attribute: CustomerAttribute
+    """法人"""
+    corporation: String
+    """客户关联用户id"""
+    customerUserId: Int
+    """客户id"""
+    id: Int
+    """客户身份证号码"""
+    idNumber: String
+    """客户姓名"""
+    name: String
+    """纳税人识别号"""
+    tfn: String
+    """客户类型"""
+    type: CustomerType
+}
+
+input ListCustomerChannelByOrgInput {
+    belongOrgId:Int!
+}
+
+type ListCustomerChannelByOrgPayload {
+    customerChannelByOrgPayload:[CustomerChannelByOrgPayload]
+}
+
+type CustomerChannelByOrgPayload {
+    channelId:Int
+    channelName:String
+}
+
 # 客户分页返回值,这种语法生成的是个接口，无法使用
 #union CustomerPageResult = CustomerPage | PageResult
 
@@ -274,6 +330,10 @@ extend type Query {
     客户: 按条件获取整体客户树(客户下拉接口)
     """
     customerTree(customerTreeInput:CustomerTreeInput):[CustomerTreePayload]
+    """
+    客户: 查询客户基本信息
+    """
+    getCustomerBase(getCustomerBaseInput:GetCustomerBaseInput):CustomerBasePayload
 }
 
 extend type Mutation {

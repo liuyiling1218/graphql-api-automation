@@ -80,7 +80,7 @@ type ProductionOutOrderPayload{
     cancelDescription:String
 }
 
-type ProductionOutOrderDetailPayload{
+type ProductionOutOrderDetailPayload implements SalePriceTypeBase {
     #生产出库订单明细id
     outOrderItemId:ID
     #生库订单id
@@ -131,6 +131,13 @@ type ProductionOutOrderDetailPayload{
     出库完成数量统计
     """
     outStockFinishedQuantity:OutStockFinishedQuantity
+    """ 单价 """
+    salePrice:BigDecimal
+    """ 单价类型 """
+    salePriceType: Unit
+    """ 小计 """
+    unitTotalPrice:BigDecimal
+
 }
 
 type OutStockFinishedQuantity implements QuantityInterface {

@@ -200,6 +200,8 @@ enum AllBusinessType{
     配送单/配送费用单
     """
     DELIVERY
+    """原件销售"""
+    ORIGINAL_SALE
 }
 
 """入库类型"""
@@ -237,7 +239,7 @@ enum InOrderType{
 }
 
 """出库类型"""
-enum OutOrderType{
+enum OutOrderTypeEnum{
     """未指定"""
     DEFAULT
     """原料领料"""
@@ -272,4 +274,40 @@ enum OutOrderType{
     DAMAGED_PRODUCTION
     """废旧品销售"""
     SALE_OF_WASTE_PRODUCTS
+    """原件销售"""
+    ORIGINAL_SALE
+}
+
+"""商品类型"""
+enum CommodityTypeEnum{
+    """水果"""
+    FRUIT
+    """食品"""
+    FOOD
+    """辅料"""
+    ASSIST
+    """周转筐"""
+    BOX
+    """原料"""
+    RAW_MATERIAL
+    """成品"""
+    PRODUCT
+    """半成品"""
+    HALF_PRODUCT
+    """次品"""
+    DEFECTIVE
+    """退货品"""
+    RETURN
+}
+
+"""支付方式"""
+enum PayMethodEnum{
+    """支付宝"""
+    ALIPAY
+    """微信支付"""
+    WECHAT_PAY
+    """转账"""
+    TRANSFER_PAY
+    """刷卡"""
+    CARD_PAY
 }

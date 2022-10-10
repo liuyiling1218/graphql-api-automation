@@ -23,6 +23,8 @@ enum PurchaseStatus {
     FLOW_RETURNS_STATUS_COMPLETED
     """已取消"""
     FLOW_RETURNS_STATUS_CANCEL
+    """已驳回 v2.9"""
+    FLOW_RETURNS_STATUS_REJECT
 }
 
 type PagePurchaseReturnPayload {
@@ -32,7 +34,7 @@ type PagePurchaseReturnPayload {
     totalRecords: Long
 }
 
-type PurchaseReturnPayload {
+type PurchaseReturnPayload implements WarehouseBase & UserBase & CustomerBase & SupplierBase & BelongOrgBase{
     returnId:ID
     returnType:PurchaseReturnsType
     returnTypeName:String
@@ -53,9 +55,15 @@ type PurchaseReturnPayload {
     flowLogs:[FlowLog]
     returnCode:String
     applyBillId:ID
+    """v2.9 采购退货:手工单号"""
+    manualCode:String
+    """v2.9 采购退货:所属组织"""
+    belongOrg:Org
+    """v2.9 冗余采购单id"""
+    applyId:ID
 }
 
-type ReturnsCommodityPayload {
+type ReturnsCommodityPayload implements UnitTypeBase & TotalTypeBase & UnitPriceTypeBase & CommoditySkuBase{
     returnId:ID
     commoditySku:CommoditySku
     unitType:Unit
@@ -66,16 +74,29 @@ type ReturnsCommodityPayload {
     totalPrice:BigDecimal
     unitPriceType:Unit
     finishedQuantity:Quantity
+    returnsStockQuantity:ReturnsQuantity
 }
 
-type ReturnOtherPayload {
-    billType:ID
-    billTypeName:String
-    amount:BigDecimal
-    supplier:Supplier
+type ReturnsQuantity {
+    """ v2.9 可退货量"""
+    returnableQuantity:Quantity
+    """"v2.9 入库净总量"""
+    inBoundQuantity:Quantity
+}
+
+type ReturnOtherPayload implements SupplierBase{
+    """ 费用项id"""
+    costId:ID
+    """ 规则id"""
+    ruleId:ID
+    """ 备注"""
     note:String
-    payMode:PayModeEnum
-    payModeName:String
+    """ 金额"""
+    amount:BigDecimal
+    """ 具体字段值"""
+    data:String
+    """ 业务规则扩展 (客户id或者供应商id)"""
+    supplier:Supplier
 }
 
 type ReturnStatusStatisticPayload {
@@ -83,4 +104,31 @@ type ReturnStatusStatisticPayload {
     waitProcessedCount:Int
     completeCount:Int
     cancelCount:Int
+}
+
+type CommoditySkuStock implements CommoditySkuBase & UnitTypeBase & TotalTypeBase{
+    """商品sku"""
+    commoditySku:CommoditySku
+    """v2.9 采购退货:入库净总量"""
+    inBoundQuantity:Quantity
+    """v2.9 采购退货:库存量"""
+    stockQuantity:Quantity
+    """v2.9 采购退货:单品单价"""
+    unitPrice:UnitQuantity
+    """v2.9 采购退货:单品小计"""
+    amount:BigDecimal
+    """v2.9 采购退货:可退货量"""
+    returnableQuantity:Quantity
+    """v2.9 采购退货:是否可以进行库存调整申请"""
+    canApply:Boolean
+    """v2.9 采购退货:最后一个批次"""
+    batchId:ID
+    """
+    总计单位类型
+    """
+    totalType:Unit
+    """
+    基本单位类型
+    """
+    unitType:Unit
 }

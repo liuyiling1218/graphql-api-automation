@@ -146,6 +146,14 @@ input CommondConvertItemInput {
     total数量
     """
     totalQuantity:BigDecimal!
+    """
+    照片
+    """
+    photos:[String!]
+    """
+    转换后skuId
+    """
+    convertToSkuId:Int
 }
 
 input PageCommodityConvertInput {
@@ -168,7 +176,7 @@ input PageCommodityConvertInput {
     """
     转换类型
     """
-    convertType:ConvertType
+    convertType:[ConvertType]
 }
 
 enum ConvertType {
@@ -176,6 +184,22 @@ enum ConvertType {
     成品转半成品
     """
     PRODUCT_TO_HALF
+    """
+    成品转次品
+    """
+    PRODUCT_TO_DEFECTIVE
+    """
+    半成品转次品
+    """
+    HALF_PRODUCT_TO_DEFECTIVE
+    """
+    退货品转次品
+    """
+    RETURN_TO_DEFECTIVE
+    """
+    原料转次品
+    """
+    RAW_MATERIAL_TO_DEFECTIVE
 }
 
 enum OrderStatus {

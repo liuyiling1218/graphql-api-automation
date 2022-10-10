@@ -1,4 +1,4 @@
-type CostOrderPayload {
+type CostOrderPayload implements BelongOrgBase{
     #费用id
     billId:ID
     #申请编号（采购单号）
@@ -50,72 +50,92 @@ type CostOrderPayload {
     freightTotalAmount:BigDecimal
     #运杂款单号
     freightCode:String
+    """手工单号"""
+    manualCode:String
     #商品明细
     commodityItems:[CostCommodityPayload]
     #货款备注
     commodityRemark:String
     #运杂款明细
     freightCostItem:[FreightCostPayload]
+    """
+    所属组织
+    """
+    belongOrg:Org
+    """运费流转记录"""
+    billAuditDetailList:[BillAuditDetailPayload]
 }
 
 type CostCommodityPayload {
-    #货款明细ID
+    """货款明细ID"""
     itemId:ID
-    #商品id
+    """商品id"""
     commodityId:Int
-    #商品名称
+    """商品名称"""
     commodityName:String
-    #商品规格选项id
+    """商品规格选项id"""
     commoditySpecOptionId:[Int]
-    #商品规格名称
+    """商品规格名称"""
     commoditySpecOptionName:String
-    #商品sku
+    """商品sku"""
     skuId:Int
-    #小单位类型
+    """小单位类型"""
     unitType:Int
-    #副单位类型
+    """副单位类型"""
     totalType:Int
-    #小单位数量
+    """入库净重量（基本单位:kg）"""
     unitQuantity:BigDecimal
-    #副单位数量
+    """入库净重量（副单位:件）/ 入库毛重量（副单位:件）"""
     totalQuantity:BigDecimal
-    #单位数量毛重
+    """入库毛重量（基本单位:kg）"""
     grossUnitQuantity:BigDecimal
-    #小单位名称
+    """小单位名称"""
     unitTypeName:String
-    #副单位名称
+    """副单位名称"""
     totalTypeName:String
-    #果品单价定位（0其他 10净重 20毛重）
+    """果品单价定位（0其他 10净重 20毛重）"""
     pricePosition:Int
-    #单价类型
+    """单价类型"""
     priceType:Int
-    #单价类型名称
+    """单价类型名称"""
     priceTypeName:String
-    #单价
+    """净重单价/毛重单价"""
     unitPrice:BigDecimal
-    #小计
+    """小计"""
     totalAmount:BigDecimal
+    """采购净重/采购毛重"""
+    applyUnitQuantity:BigDecimal
+    """采购数量"""
+    applyTotalQuantity:BigDecimal
+    """赠送unit数量"""
+    giveUnitQuantity:BigDecimal
+    """赠送total数量"""
+    giveTotalQuantity:BigDecimal
+    """入库单价"""
+    inStockUnitPrice:BigDecimal
+    """关联采购单号"""
+    relevancyCode:String
+    """采购标识"""
+    markList:[AcquireMarkEnum]
 }
 
-type FreightCostPayload {
-    #费用id
-    costId:Int
-    #支付方式 10月结 20半月结 30次结
-    payMode:Int
-    #支付方式名称
-    payModeName:String
-    #费用类型id
-    typeId:Int
-    #费用类型名称
+type FreightCostPayload implements SupplierBase{
+    """ 费用项id"""
+    costId:ID
+    """费用名称"""
     costName:String
-    #金额
-    amount:BigDecimal
-    #供应商ID
-    supplierId:Int
-    #供应商名称
-    supplierName:String
-    #备注
+    """ 规则id"""
+    ruleId:ID
+    """ 备注"""
     note:String
+    """ 金额"""
+    amount:BigDecimal
+    """ 具体字段值"""
+    data:String
+    """供应商"""
+    supplier:Supplier
+    """规则列表"""
+    ruleFieldList:[FieldPayload]
 }
 
 input UpdateCostOrderInput {
@@ -124,30 +144,38 @@ input UpdateCostOrderInput {
     commodityRemark:String
     commodityItems:[UpdateCommodityPriceInput]
     freightCostItems:[UpdateFreightCostInput]
+    """手工单号"""
+    manualCode:String
 }
 
 input UpdateCommodityPriceInput {
-    #货款明细ID
+    """货款明细ID"""
     itemId:ID!
-    #商品skuid
+    """商品skuid"""
     skuId:Int!
-    #单价
+    """单价"""
     unitPrice:BigDecimal!
-    #小计总价
+    """小计总价"""
     totalAmount:BigDecimal!
+    """赠送unit数量"""
+    giveUnitQuantity:BigDecimal
+    """赠送total数量"""
+    giveTotalQuantity:BigDecimal
 }
 
 input UpdateFreightCostInput {
-    #供应商ID
-    supplierId:Int
-    #费用类型id
-    typeId:Int
-    #金额
-    amount:BigDecimal
-    #备注
+    """ 费用项id"""
+    costId:ID
+    """ 规则id"""
+    ruleId:ID
+    """ 备注"""
     note:String
-    #支付方式 10月结 20半月结 30次结
-    payMode:Int
+    """ 金额"""
+    amount:BigDecimal
+    """ 具体字段值"""
+    data:String
+    """ 业务规则扩展id (客户id或者供应商id)"""
+    extendId:Int
 }
 
 input PageCostOrderInput {
@@ -155,7 +183,13 @@ input PageCostOrderInput {
     startDate:Long
     #结束时间
     endDate:Long
-    #订单状态 10待确认 20待提交 30待业务审核 40 待财务审核 50已完成
+    """
+    订单状态 10待确认 20待提交 30待业务审核 40 待财务审核 45财务已确认 50已完成 60已取消
+    待提交：20
+    已提交：30，40，45，50
+    待审核：30
+    已审核：40,45,50
+    """
     status:[Int]
     #货品类型
     commodityType:Int
@@ -192,21 +226,21 @@ type CostOrderStatusStatisticPayload {
 }
 
 extend type Query {
-    #分页查询费用单信息
+    """采购费用: 分页查询费用单信息"""
     pageCostOrder(pageCostOrderInput:PageCostOrderInput,page:Page):PageCostOrderPayload
-    #获取费用单详情
+    """采购费用: 获取费用单详情"""
     getCostOrderDetail(billId:ID!):CostOrderPayload
-    #查询未提交费用单条数
-    countNotSubmitCostOrder:CountCostOrderPayload
-    #查询费用类型下拉框选项
-    freightCostOption:[Option]
+    """采购费用: 查询未提交费用单条数"""
+    countNotSubmitCostOrder:CountCostOrderPayload @deprecated(reason: "v2.9.0-1对接费用模板移除")
+    """采购费用: 查询费用类型下拉框选项"""
+    freightCostOption:[Option] @deprecated(reason: "v2.9.0-1对接费用模板移除")
     """费用管控：状态统计"""
-    costOrderStatusStatistic:CostOrderStatusStatisticPayload
+    costOrderStatusStatistic:CostOrderStatusStatisticPayload @deprecated(reason: "v2.9.0-1对接费用模板移除")
 }
 
 extend type Mutation {
-    #修改费用单
+    """采购费用: 修改费用单"""
     updateCostOrder(updateCostOrderInput:UpdateCostOrderInput):ID
-    #变更费用单状态
+    """采购费用: 变更费用单状态"""
     updateCostStatus(updateCostStatusInput:UpdateCostStatusInput):Boolean
 }

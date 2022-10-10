@@ -17,6 +17,18 @@ extend type Query {
 
     #sku列表接口（新）
     skues(skuQueryInput:SkuQueryInput): [CommoditySkuAndUnitPayload]
+    """
+    商品类型单位下拉列表
+    """
+    listCommodityUnitOption(listCommodityUnitOptionInput:ListCommodityUnitOptionInput):[Option]
+    """
+    次品下拉选项
+    """
+    defectiveSkuOption(defectiveSkuOptionInput:DefectiveSkuOptionInput):[Option]
+}
+
+input ListCommodityUnitOptionInput {
+    commodityTypeId:Int!
 }
 
 input CommoditySkuAndUnitInput {
@@ -46,6 +58,12 @@ input SkuQueryInput{
     skuType:Int
     #是否有bom表 1 是 99 不是
     buildBom:Int
+}
+input DefectiveSkuOptionInput{
+    """
+    商品Id commodityId
+    """
+    commodityId:Int
 }
 
 
